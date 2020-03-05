@@ -1,2 +1,2 @@
-# TradeCube-Reports
-TradeCube reporting data provider
+# TradeCube-Services
+TradeCube reporting data & webhook provider.
