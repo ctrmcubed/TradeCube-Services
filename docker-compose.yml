@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+
+  tradecube-services:
+    image: tradecube-services
+    build:
+      context: src
+      dockerfile: TradeCube-Services/Dockerfile
+    ports:
+      - 44350:44350
+      - 44365:44365
+    expose:
+      - 44350
+      - 44365
+    environment: 
+      - 'TRADECUBE_API_DOMAIN=https://api.tradecube.io'
+      - 'TRADECUBE_API_PORT=443'
+      - 'TRADECUBE_SERVICES_HTTPS_PORT=44350'
+      - 'TRADECUBE_SERVICES_CERT_NAME=localhost.pfx'
