@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}{{ .Values.component.services }}{{ .Values.type.deployment }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+spec:
+  replicas: {{ .Values.replicas.services }}
+  strategy:
+    type: {{ .Values.strategy.type }}
+    rollingUpdate:
+      maxSurge: {{ .Values.strategy.maxSurge }}
+      maxUnavailable: {{ .Values.strategy.maxUnavailable }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}{{ .Values.component.services }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}{{ .Values.component.services }}
+    spec:
+      containers:
+      - image: '{{ .Values.image.repository }}/{{ .Values.image.services }}:{{ .Values.image.servicesTag }}'
+        name: {{ .Release.Name }}{{ .Values.component.services }}{{ .Values.type.pod }}
+        imagePullPolicy: "Always"
+        volumeMounts:
+          - name: {{ .Release.Name }}{{ .Values.certificate.volumeName }}
+            mountPath: {{ .Values.certificate.volumeMountPath }}
+        env:
+          - name: TRADECUBE_SERVICES_HTTPS_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TRADECUBE_SERVICES_HTTPS_PORT
+          - name: TRADECUBE_SERVICES_CERT_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TRADECUBE_SERVICES_CERT_NAME
+          - name: TRADECUBE_SERVICES_CERT_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TRADECUBE_SERVICES_CERT_PASSWORD
+          - name: TRADECUBE_API_DOMAIN
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TRADECUBE_API_DOMAIN
+          - name: TRADECUBE_API_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TRADECUBE_API_PORT
+        # readinessProbe:
+          # tcpSocket:
+            # port: {{ .Values.port.services }}
+          # initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          # periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+        # livenessProbe:
+          # tcpSocket:
+            # port: {{ .Values.port.services }}
+          # initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          # periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+      volumes:
+        - name: {{ .Release.Name }}{{ .Values.certificate.volumeName }}
+          secret:
+            secretName: {{ .Release.Name }}{{ .Values.type.secret }}
+      restartPolicy: Always

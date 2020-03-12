@@ -1,0 +1,79 @@
+# Check with:
+# helm3 lint tradecube-services
+# OPTIONS='--dry-run --debug'
+# Run with:
+# helm3 upgrade --install --namespace ${SERVICES_NAMESPACE} ${SERVICES_NAMESPACE} --set ingress.domain=${DOMAIN} --set env.certFile=${SERVICES_CERTFILE} --set env.certPassword=${SERVICES_CERTPASSWORD} --set env.apiDomain=${API_DOMAIN} tradecube-services ${OPTIONS}
+
+name:
+  name: 'Tradecube-Services' # {{ .Values.name.name }}
+
+env:
+  HTTPPrefix: http://                  # {{ .Values.env.HTTPPrefix }}
+  HTTPSPrefix: https://                # {{ .Values.env.HTTPSPrefix }}
+  certFile: <not-set>                  # {{ .Values.env.certFile }}     
+  certPassword: <not-set>              # {{ .Values.env.certPassword }}
+  environment: <not-set>               # {{ .Values.env.environment }}
+  apiDomain: https://api.tradecube.io  # {{ .Values.env.apiDomain }}
+  apiPort: 443                         # {{ .Values.env.apiPort }}
+
+service:
+  port: 80       # {{ .Values.service.port }}
+  targetPort: 80 # {{ .Values.service.targetPort }}
+  httpPort: 80   # {{ .Values.service.httpPort }}
+  httpsPort: 443 # {{ .Values.service.httpsPort }}
+  protocol: TCP  # {{ .Values.service.protocol }}
+
+ingress:
+  domain: services.example.com
+
+type:
+  certificate: -certificate  # {{ .Values.type.certificate }}
+  configmap: -config-map     # {{ .Values.type.configmap }}
+  deployment: -deployment    # {{ .Values.type.deployment }}
+  ingress: -ingress          # {{ .Values.type.ingress }}
+  pod: -pod                  # {{ .Values.type.pod }}
+  secret: -secret            # {{ .Values.type.secret }}
+  service: -service          # {{ .Values.type.service }}
+
+component:
+  services: -services         # {{ .Values.component.services }}
+
+letsencrypt:
+  clusterIssuer: <TBA>        # {{ .Values.letsencrypt.clusterIssuer }}
+
+certificate:
+  volumeName: -cert-volume # {{ .Values.certificate.volumeName }}  
+  volumeMountPath: /certs  # {{ .Values.certificate.volumeMountPath }}
+
+image:
+  repository: ctrmcubed        # {{ .Values.image.repository }}
+  pullPolicy: IfNotPresent     # {{ .Values.image.pullPolicy }}
+  services: tradecube-services # {{ .Values.image.services }}
+  servicestag: latest-dev      # {{ .Values.image.servicestag }}
+
+port:   
+  services: 44370     # {{ .Values.port.services }}
+  servicesSsl: 44365  # {{ .Values.port.servicesSsl }}
+
+restartPolicy:
+  services: Always # {{ .Values.restartPolicy.services }}
+
+replicas:
+  services: 1 # {{ .Values.replicas.services }}
+
+strategy:                
+  type: RollingUpdate # {{ .Values.strategy.type }}
+  maxSurge: 1         # {{ .Values.strategy.maxSurge }}
+  maxUnavailable: 0   # {{ .Values.strategy.maxUnavailable }}
+
+readinessProbe:           
+  path: /health           # {{ .Values.readinessProbe.path }}
+  initialDelaySeconds: 10 # {{ .Values.readinessProbe.initialDelaySeconds }}
+  periodSeconds: 10       # {{ .Values.readinessProbe.periodSeconds }}
+  timeoutSeconds: 2       # {{ .Values.timeoutSeconds.timeoutSeconds }}
+
+livenessProbe:
+  path: /health            # {{ .Values.livenessProbe.path }}
+  initialDelaySeconds: 120 # {{ .Values.livenessProbe.initialDelaySeconds }}
+  periodSeconds: 30        # {{ .Values.livenessProbe.periodSeconds }}
+  timeoutSeconds: 2        # {{ .Values.timeoutSeconds.timeoutSeconds }} 
