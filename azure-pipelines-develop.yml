@@ -1,0 +1,39 @@
+name: $(build.buildId)_$(Date:yyyyMMdd)_$(BuildDefinitionName)_$(SourceBranchName)
+trigger:
+- develop
+resources:
+- repo: self
+pool:
+  vmImage: ubuntu-latest
+variables:
+  projectName: tradecube-services
+  versionMajor: 1
+  versionMinor: 0
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Docker Hub'
+    repository: 'ctrmcubed/tradecube-services'
+    command: 'buildAndPush'
+    Dockerfile: '**/src/TradeCube-Services/Dockerfile'
+    buildContext: 'src'
+    tags: |
+      $(Build.BuildId)
+      latest-dev
+- task: HelmInstaller@1
+  displayName: 'Install Helm (3.0.3)'
+  inputs:
+    helmVersionToInstall: '3.0.3'
+- task: HelmDeploy@0
+  displayName: 'helm package'
+  inputs:
+    command: package
+    chartPath: '**/kubernetes/helm/tradecube-services'
+    chartVersion: '$(versionMajor).$(versionMinor).$(build.buildId)'
+    destination: '$(Build.ArtifactStagingDirectory)/$(versionMajor).$(versionMinor).$(build.buildId)'
+    save: false
+    arguments: '--app-version $(versionMajor).$(versionMinor).$(build.buildId)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: BuildOutputs

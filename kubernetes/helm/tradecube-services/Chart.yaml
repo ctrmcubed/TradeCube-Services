@@ -1,0 +1,12 @@
+apiVersion: v1
+description: Tradecube Services - Integration, Reporting and Web Services for TradeCube, the scalable SaaS CTRM 
+name: tradecube-services
+version: 0.0.1
+appVersion: "v0.0.1.0"
+home: https://services.tradecube.io
+maintainers:
+  - name: CTRM Cubed Ltd
+    email: support@ctrmcubed.com
+icon: https://tradecubelrs.blob.core.windows.net/0000-static/favicon.png
+kubeVersion: ">=1.15.2"
+tillerVersion: ">=3.0.3"
