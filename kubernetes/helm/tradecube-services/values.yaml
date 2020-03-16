@@ -2,7 +2,7 @@
 # helm3 lint tradecube-services
 # OPTIONS='--dry-run --debug'
 # Run with:
-# helm3 upgrade --install --namespace ${SERVICES_NAMESPACE} ${SERVICES_NAMESPACE} --set ingress.domain=${DOMAIN} --set env.certFile=${SERVICES_CERTFILE} --set env.certPassword=${SERVICES_CERTPASSWORD} --set env.apiDomain=${API_DOMAIN} tradecube-services ${OPTIONS}
+# helm3 upgrade --install --namespace ${TRADECUBE_SERVICES_NAMESPACE} ${TRADECUBE_SERVICES_NAMESPACE} --set ingress.domain=${TRADECUBE_SERVICES_DOMAIN} --set env.certFile=${TRADECUBE_SERVICES_CERTFILE} --set env.certPassword=${TRADECUBE_SERVICES_CERTPASSWORD} --set env.apiDomain=${TRADECUBE_API_DOMAIN} tradecube-services ${OPTIONS}
 
 name:
   name: 'Tradecube-Services' # {{ .Values.name.name }}
@@ -15,6 +15,8 @@ env:
   environment: <not-set>               # {{ .Values.env.environment }}
   apiDomain: https://api.tradecube.io  # {{ .Values.env.apiDomain }}
   apiPort: 443                         # {{ .Values.env.apiPort }}
+  jsreportDomain: http://localhost     # {{ .Values.env.jsreportDomain }}
+  jsreportPort: 5488                   # {{ .Values.env.jsreportPort }}
 
 service:
   port: 80       # {{ .Values.service.port }}
@@ -49,7 +51,10 @@ image:
   repository: ctrmcubed        # {{ .Values.image.repository }}
   pullPolicy: IfNotPresent     # {{ .Values.image.pullPolicy }}
   services: tradecube-services # {{ .Values.image.services }}
-  servicestag: latest-dev      # {{ .Values.image.servicestag }}
+  servicesTag: latest-dev      # {{ .Values.image.servicesTag }}
+  jsreportRepo: jsreport       # {{ .Values.image.jsreportRepo }}
+  jsreport: jsreport           # {{ .Values.image.jsreport }}
+  jsreportTag: 2.7.1-full      # {{ .Values.image.jsreportTag }}
 
 port:   
   services: 44370     # {{ .Values.port.services }}

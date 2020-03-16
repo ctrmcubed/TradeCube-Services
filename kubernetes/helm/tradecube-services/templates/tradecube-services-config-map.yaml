@@ -15,3 +15,5 @@ data:
   TRADECUBE_SERVICES_CERT_PASSWORD: '{{ .Values.env.certPassword }}'
   TRADECUBE_API_DOMAIN: {{ .Values.env.apiDomain }}
   TRADECUBE_API_PORT: '{{ .Values.env.apiPort }}'
+  JSREPORT_DOMAIN: {{ .Values.env.jsreportDomain }}
+  JSREPORT_PORT: '{{ .Values.env.jsreportPort }}'

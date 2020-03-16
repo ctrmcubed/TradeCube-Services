@@ -57,6 +57,16 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}{{ .Values.type.configmap }}
                 key: TRADECUBE_API_PORT
+          - name: JSREPORT_DOMAIN
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: JSREPORT_DOMAIN
+          - name: JSREPORT_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: JSREPORT_PORT
         # readinessProbe:
           # tcpSocket:
             # port: {{ .Values.port.services }}
@@ -67,6 +77,9 @@ spec:
             # port: {{ .Values.port.services }}
           # initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
           # periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+      - image: '{{ .Values.image.jsreportRepo }}/{{ .Values.image.jsreport }}:{{ .Values.image.jsreportTag }}'
+        name: {{ .Release.Name }}{{ .Values.component.jsreport }}{{ .Values.type.pod }}
+        imagePullPolicy: "Always"
       volumes:
         - name: {{ .Release.Name }}{{ .Values.certificate.volumeName }}
           secret:
