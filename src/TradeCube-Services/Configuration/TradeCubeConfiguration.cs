@@ -2,7 +2,7 @@
 
 namespace TradeCube_Services.Configuration
 {
-    public class TradeCubeConfiguration : ITradeCubeConfiguration
+    public class TradeCubeConfiguration : ConfigurationBase, ITradeCubeConfiguration
     {
         public string TradeCubeApiDomain { get; set; }
         public string TradeCubeApiPort { get; set; }
@@ -14,12 +14,5 @@ namespace TradeCube_Services.Configuration
         }
 
         public string WebApiUrl() => $"{TradeCubeApiDomain}{Port(TradeCubeApiPort)}/";
-
-        private static string Port(string port)
-        {
-            return string.IsNullOrEmpty(port)
-                ? string.Empty
-                : $":{port}";
-        }
     }
 }

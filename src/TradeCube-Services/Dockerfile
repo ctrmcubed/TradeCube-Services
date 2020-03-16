@@ -19,4 +19,5 @@ COPY ["TradeCube-Services/appsettings.*", "/app/"]
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+
 ENTRYPOINT ["dotnet", "TradeCube-Services.dll"]

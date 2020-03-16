@@ -39,7 +39,9 @@ namespace TradeCube_Services
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TradeCube-Services API", Version = "v1", Description = "TradeCube-Services API" });
             });
 
+            // Configuration
             services.AddScoped<ITradeCubeConfiguration, TradeCubeConfiguration>();
+            services.AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
 
             // Services
             services.AddScoped<IConfirmationReportService, ConfirmationReportService>();

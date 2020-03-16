@@ -1,9 +1,9 @@
-﻿using jsreport.Local;
+﻿using jsreport.Client;
 using jsreport.Types;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using TradeCube_Services.Configuration;
 using TradeCube_Services.Constants;
 using TradeCube_Services.Exceptions;
 
@@ -11,10 +11,12 @@ namespace TradeCube_Services.Services
 {
     public class ReportRenderService : IReportRenderService
     {
+        private readonly IJsReportServerConfiguration jsReportServerConfiguration;
         private readonly ILogger<ReportRenderService> logger;
 
-        public ReportRenderService(ILogger<ReportRenderService> logger)
+        public ReportRenderService(IJsReportServerConfiguration jsReportServerConfiguration, ILogger<ReportRenderService> logger)
         {
+            this.jsReportServerConfiguration = jsReportServerConfiguration;
             this.logger = logger;
         }
 
@@ -22,19 +24,8 @@ namespace TradeCube_Services.Services
         {
             try
             {
-                var rs = new LocalReporting()
-                    .UseBinary(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ?
-                        jsreport.Binary.JsReportBinary.GetBinary() :
-                        jsreport.Binary.Linux.JsReportBinary.GetBinary())
-                    .AsUtility()
-                    .Create();
-
+                var rs = new ReportingService(jsReportServerConfiguration.WebApiUrl());
                 var recipe = MapFormatToRecipe(format);
-
-                logger.LogDebug($"Format: {format}");
-                logger.LogDebug($"Recipe: {recipe}");
-                logger.LogDebug($"Content: {template}");
-                logger.LogDebug($"Data: {content}");
 
                 var report = await rs.RenderAsync(new RenderRequest
                 {

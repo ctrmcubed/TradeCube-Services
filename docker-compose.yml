@@ -10,11 +10,18 @@ services:
     ports:
       - 44350:44350
       - 44365:44365
+    volumes:
+      - /foldercontainingcerts:/certs      
+      - /tmp:/tmp      
     expose:
       - 44350
       - 44365
     environment: 
-      - 'TRADECUBE_API_DOMAIN=https://api.tradecube.io'
-      - 'TRADECUBE_API_PORT=443'
+      - 'ASPNETCORE_ENVIRONMENT=Development'
+      - 'TRADECUBE_API_DOMAIN=https://api-int.ctrmcubed.com/'
+      - 'TRADECUBE_API_PORT=44390'
       - 'TRADECUBE_SERVICES_HTTPS_PORT=44350'
-      - 'TRADECUBE_SERVICES_CERT_NAME=localhost.pfx'
+      - 'TRADECUBE_SERVICES_CERT_NAME=/certs/certname.pfx'
+      - 'TRADECUBE_SERVICES_CERT_PASSWORD=certpassword'
+      - 'JSREPORT_DOMAIN=http://reports.ctrmcubed.com'      
+      - 'JSREPORT_PORT=80'      
