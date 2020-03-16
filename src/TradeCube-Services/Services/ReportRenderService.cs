@@ -24,8 +24,11 @@ namespace TradeCube_Services.Services
         {
             try
             {
-                var rs = new ReportingService(jsReportServerConfiguration.WebApiUrl());
+                var url = jsReportServerConfiguration.WebApiUrl();
+                var rs = new ReportingService(url);
                 var recipe = MapFormatToRecipe(format);
+
+                logger.LogInformation($"Attempting to render report. URL: {url}, Recipe: {recipe}");
 
                 var report = await rs.RenderAsync(new RenderRequest
                 {
