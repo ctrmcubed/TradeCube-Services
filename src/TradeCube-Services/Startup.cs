@@ -40,17 +40,21 @@ namespace TradeCube_Services
             });
 
             // Configuration
-            services.AddScoped<ITradeCubeConfiguration, TradeCubeConfiguration>();
-            services.AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
+            services
+                .AddScoped<ITradeCubeConfiguration, TradeCubeConfiguration>()
+                .AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
 
             // Services
-            services.AddScoped<IConfirmationReportService, ConfirmationReportService>();
-            services.AddScoped<ICountryLookupService, CountryLookupService>();
-            services.AddScoped<ICountryService, CountryService>();
-            services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<IReportTemplateService, ReportTemplateService>();
-            services.AddScoped<IReportRenderService, ReportRenderService>();
-            services.AddScoped<ITradeService, TradeService>();
+            services
+                .AddScoped<IConfirmationReportService, ConfirmationReportService>()
+                .AddScoped<ICountryLookupService, CountryLookupService>()
+                .AddScoped<ICountryService, CountryService>()
+                .AddScoped<IEnegenAtomService, EnegenAtomService>()
+                .AddScoped<INotificationService, NotificationService>()
+                .AddScoped<IReportTemplateService, ReportTemplateService>()
+                .AddScoped<IReportRenderService, ReportRenderService>()
+                .AddScoped<ITradeService, TradeService>()
+                .AddScoped<ITradeProfileService, TradeProfileService>();
 
             services.AddHealthChecks();
         }

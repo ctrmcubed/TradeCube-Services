@@ -5,6 +5,7 @@ namespace TradeCube_Services.DataObjects
     public class TradeDataObject
     {
         public string TradeReference { get; set; }
+        public int TradeLeg { get; set; }
         public DateTime TradeDateTime { get; set; }
         public decimal QuantityUnit { get; set; }
         public ProductDataObject Product { get; set; }

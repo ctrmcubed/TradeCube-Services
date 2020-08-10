@@ -70,7 +70,7 @@ namespace TradeCube_Services.Services
             }
         }
 
-        async Task<IEnumerable<TradeDataObject>> EnrichTradesWithCountries(IEnumerable<TradeDataObject> trades, ReportParametersBase confirmationReportParametersBase)
+        async Task<IEnumerable<TradeDataObject>> EnrichTradesWithCountries(IEnumerable<TradeDataObject> trades, ParametersBase confirmationReportParametersBase)
         {
             await countryLookupService.Load(confirmationReportParametersBase.ApiJwtToken);
 

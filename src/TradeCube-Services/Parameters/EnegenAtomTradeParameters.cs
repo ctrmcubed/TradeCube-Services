@@ -2,7 +2,7 @@
 
 namespace TradeCube_Services.Parameters
 {
-    public class ConfirmationReportParameters : ParametersBase
+    public class EnegenAtomTradeParameters : ParametersBase
     {
         public string ActionName { get; set; }
         public string Template { get; set; }

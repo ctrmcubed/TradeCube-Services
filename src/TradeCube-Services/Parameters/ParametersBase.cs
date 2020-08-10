@@ -1,6 +1,6 @@
 ﻿namespace TradeCube_Services.Parameters
 {
-    public class ReportParametersBase
+    public class ParametersBase
     {
         public string ApiJwtToken { get; set; }
     }
