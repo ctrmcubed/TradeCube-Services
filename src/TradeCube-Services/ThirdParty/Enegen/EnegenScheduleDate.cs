@@ -1,15 +1,15 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TradeCube_Services.ThirdParty.Enegen
 {
     public class EnegenScheduleDate
     {
-        [JsonProperty("date")]
+        [JsonPropertyName("date")]
         public DateTime Date { get; set; }
 
-        [JsonProperty("scheduleTrades")]
+        [JsonPropertyName("scheduleTrades")]
         public IEnumerable<EnegenScheduleTrade> ScheduleTrades { get; set; }
     }
 }

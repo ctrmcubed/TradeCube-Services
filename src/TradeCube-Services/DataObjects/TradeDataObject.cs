@@ -13,5 +13,6 @@ namespace TradeCube_Services.DataObjects
         public QuantityDataObject Quantity { get; set; }
         public PartyDataObject Buyer { get; set; }
         public PartyDataObject Seller { get; set; }
+        public PartyDataObject Counterparty { get; set; }
     }
 }

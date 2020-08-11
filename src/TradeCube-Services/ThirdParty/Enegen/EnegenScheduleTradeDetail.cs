@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace TradeCube_Services.ThirdParty.Enegen
 {
     public class EnegenScheduleTradeDetail
     {
-        [JsonProperty("settlementPeriod")]
+        [JsonPropertyName("settlementPeriod")]
         public int SettlementPeriod { get; set; }
 
-        [JsonProperty("volume")]
+        [JsonPropertyName("volume")]
         public decimal Volume { get; set; }
 
-        [JsonProperty("price")]
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
     }
 }

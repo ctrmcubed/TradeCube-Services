@@ -1,20 +1,20 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TradeCube_Services.ThirdParty.Enegen
 {
     public class EnegenScheduleTrade
     {
-        [JsonProperty("tradeId")]
+        [JsonPropertyName("tradeId")]
         public int TradeId { get; set; }
 
-        [JsonProperty("version")]
+        [JsonPropertyName("version")]
         public int Version { get; set; }
 
-        [JsonProperty("counterparty")]
+        [JsonPropertyName("counterparty")]
         public string Counterparty { get; set; }
 
-        [JsonProperty("scheduleTradeDetails")]
+        [JsonPropertyName("scheduleTradeDetails")]
         public IEnumerable<EnegenScheduleTradeDetail> ScheduleTradeDetails { get; set; }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
-using MoreLinq.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using TradeCube_Services.Constants;
 using TradeCube_Services.DataObjects;
+using TradeCube_Services.Exceptions;
 using TradeCube_Services.Helpers;
 using TradeCube_Services.Messages;
 using TradeCube_Services.Parameters;
@@ -57,10 +58,16 @@ namespace TradeCube_Services.Services
 
         private async Task ProcessTrades(IEnumerable<TradeDataObject> trades, string apiJwtToken)
         {
-            var apiResponseWrappers = await GetProfiles(trades, apiJwtToken).ToListAsync();
-            var profileResponses = apiResponseWrappers.SelectMany(p => p.Data);
+            var tradeList = trades.ToList();
+            var apiResponseWrappers = await GetProfiles(tradeList, apiJwtToken).ToListAsync();
 
-            var t = CreateEnegen(profileResponses, trades);
+            var profileResponses = apiResponseWrappers
+                .Where(d => d.Data != null && d.Data.Any())
+                .SelectMany(p => p.Data);
+
+            var inboundTrades = CreateEnegen(profileResponses, tradeList);
+
+            logger.LogDebug(JsonSerializer.Serialize(inboundTrades));
         }
 
         private async IAsyncEnumerable<ApiResponseWrapper<IEnumerable<TradeProfileResponse>>> GetProfiles(IEnumerable<TradeDataObject> trades, string apiJwtToken)
@@ -93,60 +100,92 @@ namespace TradeCube_Services.Services
 
         private static IEnumerable<EnegenScheduleDate> CreateScheduleDates(IEnumerable<TradeProfileResponse> tradeProfileResponses, IEnumerable<TradeDataObject> trades)
         {
-            var tradeLookup = trades.ToLookup(t => (t.TradeReference, t.TradeLeg), p => p);
-            var profilesWithTrades = tradeProfileResponses.Select(t => (t, tradeLookup[(t.TradeReference, t.TradeLeg)]));
-
-            foreach (var (tradeProfileResponse, tradeDataObjects) in profilesWithTrades)
+            static DateTime LocalDateTime(DateTime dt, TradeProfileResponse tpr, ILookup<(string TradeReference, int TradeLeg), TradeDataObject> lookup)
             {
-                var tradeDataObject = tradeDataObjects.SingleOrDefault();
-                if (tradeDataObject == null)
+                var trade = lookup[(tpr.TradeReference, tpr.TradeLeg)].SingleOrDefault();
+                if (trade == null)
                 {
-                    throw new Exception();
+                    throw new TradeProfileException($"Trade '{tpr.TradeReference},{tpr.TradeLeg}' not found'");
                 }
 
-                var volumesByDate = tradeProfileResponse.VolumeProfile
-                    .GroupBy(p => p.UtcStartDateTime, p => p.Value)
-                    .Select(g => new { Date = g.Key, Volumes = g.ToList() })
-                    .OrderBy(d => d.Date);
-
-                var pricesByDate = tradeProfileResponse.PriceProfile
-                    .GroupBy(p => p.UtcStartDateTime, p => p.Value)
-                    .Select(g => new { Date = g.Key, Prices = g.ToList() })
-                    .OrderBy(d => d.Date);
-
-                var combineByDate = volumesByDate.EquiZip(pricesByDate, (v, p) => (v.Date, v.Volumes, p.Prices));
-
-                foreach (var (date, volumes, prices) in combineByDate)
+                var timezone = trade.Product?.Commodity?.Timezone;
+                if (timezone == null)
                 {
-                    var combineValues = volumes.EquiZip(prices, (v, p) => (v, p));
+                    throw new TradeProfileException("Trade timezone not set");
+                }
 
-                    yield return new EnegenScheduleDate
+                return DateTimeHelper.GetLocalDateTime(dt, timezone);
+            }
+
+            static IEnumerable<(string TradeReference, int TradeLeg, DateTime Date, decimal Volume, decimal Price)> Combine(IEnumerable<TradeProfileResponse> profileResponses,
+                ILookup<(string TradeReference, int TradeLeg), TradeDataObject> lookup)
+            {
+                foreach (var profileResponse in profileResponses)
+                {
+                    var volumeProfile = profileResponse.VolumeProfile.ToList();
+                    var priceProfile = profileResponse.PriceProfile.ToList();
+
+                    if (volumeProfile.Count != priceProfile.Count)
                     {
-                        Date = date,
-                        ScheduleTrades = combineValues.Select((tuple, index) => new EnegenScheduleTrade
+                        throw new TradeProfileException("Volume/Price number mismatch");
+                    }
+
+                    for (var vp = 0; vp < volumeProfile.Count; vp++)
+                    {
+                        var volume = volumeProfile[vp];
+                        var price = priceProfile[vp];
+
+                        yield return volume.UtcStartDateTime == price.UtcStartDateTime
+                            ? (profileResponse.TradeReference, profileResponse.TradeLeg, LocalDateTime(volume.UtcStartDateTime, profileResponse, lookup), volume.Value, price.Value)
+                            : throw new TradeProfileException("Volume/Price date/time mismatch");
+                    }
+                }
+            }
+
+            static IEnumerable<EnegenScheduleTrade> TradesOnDate(IEnumerable<(string TradeReference, int TradeLeg, DateTime Date, decimal Volume, decimal Price)> data,
+                ILookup<(string TradeReference, int TradeLeg), TradeDataObject> lookup)
+            {
+                var byTrade = data
+                    .GroupBy(p => (p.TradeReference, p.TradeLeg), p => p)
+                    .Select(g => new { Trade = g.Key, Data = g.ToList() });
+
+                foreach (var trade in byTrade)
+                {
+                    yield return new EnegenScheduleTrade
+                    {
+                        TradeId = HashHelper.HashStringToInteger($"{trade.Trade.TradeReference}{trade.Trade.TradeLeg}"),
+                        Version = 1,
+                        Counterparty = lookup[(trade.Trade.TradeReference, trade.Trade.TradeLeg)].SingleOrDefault()?.Counterparty?.Party,
+                        ScheduleTradeDetails = trade.Data.Select((t, i) => new EnegenScheduleTradeDetail
                         {
-                            // TODO
-                            TradeId = HashHelper.HashStringToInteger($"{tradeDataObject.TradeReference}{tradeDataObject.TradeLeg}"),
-                            Version = 1,
-                            //Counterparty = trade.Counterparty
-                            ScheduleTradeDetails = new List<EnegenScheduleTradeDetail>
-                            {
-                                new EnegenScheduleTradeDetail
-                                {
-                                    SettlementPeriod = index + 1,
-                                    Volume = tuple.v,
-                                    Price = tuple.p
-                                }
-                            }
+                            SettlementPeriod = i + 1,
+                            Volume = t.Volume,
+                            Price = t.Price
                         })
                     };
                 }
+            }
+
+            var tradeLookup = trades.ToLookup(t => (t.TradeReference, t.TradeLeg), p => p);
+            var combined = Combine(tradeProfileResponses, tradeLookup);
+
+            var groupedByDate = combined
+                .GroupBy(p => p.Date.Date, p => p)
+                .Select(g => new { Date = g.Key, Data = g.ToList() })
+                .OrderBy(d => d.Date);
+
+            foreach (var byDate in groupedByDate)
+            {
+                yield return new EnegenScheduleDate
+                {
+                    Date = byDate.Date,
+                    ScheduleTrades = TradesOnDate(byDate.Data, tradeLookup)
+                };
             }
         }
 
         private void InsertTrade(string environment, IEnumerable<EnegenInboundTrade> inboundTrades)
         {
-
         }
     }
 }

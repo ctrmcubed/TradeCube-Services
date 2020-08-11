@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TradeCube_Services.ThirdParty.Enegen
 {
     public class EnegenInboundTrade
     {
-        [JsonProperty("scheduleDates")]
+        [JsonPropertyName("scheduleDates")]
         public IEnumerable<EnegenScheduleDate> ScheduleDates { get; set; }
     }
 }

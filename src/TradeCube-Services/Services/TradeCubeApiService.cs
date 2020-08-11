@@ -30,8 +30,6 @@ namespace TradeCube_Services.Services
 
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
 
-                logger.LogDebug(responseStream.ToString());
-
                 return await JsonSerializer.DeserializeAsync<TV>(responseStream);
             }
             catch (Exception e)

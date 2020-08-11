@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace TradeCube_Services.Messages
 {
     public class BaseProfileResponse
     {
-        [JsonProperty("UTCStartDateTime")]
+        [JsonPropertyName("UTCStartDateTime")]
         public DateTime UtcStartDateTime { get; set; }
 
-        [JsonProperty("UTCEndDateTime")]
+        [JsonPropertyName("UTCEndDateTime")]
         public DateTime UtcEndDateTime { get; set; }
 
         public decimal Value { get; set; }
