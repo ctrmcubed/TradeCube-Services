@@ -87,7 +87,7 @@ namespace TradeCube_Services.Services
             }
         }
 
-        private static IEnumerable<EnegenInboundTrade> CreateEnegen(IEnumerable<TradeProfileResponse> tradeProfileResponses, IEnumerable<TradeDataObject> trades)
+        private IEnumerable<EnegenInboundTrade> CreateEnegen(IEnumerable<TradeProfileResponse> tradeProfileResponses, IEnumerable<TradeDataObject> trades)
         {
             return new List<EnegenInboundTrade>
             {
@@ -98,7 +98,7 @@ namespace TradeCube_Services.Services
             };
         }
 
-        private static IEnumerable<EnegenScheduleDate> CreateScheduleDates(IEnumerable<TradeProfileResponse> tradeProfileResponses, IEnumerable<TradeDataObject> trades)
+        private IEnumerable<EnegenScheduleDate> CreateScheduleDates(IEnumerable<TradeProfileResponse> tradeProfileResponses, IEnumerable<TradeDataObject> trades)
         {
             static DateTime LocalDateTime(DateTime dt, TradeProfileResponse tpr, ILookup<(string TradeReference, int TradeLeg), TradeDataObject> lookup)
             {
@@ -117,7 +117,7 @@ namespace TradeCube_Services.Services
                 return DateTimeHelper.GetLocalDateTime(dt, timezone);
             }
 
-            static IEnumerable<(string TradeReference, int TradeLeg, DateTime Date, decimal Volume, decimal Price)> Combine(IEnumerable<TradeProfileResponse> profileResponses,
+            IEnumerable<(string TradeReference, int TradeLeg, DateTime Utc, DateTime Local, decimal Volume, decimal Price, int PeriodNumber)> Combine(IEnumerable<TradeProfileResponse> profileResponses,
                 ILookup<(string TradeReference, int TradeLeg), TradeDataObject> lookup)
             {
                 foreach (var profileResponse in profileResponses)
@@ -135,14 +135,22 @@ namespace TradeCube_Services.Services
                         var volume = volumeProfile[vp];
                         var price = priceProfile[vp];
 
+                        var localDateTime = LocalDateTime(volume.UtcStartDateTime, profileResponse, lookup);
+
                         yield return volume.UtcStartDateTime == price.UtcStartDateTime
-                            ? (profileResponse.TradeReference, profileResponse.TradeLeg, LocalDateTime(volume.UtcStartDateTime, profileResponse, lookup), volume.Value, price.Value)
+                            ? (profileResponse.TradeReference,
+                                profileResponse.TradeLeg,
+                                volume.UtcStartDateTime,
+                                localDateTime,
+                                volume.Value, 
+                                price.Value,
+                                DateTimeHelper.PeriodNumber(localDateTime, 0.5))
                             : throw new TradeProfileException("Volume/Price date/time mismatch");
                     }
                 }
             }
 
-            static IEnumerable<EnegenScheduleTrade> TradesOnDate(IEnumerable<(string TradeReference, int TradeLeg, DateTime Date, decimal Volume, decimal Price)> data,
+            static IEnumerable<EnegenScheduleTrade> TradesOnDate(IEnumerable<(string TradeReference, int TradeLeg, DateTime Utc, DateTime Date, decimal Volume, decimal Price, int PeriodNumber)> data,
                 ILookup<(string TradeReference, int TradeLeg), TradeDataObject> lookup)
             {
                 var byTrade = data
@@ -158,7 +166,7 @@ namespace TradeCube_Services.Services
                         Counterparty = lookup[(trade.Trade.TradeReference, trade.Trade.TradeLeg)].SingleOrDefault()?.Counterparty?.Party,
                         ScheduleTradeDetails = trade.Data.Select((t, i) => new EnegenScheduleTradeDetail
                         {
-                            SettlementPeriod = i + 1,
+                            SettlementPeriod = t.PeriodNumber,
                             Volume = t.Volume,
                             Price = t.Price
                         })
@@ -168,9 +176,15 @@ namespace TradeCube_Services.Services
 
             var tradeLookup = trades.ToLookup(t => (t.TradeReference, t.TradeLeg), p => p);
             var combined = Combine(tradeProfileResponses, tradeLookup);
+            var tuples = combined.ToList();
 
-            var groupedByDate = combined
-                .GroupBy(p => p.Date.Date, p => p)
+            foreach (var (_, _, utc, local, volume, price, periodNumber) in tuples)
+            {
+                logger.LogDebug($"{utc.ToShortDateString()} {utc.ToShortTimeString()} ; {local.ToShortDateString()} {local.ToShortTimeString()} => {volume}, {price} (Period: {periodNumber})");
+            }
+
+            var groupedByDate = tuples
+                .GroupBy(p => p.Local.Date, p => p)
                 .Select(g => new { Date = g.Key, Data = g.ToList() })
                 .OrderBy(d => d.Date);
 

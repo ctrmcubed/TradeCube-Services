@@ -14,5 +14,10 @@ namespace TradeCube_Services.Helpers
 
             return localTime;
         }
+
+        public static int PeriodNumber(DateTime dt, double periodLengthInMinutes)
+        {
+            return 1 + (int)((dt.Hour + dt.Minute / 60.0) / periodLengthInMinutes);
+        }
     }
 }
