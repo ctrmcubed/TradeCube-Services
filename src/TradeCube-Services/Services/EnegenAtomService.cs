@@ -120,6 +120,8 @@ namespace TradeCube_Services.Services
             IEnumerable<(string TradeReference, int TradeLeg, DateTime Utc, DateTime Local, decimal Volume, decimal Price, int PeriodNumber)> Combine(IEnumerable<TradeProfileResponse> profileResponses,
                 ILookup<(string TradeReference, int TradeLeg), TradeDataObject> lookup)
             {
+                var periodCounter = new PeriodCounter();
+
                 foreach (var profileResponse in profileResponses)
                 {
                     var volumeProfile = profileResponse.VolumeProfile.ToList();
@@ -142,9 +144,9 @@ namespace TradeCube_Services.Services
                                 profileResponse.TradeLeg,
                                 volume.UtcStartDateTime,
                                 localDateTime,
-                                volume.Value, 
+                                volume.Value,
                                 price.Value,
-                                DateTimeHelper.PeriodNumber(localDateTime, 0.5))
+                                periodCounter.Count(localDateTime))
                             : throw new TradeProfileException("Volume/Price date/time mismatch");
                     }
                 }
@@ -176,14 +178,13 @@ namespace TradeCube_Services.Services
 
             var tradeLookup = trades.ToLookup(t => (t.TradeReference, t.TradeLeg), p => p);
             var combined = Combine(tradeProfileResponses, tradeLookup);
-            var tuples = combined.ToList();
 
-            foreach (var (_, _, utc, local, volume, price, periodNumber) in tuples)
-            {
-                logger.LogDebug($"{utc.ToShortDateString()} {utc.ToShortTimeString()} ; {local.ToShortDateString()} {local.ToShortTimeString()} => {volume}, {price} (Period: {periodNumber})");
-            }
+            //foreach (var (_, _, utc, local, volume, price, periodNumber) in tuples)
+            //{
+            //    logger.LogDebug($"{utc.ToShortDateString()} {utc.ToShortTimeString()} ; {local.ToShortDateString()} {local.ToShortTimeString()} => {volume}, {price} (Period: {periodNumber})");
+            //}
 
-            var groupedByDate = tuples
+            var groupedByDate = combined
                 .GroupBy(p => p.Local.Date, p => p)
                 .Select(g => new { Date = g.Key, Data = g.ToList() })
                 .OrderBy(d => d.Date);
