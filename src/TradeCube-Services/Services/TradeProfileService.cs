@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TradeCube_Services.Configuration;
+using TradeCube_Services.DataObjects;
 using TradeCube_Services.Messages;
 
 namespace TradeCube_Services.Services
@@ -31,6 +32,23 @@ namespace TradeCube_Services.Services
             {
                 logger.LogError(e, e.Message);
                 return new ApiResponseWrapper<IEnumerable<TradeProfileResponse>> { Message = e.Message, Status = HttpStatusCode.BadRequest.ToString() };
+            }
+        }
+
+        public async IAsyncEnumerable<ApiResponseWrapper<IEnumerable<TradeProfileResponse>>> GetProfiles(IEnumerable<TradeDataObject> trades, string apiJwtToken)
+        {
+            foreach (var trade in trades)
+            {
+                var tradeProfileRequest = new TradeProfileRequest
+                {
+                    TradeReference = trade.TradeReference,
+                    TradeLeg = trade.TradeLeg,
+                    ProfileFormat = ProfileRequestFormat.Full,
+                    Volume = true,
+                    Price = true
+                };
+
+                yield return await TradeProfiles(apiJwtToken, tradeProfileRequest);
             }
         }
     }

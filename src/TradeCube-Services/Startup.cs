@@ -50,6 +50,7 @@ namespace TradeCube_Services
                 .AddScoped<ICountryLookupService, CountryLookupService>()
                 .AddScoped<ICountryService, CountryService>()
                 .AddScoped<IEnegenAtomService, EnegenAtomService>()
+                .AddScoped<IEnegenGenstarService, EnegenGenstarService>()
                 .AddScoped<INotificationService, NotificationService>()
                 .AddScoped<IReportTemplateService, ReportTemplateService>()
                 .AddScoped<IReportRenderService, ReportRenderService>()

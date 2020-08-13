@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TradeCube_Services.Parameters
 {
-    public class WebhookParameters : WebhookParametersBase
+    public class WebhookParameters : ParametersBase
     {
         public string Webhook { get; set; }
         public string Entity { get; set; }
