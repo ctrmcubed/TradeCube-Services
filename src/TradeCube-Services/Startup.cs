@@ -44,6 +44,7 @@ namespace TradeCube_Services
             services.AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
 
             // Services
+            services.AddScoped<ICalculateService, CalculateService>();
             services.AddScoped<IConfirmationReportService, ConfirmationReportService>();
             services.AddScoped<ICountryLookupService, CountryLookupService>();
             services.AddScoped<ICountryService, CountryService>();

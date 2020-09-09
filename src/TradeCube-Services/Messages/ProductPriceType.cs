@@ -1,8 +1,10 @@
-﻿namespace TradeCube_Services.Messages
+﻿using System.Collections.Generic;
+
+namespace TradeCube_Services.Messages
 {
     public class ProductPriceType
     {
-        public string DateTime { get; set; }
-        public decimal? Value { get; set; }
+        public string Product { get; set; }
+        public IEnumerable<PriceType> Prices { get; set; }
     }
 }
