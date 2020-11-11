@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TradeCube_Services.Configuration;
 using TradeCube_Services.Services;
+using TradeCube_Services.Services.ThirdParty.Enegen;
 
 namespace TradeCube_Services
 {
@@ -56,7 +57,8 @@ namespace TradeCube_Services
                 .AddScoped<IReportTemplateService, ReportTemplateService>()
                 .AddScoped<IReportRenderService, ReportRenderService>()
                 .AddScoped<ITradeService, TradeService>()
-                .AddScoped<ITradeProfileService, TradeProfileService>();
+                .AddScoped<ITradeProfileService, TradeProfileService>()
+                .AddScoped<IVaultService, VaultService>();
 
             services.AddHealthChecks();
         }

@@ -15,8 +15,8 @@ namespace TradeCube_Services.Services
     {
         private readonly ILogger<TradeCubeApiService> logger;
 
-        public TradeService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+        public TradeService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration, ILogger<TradeService> logger) :
+            base(httpClientFactory, tradeCubeConfiguration, logger)
         {
             this.logger = logger;
         }

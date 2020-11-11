@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using TradeCube_Services.Constants;
 using TradeCube_Services.Messages;
 using TradeCube_Services.Parameters;
-using TradeCube_Services.Services;
+using TradeCube_Services.Services.ThirdParty.Enegen;
 
 namespace TradeCube_Services.Controllers
 {
@@ -32,6 +32,7 @@ namespace TradeCube_Services.Controllers
             {
                 var enegenAtomTradeParameters = new EnegenAtomTradeParameters
                 {
+                    Url = Environment.GetEnvironmentVariable("ENEGEN_ATOM_URL"),
                     ApiJwtToken = apiJwtToken,
                     ActionName = webServiceRequest.ActionName,
                     TradeReferences = webServiceRequest.Entities

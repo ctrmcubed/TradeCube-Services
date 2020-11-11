@@ -4,6 +4,7 @@ namespace TradeCube_Services.Parameters
 {
     public class EnegenAtomTradeParameters : ParametersBase
     {
+        public string Url { get; set; }
         public string ActionName { get; set; }
         public string Template { get; set; }
         public string Format { get; set; }

@@ -4,8 +4,8 @@ namespace TradeCube_Services.ThirdParty.Enegen
 {
     public class EnegenScheduleTradeDetail
     {
-        [JsonPropertyName("settlementPeriod")]
-        public int SettlementPeriod { get; set; }
+        [JsonPropertyName("settlementPeriodStartTime")]
+        public string SettlementPeriodStartTime { get; set; }
 
         [JsonPropertyName("volume")]
         public decimal Volume { get; set; }

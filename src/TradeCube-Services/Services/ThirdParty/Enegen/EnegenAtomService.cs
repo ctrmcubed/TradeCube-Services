@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,20 @@ using TradeCube_Services.Messages;
 using TradeCube_Services.Parameters;
 using TradeCube_Services.ThirdParty.Enegen;
 
-namespace TradeCube_Services.Services
+namespace TradeCube_Services.Services.ThirdParty.Enegen
 {
     public class EnegenAtomService : IEnegenAtomService
     {
         private readonly ITradeService tradeService;
         private readonly ITradeProfileService tradeProfileService;
+        private readonly IVaultService vaultService;
         private readonly ILogger<EnegenAtomService> logger;
 
-        public EnegenAtomService(ITradeService tradeService, ITradeProfileService tradeProfileService, ILogger<EnegenAtomService> logger)
+        public EnegenAtomService(ITradeService tradeService, ITradeProfileService tradeProfileService, IVaultService vaultService, ILogger<EnegenAtomService> logger)
         {
             this.tradeService = tradeService;
             this.tradeProfileService = tradeProfileService;
+            this.vaultService = vaultService;
             this.logger = logger;
         }
 
@@ -36,11 +39,22 @@ namespace TradeCube_Services.Services
 
                 if (trades.Status == ApiConstants.SuccessResult)
                 {
-                    await ProcessTrades(trades.Data, apiJwtToken);
+                    var enegenInboundTrades = await ProcessTrades(trades.Data, apiJwtToken);
+                    var (username, password) = await AtomCredentials(apiJwtToken);
+                    var atomBearerToken = AtomBearerToken(enegenAtomTradeParameters.Url, username, password);
+                    var json = JsonSerializer.Serialize(enegenInboundTrades);
+
+                    logger.LogDebug($"Request: {json}");
+
+                    var response = PostTrades(enegenAtomTradeParameters.Url, atomBearerToken, json);
+
+                    logger.LogDebug($"Response: {response.Content}");
 
                     return new ApiResponseWrapper<WebServiceResponse>
                     {
-                        Status = ApiConstants.SuccessResult,
+                        Status = response.IsSuccessful
+                            ? ApiConstants.SuccessResult
+                            : ApiConstants.FailedResult,
                         Data = new WebServiceResponse()
                     };
                 }
@@ -55,7 +69,31 @@ namespace TradeCube_Services.Services
             }
         }
 
-        private async Task ProcessTrades(IEnumerable<TradeDataObject> trades, string apiJwtToken)
+        private async Task<(string username, string password)> AtomCredentials(string apiJwtToken)
+        {
+            var username = await vaultService.Vault(apiJwtToken, "AtomUsername");
+            var password = await vaultService.Vault(apiJwtToken, "AtomPassword");
+
+            return (username?.Data?.FirstOrDefault()?.VaultValue, password?.Data?.FirstOrDefault()?.VaultValue);
+        }
+
+        private static string AtomBearerToken(string url, string username, string password)
+        {
+            var client = new RestClient($"{url}/token?Username={username}&Password={password}");
+            var request = new RestRequest(Method.POST);
+
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Content-Length", "0");
+
+            var response = client.Execute(request);
+
+            // Trim response, slight fudge because the response is quoted, for some reason
+            return response.Content
+                .TrimStart('"')
+                .TrimEnd('"');
+        }
+
+        private async Task<IEnumerable<EnegenInboundTrade>> ProcessTrades(IEnumerable<TradeDataObject> trades, string apiJwtToken)
         {
             var tradeList = trades.ToList();
             var apiResponseWrappers = await tradeProfileService.GetProfiles(tradeList, apiJwtToken).ToListAsync();
@@ -64,9 +102,21 @@ namespace TradeCube_Services.Services
                 .Where(d => d.Data != null && d.Data.Any())
                 .SelectMany(p => p.Data);
 
-            var inboundTrades = CreateInboundTrades(profileResponses, tradeList);
+            return CreateInboundTrades(profileResponses, tradeList);
+        }
 
-            logger.LogDebug(JsonSerializer.Serialize(inboundTrades));
+        private static IRestResponse PostTrades(string url, string bearerToken, string inboundTrades)
+        {
+            var client = new RestClient($"{url}/Trades");
+            var request = new RestRequest(Method.POST);
+
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Authorization", $"Bearer {bearerToken}");
+            request.AddParameter("application/json", inboundTrades, ParameterType.RequestBody);
+
+            var response = client.Execute(request);
+
+            return response;
         }
 
         private static IEnumerable<EnegenInboundTrade> CreateInboundTrades(IEnumerable<TradeProfileResponse> tradeProfileResponses, IEnumerable<TradeDataObject> trades)
@@ -86,18 +136,25 @@ namespace TradeCube_Services.Services
             {
                 var byTrade = data
                     .GroupBy(p => (p.TradeReference, p.TradeLeg), p => p)
-                    .Select(g => new { Trade = g.Key, Data = g.ToList() });
+                    .Select(g => new
+                    {
+                        g.Key,
+                        Data = g.ToList(),
+                        Trade = lookup[(g.Key.TradeReference, g.Key.TradeLeg)].SingleOrDefault()
+                    });
 
                 return byTrade.Select(t => new EnegenScheduleTrade
                 {
-                    TradeId = HashHelper.HashStringToInteger($"{t.Trade.TradeReference}{t.Trade.TradeLeg}"),
+                    TradeId = HashHelper.HashStringToInteger($"{t.Key.TradeReference}{t.Key.TradeLeg}"),
                     Version = 1,
-                    Counterparty = lookup[(t.Trade.TradeReference, t.Trade.TradeLeg)].SingleOrDefault()?.Counterparty?.Party,
-                    ScheduleTradeDetails = t.Data.Select(t => new EnegenScheduleTradeDetail
+                    Product = t.Trade?.Product?.Product,
+                    Counterparty = t.Trade?.Counterparty?.Party,
+                    Trader = t.Trade?.InternalTrader?.ContactLongName,
+                    ScheduleTradeDetails = t.Data.Select(d => new EnegenScheduleTradeDetail
                     {
-                        SettlementPeriod = t.PeriodNumber,
-                        Volume = t.Volume,
-                        Price = t.Price
+                        SettlementPeriodStartTime = $"{d.Utc.Hour:D2}:{d.Utc.Minute:D2}:{d.Utc.Second:D2}",
+                        Volume = d.Volume,
+                        Price = d.Price
                     })
                 });
             }
@@ -115,10 +172,6 @@ namespace TradeCube_Services.Services
                 Date = g.Date,
                 ScheduleTrades = TradesOnDate(g.Data, tradeLookup)
             });
-        }
-
-        private void InsertTrade(string environment, IEnumerable<EnegenInboundTrade> inboundTrades)
-        {
         }
     }
 }

@@ -10,7 +10,7 @@ using TradeCube_Services.Messages;
 using TradeCube_Services.Parameters;
 using TradeCube_Services.ThirdParty.Enegen;
 
-namespace TradeCube_Services.Services
+namespace TradeCube_Services.Services.ThirdParty.Enegen
 {
     public class EnegenGenstarService : IEnegenGenstarService
     {
