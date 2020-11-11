@@ -45,8 +45,8 @@ namespace TradeCube_Services
                 .AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
 
             // Services
+<<<<<<< HEAD
             services
-                .AddScoped<ICalculateService, CalculateService>()
                 .AddScoped<IConfirmationReportService, ConfirmationReportService>()
                 .AddScoped<ICountryLookupService, CountryLookupService>()
                 .AddScoped<ICountryService, CountryService>()
@@ -57,6 +57,16 @@ namespace TradeCube_Services
                 .AddScoped<IReportRenderService, ReportRenderService>()
                 .AddScoped<ITradeService, TradeService>()
                 .AddScoped<ITradeProfileService, TradeProfileService>();
+=======
+            services.AddScoped<ICalculateService, CalculateService>();
+            services.AddScoped<IConfirmationReportService, ConfirmationReportService>();
+            services.AddScoped<ICountryLookupService, CountryLookupService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IReportTemplateService, ReportTemplateService>();
+            services.AddScoped<IReportRenderService, ReportRenderService>();
+            services.AddScoped<ITradeService, TradeService>();
+>>>>>>> develop
 
             services.AddHealthChecks();
         }

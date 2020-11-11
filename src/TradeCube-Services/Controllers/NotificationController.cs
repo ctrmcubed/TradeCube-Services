@@ -42,7 +42,7 @@ namespace TradeCube_Services.Controllers
                     EntityType = webhookRequest.EntityType,
                     SubscriberId = subscriberId,
                     Body = webhookRequest.Body,
-                    RequestHeaders = Request.Headers.ToDictionary(k => k.Key, v => v),
+                    RequestHeaders = Request.Headers.ToDictionary(k => k.Key, v => v)
                 };
 
                 var webhookResponse = await notificationService.Notify(webhookParameters);
