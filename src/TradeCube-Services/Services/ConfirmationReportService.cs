@@ -53,8 +53,7 @@ namespace TradeCube_Services.Services
                         Status = ApiConstants.SuccessResult,
                         Data = new WebServiceResponse
                         {
-                            ActionName = confirmationReportParameters.ActionName,
-                            Format = confirmationReportParameters.Format,
+                            WebService = confirmationReportParameters.WebService,
                             Data = Convert.ToBase64String(ms.ToArray())
                         }
                     };

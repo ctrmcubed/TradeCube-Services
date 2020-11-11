@@ -34,15 +34,15 @@ namespace TradeCube_Services.Controllers
                 {
                     Url = Environment.GetEnvironmentVariable("ENEGEN_ATOM_URL"),
                     ApiJwtToken = apiJwtToken,
-                    ActionName = webServiceRequest.ActionName,
+                    WebService = webServiceRequest.WebService,
                     TradeReferences = webServiceRequest.Entities
                 };
 
-                var trade = await enegenAtomService.Trade(enegenAtomTradeParameters);
+                var apiResponseWrapper = await enegenAtomService.Trade(enegenAtomTradeParameters);
 
-                return trade.Status == ApiConstants.SuccessResult
-                    ? (IActionResult)Ok(trade)
-                    : BadRequest(trade);
+                return apiResponseWrapper.Status == ApiConstants.SuccessResult
+                    ? (IActionResult)Ok(apiResponseWrapper)
+                    : BadRequest(apiResponseWrapper);
             }
             catch (Exception e)
             {

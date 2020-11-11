@@ -33,6 +33,7 @@ namespace TradeCube_Services.Controllers
                 var confirmationReportParameters = new ConfirmationReportParameters
                 {
                     ApiJwtToken = apiJwtToken,
+                    WebService = webServiceRequest.WebService,
                     ActionName = webServiceRequest.ActionName,
                     Template = TemplateConstants.ConfirmationTemplate,
                     Format = webServiceRequest.Format,

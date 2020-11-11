@@ -55,17 +55,37 @@ namespace TradeCube_Services.Services.ThirdParty.Enegen
                         Status = response.IsSuccessful
                             ? ApiConstants.SuccessResult
                             : ApiConstants.FailedResult,
-                        Data = new WebServiceResponse()
+                        Message = "Success",
+                        Data = new WebServiceResponse
+                        {
+                            WebService = enegenAtomTradeParameters.WebService
+                        }
                     };
                 }
 
                 logger.LogError("Error calling Trade API", trades.Message);
-                return new ApiResponseWrapper<WebServiceResponse> { Status = ApiConstants.FailedResult, Message = trades.Message };
+                return new ApiResponseWrapper<WebServiceResponse>
+                {
+                    Status = ApiConstants.FailedResult,
+                    Message = trades.Message,
+                    Data = new WebServiceResponse
+                    {
+                        WebService = enegenAtomTradeParameters.WebService
+                    }
+                };
             }
             catch (Exception e)
             {
                 logger.LogError(e, e.Message);
-                return new ApiResponseWrapper<WebServiceResponse> { Status = ApiConstants.FailedResult, Message = e.Message };
+                return new ApiResponseWrapper<WebServiceResponse>
+                {
+                    Status = ApiConstants.FailedResult,
+                    Message = e.Message,
+                    Data = new WebServiceResponse
+                    {
+                        WebService = enegenAtomTradeParameters.WebService
+                    }
+                };
             }
         }
 
