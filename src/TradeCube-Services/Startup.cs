@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TradeCube_Services.Configuration;
 using TradeCube_Services.Services;
+using TradeCube_Services.Services.ThirdParty.ETRMServices;
 
 namespace TradeCube_Services
 {
@@ -48,12 +49,18 @@ namespace TradeCube_Services
             services.AddScoped<IConfirmationReportService, ConfirmationReportService>();
             services.AddScoped<ICountryLookupService, CountryLookupService>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IMappingService, MappingService>();
+            services.AddScoped<IM7TradeService, M7TradeService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IReportTemplateService, ReportTemplateService>();
             services.AddScoped<IReportRenderService, ReportRenderService>();
             services.AddScoped<ITradeService, TradeService>();
 
             services.AddHealthChecks();
+
+            services
+                .AddMvc()
+                .AddXmlSerializerFormatters();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

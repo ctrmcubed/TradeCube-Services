@@ -30,12 +30,16 @@ namespace TradeCube_Services.Services
                     new JProperty("TradeReference", new JObject(new JProperty("$in", new JArray(tradeRequest.TradeReferences))))
                 };
 
-                return await Post<ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
+                return await PostViaJwt<ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
             }
             catch (Exception e)
             {
                 logger.LogError(e, e.Message);
-                return new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Message = e.Message, Status = HttpStatusCode.BadRequest.ToString() };
+                return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
+                {
+                    Message = e.Message,
+                    Status = HttpStatusCode.BadRequest.ToString()
+                };
             }
         }
     }

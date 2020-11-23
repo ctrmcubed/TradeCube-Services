@@ -13,6 +13,7 @@ namespace TradeCube_Services.Configuration
             TradeCubeApiPort = Environment.GetEnvironmentVariable("TRADECUBE_API_PORT");
         }
 
-        public string WebApiUrl() => $"{TradeCubeApiDomain}{Port(TradeCubeApiPort)}/";
+        public string WebApiUrl() => 
+            $"{TradeCubeApiDomain}{Port(TradeCubeApiPort)}/";
     }
 }

@@ -24,12 +24,16 @@ namespace TradeCube_Services.Services
         {
             try
             {
-                return await Get<ApiResponseWrapper<IEnumerable<CountryDataObject>>>(apiJwtToken, "Country");
+                return await GetViaJwt<ApiResponseWrapper<IEnumerable<CountryDataObject>>>(apiJwtToken, "Country");
             }
             catch (Exception e)
             {
                 logger.LogError(e, e.Message);
-                return new ApiResponseWrapper<IEnumerable<CountryDataObject>> { Message = e.Message, Status = HttpStatusCode.BadRequest.ToString() };
+                return new ApiResponseWrapper<IEnumerable<CountryDataObject>>
+                {
+                    Message = e.Message,
+                    Status = HttpStatusCode.BadRequest.ToString()
+                };
             }
         }
     }

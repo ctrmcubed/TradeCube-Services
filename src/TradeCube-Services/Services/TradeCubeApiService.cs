@@ -19,18 +19,31 @@ namespace TradeCube_Services.Services
             this.logger = logger;
         }
 
-        protected async Task<TV> Get<TV>(string apiJwtToken, string action)
+        protected async Task<TV> GetViaJwt<TV>(string apiJwtToken, string action, string queryString = null) =>
+            await Get<TV>(CreateClientViaJwt(apiJwtToken), action);
+
+        protected async Task<TV> GetViaApiKey<TV>(string apiKey, string action, string queryString = null) =>
+            await Get<TV>(CreateClientViaApiKey(apiKey), action);
+
+        protected async Task<TV> PostViaJwt<TV>(string apiJwtToken, string action, JObject request) =>
+            await Post<TV>(CreateClientViaJwt(apiJwtToken), request, action);
+
+        protected async Task<TV> PostViaApiKey<TV>(string apiKey, string action, JObject request) =>
+            await Post<TV>(CreateClientViaApiKey(apiKey), request, action);
+
+        private async Task<TV> Get<TV>(HttpClient client, string action, string queryString = null)
         {
             try
             {
-                var client = CreateClient(apiJwtToken);
-                var response = await client.GetAsync(action);
+                var requestUri = string.IsNullOrEmpty(queryString)
+                    ? $"{action}"
+                    : $"{action}/{queryString}";
+
+                var response = await client.GetAsync(requestUri);
 
                 response.EnsureSuccessStatusCode();
 
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
-
-                logger.LogDebug(responseStream.ToString());
 
                 return await JsonSerializer.DeserializeAsync<TV>(responseStream);
             }
@@ -41,21 +54,15 @@ namespace TradeCube_Services.Services
             }
         }
 
-        protected async Task<TV> Post<TV>(string apiJwtToken, string action, JObject request)
+        private async Task<TV> Post<TV>(HttpClient client, JObject request, string action)
         {
             try
             {
-                var client = CreateClient(apiJwtToken);
-
-                logger.LogInformation($"POST: BaseAddress={client.BaseAddress}, Action={action}");
-
                 var response = await client.PostAsJsonAsync(action, request);
 
                 response.EnsureSuccessStatusCode();
 
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
-
-                logger.LogInformation(responseStream.ToString());
 
                 return await JsonSerializer.DeserializeAsync<TV>(responseStream);
             }

@@ -14,7 +14,7 @@ namespace TradeCube_Services.Controllers
     [ApiController]
     [Route("[controller]")]
     [Route("v{version:apiVersion}/[controller]")]
-    public class ConfirmationController : ControllerBase
+    public class ConfirmationController : Controller
     {
         private readonly IConfirmationReportService confirmationReportService;
         private readonly ILogger<ConfirmationController> logger;
