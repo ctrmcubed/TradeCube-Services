@@ -45,7 +45,7 @@ namespace TradeCube_Services.Controllers
                     RequestHeaders = Request.Headers.ToDictionary(k => k.Key, v => v)
                 };
 
-                var webhookResponse = await notificationService.Notify(webhookParameters);
+                var webhookResponse = await notificationService.NotifyAsync(webhookParameters);
 
                 return webhookResponse.Status == ApiConstants.SuccessResult
                     ? (IActionResult)Ok(webhookResponse)

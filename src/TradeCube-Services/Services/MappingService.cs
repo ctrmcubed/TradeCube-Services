@@ -20,11 +20,11 @@ namespace TradeCube_Services.Services
             this.logger = logger;
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<MappingDataObject>>> Mapping(string mappingKey, string mappingFrom, string apiKey)
+        public async Task<ApiResponseWrapper<IEnumerable<MappingDataObject>>> GetMappingAsync(string mappingKey, string mappingFrom, string apiKey)
         {
             try
             {
-                return await GetViaApiKey<ApiResponseWrapper<IEnumerable<MappingDataObject>>>(apiKey, $"Mapping/{mappingKey}/{mappingFrom}");
+                return await GetViaApiKeyAsync<ApiResponseWrapper<IEnumerable<MappingDataObject>>>(apiKey, $"Mapping/{mappingKey}/{mappingFrom}");
             }
             catch (Exception e)
             {
@@ -32,7 +32,8 @@ namespace TradeCube_Services.Services
                 return new ApiResponseWrapper<IEnumerable<MappingDataObject>>
                 {
                     Message = e.Message,
-                    Status = HttpStatusCode.BadRequest.ToString()
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    Data = new List<MappingDataObject>()
                 };
             }
         }

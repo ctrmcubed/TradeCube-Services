@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TradeCube_Services.Constants;
+using TradeCube_Services.DataObjects;
 using TradeCube_Services.Messages;
+using TradeCube_Services.Services;
 using TradeCube_Services.Services.ThirdParty.ETRMServices;
 
 namespace TradeCube_Services.Controllers
@@ -17,11 +20,13 @@ namespace TradeCube_Services.Controllers
     public class M7Controller : Controller
     {
         private readonly IM7TradeService m7TradeService;
+        private readonly ITradeService tradeService;
         private readonly ILogger<M7Controller> logger;
 
-        public M7Controller(IM7TradeService m7TradeService, ILogger<M7Controller> logger)
+        public M7Controller(IM7TradeService m7TradeService, ITradeService tradeService, ILogger<M7Controller> logger)
         {
             this.m7TradeService = m7TradeService;
+            this.tradeService = tradeService;
             this.logger = logger;
         }
 
@@ -30,36 +35,20 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                //var webhookParameters = new WebhookParameters
-                //{
-                //    ApiJwtToken = apiJwtToken,
-                //    Webhook = webhookRequest.Webhook,
-                //    Entity = webhookRequest.Entity,
-                //    EntityType = webhookRequest.EntityType,
-                //    SubscriberId = subscriberId,
-                //    Body = webhookRequest.Body,
-                //    RequestHeaders = Request.Headers.ToDictionary(k => k.Key, v => v)
-                //};
+                var tradeDataObject = await m7TradeService.ConvertTradeAsync(trade, apiKey);
+                var saveTrade = await tradeService.SaveTradesAsync(apiKey, new List<TradeDataObject> { tradeDataObject });
 
-                var tradeDataObject = await m7TradeService.ConvertTrade(trade, apiKey);
-
-                return Ok();
-
-                //return tradeDataObject.Status == ApiConstants.SuccessResult
-                //    ? (IActionResult)Ok(tradeDataObject)
-                //    : BadRequest(tradeDataObject);
+                return saveTrade.Status == ApiConstants.SuccessResult
+                    ? (IActionResult)Ok(tradeDataObject)
+                    : BadRequest(saveTrade.Message);
             }
             catch (Exception e)
             {
                 logger.LogError(e, e.Message);
-                return BadRequest(new ApiResponseWrapper<WebhookResponse>
+                return BadRequest(new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = e.Message,
-                    Status = ApiConstants.FailedResult,
-                    Data = new WebhookResponse
-                    {
-                        //Webhook = webhookRequest.Webhook
-                    }
+                    Status = ApiConstants.FailedResult
                 });
             }
         }

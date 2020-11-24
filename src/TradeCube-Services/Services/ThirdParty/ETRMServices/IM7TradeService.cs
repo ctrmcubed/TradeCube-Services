@@ -6,6 +6,6 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
 {
     public interface IM7TradeService
     {
-        Task<TradeDataObject> ConvertTrade(XElement m7Trade, string apiKey);
+        Task<TradeDataObject> ConvertTradeAsync(XElement m7Trade, string apiKey);
     }
 }

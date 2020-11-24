@@ -6,6 +6,6 @@ namespace TradeCube_Services.Services
 {
     public interface INotificationService
     {
-        Task<ApiResponseWrapper<WebhookResponse>> Notify(WebhookParameters webhookParameters);
+        Task<ApiResponseWrapper<WebhookResponse>> NotifyAsync(WebhookParameters webhookParameters);
     }
 }

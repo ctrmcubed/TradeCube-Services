@@ -21,7 +21,7 @@ namespace TradeCube_Services.Services
             this.logger = logger;
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> Trades(string apiJwtToken, TradeRequest tradeRequest)
+        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> GetTradesAsync(string apiJwtToken, TradeRequest tradeRequest)
         {
             try
             {
@@ -30,7 +30,25 @@ namespace TradeCube_Services.Services
                     new JProperty("TradeReference", new JObject(new JProperty("$in", new JArray(tradeRequest.TradeReferences))))
                 };
 
-                return await PostViaJwt<ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
+                return await PostViaJwtAsync<JObject, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
+                {
+                    Message = e.Message,
+                    Status = HttpStatusCode.BadRequest.ToString()
+                };
+            }
+        }
+
+        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> SaveTradesAsync(string apiKey, IEnumerable<TradeDataObject> trades)
+        {
+            try
+            {
+                return await PostViaApiKeyAsync<ApiRequest<IEnumerable<TradeDataObject>>,
+                    ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiKey, "Trade", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
             }
             catch (Exception e)
             {

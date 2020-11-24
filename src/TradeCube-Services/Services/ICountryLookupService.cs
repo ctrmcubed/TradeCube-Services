@@ -5,7 +5,7 @@ namespace TradeCube_Services.Services
 {
     public interface ICountryLookupService
     {
-        Task Load(string apiJwtToken);
+        Task LoadAsync(string apiJwtToken);
         CountryDataObject Lookup(string key);
     }
 }

@@ -6,6 +6,6 @@ namespace TradeCube_Services.Services
 {
     public interface IConfirmationReportService
     {
-        Task<ApiResponseWrapper<WebServiceResponse>> CreateReport(ConfirmationReportParameters confirmationReportParameters);
+        Task<ApiResponseWrapper<WebServiceResponse>> CreateReportAsync(ConfirmationReportParameters confirmationReportParameters);
     }
 }

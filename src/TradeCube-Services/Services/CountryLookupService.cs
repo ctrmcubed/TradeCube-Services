@@ -15,9 +15,9 @@ namespace TradeCube_Services.Services
             this.countryService = countryService;
         }
 
-        public async Task Load(string apiJwtToken)
+        public async Task LoadAsync(string apiJwtToken)
         {
-            var countries = await countryService.Countries(apiJwtToken);
+            var countries = await countryService.CountriesAsync(apiJwtToken);
             countryDictionary = countries.Data.ToDictionary(k => k.Country, v => v);
         }
 

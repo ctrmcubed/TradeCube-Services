@@ -39,7 +39,7 @@ namespace TradeCube_Services.Controllers
                     TradeReferences = webServiceRequest.Entities
                 };
 
-                var confirmationReport = await confirmationReportService.CreateReport(confirmationReportParameters);
+                var confirmationReport = await confirmationReportService.CreateReportAsync(confirmationReportParameters);
 
                 return confirmationReport.Status == ApiConstants.SuccessResult
                     ? (IActionResult)Ok(confirmationReport)

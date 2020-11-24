@@ -29,20 +29,20 @@ namespace TradeCube_Services.Services
             this.logger = logger;
         }
 
-        public async Task<ApiResponseWrapper<WebServiceResponse>> CreateReport(ConfirmationReportParameters confirmationReportParameters)
+        public async Task<ApiResponseWrapper<WebServiceResponse>> CreateReportAsync(ConfirmationReportParameters confirmationReportParameters)
         {
             try
             {
                 var apiJwtToken = confirmationReportParameters.ApiJwtToken;
                 var request = new TradeRequest { TradeReferences = confirmationReportParameters.TradeReferences };
-                var trades = await tradeService.Trades(apiJwtToken, request);
+                var trades = await tradeService.GetTradesAsync(apiJwtToken, request);
 
                 if (trades.Status == ApiConstants.SuccessResult)
                 {
                     var enrichedTrades = await EnrichTradesWithCountries(trades.Data, confirmationReportParameters);
-                    var template = await reportTemplateService.ReportTemplate(confirmationReportParameters.Template);
+                    var template = await reportTemplateService.ReportTemplateAsync(confirmationReportParameters.Template);
                     var tradeDataObjects = enrichedTrades.ToList();
-                    var report = await reportRenderService.Render(template?.Data?.Html,
+                    var report = await reportRenderService.RenderAsync(template?.Data?.Html,
                         confirmationReportParameters.Format, tradeDataObjects);
                     var ms = new MemoryStream();
 
@@ -72,7 +72,7 @@ namespace TradeCube_Services.Services
 
         async Task<IEnumerable<TradeDataObject>> EnrichTradesWithCountries(IEnumerable<TradeDataObject> trades, ReportParametersBase confirmationReportParametersBase)
         {
-            await countryLookupService.Load(confirmationReportParametersBase.ApiJwtToken);
+            await countryLookupService.LoadAsync(confirmationReportParametersBase.ApiJwtToken);
 
             return SetCountryLongName(trades);
         }

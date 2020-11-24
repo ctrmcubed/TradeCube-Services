@@ -13,6 +13,7 @@ namespace TradeCube_Services.DataObjects
         public decimal QuantityUnit { get; set; }
         public ContractDataObject Contract { get; set; }
         public ProductDataObject Product { get; set; }
+        public PartyDataObject Counterparty { get; set; }
         public PriceDataObject Price { get; set; }
         public QuantityDataObject Quantity { get; set; }
         public PartyDataObject Buyer { get; set; }

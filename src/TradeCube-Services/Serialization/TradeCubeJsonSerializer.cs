@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace TradeCube_Services.Serialization
 {
@@ -6,12 +8,12 @@ namespace TradeCube_Services.Serialization
     {
         public static string Serialize(object t)
         {
-            return JsonConvert.SerializeObject(t);
+            return JsonSerializer.Serialize(t);
         }
 
-        public static string Serialize(object t, JsonSerializerSettings settings)
+        public static async Task<TV> DeserializeAsync<TV>(Stream stream)
         {
-            return JsonConvert.SerializeObject(t, settings);
+            return await JsonSerializer.DeserializeAsync<TV>(stream);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 
 namespace TradeCube_Services.Helpers
 {
@@ -14,6 +15,16 @@ namespace TradeCube_Services.Helpers
         {
             var decodedBytes = Convert.FromBase64String(text);
             return System.Text.Encoding.UTF8.GetString(decodedBytes);
+        }
+
+        public static decimal SafeParse(string value)
+        {
+            if (decimal.TryParse(value, out var parsedValue))
+            {
+                return parsedValue;
+            }
+
+            throw new DataException($"Could not parse decimal '{value}'");
         }
     }
 }

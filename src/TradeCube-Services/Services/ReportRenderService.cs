@@ -20,7 +20,7 @@ namespace TradeCube_Services.Services
             this.logger = logger;
         }
 
-        public async Task<Report> Render<T>(string template, string format, T content)
+        public async Task<Report> RenderAsync<T>(string template, string format, T content)
         {
             try
             {

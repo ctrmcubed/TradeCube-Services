@@ -6,6 +6,6 @@ namespace TradeCube_Services.Services
 {
     public interface IReportTemplateService
     {
-        Task<ApiResponseWrapper<ReportTemplate>> ReportTemplate(string templateType);
+        Task<ApiResponseWrapper<ReportTemplate>> ReportTemplateAsync(string templateType);
     }
 }

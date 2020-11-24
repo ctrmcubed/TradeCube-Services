@@ -5,8 +5,8 @@ using TradeCube_Services.Messages;
 
 namespace TradeCube_Services.Services
 {
-    public interface ICountryService
+    public interface IPartyService
     {
-        Task<ApiResponseWrapper<IEnumerable<CountryDataObject>>> CountriesAsync(string apiJwtToken);
+        Task<ApiResponseWrapper<IEnumerable<PartyDataObject>>> GetPartyAsync(string party, string apiKey);
     }
 }

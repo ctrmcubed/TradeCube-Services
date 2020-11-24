@@ -1,11 +1,10 @@
 ﻿using AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using TradeCube_Services.Configuration;
+using TradeCube_Services.Serialization;
 
 namespace TradeCube_Services.Services
 {
@@ -19,19 +18,19 @@ namespace TradeCube_Services.Services
             this.logger = logger;
         }
 
-        protected async Task<TV> GetViaJwt<TV>(string apiJwtToken, string action, string queryString = null) =>
-            await Get<TV>(CreateClientViaJwt(apiJwtToken), action);
+        protected async Task<TV> GetViaJwtAsync<TV>(string apiJwtToken, string action, string queryString = null) =>
+            await GetAsync<TV>(CreateClientViaJwt(apiJwtToken), action);
 
-        protected async Task<TV> GetViaApiKey<TV>(string apiKey, string action, string queryString = null) =>
-            await Get<TV>(CreateClientViaApiKey(apiKey), action);
+        protected async Task<TV> GetViaApiKeyAsync<TV>(string apiKey, string action, string queryString = null) =>
+            await GetAsync<TV>(CreateClientViaApiKey(apiKey), action);
 
-        protected async Task<TV> PostViaJwt<TV>(string apiJwtToken, string action, JObject request) =>
-            await Post<TV>(CreateClientViaJwt(apiJwtToken), request, action);
+        protected async Task<TV> PostViaJwtAsync<T, TV>(string apiJwtToken, string action, T request) =>
+            await PostAsync<T, TV>(CreateClientViaJwt(apiJwtToken), action, request);
 
-        protected async Task<TV> PostViaApiKey<TV>(string apiKey, string action, JObject request) =>
-            await Post<TV>(CreateClientViaApiKey(apiKey), request, action);
+        protected async Task<TV> PostViaApiKeyAsync<T, TV>(string apiKey, string action, T request) =>
+            await PostAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
 
-        private async Task<TV> Get<TV>(HttpClient client, string action, string queryString = null)
+        private async Task<TV> GetAsync<TV>(HttpClient client, string action, string queryString = null)
         {
             try
             {
@@ -45,7 +44,7 @@ namespace TradeCube_Services.Services
 
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
 
-                return await JsonSerializer.DeserializeAsync<TV>(responseStream);
+                return await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
             }
             catch (Exception e)
             {
@@ -54,7 +53,7 @@ namespace TradeCube_Services.Services
             }
         }
 
-        private async Task<TV> Post<TV>(HttpClient client, JObject request, string action)
+        private async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T request)
         {
             try
             {
@@ -64,7 +63,7 @@ namespace TradeCube_Services.Services
 
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
 
-                return await JsonSerializer.DeserializeAsync<TV>(responseStream);
+                return await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
             }
             catch (Exception e)
             {

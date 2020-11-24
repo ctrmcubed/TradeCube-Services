@@ -7,6 +7,7 @@ namespace TradeCube_Services.Services
 {
     public interface ITradeService
     {
-        Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> Trades(string apiJwtToken, TradeRequest tradeRequest);
+        Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> GetTradesAsync(string apiJwtToken, TradeRequest tradeRequest);
+        Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> SaveTradesAsync(string apiKey, IEnumerable<TradeDataObject> trades);
     }
 }

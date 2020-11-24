@@ -21,7 +21,7 @@ namespace TradeCube_Services.Services
             this.logger = logger;
         }
 
-        public async Task<ApiResponseWrapper<WebhookResponse>> Notify(WebhookParameters webhookParameters)
+        public async Task<ApiResponseWrapper<WebhookResponse>> NotifyAsync(WebhookParameters webhookParameters)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace TradeCube_Services.Services
                 var request = new TradeRequest { TradeReferences = new List<string> { webhookParameters.Entity } };
 
                 // We don't specify a trade leg so we could get multiple trades back
-                var trades = await tradeService.Trades(apiJwtToken, request);
+                var trades = await tradeService.GetTradesAsync(apiJwtToken, request);
 
                 if (trades.Status == ApiConstants.SuccessResult)
                 {
@@ -96,7 +96,7 @@ namespace TradeCube_Services.Services
                     logger.LogInformation($"Notifying trades, subscriberId: {webhookParameters.SubscriberId}");
 
                     // Call dummy 'Notify()' service
-                    var allSuccess = trades.Data.Select(Notify);
+                    var allSuccess = trades.Data.Select(NotifyAsync);
                     var result = allSuccess.Any(s => false)
                         ? ApiConstants.FailedResult
                         : ApiConstants.SuccessResult;
@@ -114,7 +114,7 @@ namespace TradeCube_Services.Services
             }
         }
 
-        private bool Notify(TradeDataObject tradeDataObject)
+        private bool NotifyAsync(TradeDataObject tradeDataObject)
         {
             logger.LogInformation($"Notifying trade {tradeDataObject.TradeReference}...");
 

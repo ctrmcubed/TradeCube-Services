@@ -10,29 +10,29 @@ using TradeCube_Services.Messages;
 
 namespace TradeCube_Services.Services
 {
-    public class CountryService : TradeCubeApiService, ICountryService
+    public class PartyService : TradeCubeApiService, IPartyService
     {
         private readonly ILogger<TradeCubeApiService> logger;
 
-        public CountryService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
+        public PartyService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
             ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
             this.logger = logger;
         }
-
-        public async Task<ApiResponseWrapper<IEnumerable<CountryDataObject>>> CountriesAsync(string apiJwtToken)
+        public async Task<ApiResponseWrapper<IEnumerable<PartyDataObject>>> GetPartyAsync(string party, string apiKey)
         {
             try
             {
-                return await GetViaJwtAsync<ApiResponseWrapper<IEnumerable<CountryDataObject>>>(apiJwtToken, "Country");
+                return await GetViaApiKeyAsync<ApiResponseWrapper<IEnumerable<PartyDataObject>>>(apiKey, $"Party/{party}");
             }
             catch (Exception e)
             {
                 logger.LogError(e, e.Message);
-                return new ApiResponseWrapper<IEnumerable<CountryDataObject>>
+                return new ApiResponseWrapper<IEnumerable<PartyDataObject>>
                 {
                     Message = e.Message,
-                    Status = HttpStatusCode.BadRequest.ToString()
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    Data = new List<PartyDataObject>()
                 };
             }
         }

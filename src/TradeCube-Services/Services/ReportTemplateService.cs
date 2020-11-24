@@ -20,15 +20,15 @@ namespace TradeCube_Services.Services
             this.logger = logger;
         }
 
-        public async Task<ApiResponseWrapper<ReportTemplate>> ReportTemplate(string templateType)
+        public async Task<ApiResponseWrapper<ReportTemplate>> ReportTemplateAsync(string templateType)
         {
             var separatorChar = Path.DirectorySeparatorChar;
 
-            async Task<ApiResponseWrapper<ReportTemplate>> ReadFile(string fileName)
+            async Task<ApiResponseWrapper<ReportTemplate>> ReadTemplateAsync(string fileName)
             {
                 try
                 {
-                    var file = await this.ReadFile($"{hostEnvironment.ContentRootPath}{separatorChar}Templates{separatorChar}{fileName}");
+                    var file = await ReadFileAsync($"{hostEnvironment.ContentRootPath}{separatorChar}Templates{separatorChar}{fileName}");
 
                     return new ApiResponseWrapper<ReportTemplate>(ApiConstants.SuccessResult, new ReportTemplate { Html = file });
                 }
@@ -41,17 +41,16 @@ namespace TradeCube_Services.Services
 
             return templateType switch
             {
-                TemplateConstants.ConfirmationTemplate => await ReadFile(TemplateConstants.ConfirmationTemplateFile),
+                TemplateConstants.ConfirmationTemplate => await ReadTemplateAsync(TemplateConstants.ConfirmationTemplateFile),
                 _ => new ApiResponseWrapper<ReportTemplate> { Status = ApiConstants.FailedResult, Message = $"Unknown template type ({templateType})" }
             };
         }
 
-        private async Task<string> ReadFile(string filename)
+        private async Task<string> ReadFileAsync(string filename)
         {
             try
             {
                 using var sr = new StreamReader(filename);
-
                 return await sr.ReadToEndAsync();
             }
             catch (IOException e)

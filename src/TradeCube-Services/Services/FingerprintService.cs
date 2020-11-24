@@ -5,34 +5,34 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TradeCube_Services.Configuration;
-using TradeCube_Services.DataObjects;
 using TradeCube_Services.Messages;
 
 namespace TradeCube_Services.Services
 {
-    public class CountryService : TradeCubeApiService, ICountryService
+    public class FingerprintService : TradeCubeApiService, IFingerprintService
     {
         private readonly ILogger<TradeCubeApiService> logger;
 
-        public CountryService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
+        public FingerprintService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
             ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
             this.logger = logger;
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<CountryDataObject>>> CountriesAsync(string apiJwtToken)
+        public async Task<ApiResponseWrapper<IEnumerable<FingerprintResponse>>> FingerprintAsync(string apiKey, FingerprintRequest fingerprintRequest)
         {
             try
             {
-                return await GetViaJwtAsync<ApiResponseWrapper<IEnumerable<CountryDataObject>>>(apiJwtToken, "Country");
+                return await PostViaApiKeyAsync<FingerprintRequest, ApiResponseWrapper<IEnumerable<FingerprintResponse>>>(apiKey, "Fingerprint", fingerprintRequest);
             }
             catch (Exception e)
             {
                 logger.LogError(e, e.Message);
-                return new ApiResponseWrapper<IEnumerable<CountryDataObject>>
+                return new ApiResponseWrapper<IEnumerable<FingerprintResponse>>
                 {
                     Message = e.Message,
-                    Status = HttpStatusCode.BadRequest.ToString()
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    Data = new List<FingerprintResponse>()
                 };
             }
         }

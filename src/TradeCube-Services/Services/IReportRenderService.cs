@@ -5,6 +5,6 @@ namespace TradeCube_Services.Services
 {
     public interface IReportRenderService
     {
-        Task<Report> Render<T>(string template, string format, T content);
+        Task<Report> RenderAsync<T>(string template, string format, T content);
     }
 }

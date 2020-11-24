@@ -25,7 +25,6 @@ namespace TradeCube_Services
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddHttpClient();
             services.AddHttpClient<TradeCubeApiService>();
 
             services.AddApiVersioning(v =>
@@ -41,20 +40,24 @@ namespace TradeCube_Services
             });
 
             // Configuration
-            services.AddScoped<ITradeCubeConfiguration, TradeCubeConfiguration>();
-            services.AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
+            services
+                .AddScoped<ITradeCubeConfiguration, TradeCubeConfiguration>()
+                .AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
 
             // Services
-            services.AddScoped<ICalculateService, CalculateService>();
-            services.AddScoped<IConfirmationReportService, ConfirmationReportService>();
-            services.AddScoped<ICountryLookupService, CountryLookupService>();
-            services.AddScoped<ICountryService, CountryService>();
-            services.AddScoped<IMappingService, MappingService>();
-            services.AddScoped<IM7TradeService, M7TradeService>();
-            services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<IReportTemplateService, ReportTemplateService>();
-            services.AddScoped<IReportRenderService, ReportRenderService>();
-            services.AddScoped<ITradeService, TradeService>();
+            services
+                .AddScoped<ICalculateService, CalculateService>()
+                .AddScoped<IConfirmationReportService, ConfirmationReportService>()
+                .AddScoped<ICountryLookupService, CountryLookupService>()
+                .AddScoped<ICountryService, CountryService>()
+                .AddScoped<IFingerprintService, FingerprintService>()
+                .AddScoped<IMappingService, MappingService>()
+                .AddScoped<IM7TradeService, M7TradeService>()
+                .AddScoped<INotificationService, NotificationService>()
+                .AddScoped<IPartyService, PartyService>()
+                .AddScoped<IReportTemplateService, ReportTemplateService>()
+                .AddScoped<IReportRenderService, ReportRenderService>()
+                .AddScoped<ITradeService, TradeService>();
 
             services.AddHealthChecks();
 
