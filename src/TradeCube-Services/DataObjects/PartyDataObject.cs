@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TradeCube_Services.DataObjects
 {
@@ -12,17 +13,17 @@ namespace TradeCube_Services.DataObjects
 
         public bool Internal { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public EnergyIdentificationCodeDataObject EIC { get; set; }
+        [JsonPropertyName("EIC")]
+        public EnergyIdentificationCodeDataObject Eic { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public LegalEntityIdentifierDataObject LEI { get; set; }
+        [JsonPropertyName("LEI")]
+        public LegalEntityIdentifierDataObject Lei { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public BusinessIdentifierCodeDataObject BIC { get; set; }
+        [JsonPropertyName("BIC")]
+        public BusinessIdentifierCodeDataObject Bic { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public AcerRegistrationCodeDataObject ACERCode { get; set; }
+        [JsonPropertyName("ACERCode")]
+        public AcerRegistrationCodeDataObject AcerCode { get; set; }
 
         public ContactDataObject PrimaryBillingContact { get; set; }
 

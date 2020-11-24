@@ -1,4 +1,6 @@
-﻿namespace TradeCube_Services.DataObjects
+﻿using System.Text.Json.Serialization;
+
+namespace TradeCube_Services.DataObjects
 {
     public class ResourceDataObject
     {
@@ -13,7 +15,7 @@
         public string PrimaryFuel { get; set; }
         public string PrimaryOwner { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string EIC { get; set; }
+        [JsonPropertyName("EIC")]
+        public string Eic { get; set; }
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace TradeCube_Services.DataObjects
+﻿using System.Text.Json.Serialization;
+
+namespace TradeCube_Services.DataObjects
 {
     public class BusinessIdentifierCodeDataObject
     {
-        // ReSharper disable once InconsistentNaming
-        public string BIC { get; set; }
+        [JsonPropertyName("BIC")]
+        public string Bic { get; set; }
 
         public string Bank { get; set; }
         public string City { get; set; }

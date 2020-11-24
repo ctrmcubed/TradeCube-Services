@@ -1,32 +1,33 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace TradeCube_Services.DataObjects
 {
     public class LegalEntityIdentifierDataObject
     {
-        // ReSharper disable once InconsistentNaming
-        public string LEI { get; set; }
+        [JsonPropertyName("LEI")]
+        public string Lei { get; set; }
 
         public string LegalLongName { get; set; }
         public AddressType LegalAddress { get; set; }
         public AddressType HeadquartersAddress { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string RegistrationAuthorityID { get; set; }
+        [JsonPropertyName("RegistrationAuthorityID")]
+        public string RegistrationAuthorityId { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string OtherRegistrationAuthorityID { get; set; }
+        [JsonPropertyName("OtherRegistrationAuthorityID")]
+        public string OtherRegistrationAuthorityId { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string RegistrationAuthorityEntityID { get; set; }
+        [JsonPropertyName("RegistrationAuthorityEntityID")]
+        public string RegistrationAuthorityEntityId { get; set; }
 
         public string LegalJurisdiction { get; set; }
         public string EntityCategory { get; set; }
         public string EntityLegalFormCode { get; set; }
         public string OtherLegalForm { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string AssociatedLEI { get; set; }
+        [JsonPropertyName("AssociatedLEI")]
+        public string AssociatedLei { get; set; }
 
         public string AssociatedEntityName { get; set; }
         public string EntityStatus { get; set; }
@@ -35,8 +36,8 @@ namespace TradeCube_Services.DataObjects
 
         public string EntityExpirationReason { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string SuccessorLEI { get; set; }
+        [JsonPropertyName("SuccessorLEI")]
+        public string SuccessorLei { get; set; }
 
         public string SuccessorEntityName { get; set; }
         public DateTime InitialRegistrationDate { get; set; }
@@ -47,18 +48,18 @@ namespace TradeCube_Services.DataObjects
 
         public DateTime NextRenewalDate { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string ManagingLOU { get; set; }
+        [JsonPropertyName("ManagingLOU")]
+        public string ManagingLou { get; set; }
 
         public string ValidationSources { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string ValidationAuthorityID { get; set; }
+        [JsonPropertyName("ValidationAuthorityID")]
+        public string ValidationAuthorityId { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string OtherValidationAuthorityID { get; set; }
+        [JsonPropertyName("OtherValidationAuthorityID")]
+        public string OtherValidationAuthorityId { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string ValidationAuthorityEntityID { get; set; }
+        [JsonPropertyName("ValidationAuthorityEntityID")]
+        public string ValidationAuthorityEntityId { get; set; }
     }
 }

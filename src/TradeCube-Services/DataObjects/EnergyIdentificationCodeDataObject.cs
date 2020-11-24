@@ -1,26 +1,28 @@
-﻿namespace TradeCube_Services.DataObjects
+﻿using System.Text.Json.Serialization;
+
+namespace TradeCube_Services.DataObjects
 {
     public class EnergyIdentificationCodeDataObject
     {
-        // ReSharper disable once InconsistentNaming
-        public string EIC { get; set; }
+        [JsonPropertyName("EIC")]
+        public string Eic { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string EICLongName { get; set; }
+        [JsonPropertyName("EICLongName")]
+        public string EicLongName { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string EICType { get; set; }
+        [JsonPropertyName("EICType")]
+        public string EicType { get; set; }
 
         public string DisplayName { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string VATCode { get; set; }
+        [JsonPropertyName("VATCode")]
+        public string VatCode { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string EICParent { get; set; }
+        [JsonPropertyName("EICParent")]
+        public string EicParent { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string EICResponsible { get; set; }
+        [JsonPropertyName("EICResponsible")]
+        public string EicResponsible { get; set; }
 
         public string PostalCode { get; set; }
         public string Country { get; set; }

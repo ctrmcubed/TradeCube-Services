@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using TradeCube_Services.Messages;
 
 namespace TradeCube_Services.DataObjects
@@ -43,37 +44,19 @@ namespace TradeCube_Services.DataObjects
 
         public List<string> FormulaProducts { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string UPI { get; set; }
+        [JsonPropertyName("UPI")]
+        public string Upi { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string ISIN { get; set; }
+        [JsonPropertyName("ISIN")]
+        public string Isin { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string CFI { get; set; }
+        [JsonPropertyName("CFI")]
+        public string Cfi { get; set; }
 
         public string Image { get; set; }
 
         public string Fingerprint { get; set; }
 
         public string PriceFormula { get; set; }
-    }
-
-    public class ProductPhysical
-    {
-        public DeliveryAreaDataObject DeliveryArea { get; set; }
-
-        public InterconnectorDataObject Interconnector { get; set; }
-
-        public ResourceDataObject Resource { get; set; }
-    }
-
-    public class InterconnectorDataObject
-    {
-        public string Interconnector { get; set; }
-        public string InterconnectorLongName { get; set; }
-
-        // ReSharper disable once InconsistentNaming
-        public string EIC { get; set; }
     }
 }

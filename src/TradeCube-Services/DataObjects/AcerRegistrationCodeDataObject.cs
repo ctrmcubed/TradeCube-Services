@@ -1,23 +1,25 @@
-﻿namespace TradeCube_Services.DataObjects
+﻿using System.Text.Json.Serialization;
+
+namespace TradeCube_Services.DataObjects
 {
     public class AcerRegistrationCodeDataObject
     {
-        // ReSharper disable once InconsistentNaming
-        public string ACERCode { get; set; }
+        [JsonPropertyName("ACERCode")]
+        public string AcerCode { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string ACERLongName { get; set; }
+        [JsonPropertyName("ACERLongName")]
+        public string AcerLongName { get; set; }
 
         public AddressType Address { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string EIC { get; set; }
+        [JsonPropertyName("EIC")]
+        public string Eic { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string BIC { get; set; }
+        [JsonPropertyName("BIC")]
+        public string Bic { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string LEI { get; set; }
+        [JsonPropertyName("LEI")]
+        public string Lei { get; set; }
 
         public string Website { get; set; }
         public string TransparencyWebsite { get; set; }

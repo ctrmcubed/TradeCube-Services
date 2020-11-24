@@ -1,4 +1,6 @@
-﻿namespace TradeCube_Services.DataObjects
+﻿using System.Text.Json.Serialization;
+
+namespace TradeCube_Services.DataObjects
 {
     public class DeliveryAreaDataObject
     {
@@ -6,7 +8,7 @@
         public string DeliveryAreaLongName { get; set; }
         public string Country { get; set; }
 
-        // ReSharper disable once InconsistentNaming
-        public string EIC { get; set; }
+        [JsonPropertyName("EIC")]
+        public string Eic { get; set; }
     }
 }
