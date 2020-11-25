@@ -1,9 +1,12 @@
 ﻿using AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TradeCube_Services.Configuration;
+using TradeCube_Services.Messages;
 using TradeCube_Services.Serialization;
 
 namespace TradeCube_Services.Services
@@ -18,17 +21,53 @@ namespace TradeCube_Services.Services
             this.logger = logger;
         }
 
-        protected async Task<TV> GetViaJwtAsync<TV>(string apiJwtToken, string action, string queryString = null) =>
-            await GetAsync<TV>(CreateClientViaJwt(apiJwtToken), action);
+        protected async Task<ApiResponseWrapper<IEnumerable<T>>> GetViaApiKeyAsync<T>(string action, string apiKey)
+        {
+            try
+            {
+                return await TradeCubeViaApiKeyAsync<ApiResponseWrapper<IEnumerable<T>>>(apiKey, action);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return new ApiResponseWrapper<IEnumerable<T>>
+                {
+                    Message = e.Message,
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    Data = new List<T>()
+                };
+            }
+        }
 
-        protected async Task<TV> GetViaApiKeyAsync<TV>(string apiKey, string action, string queryString = null) =>
-            await GetAsync<TV>(CreateClientViaApiKey(apiKey), action);
+        protected async Task<ApiResponseWrapper<IEnumerable<T>>> GetViaJwtAsync<T>(string action, string apiJwtToken)
+        {
+            try
+            {
+                return await TradeCubeGetViaJwtAsync<ApiResponseWrapper<IEnumerable<T>>>(apiJwtToken, action);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return new ApiResponseWrapper<IEnumerable<T>>
+                {
+                    Message = e.Message,
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    Data = new List<T>()
+                };
+            }
+        }
 
-        protected async Task<TV> PostViaJwtAsync<T, TV>(string apiJwtToken, string action, T request) =>
+        protected async Task<TV> TradeCubePostViaJwtAsync<T, TV>(string apiJwtToken, string action, T request) =>
             await PostAsync<T, TV>(CreateClientViaJwt(apiJwtToken), action, request);
 
-        protected async Task<TV> PostViaApiKeyAsync<T, TV>(string apiKey, string action, T request) =>
+        protected async Task<TV> TradeCubePostViaApiKeyAsync<T, TV>(string apiKey, string action, T request) =>
             await PostAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
+
+        private async Task<TV> TradeCubeGetViaJwtAsync<TV>(string apiJwtToken, string action, string queryString = null) =>
+            await GetAsync<TV>(CreateClientViaJwt(apiJwtToken), action);
+
+        private async Task<TV> TradeCubeViaApiKeyAsync<TV>(string apiKey, string action, string queryString = null) =>
+            await GetAsync<TV>(CreateClientViaApiKey(apiKey), action);
 
         private async Task<TV> GetAsync<TV>(HttpClient client, string action, string queryString = null)
         {

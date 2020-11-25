@@ -15,68 +15,33 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
         private readonly IMappingService mappingService;
         private readonly IFingerprintService fingerprintService;
         private readonly IPartyService partyService;
+        private readonly IContactService contactService;
+        private readonly IVenueService venueService;
+        private readonly ISettingService settingService;
+        private readonly ITradingBookService tradingBookService;
         private readonly ILogger<M7TradeService> logger;
 
-        public M7TradeService(IMappingService mappingService, IFingerprintService fingerprintService, IPartyService partyService, ILogger<M7TradeService> logger)
+        public M7TradeService(IMappingService mappingService, ISettingService settingService, ITradingBookService tradingBookService, IFingerprintService fingerprintService,
+            IPartyService partyService, IContactService contactService, IVenueService venueService, ILogger<M7TradeService> logger)
         {
             this.mappingService = mappingService;
             this.fingerprintService = fingerprintService;
             this.partyService = partyService;
+            this.contactService = contactService;
+            this.venueService = venueService;
+            this.settingService = settingService;
+            this.tradingBookService = tradingBookService;
             this.logger = logger;
         }
 
         public async Task<TradeDataObject> ConvertTradeAsync(OwnTrade m7Trade, string apiKey)
         {
-            async Task<MappingDataObject> MapDeliveryAreaToCommodityAsync(string deliveryAreaId)
-            {
-                var apiResponseWrapper = await mappingService.GetMappingAsync("M7_Commodity", deliveryAreaId, apiKey);
-                return apiResponseWrapper.Data.Any()
-                    ? apiResponseWrapper.Data.FirstOrDefault()
-                    : throw new DataException($"Could not map Delivery Area '{deliveryAreaId}' to Commodity");
-            }
-
-            async Task<MappingDataObject> MapExchangeIdToPartyAsync(string exchangeId)
-            {
-                var apiResponseWrapper = await mappingService.GetMappingAsync("M7_Party", exchangeId, apiKey);
-                return apiResponseWrapper.Data.Any()
-                    ? apiResponseWrapper.Data.FirstOrDefault()
-                    : throw new DataException($"Could not map Exchange Id '{exchangeId}' to Party");
-            }
-
-            async Task<FingerprintResponse> MapCommodityToProductAsync(string commodity, DateTime start, DateTime end)
-            {
-                var fingerprintRequest = new FingerprintRequest
-                {
-                    Commodity = commodity,
-                    ProfileDefinition = new List<ProfileDefinitionType>
-                    {
-                        new ProfileDefinitionType
-                        {
-                            UtcStartDateTime = start,
-                            UtcEndDateTime = end
-                        }
-                    }
-                };
-
-                var apiResponseWrapper = await fingerprintService.FingerprintAsync(apiKey, fingerprintRequest);
-                return apiResponseWrapper.Data.Any()
-                    ? apiResponseWrapper.Data.FirstOrDefault()
-                    : throw new DataException($"Could not map Commodity '{commodity}' to Product");
-            }
-
-            async Task<PartyDataObject> MapCounterpartyToPartyAsync(string party)
-            {
-                var apiResponseWrapper = await partyService.GetPartyAsync(party, apiKey);
-                return apiResponseWrapper.Data.Any()
-                    ? apiResponseWrapper.Data.FirstOrDefault()
-                    : throw new DataException($"Could not map Counterparty '{party}' to Party");
-            }
-
             try
             {
-                var tradeId = m7Trade.tradeId;
                 var tradeDateTime = m7Trade.execTimeUTC;
-                var contractId = m7Trade.contractId;
+                var tradeId = m7Trade.tradeId;
+                var accountId = m7Trade.acctId;
+                var userCode = m7Trade.usrCode;
                 var quantity = m7Trade.qty;
                 var price = m7Trade.px;
                 var side = m7Trade.side;
@@ -84,37 +49,87 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 var deliveryStart = m7Trade.Contract.dlvryStartUTC;
                 var deliveryEnd = m7Trade.Contract.dlvryEndUTC;
                 var exchangeId = m7Trade.Product.exchangeId;
+                var aggressorIndicator = m7Trade.aggressorIndicator?.ToUpper();
 
-                // Mappings
+                var allMappings =
+                    (await mappingService.GetMappingsAsync(apiKey)).Data.ToDictionary(k => k.MappingKey, v => v);
+
+                var allSettings =
+                    (await settingService.GetSettingsAsync(apiKey)).Data.ToDictionary(k => k.SettingName, v => v);
+
                 var tradeStatus = "Live";
                 var quantityType = "Fixed";
                 var priceType = "Fixed";
                 var buySell = MapSideToBuySell(side);
+                var commodityTask = MapDeliveryAreaToCommodityAsync(deliveryAreaId, apiKey);
 
-                var commodityTask = MapDeliveryAreaToCommodityAsync(deliveryAreaId);
-                var counterpartyTask = MapExchangeIdToPartyAsync(exchangeId);
+                var commodityMapping = await commodityTask;
 
-                var commodity = await commodityTask;
+                var fingerprintTask = MapCommodityToProductAsync(commodityMapping?.MappingTo, deliveryStart, deliveryEnd, apiKey);
+                var internalPartyTask = partyService.MapInternalPartyAsync(accountId, allMappings, allSettings, apiKey);
+                var counterpartyTask = partyService.MapCounterpartyAsync(exchangeId, allMappings, allSettings, apiKey);
+
+                var fingerprint = await fingerprintTask;
+                var internalParty = await internalPartyTask;
                 var counterparty = await counterpartyTask;
 
-                var fingerprintTask = MapCommodityToProductAsync(commodity?.MappingTo, deliveryStart, deliveryEnd);
-                var partyTask = MapCounterpartyToPartyAsync(counterparty?.MappingTo);
+                var tradingBook = await tradingBookService.MapTradingBookAsync(deliveryAreaId, allMappings, allSettings, apiKey);
+                var internalTrader = await contactService.MapInternalTraderAsync(userCode, allMappings, allSettings, apiKey);
+                var venue = await venueService.MapVenueAsync(exchangeId, allMappings, allSettings, apiKey);
 
-                var tradingBook = commodity?.MappingTo;
-                var fingerprint = await fingerprintTask;
-                var party = await partyTask;
+                if (internalParty == null)
+                {
+                    throw new DataException("Could not map InternalParty");
+                }
+
+                if (counterparty == null)
+                {
+                    throw new DataException("Could not map Counterparty");
+                }
+
+                if (tradingBook == null)
+                {
+                    throw new DataException("Could not map TradingBook");
+                }
+
+                if (internalTrader == null)
+                {
+                    throw new DataException("Could not map InternalTrader");
+                }
+
+                if (venue == null)
+                {
+                    throw new DataException("Could not map Venue");
+                }
 
                 var trade = new TradeDataObject
                 {
-                    TradeReference = tradeId.ToString(),
-                    TradeLeg = 1,
+                    //TradeReference = "ANDYB1",
+                    //TradeLeg = 1,
                     TradeDateTime = tradeDateTime,
                     TradeStatus = tradeStatus,
                     BuySell = buySell,
-                    TradingBook = new TradingBookDataObject { TradingBook = tradingBook },
                     Product = fingerprint?.ProductDataObject,
-                    Contract = new ContractDataObject { ContractReference = contractId.ToString() },
-                    Counterparty = party,
+                    TradingBook = tradingBook,
+                    InternalParty = internalParty,
+                    InternalTrader = internalTrader,
+                    Counterparty = counterparty,
+                    CounterpartyReference = tradeId.ToString(),
+                    Buyer = buySell == "Buy"
+                        ? internalParty
+                        : counterparty,
+                    Seller = buySell == "Sell"
+                        ? internalParty
+                        : counterparty,
+                    Exchange = counterparty,
+                    ExchangeReference = tradeId.ToString(),
+                    Initiator = aggressorIndicator == "Y"
+                        ? counterparty
+                        : internalParty,
+                    Aggressor = aggressorIndicator == "Y"
+                        ? internalParty
+                        : counterparty,
+                    Venue = venue,
                     Quantity = new QuantityDataObject
                     {
                         Quantity = quantity,
@@ -136,6 +151,35 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 logger.LogError(ex, $"Error creating trade from M7 ({ex.Message})");
                 throw;
             }
+        }
+
+        private async Task<MappingDataObject> MapDeliveryAreaToCommodityAsync(string deliveryAreaId, string apiKey)
+        {
+            var apiResponseWrapper = await mappingService.GetMappingAsync("M7_Commodity", deliveryAreaId, apiKey);
+            return apiResponseWrapper.Data.Any()
+                ? apiResponseWrapper.Data.FirstOrDefault()
+                : throw new DataException($"Could not map Delivery Area '{deliveryAreaId}' to M7_Commodity");
+        }
+
+        private async Task<FingerprintResponse> MapCommodityToProductAsync(string commodity, DateTime start, DateTime end, string apiKey)
+        {
+            var fingerprintRequest = new FingerprintRequest
+            {
+                Commodity = commodity,
+                ProfileDefinition = new List<ProfileDefinitionType>
+                {
+                    new ProfileDefinitionType
+                    {
+                        UtcStartDateTime = start,
+                        UtcEndDateTime = end
+                    }
+                }
+            };
+
+            var apiResponseWrapper = await fingerprintService.FingerprintAsync(apiKey, fingerprintRequest);
+            return apiResponseWrapper.Data.Any()
+                ? apiResponseWrapper.Data.FirstOrDefault()
+                : throw new DataException($"Could not map Commodity '{commodity}' to Product");
         }
 
         private static string MapSideToBuySell(string side)

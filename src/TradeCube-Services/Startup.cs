@@ -48,6 +48,7 @@ namespace TradeCube_Services
             services
                 .AddScoped<ICalculateService, CalculateService>()
                 .AddScoped<IConfirmationReportService, ConfirmationReportService>()
+                .AddScoped<IContactService, ContactService>()
                 .AddScoped<ICountryLookupService, CountryLookupService>()
                 .AddScoped<ICountryService, CountryService>()
                 .AddScoped<IFingerprintService, FingerprintService>()
@@ -57,7 +58,10 @@ namespace TradeCube_Services
                 .AddScoped<IPartyService, PartyService>()
                 .AddScoped<IReportTemplateService, ReportTemplateService>()
                 .AddScoped<IReportRenderService, ReportRenderService>()
-                .AddScoped<ITradeService, TradeService>();
+                .AddScoped<ISettingService, SettingService>()
+                .AddScoped<ITradeService, TradeService>()
+                .AddScoped<ITradingBookService, TradingBookService>()
+                .AddScoped<IVenueService, VenueService>();
 
             services.AddHealthChecks();
 

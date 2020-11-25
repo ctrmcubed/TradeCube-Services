@@ -30,7 +30,7 @@ namespace TradeCube_Services.Services
                     new JProperty("TradeReference", new JObject(new JProperty("$in", new JArray(tradeRequest.TradeReferences))))
                 };
 
-                return await PostViaJwtAsync<JObject, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
+                return await TradeCubePostViaJwtAsync<JObject, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
             }
             catch (Exception e)
             {
@@ -47,7 +47,7 @@ namespace TradeCube_Services.Services
         {
             try
             {
-                return await PostViaApiKeyAsync<ApiRequest<IEnumerable<TradeDataObject>>,
+                return await TradeCubePostViaApiKeyAsync<ApiRequest<IEnumerable<TradeDataObject>>,
                     ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiKey, "Trade", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
             }
             catch (Exception e)
