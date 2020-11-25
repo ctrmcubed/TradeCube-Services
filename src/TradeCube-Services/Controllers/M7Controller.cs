@@ -3,10 +3,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using TradeCube_Services.Constants;
 using TradeCube_Services.DataObjects;
 using TradeCube_Services.Messages;
+using TradeCube_Services.Models.ThirdParty.ETRMServices;
 using TradeCube_Services.Services;
 using TradeCube_Services.Services.ThirdParty.ETRMServices;
 
@@ -30,8 +30,8 @@ namespace TradeCube_Services.Controllers
             this.logger = logger;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Trade([FromHeader] string apiKey, [FromBody] XElement trade)
+        [HttpPost("Trade")]
+        public async Task<IActionResult> Trade([FromHeader] string apiKey, [FromBody] OwnTrade trade)
         {
             try
             {
@@ -54,3 +54,4 @@ namespace TradeCube_Services.Controllers
         }
     }
 }
+

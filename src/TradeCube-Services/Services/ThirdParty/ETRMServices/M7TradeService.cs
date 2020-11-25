@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using TradeCube_Services.DataObjects;
-using TradeCube_Services.Extensions;
-using TradeCube_Services.Helpers;
 using TradeCube_Services.Messages;
+using TradeCube_Services.Models.ThirdParty.ETRMServices;
 
 namespace TradeCube_Services.Services.ThirdParty.ETRMServices
 {
@@ -27,7 +25,7 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
             this.logger = logger;
         }
 
-        public async Task<TradeDataObject> ConvertTradeAsync(XElement m7Trade, string apiKey)
+        public async Task<TradeDataObject> ConvertTradeAsync(OwnTrade m7Trade, string apiKey)
         {
             async Task<MappingDataObject> MapDeliveryAreaToCommodityAsync(string deliveryAreaId)
             {
@@ -76,23 +74,16 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
 
             try
             {
-                var tradeId = m7Trade?.Attribute("tradeId")?.Value;
-                var contractId = m7Trade?.Attribute("contractId")?.Value;
-                var execTimeUtc = m7Trade?.Attribute("execTimeUTC")?.Value;
-                var side = m7Trade?.Attribute("side")?.Value;
-                var deliveryAreaId = m7Trade?.Attribute("dlvryAreaId")?.Value;
-                var qty = m7Trade?.Attribute("qty")?.Value;
-                var px = m7Trade?.Attribute("px")?.Value;
-                var deliveryStartUtc = m7Trade?.Element("Contract")?.Attribute("dlvryStartUTC")?.Value;
-                var deliveryEndUTc = m7Trade?.Element("Contract")?.Attribute("dlvryEndUTC")?.Value;
-                var exchangeId = m7Trade?.Element("Product")?.Attribute("exchangeId")?.Value;
-
-                // Type conversion
-                var tradeDateTime = execTimeUtc.FromIso8601DateTime();
-                var deliveryStart = deliveryStartUtc.FromIso8601DateTime();
-                var deliveryEnd = deliveryEndUTc.FromIso8601DateTime();
-                var quantity = StringHelper.SafeParse(qty);
-                var price = StringHelper.SafeParse(px);
+                var tradeId = m7Trade.tradeId;
+                var tradeDateTime = m7Trade.execTimeUTC;
+                var contractId = m7Trade.contractId;
+                var quantity = m7Trade.qty;
+                var price = m7Trade.px;
+                var side = m7Trade.side;
+                var deliveryAreaId = m7Trade.dlvryAreaId;
+                var deliveryStart = m7Trade.Contract.dlvryStartUTC;
+                var deliveryEnd = m7Trade.Contract.dlvryEndUTC;
+                var exchangeId = m7Trade.Product.exchangeId;
 
                 // Mappings
                 var tradeStatus = "Live";
@@ -115,14 +106,14 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
 
                 var trade = new TradeDataObject
                 {
-                    TradeReference = tradeId,
+                    TradeReference = tradeId.ToString(),
                     TradeLeg = 1,
                     TradeDateTime = tradeDateTime,
                     TradeStatus = tradeStatus,
                     BuySell = buySell,
                     TradingBook = new TradingBookDataObject { TradingBook = tradingBook },
                     Product = fingerprint?.ProductDataObject,
-                    Contract = new ContractDataObject { ContractReference = contractId },
+                    Contract = new ContractDataObject { ContractReference = contractId.ToString() },
                     Counterparty = party,
                     Quantity = new QuantityDataObject
                     {
@@ -134,7 +125,7 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                     {
                         Price = price,
                         PriceType = priceType,
-                        PriceUnit = fingerprint?.ProductDataObject.PriceUnit
+                        PriceUnit = fingerprint?.ProductDataObject?.PriceUnit
                     }
                 };
 
