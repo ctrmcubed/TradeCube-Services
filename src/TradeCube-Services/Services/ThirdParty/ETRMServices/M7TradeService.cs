@@ -104,8 +104,6 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
 
                 var trade = new TradeDataObject
                 {
-                    //TradeReference = "ANDYB1",
-                    //TradeLeg = 1,
                     TradeDateTime = tradeDateTime,
                     TradeStatus = tradeStatus,
                     BuySell = buySell,
