@@ -61,10 +61,8 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 var quantityType = "Fixed";
                 var priceType = "Fixed";
                 var buySell = MapSideToBuySell(side);
-                var commodityTask = MapDeliveryAreaToCommodityAsync(deliveryAreaId, apiKey);
 
-                var commodityMapping = await commodityTask;
-
+                var commodityMapping = MapDeliveryAreaToCommodityAsync(deliveryAreaId, allMappings);
                 var fingerprintTask = MapCommodityToProductAsync(commodityMapping?.MappingTo, deliveryStart, deliveryEnd, apiKey);
                 var internalPartyTask = partyService.MapInternalPartyAsync(accountId, allMappings, allSettings, apiKey);
                 var counterpartyTask = partyService.MapCounterpartyAsync(exchangeId, allMappings, allSettings, apiKey);
@@ -151,14 +149,6 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
             }
         }
 
-        private async Task<MappingDataObject> MapDeliveryAreaToCommodityAsync(string deliveryAreaId, string apiKey)
-        {
-            var apiResponseWrapper = await mappingService.GetMappingAsync("M7_Commodity", deliveryAreaId, apiKey);
-            return apiResponseWrapper.Data.Any()
-                ? apiResponseWrapper.Data.FirstOrDefault()
-                : throw new DataException($"Could not map Delivery Area '{deliveryAreaId}' to M7_Commodity");
-        }
-
         private async Task<FingerprintResponse> MapCommodityToProductAsync(string commodity, DateTime start, DateTime end, string apiKey)
         {
             var fingerprintRequest = new FingerprintRequest
@@ -178,6 +168,13 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
             return apiResponseWrapper.Data.Any()
                 ? apiResponseWrapper.Data.FirstOrDefault()
                 : throw new DataException($"Could not map Commodity '{commodity}' to Product");
+        }
+
+        private static MappingDataObject MapDeliveryAreaToCommodityAsync(string deliveryAreaId, IReadOnlyDictionary<string, MappingDataObject> allMappings)
+        {
+            return allMappings.ContainsKey("M7_Commodity")
+                ? allMappings["M7_Commodity"]
+                : throw new DataException($"Could not map Delivery Area '{deliveryAreaId}' to M7_Commodity");
         }
 
         private static string MapSideToBuySell(string side)
