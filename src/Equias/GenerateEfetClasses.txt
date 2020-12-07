@@ -1,0 +1,12 @@
+xsd EFET-CoreCmpts-V4R0.xsd EFET-ACK-V4R0.xsd /classes /namespace:Equias.Models.Ack
+xsd EFET-CoreCmpts-V4R0.xsd EFET-BCN-V4R0.xsd /classes /namespace:Equias.Models.Bcn
+xsd EFET-CoreCmpts-V4R0.xsd EFET-BFI-V4R0.xsd /classes /namespace:Equias.Models.Bfi
+xsd EFET-CoreCmpts-V4R0.xsd EFET-BMN-V4R0.xsd /classes /namespace:Equias.Models.Bmn
+xsd EFET-CoreCmpts-V4R0.xsd EFET-CAN-V4R0.xsd /classes /namespace:Equias.Models.Can
+xsd EFET-CoreCmpts-V4R0.xsd EFET-CNF-V4R0.xsd /classes /namespace:Equias.Models.Cnf
+xsd EFET-CoreCmpts-V4R0.xsd EFET-MSA-V4R0.xsd /classes /namespace:Equias.Models.Msa
+xsd EFET-CoreCmpts-V4R0.xsd EFET-MSR-V4R0.xsd /classes /namespace:Equias.Models.Msr
+xsd EFET-CoreCmpts-V4R0.xsd EFET-MSU-V4R0.xsd /classes /namespace:Equias.Models.Msu
+xsd EFET-CoreCmpts-V4R0.xsd EFET-REJ-V4R0.xsd /classes /namespace:Equias.Models.Rej
+xsd EFET-CoreCmpts-V4R0.xsd EFET-TUR-V4R0.xsd /classes /namespace:Equias.Models.Tur
+
