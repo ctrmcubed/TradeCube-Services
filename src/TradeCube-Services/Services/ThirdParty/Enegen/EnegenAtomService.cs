@@ -152,6 +152,11 @@ namespace TradeCube_Services.Services.ThirdParty.Enegen
 
         private static IEnumerable<EnegenScheduleDate> CreateScheduleDates(IEnumerable<TradeProfileResponse> tradeProfileResponses, IEnumerable<TradeDataObject> trades)
         {
+            static int Version(TradeDataObject tradeDataObject)
+            {
+                return tradeDataObject?.Version?.VersionNumber ?? 1;
+            }
+
             static IEnumerable<EnegenScheduleTrade> TradesOnDate(IEnumerable<TradeProfile> data, ILookup<(string TradeReference, int TradeLeg), TradeDataObject> lookup)
             {
                 var byTrade = data
@@ -166,7 +171,7 @@ namespace TradeCube_Services.Services.ThirdParty.Enegen
                 return byTrade.Select(t => new EnegenScheduleTrade
                 {
                     TradeId = HashHelper.HashStringToInteger($"{t.Key.TradeReference}{t.Key.TradeLeg}"),
-                    Version = 1,
+                    Version = Version(t.Trade),
                     Product = t.Trade?.Product?.Product,
                     Counterparty = t.Trade?.Counterparty?.Party,
                     Trader = t.Trade?.InternalTrader?.ContactLongName,

@@ -15,5 +15,6 @@ namespace TradeCube_Services.DataObjects
         public PartyDataObject Seller { get; set; }
         public PartyDataObject Counterparty { get; set; }
         public ContactDataObject InternalTrader { get; set; }
+        public VersionFieldsType Version { get; set; }
     }
 }
