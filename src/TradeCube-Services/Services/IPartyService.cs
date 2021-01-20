@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Shared.DataObjects;
+using Shared.Messages;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using TradeCube_Services.DataObjects;
-using TradeCube_Services.Messages;
 
 namespace TradeCube_Services.Services
 {

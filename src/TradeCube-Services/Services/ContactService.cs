@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
+using Shared.Configuration;
+using Shared.DataObjects;
+using Shared.Messages;
+using Shared.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using TradeCube_Services.Configuration;
-using TradeCube_Services.DataObjects;
-using TradeCube_Services.Messages;
 
 namespace TradeCube_Services.Services
 {

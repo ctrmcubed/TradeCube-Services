@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Shared.Constants;
+using Shared.Messages;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using TradeCube_Services.Constants;
-using TradeCube_Services.Messages;
 using TradeCube_Services.Parameters;
 using TradeCube_Services.Services;
 

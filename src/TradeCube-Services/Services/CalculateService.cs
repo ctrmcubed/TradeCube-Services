@@ -1,7 +1,7 @@
-﻿using TradeCube_Services.Formula;
+﻿using Shared.Messages;
+using Shared.Serialization;
+using TradeCube_Services.Formula;
 using TradeCube_Services.Helpers;
-using TradeCube_Services.Messages;
-using TradeCube_Services.Serialization;
 
 namespace TradeCube_Services.Services
 {

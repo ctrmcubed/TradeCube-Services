@@ -1,10 +1,10 @@
 ﻿using jsreport.Client;
 using jsreport.Types;
 using Microsoft.Extensions.Logging;
+using Shared.Configuration;
+using Shared.Constants;
 using System;
 using System.Threading.Tasks;
-using TradeCube_Services.Configuration;
-using TradeCube_Services.Constants;
 using TradeCube_Services.Exceptions;
 
 namespace TradeCube_Services.Services

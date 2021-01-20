@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using TradeCube_Services.Messages;
+﻿using Shared.Messages;
+using System.Threading.Tasks;
 using TradeCube_Services.Models;
 
 namespace TradeCube_Services.Services

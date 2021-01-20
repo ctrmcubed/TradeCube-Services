@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Shared.Constants;
+using Shared.DataObjects;
+using Shared.Messages;
+using Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TradeCube_Services.Constants;
-using TradeCube_Services.DataObjects;
-using TradeCube_Services.Messages;
 using TradeCube_Services.Models.ThirdParty.ETRMServices;
-using TradeCube_Services.Services;
 using TradeCube_Services.Services.ThirdParty.ETRMServices;
 
 namespace TradeCube_Services.Controllers

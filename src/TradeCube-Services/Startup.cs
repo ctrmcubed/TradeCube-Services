@@ -5,7 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using TradeCube_Services.Configuration;
+using Shared.Configuration;
+using Shared.Services;
 using TradeCube_Services.Services;
 using TradeCube_Services.Services.ThirdParty.ETRMServices;
 
@@ -41,6 +42,7 @@ namespace TradeCube_Services
 
             // Configuration
             services
+                .AddScoped<IEquiasConfiguration, EquiasConfiguration>()
                 .AddScoped<ITradeCubeConfiguration, TradeCubeConfiguration>()
                 .AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
 

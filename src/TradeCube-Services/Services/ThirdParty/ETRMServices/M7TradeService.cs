@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
+using Shared.DataObjects;
+using Shared.Messages;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using TradeCube_Services.DataObjects;
-using TradeCube_Services.Messages;
 using TradeCube_Services.Models.ThirdParty.ETRMServices;
 
 namespace TradeCube_Services.Services.ThirdParty.ETRMServices

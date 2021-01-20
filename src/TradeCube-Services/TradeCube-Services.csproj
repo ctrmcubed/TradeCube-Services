@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Templates\confirmations.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

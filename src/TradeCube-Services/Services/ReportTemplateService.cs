@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Shared.Constants;
+using Shared.Messages;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using TradeCube_Services.Constants;
-using TradeCube_Services.Messages;
 using TradeCube_Services.Models;
 
 namespace TradeCube_Services.Services

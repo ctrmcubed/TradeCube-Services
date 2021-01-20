@@ -1,8 +1,8 @@
 ﻿using Jint;
 using Jint.Native.Json;
 using NLog;
+using Shared.Serialization;
 using System;
-using TradeCube_Services.Serialization;
 
 namespace TradeCube_Services.Formula
 {

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TradeCube_Services.DataObjects;
+using Shared.DataObjects;
 
 namespace TradeCube_Services.Services
 {

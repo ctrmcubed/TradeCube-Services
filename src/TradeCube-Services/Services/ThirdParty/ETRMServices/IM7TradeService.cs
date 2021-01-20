@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TradeCube_Services.DataObjects;
+using Shared.DataObjects;
 using TradeCube_Services.Models.ThirdParty.ETRMServices;
 
 namespace TradeCube_Services.Services.ThirdParty.ETRMServices

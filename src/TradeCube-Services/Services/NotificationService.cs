@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
+using Shared.Constants;
+using Shared.DataObjects;
+using Shared.Messages;
+using Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TradeCube_Services.Constants;
-using TradeCube_Services.DataObjects;
-using TradeCube_Services.Messages;
 using TradeCube_Services.Parameters;
 
 namespace TradeCube_Services.Services
