@@ -15,12 +15,36 @@ namespace Shared.Services
     {
         private readonly ILogger<TradeCubeApiService> logger;
 
-        public TradeService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+        public TradeService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration, ILogger<TradeCubeApiService> logger) :
+            base(httpClientFactory, tradeCubeConfiguration, logger)
         {
             this.logger = logger;
         }
 
+        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> GetTradeAsync(string apiJwtToken, string tradeReference, int tradeLeg)
+        {
+            try
+            {
+                var trade = await GetViaJwtAsync<TradeDataObject>(apiJwtToken, "Trade", $"{tradeReference}?TradeLeg={tradeLeg}");
+
+                return trade == null
+                    ? new ApiResponseWrapper<IEnumerable<TradeDataObject>>
+                    {
+                        Message = "Trade not found",
+                        Status = HttpStatusCode.BadRequest.ToString()
+                    }
+                    : new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Data = trade.Data };
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
+                {
+                    Message = e.Message,
+                    Status = HttpStatusCode.BadRequest.ToString()
+                };
+            }
+        }
         public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> GetTradesAsync(string apiJwtToken, TradeRequest tradeRequest)
         {
             try

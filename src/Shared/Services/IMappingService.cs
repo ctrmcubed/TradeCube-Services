@@ -3,7 +3,7 @@ using Shared.Messages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TradeCube_Services.Services
+namespace Shared.Services
 {
     public interface IMappingService
     {

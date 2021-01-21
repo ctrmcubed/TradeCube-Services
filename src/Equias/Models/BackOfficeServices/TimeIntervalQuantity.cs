@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Equias.Models.BackOfficeServices
+﻿namespace Equias.Models.BackOfficeServices
 {
     public class TimeIntervalQuantity
     {
-        public DateTime DeliveryStartTimestamp { get; set; }
-        public DateTime DeliveryEndTimestamp { get; set; }
+        public string DeliveryStartTimestamp { get; set; }
+        public string DeliveryEndTimestamp { get; set; }
         public decimal Price { get; set; }
         public decimal ContractCapacity { get; set; }
     }

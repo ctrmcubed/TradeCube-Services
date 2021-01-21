@@ -62,6 +62,7 @@ namespace TradeCube_Services
                 .AddScoped<IReportRenderService, ReportRenderService>()
                 .AddScoped<ISettingService, SettingService>()
                 .AddScoped<ITradeService, TradeService>()
+                .AddScoped<ITradeSummaryService, TradeSummaryService>()
                 .AddScoped<ITradingBookService, TradingBookService>()
                 .AddScoped<IVenueService, VenueService>();
 

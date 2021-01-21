@@ -6,6 +6,6 @@ namespace Equias.Managers
     public interface IEquiasManager
     {
         Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest);
-        Task<AddPhysicalTradeResponse> AddPhysicalTrade(RequestTokenResponse requestTokenResponse);
+        Task<AddPhysicalTradeResponse> AddPhysicalTrade(string tradeReference, int tradeLeg, RequestTokenResponse requestTokenResponse, string apiJwtToken);
     }
 }

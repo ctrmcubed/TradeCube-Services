@@ -23,16 +23,16 @@ namespace Equias.Models.BackOfficeServices
         [JsonPropertyName("BeneficiaryID")]
         public string BeneficiaryId { get; set; }
 
-        public bool Intragroup { get; set; }
+        public bool? Intragroup { get; set; }
         public string LoadType { get; set; }
         public string MasterAgreementVersion { get; set; }
         public string Agreement { get; set; }
-        public decimal TotalVolume { get; set; }
+        public decimal? TotalVolume { get; set; }
         public string TotalVolumeUnit { get; set; }
         public string TradeExecutionTimestamp { get; set; }
         public string CapacityUnit { get; set; }
         public PriceUnit PriceUnit { get; set; }
-        public decimal TotalContractValue { get; set; }
+        public decimal? TotalContractValue { get; set; }
         public string SettlementCurrency { get; set; }
         public IEnumerable<string> SettlementDates { get; set; }
         public IEnumerable<string> LinkedTransactionIdentifiers { get; set; }
@@ -41,7 +41,7 @@ namespace Equias.Models.BackOfficeServices
         [JsonPropertyName("EUATradeDetails")] 
         public EuaTradeDetails EuaTradeDetails { get; set; }
 
-        public string TradeName { get; set; }
+        public string TraderName { get; set; }
         public HubCodificationInformation HubCodificationInformation { get; set; }
         public OptionDetails OptionDetails { get; set; }
         public IEnumerable<Agent> Agents { get; set; }

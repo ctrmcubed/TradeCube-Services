@@ -2,12 +2,11 @@
 using Shared.Configuration;
 using Shared.DataObjects;
 using Shared.Messages;
-using Shared.Services;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace TradeCube_Services.Services
+namespace Shared.Services
 {
     public class MappingService : TradeCubeApiService, IMappingService
     {

@@ -5,9 +5,11 @@ namespace Shared.Extensions
 {
     public static class DateTimeExtensions
     {
-        public static DateTime FromIso8601DateTime(this string iso)
+        public static string ToIso8601DateTime(this DateTime dt, bool ms = true)
         {
-            return DateTime.Parse(iso, null, DateTimeStyles.RoundtripKind);
+            return ms
+                ? dt.ToString("yyyy-MM-dd'T'HH:mm:ssK", CultureInfo.InvariantCulture)
+                : dt.ToString("yyyy-MM-dd'T'HH:mm:ss", CultureInfo.InvariantCulture);
         }
     }
 }

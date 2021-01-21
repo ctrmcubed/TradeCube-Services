@@ -11,5 +11,6 @@ namespace Shared.DataObjects
         public List<string> AdditionalInternalParties { get; set; }
         public List<string> AdditionalCounterparties { get; set; }
         public List<string> AdditionalCommodities { get; set; }
+        public AgreementTypeDataObject AgreementType { get; set; }
     }
 }

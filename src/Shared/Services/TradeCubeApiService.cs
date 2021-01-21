@@ -24,11 +24,11 @@ namespace Shared.Services
             this.logger = logger;
         }
 
-        protected async Task<ApiResponseWrapper<IEnumerable<T>>> GetViaApiKeyAsync<T>(string action, string apiKey)
+        protected async Task<ApiResponseWrapper<IEnumerable<T>>> GetViaApiKeyAsync<T>(string action, string apiKey, string queryString = null)
         {
             try
             {
-                return await TradeCubeViaApiKeyAsync<ApiResponseWrapper<IEnumerable<T>>>(apiKey, action);
+                return await TradeCubeViaApiKeyAsync<ApiResponseWrapper<IEnumerable<T>>>(apiKey, action, queryString);
             }
             catch (Exception e)
             {
@@ -42,11 +42,11 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<ApiResponseWrapper<IEnumerable<T>>> GetViaJwtAsync<T>(string action, string apiJwtToken)
+        protected async Task<ApiResponseWrapper<IEnumerable<T>>> GetViaJwtAsync<T>(string action, string apiJwtToken, string queryString = null)
         {
             try
             {
-                return await TradeCubeGetViaJwtAsync<ApiResponseWrapper<IEnumerable<T>>>(apiJwtToken, action);
+                return await TradeCubeGetViaJwtAsync<ApiResponseWrapper<IEnumerable<T>>>(apiJwtToken, action, queryString);
             }
             catch (Exception e)
             {
@@ -67,10 +67,10 @@ namespace Shared.Services
             await PostAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
 
         private async Task<TV> TradeCubeGetViaJwtAsync<TV>(string apiJwtToken, string action, string queryString = null) =>
-            await GetAsync<TV>(CreateClientViaJwt(apiJwtToken), action);
+            await GetAsync<TV>(CreateClientViaJwt(apiJwtToken), action, queryString);
 
         private async Task<TV> TradeCubeViaApiKeyAsync<TV>(string apiKey, string action, string queryString = null) =>
-            await GetAsync<TV>(CreateClientViaApiKey(apiKey), action);
+            await GetAsync<TV>(CreateClientViaApiKey(apiKey), action, queryString);
 
         private async Task<TV> GetAsync<TV>(HttpClient client, string action, string queryString = null)
         {

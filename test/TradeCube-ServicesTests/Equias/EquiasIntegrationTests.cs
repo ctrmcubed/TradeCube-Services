@@ -19,16 +19,13 @@ namespace TradeCube_ServicesTests.Equias
         [Fact]
         public async Task TestGetAuthenticationToken()
         {
-            var authenticationToken = await RequestTokenResponse();
-
-            Assert.False(string.IsNullOrEmpty(authenticationToken.Token));
+            Assert.False(string.IsNullOrEmpty((await RequestTokenResponse()).Token));
         }
 
         [Fact]
         public async Task TestAddPhysicalTrade()
         {
-            var authenticationToken = await RequestTokenResponse();
-            var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade(authenticationToken);
+            var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade("PR000001", 1, await RequestTokenResponse(), "apiJwtToken");
 
             Assert.Equal("", addPhysicalTradeResponse.TradeId);
             Assert.Equal(1, addPhysicalTradeResponse.TradeVersion);

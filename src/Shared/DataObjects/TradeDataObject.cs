@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Shared.DataObjects
@@ -14,11 +15,11 @@ namespace Shared.DataObjects
         public ProductDataObject Product { get; set; }
         public PartyDataObject InternalParty { get; set; }
         public ContactDataObject InternalTrader { get; set; }
-        public decimal QuantityUnit { get; set; }
         public PartyDataObject Counterparty { get; set; }
         public ContractDataObject Contract { get; set; }
         public string CounterpartyReference { get; set; }
         public PriceDataObject Price { get; set; }
+        public IEnumerable<CashflowType> Cashflow { get; set; }
         public QuantityDataObject Quantity { get; set; }
         public PartyDataObject Buyer { get; set; }
         public PartyDataObject Seller { get; set; }
@@ -26,6 +27,7 @@ namespace Shared.DataObjects
         public string ExchangeReference { get; set; }
         public PartyDataObject Initiator { get; set; }
         public PartyDataObject Aggressor { get; set; }
+        public PartyDataObject Beneficiary { get; set; }
         public VenueDataObject Venue { get; set; }
 
         [JsonPropertyName("UTI")]
