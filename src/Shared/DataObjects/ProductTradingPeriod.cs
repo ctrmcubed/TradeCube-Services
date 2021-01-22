@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Shared.DataObjects
 {
     public class ProductTradingPeriod
     {
-        [JsonProperty("UTCStartDateTime")]
+        [JsonPropertyName("UTCStartDateTime")]
         public DateTime? UtcStartDateTime { get; set; }
 
-        [JsonProperty("UTCEndDateTime")]
+        [JsonPropertyName("UTCEndDateTime")]
         public DateTime? UtcEndDateTime { get; set; }
     }
 }

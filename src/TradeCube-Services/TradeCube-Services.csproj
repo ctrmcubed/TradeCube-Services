@@ -24,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Properties\launchSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Templates\confirmations.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

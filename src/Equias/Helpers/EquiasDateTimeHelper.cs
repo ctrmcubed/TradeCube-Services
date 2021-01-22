@@ -11,8 +11,12 @@ namespace Equias.Helpers
             var offset = dateTimeZone.GetUtcOffset(Instant.FromDateTimeUtc(dt));
             var timeSpan = offset.ToTimeSpan();
             var formattedDateTime = dt.ToString("yyyy-MM-dd'T'HH:mm:ss", CultureInfo.InvariantCulture);
+            var sign = Math.Sign(timeSpan.Hours);
+            var signSymbol = sign >= 0 
+                ? "+" 
+                : "-";
 
-            return $"{formattedDateTime}{Math.Sign(timeSpan.Hours)}{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}";
+            return $"{formattedDateTime}{signSymbol}{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}";
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Shared.DataObjects
 {
@@ -8,10 +8,10 @@ namespace Shared.DataObjects
         public string LocalStartDateTime { get; set; }
         public string LocalEndDateTime { get; set; }
 
-        [JsonProperty("UTCStartDateTime")]
+        [JsonPropertyName("UTCStartDateTime")]
         public DateTime? UtcStartDateTime { get; set; }
 
-        [JsonProperty("UTCEndDateTime")]
+        [JsonPropertyName("UTCEndDateTime")]
         public DateTime? UtcEndDateTime { get; set; }
 
         public decimal? Value { get; set; }

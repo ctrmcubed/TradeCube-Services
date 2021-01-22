@@ -13,28 +13,31 @@ namespace Equias.Services
     {
         private readonly IHttpClientFactory httpClientFactory;
         private readonly IEquiasConfiguration equiasConfiguration;
+        private readonly ILogger<ApiService> logger;
 
         public EquiasService(IHttpClientFactory httpClientFactory, IEquiasConfiguration equiasConfiguration, ILogger<ApiService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
             this.equiasConfiguration = equiasConfiguration;
+            this.logger = logger;
         }
 
         public async Task<AddPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
         {
-            var httpClient = CreateHttpClient(requestTokenResponse?.Token);
+            try
+            {
+                var httpClient = httpClientFactory.CreateClient();
 
-            return await PostAsync<PhysicalTrade, AddPhysicalTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade);
-        }
+                httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
+                httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-        private HttpClient CreateHttpClient(string token)
-        {
-            var httpClient = httpClientFactory.CreateClient();
-
-            httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
-            httpClient.DefaultRequestHeaders.Add("token", token);
-
-            return httpClient;
+                return await PostAsync<PhysicalTrade, AddPhysicalTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                throw;
+            }
         }
     }
 }

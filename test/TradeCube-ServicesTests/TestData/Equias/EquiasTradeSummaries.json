@@ -1,0 +1,12 @@
+[
+  {
+    "TradeReference": "ET000040",
+    "TradeLeg": 1,
+    "TotalVolume": -3800.0,
+    "TotalValue": -121.8128,
+    "WeightedAveragePrice": 3.2056,
+    "TotalVolumeUnit": "Therm (UK)",
+    "TotalValueCurrency": "GBP",
+    "WeightedAveragePriceUnit": "p/Therm"
+  }
+]

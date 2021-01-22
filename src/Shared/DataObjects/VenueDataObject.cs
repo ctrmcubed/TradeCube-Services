@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Shared.DataObjects
 {
@@ -15,7 +15,7 @@ namespace Shared.DataObjects
         public string Image { get; set; }
         public List<string> Commodities { get; set; }
 
-        [JsonProperty("MIC")]
+        [JsonPropertyName("MIC")]
         public string Mic { get; set; }
     }
 }

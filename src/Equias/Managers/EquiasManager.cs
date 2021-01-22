@@ -1,4 +1,5 @@
 ﻿using Equias.Messages;
+using Equias.Models.BackOfficeServices;
 using Equias.Services;
 using Shared.Managers;
 using Shared.Services;
@@ -17,8 +18,8 @@ namespace Equias.Managers
         private readonly ICashflowService cashflowService;
         private readonly IProfileService profileService;
 
-        public EquiasManager(IEquiasAuthenticationService equiasAuthenticationService, IEquiasService equiasService, ITradeService tradeService, IEquiasMappingService equiasMappingService,
-            ITradeSummaryService tradeSummaryService, ICashflowService cashflowService, IProfileService profileService)
+        public EquiasManager(IEquiasAuthenticationService equiasAuthenticationService, IEquiasService equiasService, ITradeService tradeService, ITradeSummaryService tradeSummaryService,
+            ICashflowService cashflowService, IProfileService profileService, IEquiasMappingService equiasMappingService)
         {
             this.equiasAuthenticationService = equiasAuthenticationService;
             this.equiasService = equiasService;
@@ -34,16 +35,20 @@ namespace Equias.Managers
             return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest);
         }
 
-        public async Task<AddPhysicalTradeResponse> AddPhysicalTrade(string tradeReference, int tradeLeg, RequestTokenResponse requestTokenResponse, string apiJwtToken)
+        public async Task<PhysicalTrade> CreatePhysicalTrade(string tradeReference, int tradeLeg, string apiJwtToken)
         {
-            var tradeDataObject = (await tradeService.GetTradeAsync(apiJwtToken, tradeReference, tradeLeg)).Data?.First();
+            var tradeDataObject = (await tradeService.GetTradeAsync(apiJwtToken, tradeReference, tradeLeg)).Data?.SingleOrDefault();
             var mappingManager = new MappingManager(await equiasMappingService.GetMappingsAsync(apiJwtToken));
             var mappingService = equiasMappingService.SetMappingManager(mappingManager);
             var tradeSummary = (await tradeSummaryService.TradeSummaryAsync(tradeReference, tradeLeg, apiJwtToken))?.Data?.First();
             var cashflow = (await cashflowService.CashflowAsync(tradeReference, tradeLeg, apiJwtToken))?.Data;
             var profileResponses = (await profileService.ProfileAsync(tradeReference, tradeLeg, apiJwtToken, "sparse"))?.Data;
-            var physicalTrade = mappingService.MapTrade(tradeDataObject, tradeSummary, cashflow, profileResponses);
 
+            return await mappingService.MapTrade(tradeDataObject, tradeSummary, cashflow, profileResponses);
+        }
+
+        public async Task<AddPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
+        {
             return await equiasService.AddPhysicalTrade(physicalTrade, requestTokenResponse);
         }
     }

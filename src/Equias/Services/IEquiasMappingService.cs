@@ -11,7 +11,8 @@ namespace Equias.Services
     {
         EquiasMappingService SetMappingManager(MappingManager mapping);
         Task<IEnumerable<MappingDataObject>> GetMappingsAsync(string apiJwtToken);
-        PhysicalTrade MapTrade(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse, IEnumerable<CashflowType> cashflowTypes, IEnumerable<ProfileResponse> profileResponses);
+        Task<PhysicalTrade> MapTrade(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse,
+            IEnumerable<CashflowType> cashflowTypes, IEnumerable<ProfileResponse> profileResponses);
 
     }
 }

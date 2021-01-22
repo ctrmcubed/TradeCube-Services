@@ -6,8 +6,9 @@ using Shared.Configuration;
 using Shared.DataObjects;
 using Shared.Messages;
 using Shared.Services;
-using System;
 using System.Collections.Generic;
+using System.Linq;
+using TradeCube_ServicesTests.Helpers;
 using TradeCube_ServicesTests.Shared;
 
 namespace TradeCube_ServicesTests.Equias
@@ -17,16 +18,38 @@ namespace TradeCube_ServicesTests.Equias
         public EquiasAuthenticationService EquiasAuthenticationService { get; }
         public IEquiasService EquiasService { get; }
         public IEquiasManager EquiasManager { get; }
+        public IEnumerable<TradeDataObject> EquiasTrades { get; }
+        public IEnumerable<MappingDataObject> EquiasMappings { get; }
+        public IEnumerable<TradeSummaryResponse> EquiasTradeSummaries { get; }
+        public IEnumerable<CashflowType> EquiasCashflows { get; }
+        public IEnumerable<ProfileResponse> EquiasProfiles { get; }
+        public IEnumerable<PartyDataObject> EquiasParties { get; }
+
 
         public EquiasTestFixture()
         {
+            Configuration.SetEnvironmentVariables();
+
             var defaultHttpClientFactory = new DefaultHttpClientFactory();
+
+            EquiasTrades = FileHelper.ReadJsonFile<IList<TradeDataObject>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasTrades.json"));
+            EquiasMappings = FileHelper.ReadJsonFile<IList<MappingDataObject>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasMappings.json"));
+            EquiasTradeSummaries = FileHelper.ReadJsonFile<IList<TradeSummaryResponse>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasTradeSummaries.json"));
+            EquiasCashflows = FileHelper.ReadJsonFile<IList<CashflowType>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasCashflows.json"));
+            EquiasProfiles = FileHelper.ReadJsonFile<IList<ProfileResponse>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasProfiles.json"));
+            EquiasParties = FileHelper.ReadJsonFile<IList<PartyDataObject>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasParties.json"));
 
             EquiasAuthenticationService = new EquiasAuthenticationService(defaultHttpClientFactory, new EquiasConfiguration(), new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
             EquiasService = new EquiasService(defaultHttpClientFactory, new EquiasConfiguration(), new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
 
-            EquiasManager = new EquiasManager(EquiasAuthenticationService, EquiasService, CreateTradeService(Trades()),
-                new EquiasMappingService(CreateMappingService(Mappings())), CreateTradeSummaryService(), CreateCashflowService(), CreateProfileService());
+            EquiasManager = new EquiasManager(
+                EquiasAuthenticationService,
+                EquiasService,
+                CreateTradeService(EquiasTrades),
+                CreateTradeSummaryService(EquiasTradeSummaries),
+                CreateCashflowService(EquiasCashflows),
+                CreateProfileService(EquiasProfiles),
+                new EquiasMappingService(CreateMappingService(EquiasMappings), CreatePartyService(EquiasParties)));
         }
 
         private static ITradeService CreateTradeService(IEnumerable<TradeDataObject> trades)
@@ -35,8 +58,8 @@ namespace TradeCube_ServicesTests.Equias
 
             service
                 .Setup(c => c.GetTradeAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
-                .ReturnsAsync((string _, string _, int _) =>
-                    new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Data = trades });
+                .ReturnsAsync((string _, string tradeReference, int tradeLeg) =>
+                    new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Data = trades.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
 
             return service.Object;
         }
@@ -53,144 +76,52 @@ namespace TradeCube_ServicesTests.Equias
             return service.Object;
         }
 
-        private static ITradeSummaryService CreateTradeSummaryService()
+        private static ITradeSummaryService CreateTradeSummaryService(IEnumerable<TradeSummaryResponse> tradeSummaryResponses)
         {
             var service = new Mock<ITradeSummaryService>();
 
             service
                 .Setup(c => c.TradeSummaryAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
                 .ReturnsAsync((string _, int _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<TradeSummaryResponse>>
-                    {
-                        Data = new List<TradeSummaryResponse> { new TradeSummaryResponse { TotalVolume = 5000 } }
-                    });
+                    new ApiResponseWrapper<IEnumerable<TradeSummaryResponse>> { Data = tradeSummaryResponses });
 
             return service.Object;
         }
 
-        private static ICashflowService CreateCashflowService()
+        private static ICashflowService CreateCashflowService(IEnumerable<CashflowType> cashflows)
         {
             var service = new Mock<ICashflowService>();
 
             service
                 .Setup(c => c.CashflowAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
                 .ReturnsAsync((string _, int _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<CashflowType>>
-                    {
-                        Data = new List<CashflowType>
-                        {
-                            new CashflowType {SettlementDate = new DateTime(2021, 1, 21, 15, 0, 0)},
-                            new CashflowType {SettlementDate = new DateTime(2021, 2, 21, 15, 0, 0)}
-                        }
-                    });
+                    new ApiResponseWrapper<IEnumerable<CashflowType>> { Data = cashflows });
 
             return service.Object;
         }
 
-        private static IProfileService CreateProfileService()
+        private static IProfileService CreateProfileService(IEnumerable<ProfileResponse> profiles)
         {
             var service = new Mock<IProfileService>();
 
             service
                 .Setup(c => c.ProfileAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync((string _, int _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<ProfileResponse>>
-                    {
-                        Data = new List<ProfileResponse>
-                        {
-                            new ProfileResponse{} ,
-                            new ProfileResponse {}
-                        }
-                    });
+                .ReturnsAsync((string _, int _, string _, string _) =>
+                    new ApiResponseWrapper<IEnumerable<ProfileResponse>> { Data = profiles });
 
             return service.Object;
         }
 
-        private static IEnumerable<TradeDataObject> Trades()
+        private static IPartyService CreatePartyService(IEnumerable<PartyDataObject> parties)
         {
-            return new List<TradeDataObject>
-            {
-                new()
-                {
-                    TradeReference = "ET000040",
-                    TradeLeg = 1,
-                    TradeDateTime = new DateTime(2020, 05, 12, 10, 07, 23, 538),
-                    TradeStatus = "Test",
-                    Contract = new ContractDataObject
-                    {
-                        AgreementType = new AgreementTypeDataObject
-                        {
-                            AgreementType = "Other"
-                        }
-                    },
-                    Product = new ProductDataObject
-                    {
-                        Commodity = new CommodityDataObject
-                        {
-                            Commodity = "UK Gas",
-                            Country = "GB",
-                            DeliveryArea = new DeliveryAreaDataObject
-                            {
-                                Eic = "55Y11NG-NBP--11D"
-                            }
-                        },
-                        ContractType = "Forward",
-                        ShapeDescription = "Baseload"
-                    },
-                    Buyer = new PartyDataObject
-                    {
-                        Eic = new EnergyIdentificationCodeDataObject
-                        {
-                            Eic = "Dummy"
-                        }
-                    },
-                    Seller = new PartyDataObject
-                    {
-                        Eic = new EnergyIdentificationCodeDataObject
-                        {
-                            Eic = "Dummy"
-                        }
-                    },
-                    Quantity = new QuantityDataObject
-                    {
-                        QuantityUnit = new QuantityUnitDataObject
-                        {
-                            QuantityUnit = "Therms/day (UK)",
-                            EnergyUnit = new EnergyUnitDataObject
-                            {
-                                EnergyUnit = "Therm (UK)"
-                            }
-                        }
-                    },
-                    Price = new PriceDataObject
-                    {
-                        PriceUnit = new PriceUnitDataObject
-                        {
-                            Currency = "GBP",
-                            CurrencyExponent = 2,
-                            PerEnergyUnit = new EnergyUnitDataObject
-                            {
-                                EnergyUnit = "Therm (UK)"
-                            }
-                        }
-                    },
-                    InternalTrader = new ContactDataObject
-                    {
-                        Contact = "DEMO_JVT27722_BRJI"
-                    }
-                }
-            };
-        }
+            var service = new Mock<IPartyService>();
 
-        private static IEnumerable<MappingDataObject> Mappings()
-        {
-            return new List<MappingDataObject>
-            {
-                new()
-                {
+            service
+                .Setup(c => c.GetPartyAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync((string party, string _) =>
+                    new ApiResponseWrapper<IEnumerable<PartyDataObject>> { Data = parties.Where(p => p.Party == party) });
 
-                }
-            };
+            return service.Object;
         }
     }
 }

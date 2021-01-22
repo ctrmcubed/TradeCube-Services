@@ -16,7 +16,7 @@ namespace Shared.Services
 
         public async Task<ApiResponseWrapper<IEnumerable<ProfileResponse>>> ProfileAsync(string tradeReference, int tradeLeg, string apiJwtToken, string format)
         {
-            return await GetViaJwtAsync<ProfileResponse>("Profile", apiJwtToken, $"{tradeReference}?TradeLeg={tradeLeg}&ProfileFormat={format}");
+            return await GetViaJwtAsync<ProfileResponse>("Profile", apiJwtToken, $"{tradeReference}?TradeLeg={tradeLeg}&ProfileFormat={format}&Volume=true&Price=True");
         }
     }
 }

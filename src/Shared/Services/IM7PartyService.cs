@@ -3,9 +3,9 @@ using Shared.Messages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TradeCube_Services.Services
+namespace Shared.Services
 {
-    public interface IPartyService
+    public interface IM7PartyService
     {
         Task<ApiResponseWrapper<IEnumerable<PartyDataObject>>> GetPartyAsync(string party, string apiKey);
         Task<PartyDataObject> MapInternalPartyAsync(string accountId, Dictionary<string, MappingDataObject> allMappings, Dictionary<string, SettingDataObject> allSettings, string apiKey);

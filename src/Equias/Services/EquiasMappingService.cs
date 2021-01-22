@@ -17,12 +17,14 @@ namespace Equias.Services
     public class EquiasMappingService : IEquiasMappingService
     {
         private readonly IMappingService mappingService;
+        private readonly IPartyService partyService;
         private const string CmsReportType = "CmsReport";
         private MappingManager mappingManager;
 
-        public EquiasMappingService(IMappingService mappingService)
+        public EquiasMappingService(IMappingService mappingService, IPartyService partyService)
         {
             this.mappingService = mappingService;
+            this.partyService = partyService;
         }
 
         public EquiasMappingService SetMappingManager(MappingManager mapping)
@@ -36,7 +38,7 @@ namespace Equias.Services
             return (await mappingService.GetMappingsAsync(apiJwtToken))?.Data;
         }
 
-        public PhysicalTrade MapTrade(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse, IEnumerable<CashflowType> cashflowTypes,
+        public async Task<PhysicalTrade> MapTrade(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse, IEnumerable<CashflowType> cashflowTypes,
             IEnumerable<ProfileResponse> profileResponses)
         {
             if (tradeDataObject == null)
@@ -50,6 +52,7 @@ namespace Equias.Services
             }
 
             var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
+            var cashflows = cashflowTypes?.ToList();
 
             return new PhysicalTrade
             {
@@ -65,9 +68,9 @@ namespace Equias.Services
                 Commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity),
                 TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType),
                 DeliveryPointArea = tradeDataObject.Product?.Commodity?.DeliveryArea?.Eic,
-                BuyerParty = MapEicLei(tradeDataObject.Buyer?.Eic?.Eic, tradeDataObject.Buyer?.Lei?.Lei, "BuyerParty"),
-                SellerParty = MapEicLei(tradeDataObject.Seller?.Eic?.Eic, tradeDataObject.Seller?.Lei?.Lei, "SellerParty"),
-                BeneficiaryId = MapEicLei(tradeDataObject.Beneficiary?.Eic?.Eic, tradeDataObject.Beneficiary?.Lei?.Lei, "BeneficiaryId", false),
+                BuyerParty = await MapEicLei(tradeDataObject.Buyer?.Party, tradeDataObject.Buyer?.Eic?.Eic, tradeDataObject.Buyer?.Lei?.Lei, "Buyer party"),
+                SellerParty = await MapEicLei(tradeDataObject.Seller?.Party, tradeDataObject.Seller?.Eic?.Eic, tradeDataObject.Seller?.Lei?.Lei, "Seller party"),
+                BeneficiaryId = await MapEicLei(tradeDataObject.Beneficiary?.Party, tradeDataObject.Beneficiary?.Eic?.Eic, tradeDataObject.Beneficiary?.Lei?.Lei, "Beneficiary party", false),
                 Intragroup = MapInternalToIntragroup(tradeDataObject.Buyer?.Internal, tradeDataObject.Seller?.Internal),
                 LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom"),
                 Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType),
@@ -78,7 +81,9 @@ namespace Equias.Services
                 PriceUnit = MapPriceUnit(tradeDataObject.Price?.PriceUnit),
                 TotalContractValue = tradeSummaryResponse?.TotalValue,
                 SettlementCurrency = tradeSummaryResponse?.TotalValueCurrency,
-                SettlementDates = cashflowTypes?.Select(d => d.SettlementDate.ToIso8601DateTime()),
+                SettlementDates = cashflows != null && cashflows.Any()
+                    ? cashflows.Select(d => d.SettlementDate.ToIso8601DateTime())
+                    : null,
                 TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(profileResponses, timezone),
                 TraderName = tradeDataObject.InternalTrader?.Contact
             };
@@ -119,15 +124,38 @@ namespace Equias.Services
                 : mappingTo;
         }
 
-        private string MapEicLei(string eic, string lei, string label, bool mandatory = true)
+        private async Task<string> MapEicLei(string party, string eic, string lei, string label, bool mandatory = true)
         {
-            return string.IsNullOrEmpty(eic)
-                ? string.IsNullOrEmpty(lei)
-                    ? mandatory
-                        ? throw new DataException($"{label} could not be determined")
-                        : null
-                    : eic
-                : lei;
+            async Task<PartyDataObject> GetPartyAsync(string party)
+            {
+                return (await partyService.GetPartyAsync(party, ""))?.Data?.SingleOrDefault();
+            }
+
+            if (!string.IsNullOrEmpty(eic))
+            {
+                return eic;
+            }
+
+            if (!string.IsNullOrEmpty(lei))
+            {
+                return lei;
+            }
+
+            var partyDataObject = await GetPartyAsync(party);
+
+            if (!string.IsNullOrEmpty(partyDataObject?.Eic?.Eic))
+            {
+                return partyDataObject.Eic?.Eic;
+            }
+
+            if (!string.IsNullOrEmpty(partyDataObject?.Lei?.Lei))
+            {
+                return partyDataObject.Lei?.Lei;
+            }
+
+            return mandatory
+                ? throw new DataException($"The {label} does not have an EIC or LEI")
+                : null;
         }
 
         private bool? MapInternalToIntragroup(bool? buyer, bool? seller)
@@ -152,7 +180,11 @@ namespace Equias.Services
 
         private string MapContractAgreementToAgreement(string agreementType)
         {
-            // TODO
+            if (!string.IsNullOrEmpty(agreementType))
+            {
+                return agreementType;
+            }
+
             var mappingTo = mappingManager.GetMappingTo("EFET_Agreement", agreementType);
             return string.IsNullOrEmpty(mappingTo)
                 ? throw new DataException("Agreement mapping error")

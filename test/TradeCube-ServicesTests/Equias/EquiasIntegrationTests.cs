@@ -1,19 +1,21 @@
 ﻿using Equias.Messages;
 using System;
 using System.Threading.Tasks;
-using TradeCube_ServicesTests.Shared;
+using TradeCube_ServicesTests.Helpers;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace TradeCube_ServicesTests.Equias
 {
     public class EquiasIntegrationTests : IClassFixture<EquiasTestFixture>
     {
         private readonly EquiasTestFixture equiasTestFixture;
+        private readonly ITestOutputHelper testOutputHelper;
 
-        public EquiasIntegrationTests(EquiasTestFixture equiasTestFixture)
+        public EquiasIntegrationTests(EquiasTestFixture equiasTestFixture, ITestOutputHelper testOutputHelper)
         {
             this.equiasTestFixture = equiasTestFixture;
-            Configuration.SetEnvironmentVariables();
+            this.testOutputHelper = testOutputHelper;
         }
 
         [Fact]
@@ -25,7 +27,11 @@ namespace TradeCube_ServicesTests.Equias
         [Fact]
         public async Task TestAddPhysicalTrade()
         {
-            var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade("PR000001", 1, await RequestTokenResponse(), "apiJwtToken");
+            var physicalTrade = await equiasTestFixture.EquiasManager.CreatePhysicalTrade("ET000040B", 1, "apiJwtToken");
+
+            testOutputHelper.WriteLine(TradeCubeServicesJsonSerializer.Serialize(physicalTrade));
+
+            var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade(physicalTrade, await RequestTokenResponse());
 
             Assert.Equal("", addPhysicalTradeResponse.TradeId);
             Assert.Equal(1, addPhysicalTradeResponse.TradeVersion);

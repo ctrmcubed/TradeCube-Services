@@ -1,0 +1,23 @@
+[
+  {
+    "TradeReference": "ET000040",
+    "TradeLeg": 1,
+    "ProfileFormat": "Full",
+    "Currency": "GBP",
+    "EnergyUnit": "Therm (UK)",
+    "VolumeProfile": [
+      {
+        "UTCStartDateTime": "2021-05-19T04:00:00Z",
+        "UTCEndDateTime": "2021-05-20T04:00:00Z",
+        "Value": -3800.0
+      }
+    ],
+    "PriceProfile": [
+      {
+        "UTCStartDateTime": "2021-05-19T04:00:00Z",
+        "UTCEndDateTime": "2021-05-20T04:00:00Z",
+        "Value": 0.032056
+      }
+    ]
+  }
+]

@@ -15,7 +15,7 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
     {
         private readonly IMappingService mappingService;
         private readonly IFingerprintService fingerprintService;
-        private readonly IPartyService partyService;
+        private readonly IM7PartyService im7PartyService;
         private readonly IContactService contactService;
         private readonly IVenueService venueService;
         private readonly ISettingService settingService;
@@ -23,11 +23,11 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
         private readonly ILogger<M7TradeService> logger;
 
         public M7TradeService(IMappingService mappingService, ISettingService settingService, ITradingBookService tradingBookService, IFingerprintService fingerprintService,
-            IPartyService partyService, IContactService contactService, IVenueService venueService, ILogger<M7TradeService> logger)
+            IM7PartyService im7PartyService, IContactService contactService, IVenueService venueService, ILogger<M7TradeService> logger)
         {
             this.mappingService = mappingService;
             this.fingerprintService = fingerprintService;
-            this.partyService = partyService;
+            this.im7PartyService = im7PartyService;
             this.contactService = contactService;
             this.venueService = venueService;
             this.settingService = settingService;
@@ -65,8 +65,8 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
 
                 var commodityMapping = MapDeliveryAreaToCommodityAsync(deliveryAreaId, allMappings);
                 var fingerprintTask = MapCommodityToProductAsync(commodityMapping?.MappingTo, deliveryStart, deliveryEnd, apiKey);
-                var internalPartyTask = partyService.MapInternalPartyAsync(accountId, allMappings, allSettings, apiKey);
-                var counterpartyTask = partyService.MapCounterpartyAsync(exchangeId, allMappings, allSettings, apiKey);
+                var internalPartyTask = im7PartyService.MapInternalPartyAsync(accountId, allMappings, allSettings, apiKey);
+                var counterpartyTask = im7PartyService.MapCounterpartyAsync(exchangeId, allMappings, allSettings, apiKey);
 
                 var fingerprint = await fingerprintTask;
                 var internalParty = await internalPartyTask;

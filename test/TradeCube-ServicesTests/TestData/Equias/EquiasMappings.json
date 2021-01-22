@@ -1,0 +1,187 @@
+[
+  {
+    "MappingKey": "EFET_Commodity",
+    "MappingFrom": "UK Power",
+    "MappingTo": "Power"
+  },
+  {
+    "MappingKey": "EFET_Commodity",
+    "MappingFrom": "UK Gas",
+    "MappingTo": "Gas"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Auction",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "ContractForDifference",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Derivative",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Exotic",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Forward",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "ForwardRateAgreement",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Futures",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "FXSwap",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "InterestRateSwap",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Option",
+    "MappingTo": "OPT"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Other",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Spot",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Spread",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "SpreadBet",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Swap",
+    "MappingTo": "FOR"
+  },
+  {
+    "MappingKey": "EFET_TransactionType",
+    "MappingFrom": "Swaption",
+    "MappingTo": "OPT"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Baseload",
+    "MappingTo": "Base"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Block",
+    "MappingTo": "Other"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "GasDay",
+    "MappingTo": "Base"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "HalfHour",
+    "MappingTo": "Other"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Hour",
+    "MappingTo": "Other"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Off-Peak",
+    "MappingTo": "OffPeak"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Other",
+    "MappingTo": "Other"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Peak",
+    "MappingTo": "Peak"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Profile",
+    "MappingTo": "Other"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "QuarterHour",
+    "MappingTo": "Other"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Spot",
+    "MappingTo": "Other"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Overnight",
+    "MappingTo": "OffPeak"
+  },
+  {
+    "MappingKey": "EFET_LoadType",
+    "MappingFrom": "Extended Peak",
+    "MappingTo": "Peak"
+  },
+  {
+    "MappingKey": "EFET_Agreement",
+    "MappingFrom": "UK Gas",
+    "MappingTo": "NBP15"
+  },
+  {
+    "MappingKey": "EFET_Agreement",
+    "MappingFrom": "UK Power",
+    "MappingTo": "GTMA"
+  },
+  {
+    "MappingKey": "EFET_EnergyUnit",
+    "MappingFrom": "Therm (UK)",
+    "MappingTo": "Therm"
+  },
+  {
+    "MappingKey": "EFET_EnergyUnit",
+    "MappingFrom": "MWh",
+    "MappingTo": "MWh"
+  },
+  {
+    "MappingKey": "EFET_CapacityUnit",
+    "MappingFrom": "MW",
+    "MappingTo": "MW"
+  },
+  {
+    "MappingKey": "EFET_CapacityUnit",
+    "MappingFrom": "Therms/day (UK)",
+    "MappingTo": "ThermPerDay"
+  }
+]

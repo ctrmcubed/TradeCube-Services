@@ -2,17 +2,16 @@
 using Shared.Configuration;
 using Shared.DataObjects;
 using Shared.Messages;
-using Shared.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace TradeCube_Services.Services
+namespace Shared.Services
 {
-    public class PartyService : TradeCubeApiService, IPartyService
+    public class M7Im7PartyService : TradeCubeApiService, IM7PartyService
     {
-        public PartyService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
+        public M7Im7PartyService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
             ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
