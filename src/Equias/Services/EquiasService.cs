@@ -31,7 +31,7 @@ namespace Equias.Services
                 httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
                 httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-                return await PostAsync<PhysicalTrade, AddPhysicalTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade);
+                return await PostAsync<PhysicalTrade, AddPhysicalTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade, false);
             }
             catch (Exception e)
             {

@@ -177,7 +177,7 @@
         "DeliveryArea": {
           "DeliveryArea": "NG-NBP",
           "DeliveryAreaLongName": "National Grid NBP",
-          "EIC": "55Y11NG-NBP--11D"
+          "EIC": "21YGB-UKGASGRIDW"
         },
         "Timezone": "Europe/London",
         "EnergyUnit": {
@@ -262,7 +262,7 @@
         "DeliveryArea": {
           "DeliveryArea": "NG-NBP",
           "DeliveryAreaLongName": "National Grid NBP",
-          "EIC": "55Y11NG-NBP--11D"
+          "EIC": "21YGB-UKGASGRIDW"
         },
         "Timezone": "Europe/London",
         "EnergyUnit": {
@@ -622,7 +622,10 @@
           "PostalCode": "CV1U 1YQ"
         }
       },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/55329.jpg"
+      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/55329.jpg",
+      "EIC": {
+        "EIC": "21Y000000000009E"
+      }
     },
     "Seller": {
       "Party": "DEMO_INTERNAL",
@@ -683,7 +686,15 @@
           "PostalCode": "66183"
         }
       },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/97426.jpg"
+      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/97426.jpg",
+      "EIC": {
+        "EIC": "48X000000000293G"
+      }
+    },
+    "Beneficiary": {
+      "EIC": {
+        "EIC": "48X000000000293G"
+      }
     },
     "Exchange": {
       "Party": "DEMO_SCSD_5456",
@@ -953,7 +964,7 @@
         "DeliveryArea": {
           "DeliveryArea": "NG-NBP",
           "DeliveryAreaLongName": "National Grid NBP",
-          "EIC": "55Y11NG-NBP--11D"
+          "EIC": "21YGB-UKGASGRIDW"
         },
         "Timezone": "Europe/London",
         "EnergyUnit": {
@@ -1143,7 +1154,7 @@
           "DeliveryArea": {
             "DeliveryArea": "NG-NBP",
             "DeliveryAreaLongName": "National Grid NBP",
-            "EIC": "55Y11NG-NBP--11D"
+            "EIC": "21YGB-UKGASGRIDW"
           },
           "Timezone": "Europe/London",
           "EnergyUnit": {
@@ -1228,7 +1239,7 @@
           "DeliveryArea": {
             "DeliveryArea": "NG-NBP",
             "DeliveryAreaLongName": "National Grid NBP",
-            "EIC": "55Y11NG-NBP--11D"
+            "EIC": "21YGB-UKGASGRIDW"
           },
           "Timezone": "Europe/London",
           "EnergyUnit": {

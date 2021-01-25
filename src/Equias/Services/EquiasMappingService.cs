@@ -70,7 +70,7 @@ namespace Equias.Services
                 DeliveryPointArea = tradeDataObject.Product?.Commodity?.DeliveryArea?.Eic,
                 BuyerParty = await MapEicLei(tradeDataObject.Buyer?.Party, tradeDataObject.Buyer?.Eic?.Eic, tradeDataObject.Buyer?.Lei?.Lei, "Buyer party"),
                 SellerParty = await MapEicLei(tradeDataObject.Seller?.Party, tradeDataObject.Seller?.Eic?.Eic, tradeDataObject.Seller?.Lei?.Lei, "Seller party"),
-                BeneficiaryId = await MapEicLei(tradeDataObject.Beneficiary?.Party, tradeDataObject.Beneficiary?.Eic?.Eic, tradeDataObject.Beneficiary?.Lei?.Lei, "Beneficiary party", false),
+                BeneficiaryId = await MapEicLei(tradeDataObject.Beneficiary?.Party, tradeDataObject.Beneficiary?.Eic?.Eic, tradeDataObject.Beneficiary?.Lei?.Lei, "Beneficiary party"),
                 Intragroup = MapInternalToIntragroup(tradeDataObject.Buyer?.Internal, tradeDataObject.Seller?.Internal),
                 LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom"),
                 Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType),
@@ -81,11 +81,14 @@ namespace Equias.Services
                 PriceUnit = MapPriceUnit(tradeDataObject.Price?.PriceUnit),
                 TotalContractValue = tradeSummaryResponse?.TotalValue,
                 SettlementCurrency = tradeSummaryResponse?.TotalValueCurrency,
-                SettlementDates = cashflows != null && cashflows.Any()
-                    ? cashflows.Select(d => d.SettlementDate.ToIso8601DateTime())
-                    : null,
+                //SettlementDates = cashflows != null && cashflows.Any()
+                //    ? cashflows.Select(d => d.SettlementDate.ToIso8601DateTime())
+                //    : null,
+                // TODO
+                SettlementDates = new List<string>() { "2020-06-08" },
                 TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(profileResponses, timezone),
-                TraderName = tradeDataObject.InternalTrader?.Contact
+                TraderName = tradeDataObject.InternalTrader?.Contact,
+                HubCodificationInformation = new HubCodificationInformation { BuyerHubCode = "GFBPGM", SellerHubCode = "GFDONG" }
             };
         }
 
@@ -211,7 +214,7 @@ namespace Equias.Services
         {
             return new PriceUnit
             {
-                Currency = priceUnit?.PriceUnit,
+                Currency = priceUnit?.Currency,
                 UseFractionalUnit = priceUnit?.CurrencyExponent != null && priceUnit.CurrencyExponent != 0,
                 CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerEnergyUnit?.EnergyUnit)
             };

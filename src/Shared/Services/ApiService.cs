@@ -17,14 +17,16 @@ namespace Shared.Services
             this.logger = logger;
         }
 
-        protected async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T request)
+        protected async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T request, bool ensureSuccess = true)
         {
             try
             {
                 var response = await client.PostAsJsonAsync(action, request, new JsonSerializerOptions { IgnoreNullValues = true });
 
-                // TODO
-                // response.EnsureSuccessStatusCode();
+                if (ensureSuccess)
+                {
+                    response.EnsureSuccessStatusCode();
+                }
 
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
 

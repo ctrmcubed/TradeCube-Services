@@ -33,7 +33,7 @@ namespace TradeCube_ServicesTests.Equias
 
             var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade(physicalTrade, await RequestTokenResponse());
 
-            Assert.Equal("", addPhysicalTradeResponse.TradeId);
+            Assert.Equal("ET000040B001", addPhysicalTradeResponse.TradeId);
             Assert.Equal(1, addPhysicalTradeResponse.TradeVersion);
         }
 
