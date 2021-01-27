@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Shared.Configuration;
 using Shared.Services;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ namespace Equias.Services
             this.logger = logger;
         }
 
-        public async Task<AddPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
+        public async Task<EboGetTradeStatusResponse> EboGetTradeStatus(IEnumerable<string> tradeIds, RequestTokenResponse requestTokenResponse)
         {
             try
             {
@@ -31,11 +32,29 @@ namespace Equias.Services
                 httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
                 httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-                return await PostAsync<PhysicalTrade, AddPhysicalTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade, false);
+                return await PostAsync<IEnumerable<string>, EboGetTradeStatusResponse>(httpClient, equiasConfiguration.GetTradeStatusUri, tradeIds, false);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<EboAddPhysicalTradeResponse> EboAddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
+        {
+            try
+            {
+                var httpClient = httpClientFactory.CreateClient();
+
+                httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
+                httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
+
+                return await PostAsync<PhysicalTrade, EboAddPhysicalTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade, false);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
                 throw;
             }
         }

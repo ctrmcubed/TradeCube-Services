@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using Shared.Configuration;
-using Shared.DataObjects;
 using Shared.Messages;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -15,9 +14,9 @@ namespace Shared.Services
         {
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<CashflowType>>> CashflowAsync(string tradeReference, int tradeLeg, string apiJwtToken)
+        public async Task<ApiResponseWrapper<IEnumerable<CashflowResponse>>> CashflowAsync(string tradeReference, int tradeLeg, string apiJwtToken)
         {
-            return await GetViaJwtAsync<CashflowType>("Cashflow", apiJwtToken, $"{tradeReference}?TradeLeg={tradeLeg}");
+            return await GetViaJwtAsync<CashflowResponse>("Cashflow", apiJwtToken, $"{tradeReference}?TradeLeg={tradeLeg}");
         }
     }
 }

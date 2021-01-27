@@ -41,13 +41,13 @@ namespace TradeCube_Services.Services
                     }
                 };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 return new ApiResponseWrapper<WebhookResponse>
                 {
                     Status = ApiConstants.FailedResult,
-                    Message = e.Message,
+                    Message = ex.Message,
                     Data = new WebhookResponse
                     {
                         Webhook = webhookParameters.Webhook
@@ -108,9 +108,9 @@ namespace TradeCube_Services.Services
                 logger.LogError("Error calling Trade API", trades.Message);
                 return CreateResponse(ApiConstants.FailedResult, $"Error calling Trade API ({trades.Message})");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError($"Error notifying trade {webhookParameters.Entity}", e.Message);
+                logger.LogError($"Error notifying trade {webhookParameters.Entity}", ex.Message);
                 return CreateResponse(ApiConstants.FailedResult, $"Error notifying trade {webhookParameters.Entity}");
             }
         }

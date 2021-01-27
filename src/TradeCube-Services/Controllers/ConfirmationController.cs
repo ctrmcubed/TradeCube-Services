@@ -45,10 +45,10 @@ namespace TradeCube_Services.Controllers
                     ? (IActionResult)Ok(confirmationReport)
                     : BadRequest(confirmationReport);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
-                return BadRequest(new ApiResponseWrapper<WebServiceResponse> { Message = e.Message, Status = ApiConstants.FailedResult });
+                logger.LogError(ex, ex.Message);
+                return BadRequest(new ApiResponseWrapper<WebServiceResponse> { Message = ex.Message, Status = ApiConstants.FailedResult });
             }
         }
     }

@@ -1,140 +1,282 @@
 [
-  {
-    "Party": "DEMO_GGG_55329",
-    "PartyLongName": "** DEMO Party Greencore Grp. (GNC) 55329 **",
-    "PartyType": [
-      "Trading"
-    ],
-    "Categories": [
-      "Energy"
-    ],
-    "Countries": [
-      "GB"
-    ],
-    "Internal": false,
-    "EIC": {
-      "EIC": "10T-AL-ME-00002G",
-      "EICLongName": "Podgorica 2 - Tirana 2",
-      "EICType": "T - Tie-line",
-      "DisplayName": "L_PODGOR-TIRANA2",
-      "Function": "Tieline"
+    {
+        "Party": "Counterparty1",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
     },
-    "PrimaryBillingContact": {
-      "Contact": "DEMO_ZIV69485_VEPE",
-      "ContactLongName": "** DEMO Contact Verdell Perkins **",
-      "ContactType": "Trading",
-      "PrimaryEmailAddress": "capturer1965@yahoo.com",
-      "PrimaryPhoneNumber": "013712 87360",
-      "AlternateEmailAddresses": [
-        "anasazi2007@protonmail.com",
-        "redias1846@yahoo.com",
-        "wolf1871@outlook.com"
-      ],
-      "AlternatePhoneNumbers": [
-        "0800 589853",
-        "0500 612217",
-        "0800 568 2465"
-      ],
-      "PrimaryAddress": {
-        "Line1": "76 Clontyclevin Wynd",
-        "City": "Hawick",
-        "Region": "West Yorkshire",
-        "Country": "GB",
-        "PostalCode": "OX3E 8AD"
-      }
+    {
+        "Party": "InternalParty1",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
     },
-    "PrimaryConfirmationContact": {
-      "Contact": "DEMO_EGG57954_KYWI",
-      "ContactLongName": "** DEMO Contact Kyle Wiley **",
-      "ContactType": "Trading",
-      "PrimaryEmailAddress": "balas1900@live.com",
-      "PrimaryPhoneNumber": "0800 628 5565",
-      "AlternateEmailAddresses": [
-        "stubbles2046@yandex.com",
-        "stowps1901@outlook.com",
-        "evzone1922@gmail.com"
-      ],
-      "AlternatePhoneNumbers": [
-        "020 7934 2566",
-        "0800 484 3269",
-        "01221 41215"
-      ],
-      "PrimaryAddress": {
-        "Line1": "362 Ballintate Pike",
-        "City": "Ampthill",
-        "Region": "Berkshire",
-        "Country": "GB",
-        "PostalCode": "CV1U 1YQ"
-      }
+    {
+        "Party": "Counterparty2",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
     },
-    "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/55329.jpg"
-  },
-  {
-    "Party": "DEMO_INTERNAL",
-    "PartyLongName": "** DEMO Internal Party **",
-    "PartyType": [
-      "Trading"
-    ],
-    "Categories": [
-      "Equities",
-      "Energy"
-    ],
-    "Internal": true,
-    "EIC": {
-      "EIC": "10T-AL-GR-000023",
-      "EICLongName": "Zemblak-Kardia",
-      "EICType": "T - Tie-line",
-      "DisplayName": "L_ZEMBLAK-KARDIA",
-      "Function": "Tieline"
+    {
+        "Party": "InternalParty2",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
     },
-    "PrimaryBillingContact": {
-      "Contact": "DEMO_YXH58032_LEBR",
-      "ContactLongName": "** DEMO Contact Leonard Breisacher **",
-      "ContactType": "Trading",
-      "PrimaryEmailAddress": "tovarish1946@outlook.com",
-      "PrimaryPhoneNumber": "+49-8660-54235319",
-      "AlternateEmailAddresses": [
-        "goldfinch1845@yandex.com",
-        "elysia1844@protonmail.com",
-        "brayed2014@outlook.com"
-      ],
-      "AlternatePhoneNumbers": [
-        "(0684) 782388018",
-        "+49-0244-69911579",
-        "(02495) 7335407"
-      ],
-      "PrimaryAddress": {
-        "Line1": "Friedrichstraﬂe 285",
-        "City": "Spaichingen",
-        "Region": "Mecklenburg-Vorpommern",
-        "Country": "DE",
-        "PostalCode": "19873"
-      }
+    {
+        "Party": "Counterparty3",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
     },
-    "PrimaryConfirmationContact": {
-      "Contact": "DEMO_KIX4181_IRSC",
-      "ContactLongName": "** DEMO Contact Irmela Schmitt **",
-      "ContactType": "Trading",
-      "PrimaryEmailAddress": "abscess1810@outlook.com",
-      "PrimaryPhoneNumber": "(0680) 285933848",
-      "AlternateEmailAddresses": [
-        "suez1893@live.com",
-        "banky2017@gmail.com",
-        "rotted1804@outlook.com"
-      ],
-      "AlternatePhoneNumbers": [
-        "+49-8783-61510415",
-        "+49-0684-30904394",
-        "+49-52-054-73866"
-      ],
-      "PrimaryAddress": {
-        "Line1": "Deichstraﬂe 673",
-        "City": "Groﬂrˆhrsdorf",
-        "Region": "Mecklenburg-Vorpommern",
-        "Country": "DE",
-        "PostalCode": "66183"
-      }
+    {
+        "Party": "InternalParty3",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
     },
-    "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/97426.jpg"
-  }
+    {
+        "Party": "Counterparty4",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty4",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty5",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty5",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty6",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty6",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty7",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty7",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty8",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty8",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty9",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty9",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty10",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty10",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty11",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty11",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty12",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty12",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty13",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty13",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty14",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty14",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty15",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty15",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty16",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty16",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty17",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty17",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty18",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty18",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty19",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty19",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    },
+    {
+        "Party": "Counterparty20",
+        "Internal": false,
+        "EIC": {
+            "EIC": "21Y000000000009E"
+        }
+    },
+    {
+        "Party": "InternalParty20",
+        "Internal": true,
+        "EIC": {
+            "EIC": "48X000000000293G"
+        }
+    }
 ]

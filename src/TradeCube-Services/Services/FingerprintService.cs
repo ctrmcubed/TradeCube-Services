@@ -26,12 +26,12 @@ namespace TradeCube_Services.Services
             {
                 return await TradeCubePostViaApiKeyAsync<FingerprintRequest, ApiResponseWrapper<IEnumerable<FingerprintResponse>>>(apiKey, "Fingerprint", fingerprintRequest);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 return new ApiResponseWrapper<IEnumerable<FingerprintResponse>>
                 {
-                    Message = e.Message,
+                    Message = ex.Message,
                     Status = HttpStatusCode.BadRequest.ToString(),
                     Data = new List<FingerprintResponse>()
                 };

@@ -32,10 +32,10 @@ namespace TradeCube_Services.Services
 
                     return new ApiResponseWrapper<ReportTemplate>(ApiConstants.SuccessResult, new ReportTemplate { Html = file });
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    logger.LogError($"The template could not be read ({templateType})", e.Message);
-                    return new ApiResponseWrapper<ReportTemplate>(ApiConstants.FailedResult, new ReportTemplate()) { Message = e.Message };
+                    logger.LogError($"The template could not be read ({templateType})", ex.Message);
+                    return new ApiResponseWrapper<ReportTemplate>(ApiConstants.FailedResult, new ReportTemplate()) { Message = ex.Message };
                 }
             }
 

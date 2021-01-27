@@ -14,9 +14,9 @@ namespace Shared.Helpers
             {
                 return DateTimeZoneProviders.Tzdb[timezone];
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Logger.Error(e, $"Timezone {timezone} not found in Tzdb database");
+                Logger.Error(ex, $"Timezone {timezone} not found in Tzdb database");
                 throw;
             }
         }

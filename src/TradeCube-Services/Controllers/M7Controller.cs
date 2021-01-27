@@ -42,12 +42,12 @@ namespace TradeCube_Services.Controllers
                     ? (IActionResult)Ok(tradeDataObject)
                     : BadRequest(saveTrade.Message);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 return BadRequest(new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
-                    Message = e.Message,
+                    Message = ex.Message,
                     Status = ApiConstants.FailedResult
                 });
             }

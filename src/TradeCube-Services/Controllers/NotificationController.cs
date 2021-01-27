@@ -51,12 +51,12 @@ namespace TradeCube_Services.Controllers
                     ? (IActionResult)Ok(webhookResponse)
                     : BadRequest(webhookResponse);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 return BadRequest(new ApiResponseWrapper<WebhookResponse>
                 {
-                    Message = e.Message,
+                    Message = ex.Message,
                     Status = ApiConstants.FailedResult,
                     Data = new WebhookResponse
                     {

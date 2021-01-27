@@ -1,6 +1,6 @@
 [
   {
-    "TradeReference": "ET000040B",
+    "TradeReference": "TEST4",
     "TradeLeg": 1,
     "TotalVolume": -3800.0,
     "TotalValue": -121.8128,

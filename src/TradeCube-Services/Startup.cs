@@ -1,3 +1,4 @@
+using Equias.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -53,6 +54,8 @@ namespace TradeCube_Services
                 .AddScoped<IContactService, ContactService>()
                 .AddScoped<ICountryLookupService, CountryLookupService>()
                 .AddScoped<ICountryService, CountryService>()
+                .AddScoped<IEquiasAuthenticationService, EquiasAuthenticationService>()
+                .AddScoped<IEquiasService, EquiasService>()
                 .AddScoped<IFingerprintService, FingerprintService>()
                 .AddScoped<IMappingService, MappingService>()
                 .AddScoped<IM7TradeService, M7TradeService>()
@@ -64,6 +67,7 @@ namespace TradeCube_Services
                 .AddScoped<ITradeService, TradeService>()
                 .AddScoped<ITradeSummaryService, TradeSummaryService>()
                 .AddScoped<ITradingBookService, TradingBookService>()
+                .AddScoped<IVaultService, VaultService>()
                 .AddScoped<IVenueService, VenueService>();
 
             services.AddHealthChecks();

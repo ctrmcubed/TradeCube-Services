@@ -8,6 +8,6 @@ namespace Equias.Managers
     {
         Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest);
         Task<PhysicalTrade> CreatePhysicalTrade(string tradeReference, int tradeLeg, string apiJwtToken);
-        Task<AddPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse);
+        Task<EboAddPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse);
     }
 }

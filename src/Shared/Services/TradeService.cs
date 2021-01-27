@@ -35,12 +35,12 @@ namespace Shared.Services
                     }
                     : new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Data = trade.Data };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
-                    Message = e.Message,
+                    Message = ex.Message,
                     Status = HttpStatusCode.BadRequest.ToString()
                 };
             }
@@ -56,12 +56,12 @@ namespace Shared.Services
 
                 return await TradeCubePostViaJwtAsync<JObject, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
-                    Message = e.Message,
+                    Message = ex.Message,
                     Status = HttpStatusCode.BadRequest.ToString()
                 };
             }
@@ -74,12 +74,12 @@ namespace Shared.Services
                 return await TradeCubePostViaApiKeyAsync<ApiRequest<IEnumerable<TradeDataObject>>,
                     ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiKey, "Trade", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
-                    Message = e.Message,
+                    Message = ex.Message,
                     Status = HttpStatusCode.BadRequest.ToString()
                 };
             }

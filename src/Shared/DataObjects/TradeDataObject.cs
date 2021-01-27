@@ -32,5 +32,7 @@ namespace Shared.DataObjects
 
         [JsonPropertyName("UTI")]
         public string Uti { get; set; }
+
+        public ExternalFieldsType External { get; set; }
     }
 }

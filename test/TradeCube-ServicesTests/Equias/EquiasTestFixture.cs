@@ -21,10 +21,9 @@ namespace TradeCube_ServicesTests.Equias
         public IEnumerable<TradeDataObject> EquiasTrades { get; }
         public IEnumerable<MappingDataObject> EquiasMappings { get; }
         public IEnumerable<TradeSummaryResponse> EquiasTradeSummaries { get; }
-        public IEnumerable<CashflowType> EquiasCashflows { get; }
+        public IEnumerable<CashflowResponse> EquiasCashflows { get; }
         public IEnumerable<ProfileResponse> EquiasProfiles { get; }
         public IEnumerable<PartyDataObject> EquiasParties { get; }
-
 
         public EquiasTestFixture()
         {
@@ -35,7 +34,7 @@ namespace TradeCube_ServicesTests.Equias
             EquiasTrades = FileHelper.ReadJsonFile<IList<TradeDataObject>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasTrades.json"));
             EquiasMappings = FileHelper.ReadJsonFile<IList<MappingDataObject>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasMappings.json"));
             EquiasTradeSummaries = FileHelper.ReadJsonFile<IList<TradeSummaryResponse>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasTradeSummaries.json"));
-            EquiasCashflows = FileHelper.ReadJsonFile<IList<CashflowType>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasCashflows.json"));
+            EquiasCashflows = FileHelper.ReadJsonFile<IList<CashflowResponse>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasCashflows.json"));
             EquiasProfiles = FileHelper.ReadJsonFile<IList<ProfileResponse>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasProfiles.json"));
             EquiasParties = FileHelper.ReadJsonFile<IList<PartyDataObject>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasParties.json"));
 
@@ -82,20 +81,20 @@ namespace TradeCube_ServicesTests.Equias
 
             service
                 .Setup(c => c.TradeSummaryAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
-                .ReturnsAsync((string _, int _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<TradeSummaryResponse>> { Data = tradeSummaryResponses });
+                .ReturnsAsync((string tradeReference, int tradeLeg, string _) =>
+                    new ApiResponseWrapper<IEnumerable<TradeSummaryResponse>> { Data = tradeSummaryResponses.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
 
             return service.Object;
         }
 
-        private static ICashflowService CreateCashflowService(IEnumerable<CashflowType> cashflows)
+        private static ICashflowService CreateCashflowService(IEnumerable<CashflowResponse> cashflows)
         {
             var service = new Mock<ICashflowService>();
 
             service
                 .Setup(c => c.CashflowAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
-                .ReturnsAsync((string _, int _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<CashflowType>> { Data = cashflows });
+                .ReturnsAsync((string tradeReference, int tradeLeg, string _) =>
+                    new ApiResponseWrapper<IEnumerable<CashflowResponse>> { Data = cashflows.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
 
             return service.Object;
         }
@@ -106,8 +105,8 @@ namespace TradeCube_ServicesTests.Equias
 
             service
                 .Setup(c => c.ProfileAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync((string _, int _, string _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<ProfileResponse>> { Data = profiles });
+                .ReturnsAsync((string tradeReference, int tradeLeg, string _, string _) =>
+                    new ApiResponseWrapper<IEnumerable<ProfileResponse>> { Data = profiles.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
 
             return service.Object;
         }

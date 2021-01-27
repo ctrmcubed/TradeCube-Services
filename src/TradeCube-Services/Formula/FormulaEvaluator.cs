@@ -34,13 +34,13 @@ namespace TradeCube_Services.Formula
                     Value = serialize
                 };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Logger.Error(e, e.Message);
+                Logger.Error(ex, ex.Message);
                 return new FormulaCalculateResponse
                 {
                     IsSuccess = false,
-                    Message = e.Message
+                    Message = ex.Message
                 };
             }
         }

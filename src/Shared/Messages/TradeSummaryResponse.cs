@@ -2,6 +2,8 @@
 {
     public class TradeSummaryResponse
     {
+        public string TradeReference { get; set; }
+        public int TradeLeg { get; set; }
         public decimal? TotalVolume { get; set; }
         public decimal? TotalValue { get; set; }
         public decimal? WeightedAveragePrice { get; set; }

@@ -30,12 +30,12 @@ namespace Shared.Services
             {
                 return await TradeCubeViaApiKeyAsync<ApiResponseWrapper<IEnumerable<T>>>(apiKey, action, queryString);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 return new ApiResponseWrapper<IEnumerable<T>>
                 {
-                    Message = e.Message,
+                    Message = ex.Message,
                     Status = HttpStatusCode.BadRequest.ToString(),
                     Data = new List<T>()
                 };
@@ -48,12 +48,12 @@ namespace Shared.Services
             {
                 return await TradeCubeGetViaJwtAsync<ApiResponseWrapper<IEnumerable<T>>>(apiJwtToken, action, queryString);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 return new ApiResponseWrapper<IEnumerable<T>>
                 {
-                    Message = e.Message,
+                    Message = ex.Message,
                     Status = HttpStatusCode.BadRequest.ToString(),
                     Data = new List<T>()
                 };
@@ -88,9 +88,9 @@ namespace Shared.Services
 
                 return await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 throw;
             }
         }

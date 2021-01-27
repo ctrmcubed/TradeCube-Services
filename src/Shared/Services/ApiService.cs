@@ -32,9 +32,9 @@ namespace Shared.Services
 
                 return await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 throw;
             }
         }

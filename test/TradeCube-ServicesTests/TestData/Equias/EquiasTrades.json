@@ -1,1535 +1,539 @@
 [
-  {
-    "TradeReference": "ET000040B",
-    "TradeLeg": 1,
-    "TradeDateTime": "2020-12-05T10:07:23.538Z",
-    "TradeStatus": "Test",
-    "BuySell": "Sell",
-    "ProfileTrade": false,
-    "TradingBook": {
-      "TradingBook": "DEMO_GENERAL",
-      "TradingBookLongName": "** Demo General Trading Book **",
-      "Categories": [
-        "Agricultural-Dairy",
-        "Agricultural-Grains",
-        "Agricultural-Livestock",
-        "Agricultural-Softs",
-        "Biofuels",
-        "Bonds",
-        "Credit Derivatives",
-        "Cryptocurrency",
-        "Emissions",
-        "Energy",
-        "Energy-Oil",
-        "Environmental",
-        "Equities",
-        "Forex",
-        "Freight",
-        "Indices",
-        "Interest Rates",
-        "Metals-Industrial",
-        "Metals-Precious",
-        "Paper"
-      ],
-      "BaseCommodities": [
-        "Electricity"
-      ],
-      "Commodities": [
-        "UK Power"
-      ],
-      "Visibility": {
-        "Enabled": false
-      }
-    },
-    "Contract": {
-      "ContractReference": "DEMO_VBS34948",
-      "ContractLongName": "** DEMO Contract Reference DEMO_VBS34948 **",
-      "PrimaryInternalParty": {
-        "Party": "DEMO_INTERNAL",
-        "PartyLongName": "** DEMO Internal Party **",
-        "PartyType": [
-          "Trading"
-        ],
-        "Categories": [
-          "Equities",
-          "Energy"
-        ],
-        "Internal": true,
-        "PrimaryBillingContact": {
-          "Contact": "DEMO_YXH58032_LEBR",
-          "ContactLongName": "** DEMO Contact Leonard Breisacher **",
-          "ContactType": "Trading",
-          "PrimaryEmailAddress": "tovarish1946@outlook.com",
-          "PrimaryPhoneNumber": "+49-8660-54235319",
-          "AlternateEmailAddresses": [
-            "goldfinch1845@yandex.com",
-            "elysia1844@protonmail.com",
-            "brayed2014@outlook.com"
-          ],
-          "AlternatePhoneNumbers": [
-            "(0684) 782388018",
-            "+49-0244-69911579",
-            "(02495) 7335407"
-          ],
-          "PrimaryAddress": {
-            "Line1": "Friedrichstraﬂe 285",
-            "City": "Spaichingen",
-            "Region": "Mecklenburg-Vorpommern",
-            "Country": "DE",
-            "PostalCode": "19873"
-          }
+    {
+        "TradeReference": "TEST1",
+        "TradeLeg": 1,
+        "TradeDateTime": "2020-01-01T00:00:00Z",
+        "TradeStatus": "Test",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "Book1"
         },
-        "PrimaryConfirmationContact": {
-          "Contact": "DEMO_KIX4181_IRSC",
-          "ContactLongName": "** DEMO Contact Irmela Schmitt **",
-          "ContactType": "Trading",
-          "PrimaryEmailAddress": "abscess1810@outlook.com",
-          "PrimaryPhoneNumber": "(0680) 285933848",
-          "AlternateEmailAddresses": [
-            "suez1893@live.com",
-            "banky2017@gmail.com",
-            "rotted1804@outlook.com"
-          ],
-          "AlternatePhoneNumbers": [
-            "+49-8783-61510415",
-            "+49-0684-30904394",
-            "+49-52-054-73866"
-          ],
-          "PrimaryAddress": {
-            "Line1": "Deichstraﬂe 673",
-            "City": "Groﬂrˆhrsdorf",
-            "Region": "Mecklenburg-Vorpommern",
-            "Country": "DE",
-            "PostalCode": "66183"
-          }
-        },
-        "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/97426.jpg"
-      },
-      "PrimaryCounterparty": {
-        "Party": "DEMO_GGG_55329",
-        "PartyLongName": "** DEMO Party Greencore Grp. (GNC) 55329 **",
-        "PartyType": [
-          "Trading"
-        ],
-        "Categories": [
-          "Energy"
-        ],
-        "Countries": [
-          "GB"
-        ],
-        "Internal": false,
-        "PrimaryBillingContact": {
-          "Contact": "DEMO_ZIV69485_VEPE",
-          "ContactLongName": "** DEMO Contact Verdell Perkins **",
-          "ContactType": "Trading",
-          "PrimaryEmailAddress": "capturer1965@yahoo.com",
-          "PrimaryPhoneNumber": "013712 87360",
-          "AlternateEmailAddresses": [
-            "anasazi2007@protonmail.com",
-            "redias1846@yahoo.com",
-            "wolf1871@outlook.com"
-          ],
-          "AlternatePhoneNumbers": [
-            "0800 589853",
-            "0500 612217",
-            "0800 568 2465"
-          ],
-          "PrimaryAddress": {
-            "Line1": "76 Clontyclevin Wynd",
-            "City": "Hawick",
-            "Region": "West Yorkshire",
-            "Country": "GB",
-            "PostalCode": "OX3E 8AD"
-          }
-        },
-        "PrimaryConfirmationContact": {
-          "Contact": "DEMO_EGG57954_KYWI",
-          "ContactLongName": "** DEMO Contact Kyle Wiley **",
-          "ContactType": "Trading",
-          "PrimaryEmailAddress": "balas1900@live.com",
-          "PrimaryPhoneNumber": "0800 628 5565",
-          "AlternateEmailAddresses": [
-            "stubbles2046@yandex.com",
-            "stowps1901@outlook.com",
-            "evzone1922@gmail.com"
-          ],
-          "AlternatePhoneNumbers": [
-            "020 7934 2566",
-            "0800 484 3269",
-            "01221 41215"
-          ],
-          "PrimaryAddress": {
-            "Line1": "362 Ballintate Pike",
-            "City": "Ampthill",
-            "Region": "Berkshire",
-            "Country": "GB",
-            "PostalCode": "CV1U 1YQ"
-          }
-        },
-        "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/55329.jpg"
-      },
-      "PrimaryCommodity": {
-        "Commodity": "UK Gas",
-        "CommodityLongName": "UK Gas",
-        "Currency": "GBP",
-        "Country": "GB",
-        "Period": "day",
-        "DeliveryArea": {
-          "DeliveryArea": "NG-NBP",
-          "DeliveryAreaLongName": "National Grid NBP",
-          "EIC": "21YGB-UKGASGRIDW"
-        },
-        "Timezone": "Europe/London",
-        "EnergyUnit": {
-          "EnergyUnit": "Therm (UK)",
-          "EnergyUnitLongName": "Therm (UK)",
-          "Suffix": "Therm (UK)",
-          "JouleEquivalent": 105505585.257
-        },
-        "BaseCommodity": {
-          "BaseCommodity": "Natural Gas",
-          "BaseCommodityLongName": "Natural Gas",
-          "Category": {
-            "Category": "Energy",
-            "CategoryLongName": "Energy",
-            "AssetClass": "Commodity"
-          }
-        },
-        "DefaultQuantityUnit": {
-          "QuantityUnit": "Therms/day (UK)",
-          "QuantityUnitLongName": "Therms/day (UK)",
-          "Suffix": "Therms/day",
-          "EnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          },
-          "Period": "day"
-        },
-        "DefaultPriceUnit": {
-          "PriceUnit": "p/Therm",
-          "PriceUnitLongName": "p/Therm",
-          "Suffix": "p/Therm",
-          "CurrencyExponent": 2,
-          "PriceUnitType": "Currency",
-          "Currency": "GBP",
-          "PerPriceUnitType": "Energy Unit",
-          "PerEnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          }
-        },
-        "RegulatoryMechanisms": [
-          "EMIR",
-          " REMIT"
-        ],
-        "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
-        "Visibility": {
-          "Enabled": true
-        }
-      },
-      "AdditionalInternalParties": [],
-      "AdditionalCounterparties": [],
-      "AdditionalCommodities": [],
-      "AgreementType": {
-        "AgreementType": "Other",
-        "AgreementTypeLongName": "Other undefined types of master trading agreement, kept for backwards compatability with earlier versions of the eCM standard"
-      },
-      "Validity": {
-        "StartDateTime": "2020-12-08T11:39:19.608Z",
-        "EndDateTime": "2020-12-08T11:44:35.538Z"
-      },
-      "Execution": {
-        "ExecutedDateTime": "2020-12-08T11:37:44.125Z",
-        "ExpirationDateTime": "2020-12-08T11:45:57.562Z",
-        "ExpirationReason": "Expires at expiration date"
-      },
-      "Notes": "Notes"
-    },
-    "Product": {
-      "Product": "NBP.DAY.2021-05-19",
-      "ProductLongName": "UK Gas NBP Day 19 May 2021",
-      "ProductType": "Fixed",
-      "Commodity": {
-        "Commodity": "UK Gas",
-        "CommodityLongName": "UK Gas",
-        "Currency": "GBP",
-        "Country": "GB",
-        "Period": "day",
-        "DeliveryArea": {
-          "DeliveryArea": "NG-NBP",
-          "DeliveryAreaLongName": "National Grid NBP",
-          "EIC": "21YGB-UKGASGRIDW"
-        },
-        "Timezone": "Europe/London",
-        "EnergyUnit": {
-          "EnergyUnit": "Therm (UK)",
-          "EnergyUnitLongName": "Therm (UK)",
-          "Suffix": "Therm (UK)",
-          "JouleEquivalent": 105505585.257
-        },
-        "BaseCommodity": {
-          "BaseCommodity": "Natural Gas",
-          "BaseCommodityLongName": "Natural Gas",
-          "Category": {
-            "Category": "Energy",
-            "CategoryLongName": "Energy",
-            "AssetClass": "Commodity"
-          }
-        },
-        "DefaultQuantityUnit": {
-          "QuantityUnit": "Therms/day (UK)",
-          "QuantityUnitLongName": "Therms/day (UK)",
-          "Suffix": "Therms/day",
-          "EnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          },
-          "Period": "day"
-        },
-        "DefaultPriceUnit": {
-          "PriceUnit": "p/Therm",
-          "PriceUnitLongName": "p/Therm",
-          "Suffix": "p/Therm",
-          "CurrencyExponent": 2,
-          "PriceUnitType": "Currency",
-          "Currency": "GBP",
-          "PerPriceUnitType": "Energy Unit",
-          "PerEnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          }
-        },
-        "RegulatoryMechanisms": [
-          "EMIR",
-          " REMIT"
-        ],
-        "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
-        "Visibility": {
-          "Enabled": true
-        }
-      },
-      "ShapeDescription": "Baseload",
-      "PeriodDescription": "Day",
-      "ProductValue": 1.0,
-      "ContractType": "Forward",
-      "ProfileDefinition": [
-        {
-          "LocalStartDateTime": "2021-05-19T05:00:00",
-          "LocalEndDateTime": "2021-05-20T05:00:00"
-        }
-      ],
-      "QuantityUnit": {
-        "QuantityUnit": "Therms/day (UK)",
-        "QuantityUnitLongName": "Therms/day (UK)",
-        "Suffix": "Therms/day",
-        "EnergyUnit": {
-          "EnergyUnit": "Therm (UK)",
-          "EnergyUnitLongName": "Therm (UK)",
-          "Suffix": "Therm (UK)",
-          "JouleEquivalent": 105505585.257
-        },
-        "Period": "day"
-      },
-      "PriceUnit": {
-        "PriceUnit": "p/Therm",
-        "PriceUnitLongName": "p/Therm",
-        "Suffix": "p/Therm",
-        "CurrencyExponent": 2,
-        "PriceUnitType": "Currency",
-        "Currency": "GBP",
-        "PerPriceUnitType": "Energy Unit",
-        "PerEnergyUnit": {
-          "EnergyUnit": "Therm (UK)",
-          "EnergyUnitLongName": "Therm (UK)",
-          "Suffix": "Therm (UK)",
-          "JouleEquivalent": 105505585.257
-        }
-      },
-      "Settlement": {
-        "SettlementType": "Physical",
-        "SettlementPeriod": "Monthly"
-      },
-      "TradingPeriod": {
-        "UTCStartDateTime": "2021-05-05T00:00:00Z",
-        "UTCEndDateTime": "2021-05-19T00:00:00Z"
-      },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/DAY-D-19.png",
-      "Fingerprint": "b92da7edbdf7f36af7300d6714b0977f"
-    },
-    "InternalParty": {
-      "Party": "DEMO_INTERNAL",
-      "PartyLongName": "** DEMO Internal Party **",
-      "PartyType": [
-        "Trading"
-      ],
-      "Categories": [
-        "Equities",
-        "Energy"
-      ],
-      "Internal": true,
-      "PrimaryBillingContact": {
-        "Contact": "DEMO_YXH58032_LEBR",
-        "ContactLongName": "** DEMO Contact Leonard Breisacher **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "tovarish1946@outlook.com",
-        "PrimaryPhoneNumber": "+49-8660-54235319",
-        "AlternateEmailAddresses": [
-          "goldfinch1845@yandex.com",
-          "elysia1844@protonmail.com",
-          "brayed2014@outlook.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "(0684) 782388018",
-          "+49-0244-69911579",
-          "(02495) 7335407"
-        ],
-        "PrimaryAddress": {
-          "Line1": "Friedrichstraﬂe 285",
-          "City": "Spaichingen",
-          "Region": "Mecklenburg-Vorpommern",
-          "Country": "DE",
-          "PostalCode": "19873"
-        }
-      },
-      "PrimaryConfirmationContact": {
-        "Contact": "DEMO_KIX4181_IRSC",
-        "ContactLongName": "** DEMO Contact Irmela Schmitt **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "abscess1810@outlook.com",
-        "PrimaryPhoneNumber": "(0680) 285933848",
-        "AlternateEmailAddresses": [
-          "suez1893@live.com",
-          "banky2017@gmail.com",
-          "rotted1804@outlook.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "+49-8783-61510415",
-          "+49-0684-30904394",
-          "+49-52-054-73866"
-        ],
-        "PrimaryAddress": {
-          "Line1": "Deichstraﬂe 673",
-          "City": "Groﬂrˆhrsdorf",
-          "Region": "Mecklenburg-Vorpommern",
-          "Country": "DE",
-          "PostalCode": "66183"
-        }
-      },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/97426.jpg"
-    },
-    "InternalTrader": {
-      "Contact": "DEMO_JVT27722_BRJI",
-      "ContactLongName": "** DEMO Contact Broderick Jimenez **",
-      "ContactType": "Trading",
-      "PrimaryEmailAddress": "ambarella1847@gmail.com",
-      "PrimaryPhoneNumber": "+44 92 7930 4847",
-      "AlternateEmailAddresses": [
-        "enviable1984@yandex.com",
-        "stacker2002@yandex.com",
-        "propriety1907@gmail.com"
-      ],
-      "AlternatePhoneNumbers": [
-        "0964 752 2331",
-        "0191 934 9867",
-        "0114 902 5387"
-      ],
-      "PrimaryAddress": {
-        "Line1": "679 Leighan Highway",
-        "City": "Ashford",
-        "Region": "North Yorkshire",
-        "Country": "GB",
-        "PostalCode": "VV5D 4OX"
-      }
-    },
-    "Counterparty": {
-      "Party": "DEMO_GGG_55329",
-      "PartyLongName": "** DEMO Party Greencore Grp. (GNC) 55329 **",
-      "PartyType": [
-        "Trading"
-      ],
-      "Categories": [
-        "Energy"
-      ],
-      "Countries": [
-        "GB"
-      ],
-      "Internal": false,
-      "PrimaryBillingContact": {
-        "Contact": "DEMO_ZIV69485_VEPE",
-        "ContactLongName": "** DEMO Contact Verdell Perkins **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "capturer1965@yahoo.com",
-        "PrimaryPhoneNumber": "013712 87360",
-        "AlternateEmailAddresses": [
-          "anasazi2007@protonmail.com",
-          "redias1846@yahoo.com",
-          "wolf1871@outlook.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "0800 589853",
-          "0500 612217",
-          "0800 568 2465"
-        ],
-        "PrimaryAddress": {
-          "Line1": "76 Clontyclevin Wynd",
-          "City": "Hawick",
-          "Region": "West Yorkshire",
-          "Country": "GB",
-          "PostalCode": "OX3E 8AD"
-        }
-      },
-      "PrimaryConfirmationContact": {
-        "Contact": "DEMO_EGG57954_KYWI",
-        "ContactLongName": "** DEMO Contact Kyle Wiley **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "balas1900@live.com",
-        "PrimaryPhoneNumber": "0800 628 5565",
-        "AlternateEmailAddresses": [
-          "stubbles2046@yandex.com",
-          "stowps1901@outlook.com",
-          "evzone1922@gmail.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "020 7934 2566",
-          "0800 484 3269",
-          "01221 41215"
-        ],
-        "PrimaryAddress": {
-          "Line1": "362 Ballintate Pike",
-          "City": "Ampthill",
-          "Region": "Berkshire",
-          "Country": "GB",
-          "PostalCode": "CV1U 1YQ"
-        }
-      },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/55329.jpg"
-    },
-    "CounterpartyTrader": {
-      "Contact": "DEMO_GRJ3050_MASH",
-      "ContactLongName": "** DEMO Contact Maurita Shannon **",
-      "ContactType": "Trading",
-      "PrimaryEmailAddress": "acid1853@gmail.com",
-      "PrimaryPhoneNumber": "027 2857 4262",
-      "AlternateEmailAddresses": [
-        "didie1904@live.com",
-        "roaming2045@protonmail.com",
-        "censorial1914@live.com"
-      ],
-      "AlternatePhoneNumbers": [
-        "0151 494 0763",
-        "0983 452 0430",
-        "0500 650407"
-      ],
-      "PrimaryAddress": {
-        "Line1": "105 Dillon Grove",
-        "City": "Nottingham",
-        "Region": "Bedfordshire",
-        "Country": "GB",
-        "PostalCode": "JQ9U 2TI"
-      }
-    },
-    "CounterpartyContact": {
-      "Contact": "DEMO_BMW7573_YOYA",
-      "ContactLongName": "** DEMO Contact Young Yang **",
-      "ContactType": "Trading",
-      "PrimaryEmailAddress": "jotisi1975@yahoo.com",
-      "PrimaryPhoneNumber": "0500 491493",
-      "AlternateEmailAddresses": [
-        "trustees1873@yandex.com",
-        "sweatband1809@gmail.com",
-        "narsinga1846@protonmail.com"
-      ],
-      "AlternatePhoneNumbers": [
-        "027 7164 5832",
-        "0800 258 7062",
-        "016977 7219"
-      ],
-      "PrimaryAddress": {
-        "Line1": "24 Dunturk Plantation",
-        "City": "Buxton",
-        "Region": "County Londonderry",
-        "Country": "GB",
-        "PostalCode": "DA8Y 2MX"
-      }
-    },
-    "CounterpartyReference": "DEMO_AHI1498",
-    "Buyer": {
-      "Party": "DEMO_GGG_55329",
-      "PartyLongName": "** DEMO Party Greencore Grp. (GNC) 55329 **",
-      "PartyType": [
-        "Trading"
-      ],
-      "Categories": [
-        "Energy"
-      ],
-      "Countries": [
-        "GB"
-      ],
-      "Internal": false,
-      "PrimaryBillingContact": {
-        "Contact": "DEMO_ZIV69485_VEPE",
-        "ContactLongName": "** DEMO Contact Verdell Perkins **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "capturer1965@yahoo.com",
-        "PrimaryPhoneNumber": "013712 87360",
-        "AlternateEmailAddresses": [
-          "anasazi2007@protonmail.com",
-          "redias1846@yahoo.com",
-          "wolf1871@outlook.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "0800 589853",
-          "0500 612217",
-          "0800 568 2465"
-        ],
-        "PrimaryAddress": {
-          "Line1": "76 Clontyclevin Wynd",
-          "City": "Hawick",
-          "Region": "West Yorkshire",
-          "Country": "GB",
-          "PostalCode": "OX3E 8AD"
-        }
-      },
-      "PrimaryConfirmationContact": {
-        "Contact": "DEMO_EGG57954_KYWI",
-        "ContactLongName": "** DEMO Contact Kyle Wiley **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "balas1900@live.com",
-        "PrimaryPhoneNumber": "0800 628 5565",
-        "AlternateEmailAddresses": [
-          "stubbles2046@yandex.com",
-          "stowps1901@outlook.com",
-          "evzone1922@gmail.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "020 7934 2566",
-          "0800 484 3269",
-          "01221 41215"
-        ],
-        "PrimaryAddress": {
-          "Line1": "362 Ballintate Pike",
-          "City": "Ampthill",
-          "Region": "Berkshire",
-          "Country": "GB",
-          "PostalCode": "CV1U 1YQ"
-        }
-      },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/55329.jpg",
-      "EIC": {
-        "EIC": "21Y000000000009E"
-      }
-    },
-    "Seller": {
-      "Party": "DEMO_INTERNAL",
-      "PartyLongName": "** DEMO Internal Party **",
-      "PartyType": [
-        "Trading"
-      ],
-      "Categories": [
-        "Equities",
-        "Energy"
-      ],
-      "Internal": true,
-      "PrimaryBillingContact": {
-        "Contact": "DEMO_YXH58032_LEBR",
-        "ContactLongName": "** DEMO Contact Leonard Breisacher **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "tovarish1946@outlook.com",
-        "PrimaryPhoneNumber": "+49-8660-54235319",
-        "AlternateEmailAddresses": [
-          "goldfinch1845@yandex.com",
-          "elysia1844@protonmail.com",
-          "brayed2014@outlook.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "(0684) 782388018",
-          "+49-0244-69911579",
-          "(02495) 7335407"
-        ],
-        "PrimaryAddress": {
-          "Line1": "Friedrichstraﬂe 285",
-          "City": "Spaichingen",
-          "Region": "Mecklenburg-Vorpommern",
-          "Country": "DE",
-          "PostalCode": "19873"
-        }
-      },
-      "PrimaryConfirmationContact": {
-        "Contact": "DEMO_KIX4181_IRSC",
-        "ContactLongName": "** DEMO Contact Irmela Schmitt **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "abscess1810@outlook.com",
-        "PrimaryPhoneNumber": "(0680) 285933848",
-        "AlternateEmailAddresses": [
-          "suez1893@live.com",
-          "banky2017@gmail.com",
-          "rotted1804@outlook.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "+49-8783-61510415",
-          "+49-0684-30904394",
-          "+49-52-054-73866"
-        ],
-        "PrimaryAddress": {
-          "Line1": "Deichstraﬂe 673",
-          "City": "Groﬂrˆhrsdorf",
-          "Region": "Mecklenburg-Vorpommern",
-          "Country": "DE",
-          "PostalCode": "66183"
-        }
-      },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/97426.jpg",
-      "EIC": {
-        "EIC": "48X000000000293G"
-      }
-    },
-    "Beneficiary": {
-      "EIC": {
-        "EIC": "48X000000000293G"
-      }
-    },
-    "Exchange": {
-      "Party": "DEMO_SCSD_5456",
-      "PartyLongName": "** DEMO Party Schroders (SDR) 5456 **",
-      "PartyType": [
-        "Exchange"
-      ],
-      "Categories": [
-        "Energy"
-      ],
-      "Countries": [
-        "GB"
-      ],
-      "Internal": false,
-      "PrimaryBillingContact": {
-        "Contact": "DEMO_EUR88992_LUHA",
-        "ContactLongName": "** DEMO Contact Luis Hayden **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "hydroponics1815@yahoo.com",
-        "PrimaryPhoneNumber": "019655 38701",
-        "AlternateEmailAddresses": [
-          "mankilling1820@yahoo.com",
-          "shrew1840@yandex.com",
-          "costs1964@yandex.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "0800 022 1857",
-          "0985 868 0746",
-          "+44 89 5814 3585"
-        ],
-        "PrimaryAddress": {
-          "Line1": "382 Dellwood Thruway",
-          "City": "Redruth",
-          "Region": "West Midlands",
-          "Country": "GB",
-          "PostalCode": "SK5R 8WH"
-        }
-      },
-      "PrimaryConfirmationContact": {
-        "Contact": "DEMO_EUR88992_LUHA",
-        "ContactLongName": "** DEMO Contact Luis Hayden **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "hydroponics1815@yahoo.com",
-        "PrimaryPhoneNumber": "019655 38701",
-        "AlternateEmailAddresses": [
-          "mankilling1820@yahoo.com",
-          "shrew1840@yandex.com",
-          "costs1964@yandex.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "0800 022 1857",
-          "0985 868 0746",
-          "+44 89 5814 3585"
-        ],
-        "PrimaryAddress": {
-          "Line1": "382 Dellwood Thruway",
-          "City": "Redruth",
-          "Region": "West Midlands",
-          "Country": "GB",
-          "PostalCode": "SK5R 8WH"
-        }
-      },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/5456.jpg"
-    },
-    "ExchangeContact": {
-      "Contact": "DEMO_EUR88992_LUHA",
-      "ContactLongName": "** DEMO Contact Luis Hayden **",
-      "ContactType": "Trading",
-      "PrimaryEmailAddress": "hydroponics1815@yahoo.com",
-      "PrimaryPhoneNumber": "019655 38701",
-      "AlternateEmailAddresses": [
-        "mankilling1820@yahoo.com",
-        "shrew1840@yandex.com",
-        "costs1964@yandex.com"
-      ],
-      "AlternatePhoneNumbers": [
-        "0800 022 1857",
-        "0985 868 0746",
-        "+44 89 5814 3585"
-      ],
-      "PrimaryAddress": {
-        "Line1": "382 Dellwood Thruway",
-        "City": "Redruth",
-        "Region": "West Midlands",
-        "Country": "GB",
-        "PostalCode": "SK5R 8WH"
-      }
-    },
-    "ExchangeReference": "DEMO_EXX35624",
-    "BrokerReference": "DEMO_MLE62382",
-    "ClearingHouseReference": "DEMO_UKD36463",
-    "Initiator": {
-      "Party": "DEMO_GGG_55329",
-      "PartyLongName": "** DEMO Party Greencore Grp. (GNC) 55329 **",
-      "PartyType": [
-        "Trading"
-      ],
-      "Categories": [
-        "Energy"
-      ],
-      "Countries": [
-        "GB"
-      ],
-      "Internal": false,
-      "PrimaryBillingContact": {
-        "Contact": "DEMO_ZIV69485_VEPE",
-        "ContactLongName": "** DEMO Contact Verdell Perkins **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "capturer1965@yahoo.com",
-        "PrimaryPhoneNumber": "013712 87360",
-        "AlternateEmailAddresses": [
-          "anasazi2007@protonmail.com",
-          "redias1846@yahoo.com",
-          "wolf1871@outlook.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "0800 589853",
-          "0500 612217",
-          "0800 568 2465"
-        ],
-        "PrimaryAddress": {
-          "Line1": "76 Clontyclevin Wynd",
-          "City": "Hawick",
-          "Region": "West Yorkshire",
-          "Country": "GB",
-          "PostalCode": "OX3E 8AD"
-        }
-      },
-      "PrimaryConfirmationContact": {
-        "Contact": "DEMO_EGG57954_KYWI",
-        "ContactLongName": "** DEMO Contact Kyle Wiley **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "balas1900@live.com",
-        "PrimaryPhoneNumber": "0800 628 5565",
-        "AlternateEmailAddresses": [
-          "stubbles2046@yandex.com",
-          "stowps1901@outlook.com",
-          "evzone1922@gmail.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "020 7934 2566",
-          "0800 484 3269",
-          "01221 41215"
-        ],
-        "PrimaryAddress": {
-          "Line1": "362 Ballintate Pike",
-          "City": "Ampthill",
-          "Region": "Berkshire",
-          "Country": "GB",
-          "PostalCode": "CV1U 1YQ"
-        }
-      },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/55329.jpg"
-    },
-    "Aggressor": {
-      "Party": "DEMO_INTERNAL",
-      "PartyLongName": "** DEMO Internal Party **",
-      "PartyType": [
-        "Trading"
-      ],
-      "Categories": [
-        "Equities",
-        "Energy"
-      ],
-      "Internal": true,
-      "PrimaryBillingContact": {
-        "Contact": "DEMO_YXH58032_LEBR",
-        "ContactLongName": "** DEMO Contact Leonard Breisacher **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "tovarish1946@outlook.com",
-        "PrimaryPhoneNumber": "+49-8660-54235319",
-        "AlternateEmailAddresses": [
-          "goldfinch1845@yandex.com",
-          "elysia1844@protonmail.com",
-          "brayed2014@outlook.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "(0684) 782388018",
-          "+49-0244-69911579",
-          "(02495) 7335407"
-        ],
-        "PrimaryAddress": {
-          "Line1": "Friedrichstraﬂe 285",
-          "City": "Spaichingen",
-          "Region": "Mecklenburg-Vorpommern",
-          "Country": "DE",
-          "PostalCode": "19873"
-        }
-      },
-      "PrimaryConfirmationContact": {
-        "Contact": "DEMO_KIX4181_IRSC",
-        "ContactLongName": "** DEMO Contact Irmela Schmitt **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "abscess1810@outlook.com",
-        "PrimaryPhoneNumber": "(0680) 285933848",
-        "AlternateEmailAddresses": [
-          "suez1893@live.com",
-          "banky2017@gmail.com",
-          "rotted1804@outlook.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "+49-8783-61510415",
-          "+49-0684-30904394",
-          "+49-52-054-73866"
-        ],
-        "PrimaryAddress": {
-          "Line1": "Deichstraﬂe 673",
-          "City": "Groﬂrˆhrsdorf",
-          "Region": "Mecklenburg-Vorpommern",
-          "Country": "DE",
-          "PostalCode": "66183"
-        }
-      },
-      "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/97426.jpg"
-    },
-    "Quantity": {
-      "QuantityType": "Fixed",
-      "Quantity": 3800.0,
-      "QuantityUnit": {
-        "QuantityUnit": "Therms/day (UK)",
-        "QuantityUnitLongName": "Therms/day (UK)",
-        "Suffix": "Therms/day",
-        "EnergyUnit": {
-          "EnergyUnit": "Therm (UK)",
-          "EnergyUnitLongName": "Therm (UK)",
-          "Suffix": "Therm (UK)",
-          "JouleEquivalent": 105505585.257
-        },
-        "Period": "day"
-      }
-    },
-    "Price": {
-      "PriceType": "Fixed",
-      "Price": 3.2056,
-      "PriceUnit": {
-        "PriceUnit": "p/Therm",
-        "PriceUnitLongName": "p/Therm",
-        "Suffix": "p/Therm",
-        "CurrencyExponent": 2,
-        "PriceUnitType": "Currency",
-        "Currency": "GBP",
-        "PerPriceUnitType": "Energy Unit",
-        "PerEnergyUnit": {
-          "EnergyUnit": "Therm (UK)",
-          "EnergyUnitLongName": "Therm (UK)",
-          "Suffix": "Therm (UK)",
-          "JouleEquivalent": 105505585.257
-        }
-      }
-    },
-    "Order": {
-      "OrderReference": "DEMO_GVO42635",
-      "OrderDescription": "DEMO_GVO42635",
-      "OrderDateTime": "2020-12-05T06:54:33.988Z",
-      "OrderExpiresDateTime": "2020-12-12T07:15:31.085Z",
-      "TimeInForce": "GoodForDay",
-      "FillType": "FillOrKill",
-      "OrderType": "Market",
-      "OrderStatus": "Filled",
-      "BuySell": "Sell",
-      "Commodity": {
-        "Commodity": "UK Gas",
-        "CommodityLongName": "UK Gas",
-        "Currency": "GBP",
-        "Country": "GB",
-        "Period": "day",
-        "DeliveryArea": {
-          "DeliveryArea": "NG-NBP",
-          "DeliveryAreaLongName": "National Grid NBP",
-          "EIC": "21YGB-UKGASGRIDW"
-        },
-        "Timezone": "Europe/London",
-        "EnergyUnit": {
-          "EnergyUnit": "Therm (UK)",
-          "EnergyUnitLongName": "Therm (UK)",
-          "Suffix": "Therm (UK)",
-          "JouleEquivalent": 105505585.257
-        },
-        "BaseCommodity": {
-          "BaseCommodity": "Natural Gas",
-          "BaseCommodityLongName": "Natural Gas",
-          "Category": {
-            "Category": "Energy",
-            "CategoryLongName": "Energy",
-            "AssetClass": "Commodity"
-          }
-        },
-        "DefaultQuantityUnit": {
-          "QuantityUnit": "Therms/day (UK)",
-          "QuantityUnitLongName": "Therms/day (UK)",
-          "Suffix": "Therms/day",
-          "EnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          },
-          "Period": "day"
-        },
-        "DefaultPriceUnit": {
-          "PriceUnit": "p/Therm",
-          "PriceUnitLongName": "p/Therm",
-          "Suffix": "p/Therm",
-          "CurrencyExponent": 2,
-          "PriceUnitType": "Currency",
-          "Currency": "GBP",
-          "PerPriceUnitType": "Energy Unit",
-          "PerEnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          }
-        },
-        "RegulatoryMechanisms": [
-          "EMIR",
-          " REMIT"
-        ],
-        "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
-        "Visibility": {
-          "Enabled": true
-        }
-      },
-      "Contract": {
-        "ContractReference": "DEMO_VBS34948",
-        "ContractLongName": "** DEMO Contract Reference DEMO_VBS34948 **",
-        "PrimaryInternalParty": {
-          "Party": "DEMO_INTERNAL",
-          "PartyLongName": "** DEMO Internal Party **",
-          "PartyType": [
-            "Trading"
-          ],
-          "Categories": [
-            "Equities",
-            "Energy"
-          ],
-          "Internal": true,
-          "PrimaryBillingContact": {
-            "Contact": "DEMO_YXH58032_LEBR",
-            "ContactLongName": "** DEMO Contact Leonard Breisacher **",
-            "ContactType": "Trading",
-            "PrimaryEmailAddress": "tovarish1946@outlook.com",
-            "PrimaryPhoneNumber": "+49-8660-54235319",
-            "AlternateEmailAddresses": [
-              "goldfinch1845@yandex.com",
-              "elysia1844@protonmail.com",
-              "brayed2014@outlook.com"
-            ],
-            "AlternatePhoneNumbers": [
-              "(0684) 782388018",
-              "+49-0244-69911579",
-              "(02495) 7335407"
-            ],
-            "PrimaryAddress": {
-              "Line1": "Friedrichstraﬂe 285",
-              "City": "Spaichingen",
-              "Region": "Mecklenburg-Vorpommern",
-              "Country": "DE",
-              "PostalCode": "19873"
+        "Contract": {
+            "AgreementType": {
+                "AgreementType": "GTMA"
             }
-          },
-          "PrimaryConfirmationContact": {
-            "Contact": "DEMO_KIX4181_IRSC",
-            "ContactLongName": "** DEMO Contact Irmela Schmitt **",
-            "ContactType": "Trading",
-            "PrimaryEmailAddress": "abscess1810@outlook.com",
-            "PrimaryPhoneNumber": "(0680) 285933848",
-            "AlternateEmailAddresses": [
-              "suez1893@live.com",
-              "banky2017@gmail.com",
-              "rotted1804@outlook.com"
-            ],
-            "AlternatePhoneNumbers": [
-              "+49-8783-61510415",
-              "+49-0684-30904394",
-              "+49-52-054-73866"
-            ],
-            "PrimaryAddress": {
-              "Line1": "Deichstraﬂe 673",
-              "City": "Groﬂrˆhrsdorf",
-              "Region": "Mecklenburg-Vorpommern",
-              "Country": "DE",
-              "PostalCode": "66183"
-            }
-          },
-          "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/97426.jpg"
         },
-        "PrimaryCounterparty": {
-          "Party": "DEMO_GGG_55329",
-          "PartyLongName": "** DEMO Party Greencore Grp. (GNC) 55329 **",
-          "PartyType": [
-            "Trading"
-          ],
-          "Categories": [
-            "Energy"
-          ],
-          "Countries": [
-            "GB"
-          ],
-          "Internal": false,
-          "PrimaryBillingContact": {
-            "Contact": "DEMO_ZIV69485_VEPE",
-            "ContactLongName": "** DEMO Contact Verdell Perkins **",
-            "ContactType": "Trading",
-            "PrimaryEmailAddress": "capturer1965@yahoo.com",
-            "PrimaryPhoneNumber": "013712 87360",
-            "AlternateEmailAddresses": [
-              "anasazi2007@protonmail.com",
-              "redias1846@yahoo.com",
-              "wolf1871@outlook.com"
-            ],
-            "AlternatePhoneNumbers": [
-              "0800 589853",
-              "0500 612217",
-              "0800 568 2465"
-            ],
-            "PrimaryAddress": {
-              "Line1": "76 Clontyclevin Wynd",
-              "City": "Hawick",
-              "Region": "West Yorkshire",
-              "Country": "GB",
-              "PostalCode": "OX3E 8AD"
-            }
-          },
-          "PrimaryConfirmationContact": {
-            "Contact": "DEMO_EGG57954_KYWI",
-            "ContactLongName": "** DEMO Contact Kyle Wiley **",
-            "ContactType": "Trading",
-            "PrimaryEmailAddress": "balas1900@live.com",
-            "PrimaryPhoneNumber": "0800 628 5565",
-            "AlternateEmailAddresses": [
-              "stubbles2046@yandex.com",
-              "stowps1901@outlook.com",
-              "evzone1922@gmail.com"
-            ],
-            "AlternatePhoneNumbers": [
-              "020 7934 2566",
-              "0800 484 3269",
-              "01221 41215"
-            ],
-            "PrimaryAddress": {
-              "Line1": "362 Ballintate Pike",
-              "City": "Ampthill",
-              "Region": "Berkshire",
-              "Country": "GB",
-              "PostalCode": "CV1U 1YQ"
-            }
-          },
-          "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/55329.jpg"
-        },
-        "PrimaryCommodity": {
-          "Commodity": "UK Gas",
-          "CommodityLongName": "UK Gas",
-          "Currency": "GBP",
-          "Country": "GB",
-          "Period": "day",
-          "DeliveryArea": {
-            "DeliveryArea": "NG-NBP",
-            "DeliveryAreaLongName": "National Grid NBP",
-            "EIC": "21YGB-UKGASGRIDW"
-          },
-          "Timezone": "Europe/London",
-          "EnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          },
-          "BaseCommodity": {
-            "BaseCommodity": "Natural Gas",
-            "BaseCommodityLongName": "Natural Gas",
-            "Category": {
-              "Category": "Energy",
-              "CategoryLongName": "Energy",
-              "AssetClass": "Commodity"
-            }
-          },
-          "DefaultQuantityUnit": {
-            "QuantityUnit": "Therms/day (UK)",
-            "QuantityUnitLongName": "Therms/day (UK)",
-            "Suffix": "Therms/day",
-            "EnergyUnit": {
-              "EnergyUnit": "Therm (UK)",
-              "EnergyUnitLongName": "Therm (UK)",
-              "Suffix": "Therm (UK)",
-              "JouleEquivalent": 105505585.257
+        "Product": {
+            "Commodity": {
+                "Commodity": "UK Power",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "Period": "sub-daily",
+                "PeriodMinutes": 30
             },
-            "Period": "day"
-          },
-          "DefaultPriceUnit": {
-            "PriceUnit": "p/Therm",
-            "PriceUnitLongName": "p/Therm",
-            "Suffix": "p/Therm",
-            "CurrencyExponent": 2,
-            "PriceUnitType": "Currency",
-            "Currency": "GBP",
-            "PerPriceUnitType": "Energy Unit",
-            "PerEnergyUnit": {
-              "EnergyUnit": "Therm (UK)",
-              "EnergyUnitLongName": "Therm (UK)",
-              "Suffix": "Therm (UK)",
-              "JouleEquivalent": 105505585.257
+            "ShapeDescription": "Baseload",
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2019-12-31T23:00:00",
+                    "LocalEndDateTime": "2020-01-31T23:00:00"
+                }
+            ],
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementPeriod": "Daily",
+                "BillRule": {
+                    "SettlementRule": "TEST1",
+                    "AnchorDateType": "StartOfPhysicalDelivery",
+                    "SkipDays": 39,
+                    "SkipSaturdaySunday": false,
+                    "SkipWeekdays": [
+                        4,
+                        6,
+                        7
+                    ]
+                },
+                "PayRule": {
+                    "SettlementRule": "TEST100",
+                    "AnchorDateType": "StartOfPhysicalDelivery",
+                    "SkipDays": 77,
+                    "SkipSaturdaySunday": true,
+                    "SkipWeekdays": [
+                        1,
+                        2,
+                        4,
+                        5,
+                        6,
+                        7
+                    ]
+                }
             }
-          },
-          "RegulatoryMechanisms": [
-            "EMIR",
-            " REMIT"
-          ],
-          "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
-          "Visibility": {
-            "Enabled": true
-          }
         },
-        "AdditionalInternalParties": [],
-        "AdditionalCounterparties": [],
-        "AdditionalCommodities": [],
-        "AgreementType": {
-          "AgreementType": "Other",
-          "AgreementTypeLongName": "Other undefined types of master trading agreement, kept for backwards compatability with earlier versions of the eCM standard"
-        },
-        "Validity": {
-          "StartDateTime": "2020-12-08T11:39:19.608Z",
-          "EndDateTime": "2020-12-08T11:44:35.538Z"
-        },
-        "Execution": {
-          "ExecutedDateTime": "2020-12-08T11:37:44.125Z",
-          "ExpirationDateTime": "2020-12-08T11:45:57.562Z",
-          "ExpirationReason": "Expires at expiration date"
-        },
-        "Notes": "Notes"
-      },
-      "Product": {
-        "Product": "NBP.DAY.2021-05-19",
-        "ProductLongName": "UK Gas NBP Day 19 May 2021",
-        "ProductType": "Fixed",
-        "Commodity": {
-          "Commodity": "UK Gas",
-          "CommodityLongName": "UK Gas",
-          "Currency": "GBP",
-          "Country": "GB",
-          "Period": "day",
-          "DeliveryArea": {
-            "DeliveryArea": "NG-NBP",
-            "DeliveryAreaLongName": "National Grid NBP",
-            "EIC": "21YGB-UKGASGRIDW"
-          },
-          "Timezone": "Europe/London",
-          "EnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          },
-          "BaseCommodity": {
-            "BaseCommodity": "Natural Gas",
-            "BaseCommodityLongName": "Natural Gas",
-            "Category": {
-              "Category": "Energy",
-              "CategoryLongName": "Energy",
-              "AssetClass": "Commodity"
+        "InternalParty": {
+            "Party": "InternalParty1",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
             }
-          },
-          "DefaultQuantityUnit": {
-            "QuantityUnit": "Therms/day (UK)",
-            "QuantityUnitLongName": "Therms/day (UK)",
-            "Suffix": "Therms/day",
-            "EnergyUnit": {
-              "EnergyUnit": "Therm (UK)",
-              "EnergyUnitLongName": "Therm (UK)",
-              "Suffix": "Therm (UK)",
-              "JouleEquivalent": 105505585.257
-            },
-            "Period": "day"
-          },
-          "DefaultPriceUnit": {
-            "PriceUnit": "p/Therm",
-            "PriceUnitLongName": "p/Therm",
-            "Suffix": "p/Therm",
-            "CurrencyExponent": 2,
-            "PriceUnitType": "Currency",
-            "Currency": "GBP",
-            "PerPriceUnitType": "Energy Unit",
-            "PerEnergyUnit": {
-              "EnergyUnit": "Therm (UK)",
-              "EnergyUnitLongName": "Therm (UK)",
-              "Suffix": "Therm (UK)",
-              "JouleEquivalent": 105505585.257
+        },
+        "InternalTrader": {
+            "ContactLongName": "InternalParty1 Contact"
+        },
+        "Counterparty": {
+            "Party": "Counterparty1",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
             }
-          },
-          "RegulatoryMechanisms": [
-            "EMIR",
-            " REMIT"
-          ],
-          "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
-          "Visibility": {
-            "Enabled": true
-          }
         },
-        "ShapeDescription": "Baseload",
-        "PeriodDescription": "Day",
-        "ProductValue": 1.0,
-        "ContractType": "Forward",
-        "ProfileDefinition": [
-          {
-            "LocalStartDateTime": "2021-05-19T05:00:00",
-            "LocalEndDateTime": "2021-05-20T05:00:00"
-          }
-        ],
-        "QuantityUnit": {
-          "QuantityUnit": "Therms/day (UK)",
-          "QuantityUnitLongName": "Therms/day (UK)",
-          "Suffix": "Therms/day",
-          "EnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          },
-          "Period": "day"
+        "Buyer": {
+            "Party": "InternalParty1",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
+            }
         },
-        "PriceUnit": {
-          "PriceUnit": "p/Therm",
-          "PriceUnitLongName": "p/Therm",
-          "Suffix": "p/Therm",
-          "CurrencyExponent": 2,
-          "PriceUnitType": "Currency",
-          "Currency": "GBP",
-          "PerPriceUnitType": "Energy Unit",
-          "PerEnergyUnit": {
-            "EnergyUnit": "Therm (UK)",
-            "EnergyUnitLongName": "Therm (UK)",
-            "Suffix": "Therm (UK)",
-            "JouleEquivalent": 105505585.257
-          }
+        "Seller": {
+            "Party": "Counterparty1",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
+            }
         },
-        "Settlement": {
-          "SettlementType": "Physical",
-          "SettlementPeriod": "Monthly"
+        "Beneficiary": {
+            "Party": "InternalParty1",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
+            }
         },
-        "TradingPeriod": {
-          "UTCStartDateTime": "2021-05-05T00:00:00Z",
-          "UTCEndDateTime": "2021-05-19T00:00:00Z"
+        "Quantity": {
+            "QuantityType": "Fixed",
+            "Quantity": 10.0,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh"
+                },
+                "Period": "hour"
+            }
         },
-        "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/DAY-D-19.png",
-        "Fingerprint": "b92da7edbdf7f36af7300d6714b0977f"
-      },
-      "InternalParty": {
-        "Party": "DEMO_INTERNAL",
-        "PartyLon100 32669  100 32669    0     0   138k      0 --:--:-- --:--:-- --:--:--  138ke": "** DEMO Internal Party **",
-        "PartyType": [
-          "Trading"
-        ],
-        "Categories": [
-          "Equities",
-          "Energy"
-        ],
-        "Internal": true,
-        "PrimaryBillingContact": {
-          "Contact": "DEMO_YXH58032_LEBR",
-          "ContactLongName": "** DEMO Contact Leonard Breisacher **",
-          "ContactType": "Trading",
-          "PrimaryEmailAddress": "tovarish1946@outlook.com",
-          "PrimaryPhoneNumber": "+49-8660-54235319",
-          "AlternateEmailAddresses": [
-            "goldfinch1845@yandex.com",
-            "elysia1844@protonmail.com",
-            "brayed2014@outlook.com"
-          ],
-          "AlternatePhoneNumbers": [
-            "(0684) 782388018",
-            "+49-0244-69911579",
-            "(02495) 7335407"
-          ],
-          "PrimaryAddress": {
-            "Line1": "Friedrichstraﬂe 285",
-            "City": "Spaichingen",
-            "Region": "Mecklenburg-Vorpommern",
-            "Country": "DE",
-            "PostalCode": "19873"
-          }
+        "Price": {
+            "PriceType": "Fixed",
+            "Price": 23.45,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "Currency": "GBP",
+                "PerEnergyUnit": {
+                    "EnergyUnit": "MWh"
+                }
+            }
         },
-        "PrimaryConfirmationContact": {
-          "Contact": "DEMO_KIX4181_IRSC",
-          "ContactLongName": "** DEMO Contact Irmela Schmitt **",
-          "ContactType": "Trading",
-          "PrimaryEmailAddress": "abscess1810@outlook.com",
-          "PrimaryPhoneNumber": "(0680) 285933848",
-          "AlternateEmailAddresses": [
-            "suez1893@live.com",
-            "banky2017@gmail.com",
-            "rotted1804@outlook.com"
-          ],
-          "AlternatePhoneNumbers": [
-            "+49-8783-61510415",
-            "+49-0684-30904394",
-            "+49-52-054-73866"
-          ],
-          "PrimaryAddress": {
-            "Line1": "Deichstraﬂe 673",
-            "City": "Groﬂrˆhrsdorf",
-            "Region": "Mecklenburg-Vorpommern",
-            "Country": "DE",
-            "PostalCode": "66183"
-          }
-        },
-        "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/97426.jpg"
-      },
-      "InternalTrader": {
-        "Contact": "DEMO_JVT27722_BRJI",
-        "ContactLongName": "** DEMO Contact Broderick Jimenez **",
-        "ContactType": "Trading",
-        "PrimaryEmailAddress": "ambarella1847@gmail.com",
-        "PrimaryPhoneNumber": "+44 92 7930 4847",
-        "AlternateEmailAddresses": [
-          "enviable1984@yandex.com",
-          "stacker2002@yandex.com",
-          "propriety1907@gmail.com"
-        ],
-        "AlternatePhoneNumbers": [
-          "0964 752 2331",
-          "0191 934 9867",
-          "0114 902 5387"
-        ],
-        "PrimaryAddress": {
-          "Line1": "679 Leighan Highway",
-          "City": "Ashford",
-          "Region": "North Yorkshire",
-          "Country": "GB",
-          "PostalCode": "VV5D 4OX"
+        "External": {
+            "UKPowerECVN": {
+                "BSCPartyID": "BPGAS",
+                "BuyerEnergyAccount": "Production",
+                "SellerEnergyAccount": "Consumption",
+                "BuyerID": "BPGAS",
+                "SellerID": "DONG001"
+            }
         }
-      },
-      "Exchange": {
-        "Party": "DEMO_SCSD_5456",
-        "PartyLongName": "** DEMO Party Schroders (SDR) 5456 **",
-        "PartyType": [
-          "Exchange"
-        ],
-        "Categories": [
-          "Energy"
-        ],
-        "Countries": [
-          "GB"
-        ],
-        "Internal": false,
-        "PrimaryBillingContact": {
-          "Contact": "DEMO_EUR88992_LUHA",
-          "ContactLongName": "** DEMO Contact Luis Hayden **",
-          "ContactType": "Trading",
-          "PrimaryEmailAddress": "hydroponics1815@yahoo.com",
-          "PrimaryPhoneNumber": "019655 38701",
-          "AlternateEmailAddresses": [
-            "mankilling1820@yahoo.com",
-            "shrew1840@yandex.com",
-            "costs1964@yandex.com"
-          ],
-          "AlternatePhoneNumbers": [
-            "0800 022 1857",
-            "0985 868 0746",
-            "+44 89 5814 3585"
-          ],
-          "PrimaryAddress": {
-            "Line1": "382 Dellwood Thruway",
-            "City": "Redruth",
-            "Region": "West Midlands",
-            "Country": "GB",
-            "PostalCode": "SK5R 8WH"
-          }
-        },
-        "PrimaryConfirmationContact": {
-          "Contact": "DEMO_EUR88992_LUHA",
-          "ContactLongName": "** DEMO Contact Luis Hayden **",
-          "ContactType": "Trading",
-          "PrimaryEmailAddress": "hydroponics1815@yahoo.com",
-          "PrimaryPhoneNumber": "019655 38701",
-          "AlternateEmailAddresses": [
-            "mankilling1820@yahoo.com",
-            "shrew1840@yandex.com",
-            "costs1964@yandex.com"
-          ],
-          "AlternatePhoneNumbers": [
-            "0800 022 1857",
-            "0985 868 0746",
-            "+44 89 5814 3585"
-          ],
-          "PrimaryAddress": {
-            "Line1": "382 Dellwood Thruway",
-            "City": "Redruth",
-            "Region": "West Midlands",
-            "Country": "GB",
-            "PostalCode": "SK5R 8WH"
-          }
-        },
-        "Image": "https://tradecubelrs.blob.core.windows.net/0017-default/5456.jpg"
-      },
-      "ExchangeReference": "DEMO_ETS87071",
-      "BrokerReference": "DEMO_APE85590",
-      "MinimumQuantity": 0.0,
-      "MaximumQuantity": 30.0,
-      "MinimumStepQuantity": 5.0,
-      "QuantityUnit": {
-        "QuantityUnit": "Therms/day (UK)",
-        "QuantityUnitLongName": "Therms/day (UK)",
-        "Suffix": "Therms/day",
-        "EnergyUnit": {
-          "EnergyUnit": "Therm (UK)",
-          "EnergyUnitLongName": "Therm (UK)",
-          "Suffix": "Therm (UK)",
-          "JouleEquivalent": 105505585.257
-        },
-        "Period": "day"
-      },
-      "PriceUnit": {
-        "PriceUnit": "p/Therm",
-        "PriceUnitLongName": "p/Therm",
-        "Suffix": "p/Therm",
-        "CurrencyExponent": 2,
-        "PriceUnitType": "Currency",
-        "Currency": "GBP",
-        "PerPriceUnitType": "Energy Unit",
-        "PerEnergyUnit": {
-          "EnergyUnit": "Therm (UK)",
-          "EnergyUnitLongName": "Therm (UK)",
-          "Suffix": "Therm (UK)",
-          "JouleEquivalent": 105505585.257
-        }
-      },
-      "MinimumPrice": 0.0,
-      "MaximumPrice": 11.93
     },
-    "Fees": [],
-    "Credits": [],
-    "Attachments": [],
-    "Allocations": [],
-    "Tags": [
-      "Lock Notes"
-    ]
-  }
+    {
+        "TradeReference": "TEST2",
+        "TradeLeg": 1,
+        "TradeDateTime": "2020-01-01T00:00:00Z",
+        "TradeStatus": "Test",
+        "BuySell": "Sell",
+        "TradingBook": {
+            "TradingBook": "Book1"
+        },
+        "Contract": {
+            "AgreementType": {
+                "AgreementType": "GTMA"
+            }
+        },
+        "Product": {
+            "Commodity": {
+                "Commodity": "UK Power",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "DefaultBillRule": {
+                    "SettlementRule": "TEST2",
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 39,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true,
+                    "SkipWeekdays": [
+                        1,
+                        4,
+                        7
+                    ]
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "TEST99",
+                    "AnchorDateType": "TradeDate",
+                    "SkipDays": 47,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": false,
+                    "SkipWeekdays": [
+                        1,
+                        2,
+                        4,
+                        5
+                    ]
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2020-02-29T23:00:00",
+                    "LocalEndDateTime": "2020-03-31T23:00:00"
+                }
+            ],
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementPeriod": "Monthly"
+            }
+        },
+        "InternalParty": {
+            "Party": "InternalParty2",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "InternalParty2 Contact"
+        },
+        "Counterparty": {
+            "Party": "Counterparty2",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
+            }
+        },
+        "Buyer": {
+            "Party": "Counterparty2",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
+            }
+        },
+        "Seller": {
+            "Party": "InternalParty2",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
+            }
+        },
+        "Beneficiary": {
+            "Party": "Counterparty2",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
+            }
+        },
+        "Quantity": {
+            "QuantityType": "Fixed",
+            "Quantity": 10.1,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh"
+                },
+                "Period": "hour"
+            }
+        },
+        "Price": {
+            "PriceType": "Fixed",
+            "Price": 23.55,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "Currency": "GBP",
+                "PerEnergyUnit": {
+                    "EnergyUnit": "MWh"
+                }
+            }
+        },
+        "External": {
+            "UKPowerECVN": {
+                "BSCPartyID": "BPGAS",
+                "BuyerEnergyAccount": "Production",
+                "SellerEnergyAccount": "Consumption",
+                "BuyerID": "BPGAS",
+                "SellerID": "DONG001"
+            }
+        }
+    },
+    {
+        "TradeReference": "TEST3",
+        "TradeLeg": 1,
+        "TradeDateTime": "2020-01-01T00:00:00Z",
+        "TradeStatus": "Test",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "Book1"
+        },
+        "Contract": {
+            "AgreementType": {
+                "AgreementType": "GTMA"
+            }
+        },
+        "Product": {
+            "Commodity": {
+                "Commodity": "UK Power",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "DefaultPayRule": {
+                    "SettlementRule": "TEST98",
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 78,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true,
+                    "SkipWeekdays": [
+                        1,
+                        4,
+                        7
+                    ]
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2020-09-30T23:00:00",
+                    "LocalEndDateTime": "2020-11-30T23:00:00"
+                }
+            ],
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementPeriod": "Quarterly",
+                "BillRule": {
+                    "SettlementRule": "TEST3",
+                    "AnchorDateType": "TradeDate",
+                    "SkipDays": 61,
+                    "SkipSaturdaySunday": true,
+                    "SkipWeekdays": [
+                        1,
+                        4,
+                        6,
+                        7
+                    ]
+                }
+            }
+        },
+        "InternalParty": {
+            "Party": "InternalParty3",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "InternalParty3 Contact"
+        },
+        "Counterparty": {
+            "Party": "Counterparty3",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
+            }
+        },
+        "Buyer": {
+            "Party": "InternalParty3",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
+            }
+        },
+        "Seller": {
+            "Party": "Counterparty3",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
+            }
+        },
+        "Beneficiary": {
+            "Party": "InternalParty3",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
+            }
+        },
+        "Quantity": {
+            "QuantityType": "Fixed",
+            "Quantity": 10.2,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh"
+                },
+                "Period": "hour"
+            }
+        },
+        "Price": {
+            "PriceType": "Fixed",
+            "Price": 23.65,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "Currency": "GBP",
+                "PerEnergyUnit": {
+                    "EnergyUnit": "MWh"
+                }
+            }
+        },
+        "External": {
+            "UKPowerECVN": {
+                "BSCPartyID": "BPGAS",
+                "BuyerEnergyAccount": "Production",
+                "SellerEnergyAccount": "Consumption",
+                "BuyerID": "BPGAS",
+                "SellerID": "DONG001"
+            }
+        }
+    },
+    {
+        "TradeReference": "TEST4",
+        "TradeLeg": 1,
+        "TradeDateTime": "2020-01-01T00:00:00Z",
+        "TradeStatus": "Test",
+        "BuySell": "Sell",
+        "TradingBook": {
+            "TradingBook": "Book1"
+        },
+        "Contract": {
+            "AgreementType": {
+                "AgreementType": "NBP15"
+            }
+        },
+        "Product": {
+            "Commodity": {
+                "Commodity": "UK Gas",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "EIC": "21YGB-UKGASGRIDW"
+                },
+                "Timezone": "Europe/London",
+                "Period": "day",
+                "DefaultBillRule": {
+                    "SettlementRule": "TEST4",
+                    "AnchorDateType": "StartOfPhysicalDelivery",
+                    "SkipDays": 69,
+                    "SkipSaturdaySunday": false,
+                    "SkipWeekdays": [
+                        1,
+                        4,
+                        5,
+                        6,
+                        7
+                    ]
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2020-01-01T05:00:00",
+                    "LocalEndDateTime": "2020-02-01T05:00:00"
+                }
+            ],
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementPeriod": "Specific Date",
+                "SettlementDate": "2020-01-01T00:00:00Z",
+                "PayRule": {
+                    "SettlementRule": "TEST97",
+                    "AnchorDateType": "StartOfPhysicalDelivery",
+                    "SkipDays": 26,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": false,
+                    "SkipWeekdays": [
+                        1,
+                        3,
+                        6
+                    ]
+                }
+            }
+        },
+        "InternalParty": {
+            "Party": "InternalParty4",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "InternalParty4 Contact"
+        },
+        "Counterparty": {
+            "Party": "Counterparty4",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
+            }
+        },
+        "Buyer": {
+            "Party": "Counterparty4",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
+            }
+        },
+        "Seller": {
+            "Party": "InternalParty4",
+            "Internal": true,
+            "EIC": {
+                "EIC": "48X000000000293G"
+            }
+        },
+        "Beneficiary": {
+            "Party": "Counterparty4",
+            "Internal": false,
+            "EIC": {
+                "EIC": "21Y000000000009E"
+            }
+        },
+        "Quantity": {
+            "QuantityType": "Fixed",
+            "Quantity": 10.3,
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)"
+                },
+                "Period": "day"
+            }
+        },
+        "Price": {
+            "PriceType": "Fixed",
+            "Price": 23.75,
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerEnergyUnit": {
+                    "EnergyUnit": "Therm (UK)"
+                }
+            }
+        },
+        "External": {
+            "UKGasHub": {
+                "BuyerHubCode": "GFDONG",
+                "SellerHubCode": "GFBPGM"
+            }
+        }
+    }
 ]

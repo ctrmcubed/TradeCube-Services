@@ -1,2 +1,4902 @@
 [
+    {
+        "TradeReference": "TEST1",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-09",
+                "SettlementDate": "2021-06-22",
+                "SettlementValue": 234.5
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-09",
+                "SettlementDate": "2021-06-22",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-10",
+                "SettlementDate": "2021-06-22",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-10",
+                "SettlementDate": "2021-06-22",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-10",
+                "SettlementDate": "2021-06-22",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-12",
+                "SettlementDate": "2021-06-22",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-15",
+                "SettlementDate": "2021-06-22",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-16",
+                "SettlementDate": "2021-06-29",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-16",
+                "SettlementDate": "2021-06-29",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2021-06-29",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2021-06-29",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2021-06-29",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-19",
+                "SettlementDate": "2021-06-29",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-22",
+                "SettlementDate": "2021-06-29",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-23",
+                "SettlementDate": "2021-07-06",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-23",
+                "SettlementDate": "2021-07-06",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2021-07-06",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2021-07-06",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2021-07-06",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-26",
+                "SettlementDate": "2021-07-06",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-29",
+                "SettlementDate": "2021-07-06",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-30",
+                "SettlementDate": "2021-07-13",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-30",
+                "SettlementDate": "2021-07-13",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2021-07-13",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2021-07-13",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2021-07-13",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-02",
+                "SettlementDate": "2021-07-13",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-05",
+                "SettlementDate": "2021-07-13",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-06",
+                "SettlementDate": "2021-07-20",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-06",
+                "SettlementDate": "2021-07-20",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2021-07-20",
+                "SettlementValue": 5628.0
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty1",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty1",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2021-07-20",
+                "SettlementValue": 5393.5
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST2",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty2",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty2",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-12",
+                "SettlementDate": "2020-06-23",
+                "SettlementValue": 237.855
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty2",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty2",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-15",
+                "SettlementDate": "2020-07-24",
+                "SettlementValue": 176488.41
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST3",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty3",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty3",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-21",
+                "SettlementDate": "2020-05-21",
+                "SettlementValue": 353401.95
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST4",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty4",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty4",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-08-31",
+                "SettlementDate": "2020-02-15",
+                "SettlementValue": 75.83375
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST5",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-27",
+                "SettlementDate": "2020-06-23",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-27",
+                "SettlementDate": "2020-06-24",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-27",
+                "SettlementDate": "2020-06-27",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-28",
+                "SettlementDate": "2020-06-28",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-31",
+                "SettlementDate": "2020-06-28",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-31",
+                "SettlementDate": "2020-06-28",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-31",
+                "SettlementDate": "2020-06-29",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-03",
+                "SettlementDate": "2020-06-30",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-03",
+                "SettlementDate": "2020-07-01",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-03",
+                "SettlementDate": "2020-07-04",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-04",
+                "SettlementDate": "2020-07-05",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-07",
+                "SettlementDate": "2020-07-05",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-07",
+                "SettlementDate": "2020-07-05",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-07",
+                "SettlementDate": "2020-07-06",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-10",
+                "SettlementDate": "2020-07-07",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-10",
+                "SettlementDate": "2020-07-08",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-10",
+                "SettlementDate": "2020-07-11",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-11",
+                "SettlementDate": "2020-07-12",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-14",
+                "SettlementDate": "2020-07-12",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-14",
+                "SettlementDate": "2020-07-12",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-14",
+                "SettlementDate": "2020-07-13",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-17",
+                "SettlementDate": "2020-07-14",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-17",
+                "SettlementDate": "2020-07-15",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-17",
+                "SettlementDate": "2020-07-18",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-18",
+                "SettlementDate": "2020-07-19",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-21",
+                "SettlementDate": "2020-07-19",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-21",
+                "SettlementDate": "2020-07-19",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-21",
+                "SettlementDate": "2020-07-20",
+                "SettlementValue": 2.37705
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-24",
+                "SettlementDate": "2020-07-21",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-24",
+                "SettlementDate": "2020-07-22",
+                "SettlementValue": 2.4804
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty5",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty5",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-24",
+                "SettlementDate": "2020-07-25",
+                "SettlementValue": 2.4804
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST6",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty6",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty6",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-10",
+                "SettlementDate": "2020-02-27",
+                "SettlementValue": 153.50453
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST7",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-09",
+                "SettlementDate": "2020-04-24",
+                "SettlementValue": 254.93
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-12",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-13",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-14",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-15",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-15",
+                "SettlementDate": "2020-04-29",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-15",
+                "SettlementDate": "2020-04-30",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-16",
+                "SettlementDate": "2020-05-01",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-19",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-20",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-21",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-22",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-22",
+                "SettlementDate": "2020-05-06",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-22",
+                "SettlementDate": "2020-05-07",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-23",
+                "SettlementDate": "2020-05-08",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-26",
+                "SettlementDate": "2020-05-12",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-27",
+                "SettlementDate": "2020-05-12",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-28",
+                "SettlementDate": "2020-05-12",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-29",
+                "SettlementDate": "2020-05-12",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-29",
+                "SettlementDate": "2020-05-13",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-29",
+                "SettlementDate": "2020-05-14",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-30",
+                "SettlementDate": "2020-05-15",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-02",
+                "SettlementDate": "2020-05-19",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-03",
+                "SettlementDate": "2020-05-19",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-04",
+                "SettlementDate": "2020-05-19",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-05",
+                "SettlementDate": "2020-05-19",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-05",
+                "SettlementDate": "2020-05-20",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-05",
+                "SettlementDate": "2020-05-21",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-06",
+                "SettlementDate": "2020-05-22",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-09",
+                "SettlementDate": "2020-05-26",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-11",
+                "SettlementDate": "2020-05-26",
+                "SettlementValue": 6118.32
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty7",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty7",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-12",
+                "SettlementDate": "2020-05-26",
+                "SettlementValue": 5863.39
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST8",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2020-07-30",
+                "SettlementValue": 258.405
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2020-08-03",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2020-08-05",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2020-08-05",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2020-08-05",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2020-08-05",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-17",
+                "SettlementDate": "2020-08-06",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-08-06",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-08-10",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-08-12",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-08-12",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-08-12",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-08-12",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-08-13",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-08-13",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-08-17",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-08-19",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-08-19",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-08-19",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-08-19",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-08-20",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-08-20",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-08-24",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-08-26",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-08-26",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-08-26",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-08-26",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-08-27",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-14",
+                "SettlementDate": "2020-08-27",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-14",
+                "SettlementDate": "2020-09-02",
+                "SettlementValue": 5943.315
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-14",
+                "SettlementDate": "2020-09-03",
+                "SettlementValue": 6201.72
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty8",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty8",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-14",
+                "SettlementDate": "2020-09-03",
+                "SettlementValue": 5943.315
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST9",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty9",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty9",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-02",
+                "SettlementDate": "2020-05-14",
+                "SettlementValue": 383683.5
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST10",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty10",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty10",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-01-10",
+                "SettlementDate": "2020-08-10",
+                "SettlementValue": 82.27865
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST11",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-22",
+                "SettlementDate": "2020-09-02",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-22",
+                "SettlementDate": "2020-09-02",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-22",
+                "SettlementDate": "2020-09-08",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-29",
+                "SettlementDate": "2020-09-09",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-29",
+                "SettlementDate": "2020-09-09",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-29",
+                "SettlementDate": "2020-09-09",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-29",
+                "SettlementDate": "2020-09-09",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-29",
+                "SettlementDate": "2020-09-09",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-29",
+                "SettlementDate": "2020-09-09",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-29",
+                "SettlementDate": "2020-09-15",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-06",
+                "SettlementDate": "2020-09-16",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-06",
+                "SettlementDate": "2020-09-16",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-06",
+                "SettlementDate": "2020-09-16",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-06",
+                "SettlementDate": "2020-09-16",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-06",
+                "SettlementDate": "2020-09-16",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-06",
+                "SettlementDate": "2020-09-16",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-06",
+                "SettlementDate": "2020-09-22",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-13",
+                "SettlementDate": "2020-09-23",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-13",
+                "SettlementDate": "2020-09-23",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-13",
+                "SettlementDate": "2020-09-23",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-13",
+                "SettlementDate": "2020-09-23",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-13",
+                "SettlementDate": "2020-09-23",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-13",
+                "SettlementDate": "2020-09-23",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-13",
+                "SettlementDate": "2020-09-29",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-20",
+                "SettlementDate": "2020-09-30",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-20",
+                "SettlementDate": "2020-09-30",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-20",
+                "SettlementDate": "2020-09-30",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-20",
+                "SettlementDate": "2020-09-30",
+                "SettlementValue": 2.57744
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-20",
+                "SettlementDate": "2020-09-30",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-20",
+                "SettlementDate": "2020-09-30",
+                "SettlementValue": 2.6895
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty11",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty11",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-20",
+                "SettlementDate": "2020-10-06",
+                "SettlementValue": 2.6895
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST12",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty12",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty12",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-07-20",
+                "SettlementDate": "2020-01-31",
+                "SettlementValue": 166.34159
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST13",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty13",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty13",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-01-22",
+                "SettlementDate": "2020-03-09",
+                "SettlementValue": 276.08
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty13",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty13",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-23",
+                "SettlementDate": "2020-06-12",
+                "SettlementValue": 205127.44
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST14",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty14",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty14",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-26",
+                "SettlementDate": "2021-09-13",
+                "SettlementValue": 207798.525
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST15",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty15",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty15",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-20",
+                "SettlementDate": "2020-02-02",
+                "SettlementValue": 415019.85
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST16",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-19",
+                "SettlementDate": "2020-04-14",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-21",
+                "SettlementDate": "2020-04-14",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-22",
+                "SettlementDate": "2020-04-14",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-22",
+                "SettlementDate": "2020-04-14",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-22",
+                "SettlementDate": "2020-04-14",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-23",
+                "SettlementDate": "2020-04-21",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-23",
+                "SettlementDate": "2020-04-21",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-26",
+                "SettlementDate": "2020-04-21",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-28",
+                "SettlementDate": "2020-04-21",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-29",
+                "SettlementDate": "2020-04-21",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-29",
+                "SettlementDate": "2020-04-21",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-29",
+                "SettlementDate": "2020-04-21",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-30",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-05-30",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-02",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-04",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-05",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-05",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-05",
+                "SettlementDate": "2020-04-28",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-06",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-06",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-09",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-11",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-12",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-12",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-12",
+                "SettlementDate": "2020-05-05",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-13",
+                "SettlementDate": "2020-05-12",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-13",
+                "SettlementDate": "2020-05-12",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-16",
+                "SettlementDate": "2020-05-12",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-18",
+                "SettlementDate": "2020-05-12",
+                "SettlementValue": 2.86925
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty16",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty16",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-06-19",
+                "SettlementDate": "2020-05-12",
+                "SettlementValue": 2.86925
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST17",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-19",
+                "SettlementDate": "2020-11-16",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-19",
+                "SettlementDate": "2020-11-16",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-11-19",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-11-19",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-11-19",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-11-19",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-24",
+                "SettlementDate": "2020-11-23",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-26",
+                "SettlementDate": "2020-11-23",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-26",
+                "SettlementDate": "2020-11-23",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-11-26",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-11-26",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-11-26",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-11-26",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-03-31",
+                "SettlementDate": "2020-11-30",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-02",
+                "SettlementDate": "2020-11-30",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-02",
+                "SettlementDate": "2020-11-30",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-12-03",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-12-03",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-12-03",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-12-03",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-07",
+                "SettlementDate": "2020-12-07",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-09",
+                "SettlementDate": "2020-12-07",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-09",
+                "SettlementDate": "2020-12-07",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-14",
+                "SettlementDate": "2020-12-10",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-14",
+                "SettlementDate": "2020-12-10",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-14",
+                "SettlementDate": "2020-12-10",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-14",
+                "SettlementDate": "2020-12-10",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-14",
+                "SettlementDate": "2020-12-14",
+                "SettlementValue": 2.78473
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-16",
+                "SettlementDate": "2020-12-14",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-16",
+                "SettlementDate": "2020-12-14",
+                "SettlementValue": 2.9058
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty17",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty17",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-04-21",
+                "SettlementDate": "2020-12-17",
+                "SettlementValue": 2.9058
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST18",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty18",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty18",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-08-25",
+                "SettlementDate": "2020-05-30",
+                "SettlementValue": 179.61816
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST19",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty19",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty19",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-09-17",
+                "SettlementDate": "2020-05-28",
+                "SettlementValue": 36051.95
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty19",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty19",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-09-24",
+                "SettlementDate": "2020-06-04",
+                "SettlementValue": 50055.6
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty19",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty19",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-10-01",
+                "SettlementDate": "2020-06-11",
+                "SettlementValue": 50055.6
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty19",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty19",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-10-08",
+                "SettlementDate": "2020-06-18",
+                "SettlementValue": 50055.6
+            },
+            {
+                "CashflowFrom": {
+                    "Party": "InternalParty19",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "Counterparty19",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2020-10-15",
+                "SettlementDate": "2020-06-25",
+                "SettlementValue": 35456.05
+            }
+        ]
+    },
+    {
+        "TradeReference": "TEST20",
+        "TradeLeg": 1,
+        "Cashflows": [
+            {
+                "CashflowFrom": {
+                    "Party": "Counterparty20",
+                    "Internal": false,
+                    "EIC": {
+                        "EIC": "21Y000000000009E"
+                    }
+                },
+                "CashflowTo": {
+                    "Party": "InternalParty20",
+                    "Internal": true,
+                    "EIC": {
+                        "EIC": "48X000000000293G"
+                    }
+                },
+                "CashflowCurrency": "GBP",
+                "BillingDate": "2021-02-11",
+                "SettlementDate": "2021-05-20",
+                "SettlementValue": 224137.095
+            }
+        ]
+    }
 ]

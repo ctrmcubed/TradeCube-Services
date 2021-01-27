@@ -41,15 +41,15 @@ namespace Equias.Managers
             var mappingManager = new MappingManager(await equiasMappingService.GetMappingsAsync(apiJwtToken));
             var mappingService = equiasMappingService.SetMappingManager(mappingManager);
             var tradeSummary = (await tradeSummaryService.TradeSummaryAsync(tradeReference, tradeLeg, apiJwtToken))?.Data?.First();
-            var cashflow = (await cashflowService.CashflowAsync(tradeReference, tradeLeg, apiJwtToken))?.Data;
+            var cashflows = (await cashflowService.CashflowAsync(tradeReference, tradeLeg, apiJwtToken))?.Data;
             var profileResponses = (await profileService.ProfileAsync(tradeReference, tradeLeg, apiJwtToken, "sparse"))?.Data;
 
-            return await mappingService.MapTrade(tradeDataObject, tradeSummary, cashflow, profileResponses);
+            return await mappingService.MapTrade(tradeDataObject, tradeSummary, cashflows, profileResponses, apiJwtToken);
         }
 
-        public async Task<AddPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
+        public async Task<EboAddPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
         {
-            return await equiasService.AddPhysicalTrade(physicalTrade, requestTokenResponse);
+            return await equiasService.EboAddPhysicalTrade(physicalTrade, requestTokenResponse);
         }
     }
 }

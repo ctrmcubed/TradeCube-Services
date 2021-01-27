@@ -64,10 +64,10 @@ namespace TradeCube_Services.Services
                 logger.LogError("Error calling Trade API", trades.Message);
                 return new ApiResponseWrapper<WebServiceResponse> { Status = ApiConstants.FailedResult, Message = trades.Message };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
-                return new ApiResponseWrapper<WebServiceResponse> { Status = ApiConstants.FailedResult, Message = e.Message };
+                logger.LogError(ex, ex.Message);
+                return new ApiResponseWrapper<WebServiceResponse> { Status = ApiConstants.FailedResult, Message = ex.Message };
             }
         }
 

@@ -4,6 +4,7 @@
     {
         string ApiDomain { get; }
         string RequestTokenUri { get; }
+        string GetTradeStatusUri { get; }
         string AddPhysicalTradeUri { get; }
     }
 }

@@ -25,15 +25,15 @@ namespace TradeCube_ServicesTests.Equias
         }
 
         [Fact]
-        public async Task TestAddPhysicalTrade()
+        public async Task TestAddPhysicalTrade_Gas()
         {
-            var physicalTrade = await equiasTestFixture.EquiasManager.CreatePhysicalTrade("ET000040B", 1, "apiJwtToken");
+            var physicalTrade = await equiasTestFixture.EquiasManager.CreatePhysicalTrade("TEST4", 1, "apiJwtToken");
 
             testOutputHelper.WriteLine(TradeCubeServicesJsonSerializer.Serialize(physicalTrade));
 
             var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade(physicalTrade, await RequestTokenResponse());
 
-            Assert.Equal("ET000040B001", addPhysicalTradeResponse.TradeId);
+            Assert.Equal("TEST4001", addPhysicalTradeResponse.TradeId);
             Assert.Equal(1, addPhysicalTradeResponse.TradeVersion);
         }
 

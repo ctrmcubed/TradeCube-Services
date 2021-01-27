@@ -46,9 +46,9 @@ namespace TradeCube_Services.Services
 
                 return report;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError(e, e.Message);
+                logger.LogError(ex, ex.Message);
                 throw;
             }
         }
