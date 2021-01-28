@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Shared.Messages;
 using Shared.Serialization;
 using System;
 using System.Net.Http;
@@ -17,7 +18,7 @@ namespace Shared.Services
             this.logger = logger;
         }
 
-        protected async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T request, bool ensureSuccess = true)
+        protected async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T request, bool ensureSuccess = true) where TV : ApiResponse
         {
             try
             {
@@ -30,7 +31,41 @@ namespace Shared.Services
 
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
 
-                return await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+
+                deserializeAsync.Status = response.StatusCode.ToString();
+                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
+                deserializeAsync.Message = response.ReasonPhrase;
+
+                return deserializeAsync;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        protected async Task<TV> PutAsync<T, TV>(HttpClient client, string action, T request, bool ensureSuccess = true) where TV : ApiResponse
+        {
+            try
+            {
+                var response = await client.PutAsJsonAsync(action, request, new JsonSerializerOptions { IgnoreNullValues = true });
+
+                if (ensureSuccess)
+                {
+                    response.EnsureSuccessStatusCode();
+                }
+
+                await using var responseStream = await response.Content.ReadAsStreamAsync();
+
+                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+
+                deserializeAsync.Status = response.StatusCode.ToString();
+                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
+                deserializeAsync.Message = response.ReasonPhrase;
+
+                return deserializeAsync;
             }
             catch (Exception ex)
             {

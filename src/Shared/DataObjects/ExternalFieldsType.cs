@@ -8,7 +8,8 @@ namespace Shared.DataObjects
         public UkGasHubType UkGasHub { get; set; }
 
         [JsonPropertyName("UKPowerECVN")]
-
         public UkPowerEcvnType UkPowerEcvn { get; set; }
+
+        public EquiasType Equias { get; set; }
     }
 }

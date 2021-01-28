@@ -12,11 +12,11 @@ namespace Shared.DataObjects
         public string TradeStatus { get; set; }
         public string BuySell { get; set; }
         public TradingBookDataObject TradingBook { get; set; }
+        public ContractDataObject Contract { get; set; }
         public ProductDataObject Product { get; set; }
         public PartyDataObject InternalParty { get; set; }
         public ContactDataObject InternalTrader { get; set; }
         public PartyDataObject Counterparty { get; set; }
-        public ContractDataObject Contract { get; set; }
         public string CounterpartyReference { get; set; }
         public PriceDataObject Price { get; set; }
         public IEnumerable<CashflowType> Cashflow { get; set; }
@@ -32,6 +32,12 @@ namespace Shared.DataObjects
 
         [JsonPropertyName("UTI")]
         public string Uti { get; set; }
+
+        [JsonPropertyName("UKGasHub")]
+        public UkGasHubType UkGasHub { get; set; }
+
+        [JsonPropertyName("UKPowerECVN")]
+        public UkPowerEcvnType UkPowerEcvn { get; set; }
 
         public ExternalFieldsType External { get; set; }
     }

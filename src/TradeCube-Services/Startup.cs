@@ -1,3 +1,4 @@
+using Equias.Managers;
 using Equias.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
@@ -47,20 +48,28 @@ namespace TradeCube_Services
                 .AddScoped<ITradeCubeConfiguration, TradeCubeConfiguration>()
                 .AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
 
+            // Managers
+            services
+                .AddScoped<IEquiasManager, EquiasManager>();
+
             // Services
             services
                 .AddScoped<ICalculateService, CalculateService>()
+                .AddScoped<ICashflowService, CashflowService>()
                 .AddScoped<IConfirmationReportService, ConfirmationReportService>()
                 .AddScoped<IContactService, ContactService>()
                 .AddScoped<ICountryLookupService, CountryLookupService>()
                 .AddScoped<ICountryService, CountryService>()
                 .AddScoped<IEquiasAuthenticationService, EquiasAuthenticationService>()
+                .AddScoped<IEquiasMappingService, EquiasMappingService>()
                 .AddScoped<IEquiasService, EquiasService>()
                 .AddScoped<IFingerprintService, FingerprintService>()
                 .AddScoped<IMappingService, MappingService>()
                 .AddScoped<IM7TradeService, M7TradeService>()
                 .AddScoped<INotificationService, NotificationService>()
                 .AddScoped<IM7PartyService, M7Im7PartyService>()
+                .AddScoped<IPartyService, PartyService>()
+                .AddScoped<IProfileService, ProfileService>()
                 .AddScoped<IReportTemplateService, ReportTemplateService>()
                 .AddScoped<IReportRenderService, ReportRenderService>()
                 .AddScoped<ISettingService, SettingService>()

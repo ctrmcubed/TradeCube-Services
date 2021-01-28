@@ -60,11 +60,17 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<TV> TradeCubePostViaJwtAsync<T, TV>(string apiJwtToken, string action, T request) =>
+        protected async Task<TV> TradeCubePostViaJwtAsync<T, TV>(string apiJwtToken, string action, T request) where TV : ApiResponse =>
             await PostAsync<T, TV>(CreateClientViaJwt(apiJwtToken), action, request);
 
-        protected async Task<TV> TradeCubePostViaApiKeyAsync<T, TV>(string apiKey, string action, T request) =>
+        protected async Task<TV> TradeCubePostViaApiKeyAsync<T, TV>(string apiKey, string action, T request) where TV : ApiResponse =>
             await PostAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
+
+        protected async Task<TV> TradeCubePutViaApiKeyAsync<T, TV>(string apiKey, string action, T request) where TV : ApiResponse =>
+            await PutAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
+
+        protected async Task<TV> TradeCubePutViaJwtAsync<T, TV>(string apiKey, string action, T request) where TV : ApiResponse =>
+            await PutAsync<T, TV>(CreateClientViaJwt(apiKey), action, request);
 
         private async Task<TV> TradeCubeGetViaJwtAsync<TV>(string apiJwtToken, string action, string queryString = null) =>
             await GetAsync<TV>(CreateClientViaJwt(apiJwtToken), action, queryString);

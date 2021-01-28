@@ -6,5 +6,6 @@
         string RequestTokenUri { get; }
         string GetTradeStatusUri { get; }
         string AddPhysicalTradeUri { get; }
+        string ModifyPhysicalTradeUri { get; }
     }
 }

@@ -53,7 +53,7 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 var aggressorIndicator = m7Trade.aggressorIndicator?.ToUpper();
 
                 var allMappings =
-                    (await mappingService.GetMappingsAsync(apiKey)).Data.ToDictionary(k => k.MappingKey, v => v);
+                    (await mappingService.GetMappingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.MappingKey, v => v);
 
                 var allSettings =
                     (await settingService.GetSettingsAsync(apiKey)).Data.ToDictionary(k => k.SettingName, v => v);

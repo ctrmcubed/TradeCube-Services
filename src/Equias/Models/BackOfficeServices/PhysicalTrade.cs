@@ -5,6 +5,8 @@ namespace Equias.Models.BackOfficeServices
 {
     public class PhysicalTrade
     {
+        public string ActionType { get; set; }
+
         [JsonPropertyName("TradeID")]
         public string TradeId { get; set; }
 
@@ -38,7 +40,7 @@ namespace Equias.Models.BackOfficeServices
         public IEnumerable<string> LinkedTransactionIdentifiers { get; set; }
         public IEnumerable<TimeIntervalQuantity> TimeIntervalQuantities { get; set; }
 
-        [JsonPropertyName("EUATradeDetails")] 
+        [JsonPropertyName("EUATradeDetails")]
         public EuaTradeDetails EuaTradeDetails { get; set; }
 
         public string TraderName { get; set; }

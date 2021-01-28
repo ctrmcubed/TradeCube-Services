@@ -48,7 +48,9 @@ namespace TradeCube_ServicesTests.Equias
                 CreateTradeSummaryService(EquiasTradeSummaries),
                 CreateCashflowService(EquiasCashflows),
                 CreateProfileService(EquiasProfiles),
-                new EquiasMappingService(CreateMappingService(EquiasMappings), CreatePartyService(EquiasParties)));
+                new EquiasMappingService(CreateMappingService(EquiasMappings), CreatePartyService(EquiasParties)),
+                new VaultService(defaultHttpClientFactory, new TradeCubeConfiguration(), new Logger<VaultService>(LoggerFactory.Create(l => l.AddConsole()))),
+                new Logger<EquiasManager>(LoggerFactory.Create(l => l.AddConsole())));
         }
 
         private static ITradeService CreateTradeService(IEnumerable<TradeDataObject> trades)
@@ -68,7 +70,7 @@ namespace TradeCube_ServicesTests.Equias
             var service = new Mock<IMappingService>();
 
             service
-                .Setup(c => c.GetMappingsAsync(It.IsAny<string>()))
+                .Setup(c => c.GetMappingsViaJwtAsync(It.IsAny<string>()))
                 .ReturnsAsync((string _) =>
                     new ApiResponseWrapper<IEnumerable<MappingDataObject>> { Data = mappings });
 

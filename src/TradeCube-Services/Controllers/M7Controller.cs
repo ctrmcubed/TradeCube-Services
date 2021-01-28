@@ -36,7 +36,7 @@ namespace TradeCube_Services.Controllers
             try
             {
                 var tradeDataObject = await m7TradeService.ConvertTradeAsync(trade, apiKey);
-                var saveTrade = await tradeService.SaveTradesAsync(apiKey, new List<TradeDataObject> { tradeDataObject });
+                var saveTrade = await tradeService.PostTradesViaApiKeyAsync(apiKey, new List<TradeDataObject> { tradeDataObject });
 
                 return saveTrade.Status == ApiConstants.SuccessResult
                     ? (IActionResult)Ok(tradeDataObject)

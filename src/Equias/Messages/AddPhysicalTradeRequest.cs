@@ -1,6 +1,8 @@
-﻿namespace Equias.Messages
+﻿using Shared.Messages;
+
+namespace Equias.Messages
 {
-    public class EboAddPhysicalTradeResponse
+    public class EboPhysicalTradeResponse : ApiResponse
     {
         public string TradeId { get; set; }
         public int TradeVersion { get; set; }

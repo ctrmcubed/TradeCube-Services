@@ -11,7 +11,7 @@ namespace Shared.Services
     public class VaultService : TradeCubeApiService, IVaultService
     {
         public VaultService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<MappingService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<VaultService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

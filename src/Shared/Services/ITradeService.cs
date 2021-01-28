@@ -9,6 +9,7 @@ namespace Shared.Services
     {
         Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> GetTradeAsync(string apiJwtToken, string tradeReference, int tradeLeg);
         Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> GetTradesAsync(string apiJwtToken, TradeRequest tradeRequest);
-        Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> SaveTradesAsync(string apiKey, IEnumerable<TradeDataObject> trades);
+        Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> PostTradesViaApiKeyAsync(string apiKey, IEnumerable<TradeDataObject> trades);
+        Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> PutTradesViaJwtAsync(string apiJwtToken, IEnumerable<TradeDataObject> trades);
     }
 }

@@ -18,5 +18,8 @@ namespace Shared.DataObjects
 
         [JsonPropertyName("SellerID")]
         public string SellerId { get; set; }
+
+        public string NotificationAgent { get; set; }
+        public string TransmissionChargeIdentification { get; set; }
     }
 }

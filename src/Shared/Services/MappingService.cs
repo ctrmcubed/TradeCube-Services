@@ -15,14 +15,25 @@ namespace Shared.Services
         {
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<MappingDataObject>>> GetMappingAsync(string mappingKey, string mappingFrom, string apiKey)
+        public async Task<ApiResponseWrapper<IEnumerable<MappingDataObject>>> GetMappingViaApiKeyAsync(string mappingKey, string mappingFrom, string apiKey)
         {
             return await GetViaApiKeyAsync<MappingDataObject>($"Mapping/{mappingKey}/{mappingFrom}", apiKey);
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<MappingDataObject>>> GetMappingsAsync(string apiKey)
+        public async Task<ApiResponseWrapper<IEnumerable<MappingDataObject>>> GetMappingsViaApiKeyAsync(string apiKey)
         {
             return await GetViaApiKeyAsync<MappingDataObject>("Mapping", apiKey);
         }
+
+        public async Task<ApiResponseWrapper<IEnumerable<MappingDataObject>>> GetMappingViaJwtAsync(string mappingKey, string mappingFrom, string apiJwtToken)
+        {
+            return await GetViaJwtAsync<MappingDataObject>($"Mapping/{mappingKey}/{mappingFrom}", apiJwtToken);
+        }
+
+        public async Task<ApiResponseWrapper<IEnumerable<MappingDataObject>>> GetMappingsViaJwtAsync(string apiJwtToken)
+        {
+            return await GetViaJwtAsync<MappingDataObject>("Mapping", apiJwtToken);
+        }
+
     }
 }

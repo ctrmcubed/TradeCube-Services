@@ -35,7 +35,7 @@ namespace Equias.Services
 
         public async Task<IEnumerable<MappingDataObject>> GetMappingsAsync(string apiJwtToken)
         {
-            return (await mappingService.GetMappingsAsync(apiJwtToken))?.Data;
+            return (await mappingService.GetMappingsViaJwtAsync(apiJwtToken))?.Data;
         }
 
         public async Task<PhysicalTrade> MapTrade(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse, IEnumerable<CashflowResponse> cashflowResponses,
@@ -86,7 +86,25 @@ namespace Equias.Services
                     : null,
                 TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(profileResponses, timezone),
                 TraderName = tradeDataObject.InternalTrader?.ContactLongName,
-                HubCodificationInformation = MapHubCodificationInformation(tradeDataObject.External)
+                HubCodificationInformation = MapHubCodificationInformation(tradeDataObject.External),
+                Agents = new List<Agent>
+                {
+                    new()
+                    {
+                        AgentName = tradeDataObject.External?.UkPowerEcvn?.BscPartyId,
+                        AgentType = "ECVNA",
+                        Ecvna = new Ecvna
+                        {
+                            BscPartyId = tradeDataObject.External?.UkPowerEcvn?.BscPartyId,
+                            BuyerEnergyAccount = tradeDataObject.External?.UkPowerEcvn?.BuyerEnergyAccount,
+                            SellerEnergyAccount = tradeDataObject.External?.UkPowerEcvn?.SellerEnergyAccount,
+                            BuyerId =  tradeDataObject.External?.UkPowerEcvn?.BuyerId,
+                            SellerId =  tradeDataObject.External?.UkPowerEcvn?.SellerId,
+                            NotificationAgent =  tradeDataObject.External?.UkPowerEcvn?.NotificationAgent,
+                            TransmissionChargeIdentification =  tradeDataObject.External?.UkPowerEcvn?.TransmissionChargeIdentification,
+                        }
+                    }
+                }
             };
         }
 
@@ -125,7 +143,7 @@ namespace Equias.Services
                 : mappingTo;
         }
 
-        private async Task<string> MapEic(string party, string eic, string label, string apiJwtToken, bool mandatory = true)
+        private async Task<string> MapEic(string party, string eic, string label, string apiJwtToken)
         {
             async Task<PartyDataObject> GetPartyAsync(string pty)
             {
@@ -137,16 +155,18 @@ namespace Equias.Services
                 return eic;
             }
 
-            var partyDataObject = await GetPartyAsync(party);
+            if (string.IsNullOrEmpty(party))
+            {
+                throw new DataException($"The {label} does not have an EIC");
+            }
 
+            var partyDataObject = await GetPartyAsync(party);
             if (!string.IsNullOrEmpty(partyDataObject?.Eic?.Eic))
             {
                 return partyDataObject.Eic?.Eic;
             }
 
-            return mandatory
-                ? throw new DataException($"The {label} does not have an EIC")
-                : null;
+            throw new DataException($"The {label} does not have an EIC");
         }
 
         private bool? MapInternalToIntragroup(bool? buyer, bool? seller)

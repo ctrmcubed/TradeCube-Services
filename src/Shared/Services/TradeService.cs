@@ -25,7 +25,7 @@ namespace Shared.Services
         {
             try
             {
-                var trade = await GetViaJwtAsync<TradeDataObject>(apiJwtToken, "Trade", $"{tradeReference}?TradeLeg={tradeLeg}");
+                var trade = await GetViaJwtAsync<TradeDataObject>("Trade", apiJwtToken, $"{tradeReference}?TradeLeg={tradeLeg}");
 
                 return trade == null
                     ? new ApiResponseWrapper<IEnumerable<TradeDataObject>>
@@ -67,12 +67,30 @@ namespace Shared.Services
             }
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> SaveTradesAsync(string apiKey, IEnumerable<TradeDataObject> trades)
+        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> PostTradesViaApiKeyAsync(string apiKey, IEnumerable<TradeDataObject> trades)
         {
             try
             {
                 return await TradeCubePostViaApiKeyAsync<ApiRequest<IEnumerable<TradeDataObject>>,
                     ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiKey, "Trade", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
+                {
+                    Message = ex.Message,
+                    Status = HttpStatusCode.BadRequest.ToString()
+                };
+            }
+        }
+
+        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> PutTradesViaJwtAsync(string apiJwtToken, IEnumerable<TradeDataObject> trades)
+        {
+            try
+            {
+                return await TradeCubePutViaJwtAsync<ApiRequest<IEnumerable<TradeDataObject>>,
+                    ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
             }
             catch (Exception ex)
             {
