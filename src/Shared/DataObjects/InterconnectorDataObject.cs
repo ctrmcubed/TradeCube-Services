@@ -7,7 +7,7 @@ namespace Shared.DataObjects
         public string Interconnector { get; set; }
         public string InterconnectorLongName { get; set; }
 
-        [JsonPropertyName("ACERCode")]
-        public string EIC { get; set; }
+        [JsonPropertyName("EIC")]
+        public string Eic { get; set; }
     }
 }

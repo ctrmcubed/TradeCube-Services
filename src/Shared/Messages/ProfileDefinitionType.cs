@@ -10,5 +10,12 @@ namespace Shared.Messages
 
         [JsonPropertyName("UTCEndDateTime")]
         public DateTime? UtcEndDateTime;
+
+        public string LocalStartDateTime;
+        public string LocalEndDateTime;
+        public string ShortDayRule { get; set; }
+        public string LongDayRule { get; set; }
+        public int[] ApplicableDays { get; set; }
+        public int[] ApplicableHours { get; set; }
     }
 }

@@ -58,15 +58,15 @@ namespace TradeCube_Services.Controllers
                 var tradeDataObject = await equiasManager.GetTradeAsync(eboAddPhysicalTradeRequest.TradeReference, eboAddPhysicalTradeRequest.TradeLeg, apiJwtToken);
                 var tradeIds = new List<string> { EquiasService.MapTradeId(eboAddPhysicalTradeRequest.TradeReference, eboAddPhysicalTradeRequest.TradeLeg) };
                 var eboGetTradeStatusResponse = await equiasManager.EboGetTradeStatus(tradeIds, requestTokenResponse);
-                var updateTradePreSubmission = await equiasManager.UpdateTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject, apiJwtToken);
+                //var updateTradePreSubmission = await equiasManager.UpdateTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject, apiJwtToken);
                 var physicalTrade = await equiasManager.CreatePhysicalTrade(tradeDataObject, apiJwtToken);
 
                 if (eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeVersion == null)
                 {
                     var eboAddPhysicalTradeResponse = await equiasManager.AddPhysicalTrade(physicalTrade, requestTokenResponse);
-                    var addTradePostSubmission = await equiasManager.UpdateTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject, apiJwtToken);
+                    //var addTradePostSubmission = await equiasManager.UpdateTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject, apiJwtToken);
 
-                    logger.LogInformation(addTradePostSubmission.Status);
+                    //logger.LogInformation(addTradePostSubmission.Status);
 
                     return Json(eboAddPhysicalTradeResponse);
                 }

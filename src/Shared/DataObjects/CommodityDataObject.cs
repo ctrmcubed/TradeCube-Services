@@ -17,6 +17,8 @@ namespace Shared.DataObjects
         public QuantityUnitDataObject DefaultQuantityUnit { get; set; }
         public PriceUnitDataObject DefaultPriceUnit { get; set; }
         public List<string> RegulatoryMechanisms { get; set; }
+        public SettlementRuleDataObject DefaultBillRule { get; set; }
+        public SettlementRuleDataObject DefaultPayRule { get; set; }
         public string Image { get; set; }
     }
 }

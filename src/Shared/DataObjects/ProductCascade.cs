@@ -6,6 +6,6 @@ namespace Shared.DataObjects
     public class ProductCascade
     {
         public DateTime? CascadeDateTime { get; set; }
-        public List<string> CascadeProducts { get; set; }
+        public IEnumerable<string> CascadeProducts { get; set; }
     }
 }
