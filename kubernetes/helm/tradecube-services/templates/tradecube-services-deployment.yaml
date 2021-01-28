@@ -67,6 +67,26 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}{{ .Values.type.configmap }}
                 key: JSREPORT_PORT
+          - name: EQUIAS_REQUEST_TOKEN_URI
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: EQUIAS_REQUEST_TOKEN_URI
+          - name: EQUIAS_GET_TRADE_STATUS_URI
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: EQUIAS_GET_TRADE_STATUS_URI
+          - name: EQUIAS_ADD_PHYSICAL_TRADE_URI
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: EQUIAS_ADD_PHYSICAL_TRADE_URI
+          - name: EQUIAS_MODIFY_PHYSICAL_TRADE_URI
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: EQUIAS_MODIFY_PHYSICAL_TRADE_URI
         # readinessProbe:
           # tcpSocket:
             # port: {{ .Values.port.services }}

@@ -18,6 +18,12 @@ env:
   jsreportDomain: http://localhost     # {{ .Values.env.jsreportDomain }}
   jsreportPort: 5488                   # {{ .Values.env.jsreportPort }}
 
+equias:
+  requestTokenURI: /eBOWebApi/api/v1.0/Token/RequestToken        # {{ .Values.equias.requestTokenURI }}
+  getTradeStatusURI: /eBOWebApi/api/v1.0/Token/RequestToken      # {{ .Values.equias.getTradeStatusURI }}
+  addPhysicalTradeURI: /eBOWebApi/api/v1.0/Token/RequestToken    # {{ .Values.equias.addPhysicalTradeURI }}
+  modifyPhysicalTradeURI: /eBOWebApi/api/v1.0/Token/RequestToken # {{ .Values.equias.modifyPhysicalTradeURI }}
+
 service:
   port: 80       # {{ .Values.service.port }}
   targetPort: 80 # {{ .Values.service.targetPort }}
