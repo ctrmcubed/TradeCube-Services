@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Shared.DataObjects
 {
-    public class TradeDataObject
+    public class TradeDataObject : DataObject
     {
         public string TradeReference { get; set; }
         public int TradeLeg { get; set; }

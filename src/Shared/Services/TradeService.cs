@@ -72,7 +72,7 @@ namespace Shared.Services
             try
             {
                 return await TradeCubePostViaApiKeyAsync<ApiRequest<IEnumerable<TradeDataObject>>,
-                    ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiKey, "Trade", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
+                    ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiKey, "Trade/Merge", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
             }
             catch (Exception ex)
             {
@@ -90,7 +90,7 @@ namespace Shared.Services
             try
             {
                 return await TradeCubePutViaJwtAsync<ApiRequest<IEnumerable<TradeDataObject>>,
-                    ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
+                    ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/Merge", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
             }
             catch (Exception ex)
             {

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Equias.Constants;
 
 namespace Equias.Services
 {
@@ -63,6 +64,7 @@ namespace Equias.Services
 
             var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
             var cashflows = cashflowResponses?.ToList();
+            var commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity);
 
             return new PhysicalTrade
             {
@@ -75,7 +77,7 @@ namespace Equias.Services
                     RemitReportMode = CmsReportType
                 },
                 Market = MapCommodityToMarket(tradeDataObject.Product?.Commodity),
-                Commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity),
+                Commodity = commodity,
                 TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType),
                 DeliveryPointArea = tradeDataObject.Product?.Commodity?.DeliveryArea?.Eic,
                 BuyerParty = await MapEic(tradeDataObject.Buyer?.Party, tradeDataObject.Buyer?.Eic?.Eic, "Buyer party", apiJwtToken),
@@ -91,30 +93,32 @@ namespace Equias.Services
                 PriceUnit = MapPriceUnit(tradeDataObject.Price?.PriceUnit),
                 TotalContractValue = tradeSummaryResponse?.TotalValue,
                 SettlementCurrency = tradeSummaryResponse?.TotalValueCurrency,
-                SettlementDates = cashflows != null && cashflows.Any()
+                SettlementDates = cashflows.Any()
                     ? cashflows.SelectMany(d => d.Cashflows.Select(c => c.SettlementDate.ToIso8601DateTime()))
                     : null,
                 TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(profileResponses, timezone),
                 TraderName = tradeDataObject.InternalTrader?.ContactLongName,
                 HubCodificationInformation = MapHubCodificationInformation(tradeDataObject.External),
-                Agents = new List<Agent>
-                {
-                    new()
+                Agents = commodity == EquiasConstants.CommodityPower
+                    ? new List<Agent>
                     {
-                        AgentName = tradeDataObject.External?.UkPowerEcvn?.BscPartyId,
-                        AgentType = "ECVNA",
-                        Ecvna = new Ecvna
+                        new()
                         {
-                            BscPartyId = tradeDataObject.External?.UkPowerEcvn?.BscPartyId,
-                            BuyerEnergyAccount = tradeDataObject.External?.UkPowerEcvn?.BuyerEnergyAccount,
-                            SellerEnergyAccount = tradeDataObject.External?.UkPowerEcvn?.SellerEnergyAccount,
-                            BuyerId =  tradeDataObject.External?.UkPowerEcvn?.BuyerId,
-                            SellerId =  tradeDataObject.External?.UkPowerEcvn?.SellerId,
-                            NotificationAgent =  tradeDataObject.External?.UkPowerEcvn?.NotificationAgent,
-                            TransmissionChargeIdentification =  tradeDataObject.External?.UkPowerEcvn?.TransmissionChargeIdentification,
+                            AgentName = tradeDataObject.External?.UkPowerEcvn?.BscPartyId,
+                            AgentType = EquiasConstants.AgentTypeEcvna,
+                            Ecvna = new Ecvna
+                            {
+                                BscPartyId = tradeDataObject.External?.UkPowerEcvn?.BscPartyId,
+                                BuyerEnergyAccount = tradeDataObject.External?.UkPowerEcvn?.BuyerEnergyAccount,
+                                SellerEnergyAccount = tradeDataObject.External?.UkPowerEcvn?.SellerEnergyAccount,
+                                BuyerId =  tradeDataObject.External?.UkPowerEcvn?.BuyerId,
+                                SellerId =  tradeDataObject.External?.UkPowerEcvn?.SellerId,
+                                NotificationAgent =  tradeDataObject.External?.UkPowerEcvn?.NotificationAgent,
+                                TransmissionChargeIdentification =  tradeDataObject.External?.UkPowerEcvn?.TransmissionChargeIdentification,
+                            }
                         }
                     }
-                }
+                    : null
             };
         }
 

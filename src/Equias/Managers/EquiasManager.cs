@@ -92,7 +92,7 @@ namespace Equias.Managers
             return await equiasService.ModifyPhysicalTrade(physicalTrade, requestTokenResponse);
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> UpdateTradePreSubmission(EboGetTradeStatusResponse eboGetTradeStatusResponse, TradeDataObject tradeDataObject, string apiJwtToken)
+        public TradeDataObject SetTradePreSubmission(EboGetTradeStatusResponse eboGetTradeStatusResponse, TradeDataObject tradeDataObject)
         {
             if (eboGetTradeStatusResponse == null)
             {
@@ -103,13 +103,13 @@ namespace Equias.Managers
 
             tradeDataObject.External.Equias.EboSubmissionTime = DateTime.UtcNow;
             tradeDataObject.External.Equias.EboSubmissionStatus = getTradeStatus?.TradeVersion == null
-                ? EquiasConstants.Submitted
-                : EquiasConstants.Resubmitted;
+                ? EquiasConstants.StatusSubmitted
+                : EquiasConstants.StatusResubmitted;
 
-            return await tradeService.PutTradesViaJwtAsync(apiJwtToken, new List<TradeDataObject> { tradeDataObject });
+            return tradeDataObject;
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> UpdateTradePostSubmission(EboPhysicalTradeResponse eboAddPhysicalTradeResponse, TradeDataObject tradeDataObject, string apiJwtToken)
+        public TradeDataObject SetTradePostSubmission(EboPhysicalTradeResponse eboAddPhysicalTradeResponse, TradeDataObject tradeDataObject)
         {
             if (eboAddPhysicalTradeResponse == null)
             {
@@ -129,7 +129,12 @@ namespace Equias.Managers
 
             tradeDataObject.External.Equias.EboStatusLastCheckedTime = DateTime.UtcNow;
 
-            return await tradeService.PutTradesViaJwtAsync(apiJwtToken, new List<TradeDataObject> { tradeDataObject });
+            return tradeDataObject;
+        }
+
+        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> SaveTrade(TradeDataObject tradeDataObject, string apiJwtToken)
+        {
+            return await tradeService.PutTradesViaJwtAsync(apiJwtToken, new List<TradeDataObject> {tradeDataObject});
         }
     }
 }

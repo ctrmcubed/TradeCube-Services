@@ -72,16 +72,34 @@ namespace TradeCube_Services.Controllers
 
                 var tradeIds = new List<string> { EquiasService.MapTradeId(eboAddPhysicalTradeRequest.TradeReference, eboAddPhysicalTradeRequest.TradeLeg) };
                 var eboGetTradeStatusResponse = await equiasManager.EboGetTradeStatus(tradeIds, requestTokenResponse);
+<<<<<<< HEAD
+                //var updateTradePreSubmission = await equiasManager.UpdateTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject, apiJwtToken);
+=======
+<<<<<<< Updated upstream
+                var updateTradePreSubmission = await equiasManager.UpdateTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject, apiJwtToken);
+=======
                 var updateTradePreSubmission = equiasManager.SetTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject);
                 var savePreSubmission = await equiasManager.SaveTrade(updateTradePreSubmission, apiJwtToken);
 
                 logger.LogInformation($"Pre-submission Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePreSubmission.IsSuccessStatusCode}");
 
+>>>>>>> Stashed changes
+>>>>>>> equias
                 var physicalTrade = await equiasManager.CreatePhysicalTrade(tradeDataObject, apiJwtToken);
 
                 if (eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeVersion == null)
                 {
                     var eboAddPhysicalTradeResponse = await equiasManager.AddPhysicalTrade(physicalTrade, requestTokenResponse);
+<<<<<<< HEAD
+                    //var addTradePostSubmission = await equiasManager.UpdateTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject, apiJwtToken);
+
+                    //logger.LogInformation(addTradePostSubmission.Status);
+=======
+<<<<<<< Updated upstream
+                    var addTradePostSubmission = await equiasManager.UpdateTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject, apiJwtToken);
+
+                    logger.LogInformation(addTradePostSubmission.Status);
+=======
 
                     if (eboAddPhysicalTradeResponse.IsSuccessStatusCode)
                     {
@@ -92,8 +110,10 @@ namespace TradeCube_Services.Controllers
 
                         return Json(eboAddPhysicalTradeResponse);
                     }
+>>>>>>> equias
 
                     logger.LogInformation($"Add physical Trade failed result: {eboAddPhysicalTradeResponse.Message}");
+>>>>>>> Stashed changes
 
                     return BadRequest(new ApiResponseWrapper<EboPhysicalTradeResponse>
                     {
