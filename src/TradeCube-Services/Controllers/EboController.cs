@@ -1,9 +1,11 @@
-﻿using Equias.Managers;
+﻿using Equias.Constants;
+using Equias.Managers;
 using Equias.Messages;
 using Equias.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shared.Constants;
+using Shared.Extensions;
 using Shared.Messages;
 using System;
 using System.Collections.Generic;
@@ -56,30 +58,89 @@ namespace TradeCube_Services.Controllers
                 var requestTokenRequest = await equiasManager.GetAuthenticationToken(apiJwtToken);
                 var requestTokenResponse = await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest);
                 var tradeDataObject = await equiasManager.GetTradeAsync(eboAddPhysicalTradeRequest.TradeReference, eboAddPhysicalTradeRequest.TradeLeg, apiJwtToken);
+
+                if (tradeDataObject.WithholdEquiasSubmission())
+                {
+                    tradeDataObject.External.Equias.EboSubmissionStatus = EquiasConstants.StatusWithheld;
+
+                    var saveTradeWithheld = await equiasManager.SaveTrade(tradeDataObject, apiJwtToken);
+
+                    logger.LogInformation($"Withheld Trade updated (EboSubmissionStatus={EquiasConstants.StatusWithheld}), result: {saveTradeWithheld.IsSuccessStatusCode}");
+
+                    return Json(new EboPhysicalTradeResponse());
+                }
+
                 var tradeIds = new List<string> { EquiasService.MapTradeId(eboAddPhysicalTradeRequest.TradeReference, eboAddPhysicalTradeRequest.TradeLeg) };
                 var eboGetTradeStatusResponse = await equiasManager.EboGetTradeStatus(tradeIds, requestTokenResponse);
+<<<<<<< Updated upstream
                 var updateTradePreSubmission = await equiasManager.UpdateTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject, apiJwtToken);
+=======
+                var updateTradePreSubmission = equiasManager.SetTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject);
+                var savePreSubmission = await equiasManager.SaveTrade(updateTradePreSubmission, apiJwtToken);
+
+                logger.LogInformation($"Pre-submission Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePreSubmission.IsSuccessStatusCode}");
+
+>>>>>>> Stashed changes
                 var physicalTrade = await equiasManager.CreatePhysicalTrade(tradeDataObject, apiJwtToken);
 
                 if (eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeVersion == null)
                 {
                     var eboAddPhysicalTradeResponse = await equiasManager.AddPhysicalTrade(physicalTrade, requestTokenResponse);
+<<<<<<< Updated upstream
                     var addTradePostSubmission = await equiasManager.UpdateTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject, apiJwtToken);
 
                     logger.LogInformation(addTradePostSubmission.Status);
+=======
 
-                    return Json(eboAddPhysicalTradeResponse);
+                    if (eboAddPhysicalTradeResponse.IsSuccessStatusCode)
+                    {
+                        var addTradePostSubmission = equiasManager.SetTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject);
+                        var savePostSubmissionAdd = await equiasManager.SaveTrade(addTradePostSubmission, apiJwtToken);
+
+                        logger.LogInformation($"Add physical Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionAdd.IsSuccessStatusCode}");
+
+                        return Json(eboAddPhysicalTradeResponse);
+                    }
+
+                    logger.LogInformation($"Add physical Trade failed result: {eboAddPhysicalTradeResponse.Message}");
+>>>>>>> Stashed changes
+
+                    return BadRequest(new ApiResponseWrapper<EboPhysicalTradeResponse>
+                    {
+                        Message = eboAddPhysicalTradeResponse.Message,
+                        Status = ApiConstants.FailedResult,
+                        Data = new EboPhysicalTradeResponse
+                        {
+                            Message = eboAddPhysicalTradeResponse.Message
+                        }
+                    });
                 }
 
                 // Mutation!
                 physicalTrade.ActionType = eboAddPhysicalTradeRequest.ActionType;
 
                 var eboModifyPhysicalTradeResponse = await equiasManager.ModifyPhysicalTrade(physicalTrade, requestTokenResponse);
-                var modifyTradePostSubmission = await equiasManager.UpdateTradePostSubmission(eboModifyPhysicalTradeResponse, tradeDataObject, apiJwtToken);
+                if (eboModifyPhysicalTradeResponse.IsSuccessStatusCode)
+                {
+                    var modifyTradePostSubmission = equiasManager.SetTradePostSubmission(eboModifyPhysicalTradeResponse, tradeDataObject);
+                    var savePostSubmissionModify = await equiasManager.SaveTrade(modifyTradePostSubmission, apiJwtToken);
 
-                logger.LogInformation(modifyTradePostSubmission.Status);
+                    logger.LogInformation($"Modify physical Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionModify.IsSuccessStatusCode}");
 
-                return Json(eboModifyPhysicalTradeResponse);
+                    return Json(eboModifyPhysicalTradeResponse);
+                }
+
+                logger.LogInformation($"Modify physical Trade failed result: {eboModifyPhysicalTradeResponse.Message}");
+
+                return BadRequest(new ApiResponseWrapper<EboPhysicalTradeResponse>
+                {
+                    Message = eboModifyPhysicalTradeResponse.Message,
+                    Status = ApiConstants.FailedResult,
+                    Data = new EboPhysicalTradeResponse
+                    {
+                        Message = eboModifyPhysicalTradeResponse.Message
+                    }
+                });
             }
             catch (Exception ex)
             {

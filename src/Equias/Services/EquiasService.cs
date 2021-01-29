@@ -59,7 +59,11 @@ namespace Equias.Services
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                throw;
+                return new EboPhysicalTradeResponse
+                {
+                    IsSuccessStatusCode = false,
+                    Message = ex.Message
+                };
             }
         }
 
@@ -79,7 +83,11 @@ namespace Equias.Services
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                throw;
+                return new EboPhysicalTradeResponse
+                {
+                    IsSuccessStatusCode = false,
+                    Message = ex.Message
+                };
             }
         }
 

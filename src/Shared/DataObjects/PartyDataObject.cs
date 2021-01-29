@@ -28,5 +28,7 @@ namespace Shared.DataObjects
         public ContactDataObject PrimaryBillingContact { get; set; }
 
         public ContactDataObject PrimaryConfirmationContact { get; set; }
+
+        public string Image { get; set; }
     }
 }
