@@ -9,6 +9,12 @@ namespace Shared.Messages
         public DateTime? UtcStartDateTime { get; set; }
 
         [JsonPropertyName("UTCEndDateTime")]
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+        public DateTime? UtcEndDateTime;
+=======
+=======
+>>>>>>> develop
         public DateTime? UtcEndDateTime { get; set; }
 
         public string LocalStartDateTime { get; set; }
@@ -17,5 +23,9 @@ namespace Shared.Messages
         public string LongDayRule { get; set; }
         public int[] ApplicableDays { get; set; }
         public int[] ApplicableHours { get; set; }
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+=======
+>>>>>>> develop
     }
 }

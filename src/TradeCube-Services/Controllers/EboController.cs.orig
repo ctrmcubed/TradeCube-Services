@@ -72,17 +72,36 @@ namespace TradeCube_Services.Controllers
 
                 var tradeIds = new List<string> { EquiasService.MapTradeId(eboAddPhysicalTradeRequest.TradeReference, eboAddPhysicalTradeRequest.TradeLeg) };
                 var eboGetTradeStatusResponse = await equiasManager.EboGetTradeStatus(tradeIds, requestTokenResponse);
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+                var updateTradePreSubmission = await equiasManager.UpdateTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject, apiJwtToken);
+=======
+=======
+>>>>>>> develop
                 var updateTradePreSubmission = equiasManager.SetTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject);
                 var savePreSubmission = await equiasManager.SaveTrade(updateTradePreSubmission, apiJwtToken);
 
                 logger.LogInformation($"Pre-submission Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePreSubmission.IsSuccessStatusCode}");
 
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+=======
+>>>>>>> develop
                 var physicalTrade = await equiasManager.CreatePhysicalTrade(tradeDataObject, apiJwtToken);
 
                 if (eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeVersion == null)
                 {
                     var eboAddPhysicalTradeResponse = await equiasManager.AddPhysicalTrade(physicalTrade, requestTokenResponse);
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+                    var addTradePostSubmission = await equiasManager.UpdateTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject, apiJwtToken);
 
+                    logger.LogInformation(addTradePostSubmission.Status);
+=======
+
+=======
+
+>>>>>>> develop
                     if (eboAddPhysicalTradeResponse.IsSuccessStatusCode)
                     {
                         var addTradePostSubmission = equiasManager.SetTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject);
@@ -92,9 +111,16 @@ namespace TradeCube_Services.Controllers
 
                         return Json(eboAddPhysicalTradeResponse);
                     }
+<<<<<<< HEAD
+
+                    logger.LogInformation($"Add physical Trade failed result: {eboAddPhysicalTradeResponse.Message}");
+>>>>>>> Stashed changes
+
+=======
 
                     logger.LogInformation($"Add physical Trade failed result: {eboAddPhysicalTradeResponse.Message}");
 
+>>>>>>> develop
                     return BadRequest(new ApiResponseWrapper<EboPhysicalTradeResponse>
                     {
                         Message = eboAddPhysicalTradeResponse.Message,

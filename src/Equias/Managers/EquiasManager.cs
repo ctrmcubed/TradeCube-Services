@@ -75,7 +75,7 @@ namespace Equias.Managers
         {
             var mappingManager = new MappingManager(await equiasMappingService.GetMappingsAsync(apiJwtToken));
             var mappingService = equiasMappingService.SetMappingManager(mappingManager);
-            var tradeSummary = (await tradeSummaryService.TradeSummaryAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.First();
+            var tradeSummary = (await tradeSummaryService.TradeSummaryAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.FirstOrDefault();
             var cashflows = (await cashflowService.CashflowAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data;
             var profileResponses = (await profileService.ProfileAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken, "sparse"))?.Data;
 

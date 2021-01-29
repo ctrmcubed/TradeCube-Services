@@ -52,6 +52,16 @@ namespace Equias.Services
                 throw new DataException("Trade's timezone is null");
             }
 
+            if (cashflowResponses == null)
+            {
+                throw new DataException("No cashflow data");
+            }
+
+            if (profileResponses == null)
+            {
+                throw new DataException("No profile data");
+            }
+
             var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
             var cashflows = cashflowResponses?.ToList();
             var commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity);
