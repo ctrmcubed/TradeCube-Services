@@ -3,13 +3,16 @@ using Equias.Messages;
 using Equias.Models.BackOfficeServices;
 using Equias.Services;
 using Microsoft.Extensions.Logging;
+using Shared.Configuration;
 using Shared.Constants;
 using Shared.DataObjects;
+using Shared.Extensions;
 using Shared.Managers;
 using Shared.Messages;
 using Shared.Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
@@ -23,52 +26,135 @@ namespace Equias.Managers
         private readonly ITradeService tradeService;
         private readonly IEquiasMappingService equiasMappingService;
         private readonly IVaultService vaultService;
+        private readonly ISettingService settingService;
         private readonly ILogger<EquiasManager> logger;
         private readonly ITradeSummaryService tradeSummaryService;
         private readonly ICashflowService cashflowService;
         private readonly IProfileService profileService;
 
         public EquiasManager(IEquiasAuthenticationService equiasAuthenticationService, IEquiasService equiasService, ITradeService tradeService, ITradeSummaryService tradeSummaryService,
-            ICashflowService cashflowService, IProfileService profileService, IEquiasMappingService equiasMappingService, IVaultService vaultService, ILogger<EquiasManager> logger)
+            ICashflowService cashflowService, IProfileService profileService, ISettingService settingService, IEquiasMappingService equiasMappingService, IVaultService vaultService,
+            ILogger<EquiasManager> logger)
         {
             this.equiasAuthenticationService = equiasAuthenticationService;
             this.equiasService = equiasService;
             this.tradeService = tradeService;
             this.equiasMappingService = equiasMappingService;
             this.vaultService = vaultService;
+            this.settingService = settingService;
             this.logger = logger;
             this.tradeSummaryService = tradeSummaryService;
             this.cashflowService = cashflowService;
             this.profileService = profileService;
         }
 
-        public async Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest)
-        {
-            return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest);
-        }
-
-        public async Task<EboGetTradeStatusResponse> EboGetTradeStatus(IEnumerable<string> tradeIds, RequestTokenResponse requestTokenResponse)
-        {
-            return await equiasService.EboGetTradeStatus(tradeIds, requestTokenResponse);
-        }
-
-        public async Task<RequestTokenRequest> GetAuthenticationToken(string apiJwtToken)
+        public async Task<RequestTokenRequest> CreateAuthenticationTokenRequest(string apiJwtToken)
         {
             var eboUsername = (await vaultService.GetVaultValueAsync(VaultConstants.EquiasEboUsernameKey, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
             var eboPassword = (await vaultService.GetVaultValueAsync(VaultConstants.EquiasEboPasswordKey, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
 
-            if (string.IsNullOrEmpty(eboUsername) || string.IsNullOrEmpty(eboPassword))
+            if (string.IsNullOrEmpty(eboUsername))
             {
-                logger.LogError("Equias eBO username/password not found in the vault");
-                throw new SecurityException("Equias eBO username/password not found in the vault");
+                logger.LogError($"The {VaultConstants.EquiasEboUsernameKey} is not configured in the vault");
+                throw new SecurityException($"The {VaultConstants.EquiasEboUsernameKey} is not configured in the vault");
+            }
+
+            if (string.IsNullOrEmpty(eboPassword))
+            {
+                logger.LogError($"The {VaultConstants.EquiasEboPasswordKey} is not configured in the vault");
+                throw new SecurityException($"The {VaultConstants.EquiasEboPasswordKey} is not configured in the vault");
             }
 
             return new RequestTokenRequest(eboUsername, eboPassword);
         }
 
+        public async Task<RequestTokenResponse> CreateAuthenticationToken(RequestTokenRequest requestTokenRequest, string apiJwtToken)
+        {
+            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
+            return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, equiasConfiguration);
+        }
+
+        public async Task<EboGetTradeStatusResponse> EboGetTradeStatus(IEnumerable<TradeKey> tradeKeys, RequestTokenResponse requestTokenResponse, string apiJwtToken)
+        {
+            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
+            var enumerable = tradeKeys.ToList();
+            var tradeIds = enumerable.Select(t => EquiasService.MapTradeId(t.TradeReference, t.TradeLeg));
+
+            return await equiasService.EboGetTradeStatus(tradeIds, requestTokenResponse, equiasConfiguration);
+        }
+
         public async Task<TradeDataObject> GetTradeAsync(string tradeReference, int tradeLeg, string apiJwtToken)
         {
             return (await tradeService.GetTradeAsync(apiJwtToken, tradeReference, tradeLeg)).Data?.SingleOrDefault();
+        }
+
+        public async Task<EboPhysicalTradeResponse> CreatePhysicalTrade(string tradeReference, int tradeLeg, string apiJwtToken)
+        {
+            try
+            {
+                var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
+                var requestTokenRequest = await CreateAuthenticationTokenRequest(apiJwtToken);
+                var requestTokenResponse = await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, equiasConfiguration);
+                var tradeDataObject = await GetTradeAsync(tradeReference, tradeLeg, apiJwtToken);
+
+                if (tradeDataObject.WithholdEquiasSubmission())
+                {
+                    tradeDataObject.External.Equias.EboSubmissionStatus = EquiasConstants.StatusWithheld;
+
+                    var saveTradeWithheld = await SaveTrade(tradeDataObject, apiJwtToken);
+
+                    logger.LogInformation($"Withheld Trade updated (EboSubmissionStatus={EquiasConstants.StatusWithheld}), result: {saveTradeWithheld.IsSuccessStatusCode}");
+
+                    return new EboPhysicalTradeResponse();
+                }
+
+                var tradeIds = new List<TradeKey> {new() {TradeReference = tradeReference, TradeLeg = tradeLeg}};
+                var eboGetTradeStatusResponse = await EboGetTradeStatus(tradeIds, requestTokenResponse, apiJwtToken);
+                var updateTradePreSubmission = SetTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject);
+                var savePreSubmission = await SaveTrade(updateTradePreSubmission, apiJwtToken);
+
+                logger.LogInformation($"Pre-submission Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePreSubmission.IsSuccessStatusCode}");
+
+                var physicalTrade = await CreatePhysicalTrade(tradeDataObject, apiJwtToken);
+
+                if (eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeVersion == null)
+                {
+                    var eboAddPhysicalTradeResponse = await AddPhysicalTrade(physicalTrade, requestTokenResponse, apiJwtToken);
+
+                    if (eboAddPhysicalTradeResponse.IsSuccessStatusCode)
+                    {
+                        var addTradePostSubmission = SetTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject);
+                        var savePostSubmissionAdd = await SaveTrade(addTradePostSubmission, apiJwtToken);
+
+                        logger.LogInformation($"Add physical Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionAdd.IsSuccessStatusCode}");
+
+                        return eboAddPhysicalTradeResponse;
+                    }
+
+                    throw new DataException($"Add physical Trade failed result: {eboAddPhysicalTradeResponse.Message}");
+                }
+
+                // Mutation!
+                physicalTrade.ActionType = tradeDataObject.External?.Equias?.EboActionType;
+
+                var eboModifyPhysicalTradeResponse = await ModifyPhysicalTrade(physicalTrade, requestTokenResponse, apiJwtToken);
+                if (eboModifyPhysicalTradeResponse.IsSuccessStatusCode)
+                {
+                    var modifyTradePostSubmission = SetTradePostSubmission(eboModifyPhysicalTradeResponse, tradeDataObject);
+                    var savePostSubmissionModify = await SaveTrade(modifyTradePostSubmission, apiJwtToken);
+
+                    logger.LogInformation($"Modify physical Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionModify.IsSuccessStatusCode}");
+
+                    return eboModifyPhysicalTradeResponse;
+                }
+
+                throw new DataException($"Modify physical Trade failed result: {eboModifyPhysicalTradeResponse.Message}");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
 
         public async Task<PhysicalTrade> CreatePhysicalTrade(TradeDataObject tradeDataObject, string apiJwtToken)
@@ -82,17 +168,29 @@ namespace Equias.Managers
             return await mappingService.MapTrade(tradeDataObject, tradeSummary, cashflows, profileResponses, apiJwtToken);
         }
 
-        public async Task<EboPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
+        public async Task<EboPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)
         {
-            return await equiasService.EboAddPhysicalTrade(physicalTrade, requestTokenResponse);
+            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
+            return await equiasService.EboAddPhysicalTrade(physicalTrade, requestTokenResponse, equiasConfiguration);
         }
 
-        public async Task<EboPhysicalTradeResponse> ModifyPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
+        public async Task<EboPhysicalTradeResponse> ModifyPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)
         {
-            return await equiasService.ModifyPhysicalTrade(physicalTrade, requestTokenResponse);
+            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
+            return await equiasService.ModifyPhysicalTrade(physicalTrade, requestTokenResponse, equiasConfiguration);
         }
 
-        public TradeDataObject SetTradePreSubmission(EboGetTradeStatusResponse eboGetTradeStatusResponse, TradeDataObject tradeDataObject)
+        private async Task<string> GetEquiasDomain(string apiJwtToken)
+        {
+            const string eboUrlSettingName = "EBO_URL";
+
+            var apiDomain = (await settingService.GetSettingViaJwtAsync(eboUrlSettingName, apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
+            return string.IsNullOrEmpty(apiDomain)
+                ? throw new DataException($"The {eboUrlSettingName} is not configured in the system settings")
+                : apiDomain;
+        }
+
+        private static TradeDataObject SetTradePreSubmission(EboGetTradeStatusResponse eboGetTradeStatusResponse, TradeDataObject tradeDataObject)
         {
             if (eboGetTradeStatusResponse == null)
             {
@@ -109,7 +207,7 @@ namespace Equias.Managers
             return tradeDataObject;
         }
 
-        public TradeDataObject SetTradePostSubmission(EboPhysicalTradeResponse eboAddPhysicalTradeResponse, TradeDataObject tradeDataObject)
+        private static TradeDataObject SetTradePostSubmission(EboPhysicalTradeResponse eboAddPhysicalTradeResponse, TradeDataObject tradeDataObject)
         {
             if (eboAddPhysicalTradeResponse == null)
             {
@@ -132,9 +230,9 @@ namespace Equias.Managers
             return tradeDataObject;
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> SaveTrade(TradeDataObject tradeDataObject, string apiJwtToken)
+        private async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> SaveTrade(TradeDataObject tradeDataObject, string apiJwtToken)
         {
-            return await tradeService.PutTradesViaJwtAsync(apiJwtToken, new List<TradeDataObject> {tradeDataObject});
+            return await tradeService.PutTradesViaJwtAsync(apiJwtToken, new List<TradeDataObject> { tradeDataObject });
         }
     }
 }

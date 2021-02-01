@@ -56,7 +56,7 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                     (await mappingService.GetMappingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.MappingKey, v => v);
 
                 var allSettings =
-                    (await settingService.GetSettingsAsync(apiKey)).Data.ToDictionary(k => k.SettingName, v => v);
+                    (await settingService.GetSettingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.SettingName, v => v);
 
                 var tradeStatus = "Live";
                 var quantityType = "Fixed";

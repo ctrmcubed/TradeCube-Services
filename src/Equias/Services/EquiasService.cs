@@ -15,17 +15,15 @@ namespace Equias.Services
     public class EquiasService : ApiService, IEquiasService
     {
         private readonly IHttpClientFactory httpClientFactory;
-        private readonly IEquiasConfiguration equiasConfiguration;
         private readonly ILogger<ApiService> logger;
 
-        public EquiasService(IHttpClientFactory httpClientFactory, IEquiasConfiguration equiasConfiguration, ILogger<ApiService> logger) : base(logger)
+        public EquiasService(IHttpClientFactory httpClientFactory, ILogger<ApiService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
-            this.equiasConfiguration = equiasConfiguration;
             this.logger = logger;
         }
 
-        public async Task<EboGetTradeStatusResponse> EboGetTradeStatus(IEnumerable<string> tradeIds, RequestTokenResponse requestTokenResponse)
+        public async Task<EboGetTradeStatusResponse> EboGetTradeStatus(IEnumerable<string> tradeIds, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration)
         {
             try
             {
@@ -43,7 +41,7 @@ namespace Equias.Services
             }
         }
 
-        public async Task<EboPhysicalTradeResponse> EboAddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
+        public async Task<EboPhysicalTradeResponse> EboAddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration)
         {
             try
             {
@@ -67,7 +65,7 @@ namespace Equias.Services
             }
         }
 
-        public async Task<EboPhysicalTradeResponse> ModifyPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse)
+        public async Task<EboPhysicalTradeResponse> ModifyPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration)
         {
             try
             {

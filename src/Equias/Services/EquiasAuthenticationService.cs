@@ -11,15 +11,13 @@ namespace Equias.Services
     public class EquiasAuthenticationService : ApiService, IEquiasAuthenticationService
     {
         private readonly IHttpClientFactory httpClientFactory;
-        private readonly IEquiasConfiguration equiasConfiguration;
 
-        public EquiasAuthenticationService(IHttpClientFactory httpClientFactory, IEquiasConfiguration equiasConfiguration, ILogger<ApiService> logger) : base(logger)
+        public EquiasAuthenticationService(IHttpClientFactory httpClientFactory, ILogger<ApiService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
-            this.equiasConfiguration = equiasConfiguration;
         }
 
-        public async Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest)
+        public async Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest, EquiasConfiguration equiasConfiguration)
         {
             var httpClient = httpClientFactory.CreateClient();
 

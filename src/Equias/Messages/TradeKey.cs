@@ -1,9 +1,8 @@
 ﻿namespace Equias.Messages
 {
-    public class EboAddPhysicalTradeRequest
+    public class TradeKey
     {
         public string TradeReference { get; set; }
         public int TradeLeg { get; set; }
-        public string ActionType { get; set; }
     }
 }

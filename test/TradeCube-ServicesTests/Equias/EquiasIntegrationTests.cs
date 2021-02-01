@@ -32,7 +32,7 @@ namespace TradeCube_ServicesTests.Equias
 
             testOutputHelper.WriteLine(TradeCubeServicesJsonSerializer.Serialize(physicalTrade));
 
-            var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade(physicalTrade, await RequestTokenResponse());
+            var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade(physicalTrade, await RequestTokenResponse(), "apiJwtToken");
 
             Assert.Equal("TEST4001", addPhysicalTradeResponse.TradeId);
             Assert.Equal(1, addPhysicalTradeResponse.TradeVersion);
@@ -43,9 +43,9 @@ namespace TradeCube_ServicesTests.Equias
             var username = Environment.GetEnvironmentVariable("EQUIAS_USERNAME");
             var password = Environment.GetEnvironmentVariable("EQUIAS_PASSWORD");
 
-            var authenticationService = equiasTestFixture.EquiasAuthenticationService;
+            var authenticationService = equiasTestFixture.EquiasManager;
 
-            return await authenticationService.GetAuthenticationToken(new RequestTokenRequest(username, password));
+            return await authenticationService.CreateAuthenticationToken(new RequestTokenRequest(username, password), "apiJwtToken");
         }
     }
 }

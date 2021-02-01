@@ -38,8 +38,8 @@ namespace TradeCube_ServicesTests.Equias
             EquiasProfiles = FileHelper.ReadJsonFile<IList<ProfileResponse>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasProfiles.json"));
             EquiasParties = FileHelper.ReadJsonFile<IList<PartyDataObject>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasParties.json"));
 
-            EquiasAuthenticationService = new EquiasAuthenticationService(defaultHttpClientFactory, new EquiasConfiguration(), new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
-            EquiasService = new EquiasService(defaultHttpClientFactory, new EquiasConfiguration(), new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
+            EquiasAuthenticationService = new EquiasAuthenticationService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
+            EquiasService = new EquiasService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
 
             EquiasManager = new EquiasManager(
                 EquiasAuthenticationService,
@@ -48,8 +48,10 @@ namespace TradeCube_ServicesTests.Equias
                 CreateTradeSummaryService(EquiasTradeSummaries),
                 CreateCashflowService(EquiasCashflows),
                 CreateProfileService(EquiasProfiles),
+                CreateSettingService(),
                 new EquiasMappingService(CreateMappingService(EquiasMappings), CreatePartyService(EquiasParties)),
-                new VaultService(defaultHttpClientFactory, new TradeCubeConfiguration(), new Logger<VaultService>(LoggerFactory.Create(l => l.AddConsole()))),
+                new VaultService(defaultHttpClientFactory, new TradeCubeConfiguration(),
+                    new Logger<VaultService>(LoggerFactory.Create(l => l.AddConsole()))),
                 new Logger<EquiasManager>(LoggerFactory.Create(l => l.AddConsole())));
         }
 
@@ -121,6 +123,18 @@ namespace TradeCube_ServicesTests.Equias
                 .Setup(c => c.GetPartyAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync((string party, string _) =>
                     new ApiResponseWrapper<IEnumerable<PartyDataObject>> { Data = parties.Where(p => p.Party == party) });
+
+            return service.Object;
+        }
+
+        private static ISettingService CreateSettingService()
+        {
+            var service = new Mock<ISettingService>();
+
+            service
+                .Setup(c => c.GetSettingViaJwtAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync((string _, string _) =>
+                    new ApiResponseWrapper<IEnumerable<SettingDataObject>> { Data = new List<SettingDataObject> { new() { SettingValue = "https://ebo-test.api.equias.org" } } });
 
             return service.Object;
         }
