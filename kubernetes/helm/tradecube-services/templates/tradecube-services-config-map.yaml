@@ -21,3 +21,4 @@ data:
   EQUIAS_GET_TRADE_STATUS_URI: '{{ .Values.equias.getTradeStatusURI }}'
   EQUIAS_ADD_PHYSICAL_TRADE_URI: '{{ .Values.equias.addPhysicalTradeURI }}'
   EQUIAS_MODIFY_PHYSICAL_TRADE_URI: '{{ .Values.equias.modifyPhysicalTradeURI }}'
+  EQUIAS_CANCEL_TRADE_URI: '{{ .Values.equias.cancelTradeURI }}'

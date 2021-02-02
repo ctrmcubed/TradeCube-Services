@@ -19,10 +19,11 @@ env:
   jsreportPort: 5488                   # {{ .Values.env.jsreportPort }}
 
 equias:
-  requestTokenURI: /eBOWebApi/api/v1.0/Token/RequestToken        # {{ .Values.equias.requestTokenURI }}
-  getTradeStatusURI: /eBOWebApi/api/v1.0/Token/RequestToken      # {{ .Values.equias.getTradeStatusURI }}
-  addPhysicalTradeURI: /eBOWebApi/api/v1.0/Token/RequestToken    # {{ .Values.equias.addPhysicalTradeURI }}
-  modifyPhysicalTradeURI: /eBOWebApi/api/v1.0/Token/RequestToken # {{ .Values.equias.modifyPhysicalTradeURI }}
+  requestTokenURI: /eBOWebApi/api/v1.0/Token/RequestToken               # {{ .Values.equias.requestTokenURI }}
+  getTradeStatusURI: /eBOWebApi/api/v1.0/Trade/GetTradeStatus           # {{ .Values.equias.getTradeStatusURI }}
+  addPhysicalTradeURI: /eBOWebApi/api/v1.0/Trade/AddPhysicalTrade       # {{ .Values.equias.addPhysicalTradeURI }}
+  modifyPhysicalTradeURI: /eBOWebApi/api/v1.0/Trade/ModifyPhysicalTrade # {{ .Values.equias.modifyPhysicalTradeURI }}
+  cancelTradeURI: /eBOWebApi/api/v1.0/Trade/CancelTrade                 # {{ .Values.equias.cancelTradeURI }}
 
 service:
   port: 80       # {{ .Values.service.port }}

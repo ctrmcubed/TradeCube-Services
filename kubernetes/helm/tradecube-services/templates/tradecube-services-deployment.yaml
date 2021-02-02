@@ -87,7 +87,12 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}{{ .Values.type.configmap }}
                 key: EQUIAS_MODIFY_PHYSICAL_TRADE_URI
-        # readinessProbe:
+          - name: EQUIAS_CANCEL_TRADE_URI
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: EQUIAS_CANCEL_TRADE_URI
+          # readinessProbe:
           # tcpSocket:
             # port: {{ .Values.port.services }}
           # initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
