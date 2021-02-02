@@ -7,5 +7,6 @@
         string GetTradeStatusUri { get; }
         string AddPhysicalTradeUri { get; }
         string ModifyPhysicalTradeUri { get; }
+        string CancelTradeUri { get; }
     }
 }

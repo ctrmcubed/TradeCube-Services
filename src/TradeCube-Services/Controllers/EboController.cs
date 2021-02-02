@@ -32,9 +32,7 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                var requestTokenRequest = await equiasManager.CreateAuthenticationTokenRequest(apiJwtToken);
-                var requestTokenResponse = await equiasManager.CreateAuthenticationToken(requestTokenRequest, apiJwtToken);
-                var eboGetTradeStatusResponse = await equiasManager.EboGetTradeStatus(tradeKeys, requestTokenResponse, apiJwtToken);
+              var eboGetTradeStatusResponse = await equiasManager.TradeStatus(tradeKeys,  apiJwtToken);
 
                 return Json(eboGetTradeStatusResponse);
             }
@@ -56,11 +54,34 @@ namespace TradeCube_Services.Controllers
             {
                 logger.LogError(ex, ex.Message);
 
-                return BadRequest(new ApiResponseWrapper<EboPhysicalTradeResponse>
+                return BadRequest(new ApiResponseWrapper<EboTradeResponse>
                 {
                     Message = ex.Message,
                     Status = ApiConstants.FailedResult,
-                    Data = new EboPhysicalTradeResponse
+                    Data = new EboTradeResponse
+                    {
+                        Message = ex.Message
+                    }
+                });
+            }
+        }
+
+        [HttpPost("CancelTrade")]
+        public async Task<IActionResult> CancelTrade([FromHeader] string apiJwtToken, [FromQuery] string tradeReference, [FromQuery] int tradeLeg)
+        {
+            try
+            {
+                return Json(await equiasManager.CancelTrade(tradeReference, tradeLeg, apiJwtToken));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+
+                return BadRequest(new ApiResponseWrapper<EboTradeResponse>
+                {
+                    Message = ex.Message,
+                    Status = ApiConstants.FailedResult,
+                    Data = new EboTradeResponse
                     {
                         Message = ex.Message
                     }
