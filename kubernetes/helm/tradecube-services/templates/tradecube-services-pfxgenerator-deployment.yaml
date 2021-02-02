@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}{{ .Values.component.pfxgenerator }}{{ .Values.type.deployment }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: Tradecube
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+spec:
+  replicas: {{ .Values.replicas.pfxgenerator }}
+  strategy:
+    type: {{ .Values.strategy.type }}
+    rollingUpdate:
+      maxSurge: {{ .Values.strategy.maxSurge }}
+      maxUnavailable: {{ .Values.strategy.maxUnavailable }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}{{ .Values.component.pfxgenerator }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}{{ .Values.component.pfxgenerator }}
+    spec:
+      serviceAccountName: {{ .Release.Name }}{{ .Values.type.serviceaccount }}
+      containers:
+      - image: {{ .Values.image.repository }}/{{ .Values.image.pfxgenerator }}
+        name: {{ .Release.Name }}{{ .Values.component.pfxgenerator }}{{ .Values.type.pod }}
+        imagePullPolicy: "Always"
+        env:
+          - name: TLS_SECRET_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TLS_SECRET_NAME
+          - name: PFX_CERTIFICATE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: PFX_CERTIFICATE_NAME
+          - name: PFX_SECRET_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: PFX_SECRET_NAME
+          - name: PFX_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-pfxpassword{{ .Values.type.secret }}
+                key: pfxpassword
+      restartPolicy: {{ .Values.restartPolicy.pfxgenerator }}
