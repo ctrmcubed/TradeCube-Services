@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
+using System;
 using TradeCube_Services.Helpers;
 
 namespace TradeCube_Services
@@ -10,9 +11,24 @@ namespace TradeCube_Services
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args)
-                .Build()
-                .Run();
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+
+            try
+            {
+                CreateHostBuilder(args)
+                    .Build()
+                    .Run();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, $"Stopped TradeCubeServices because of exception {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+                NLog.LogManager.Shutdown();
+            }
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -29,12 +45,13 @@ namespace TradeCube_Services
                                 o.ListenAnyIP(port ?? 0, options => { options.UseHttps(certificateInfo.name, certificateInfo.password); });
                             }
                         })
-                        .UseStartup<Startup>()
                         .ConfigureLogging(logging =>
                         {
                             logging.ClearProviders();
                             logging.SetMinimumLevel(LogLevel.Trace);
+                            logging.AddDebug();
                         })
+                        .UseStartup<Startup>()
                         .UseNLog();
                 });
     }

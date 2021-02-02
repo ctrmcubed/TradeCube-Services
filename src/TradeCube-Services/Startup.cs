@@ -27,6 +27,11 @@ namespace TradeCube_Services
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TradeCube-Services API", Version = "v1", Description = "TradeCube-Services API" });
+            });
+
             services.AddControllers();
             services.AddHttpClient<TradeCubeApiService>();
 
@@ -37,10 +42,8 @@ namespace TradeCube_Services
                 v.ApiVersionSelector = new CurrentImplementationApiVersionSelector(v);
             });
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TradeCube-Services API", Version = "v1", Description = "TradeCube-Services API" });
-            });
+            services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
 
             // Configuration
             services
@@ -92,6 +95,11 @@ namespace TradeCube_Services
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
 
             app.UseSwagger();
