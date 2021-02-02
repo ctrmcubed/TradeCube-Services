@@ -48,53 +48,21 @@ namespace Equias.Managers
             this.profileService = profileService;
         }
 
-        public async Task<RequestTokenRequest> CreateAuthenticationTokenRequest(string apiJwtToken)
+        public async Task<EboGetTradeStatusResponse> TradeStatus(IEnumerable<TradeKey> tradeKeys, string apiJwtToken)
         {
-            var eboUsername = (await vaultService.GetVaultValueAsync(VaultConstants.EquiasEboUsernameKey, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
-            var eboPassword = (await vaultService.GetVaultValueAsync(VaultConstants.EquiasEboPasswordKey, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
-
-            if (string.IsNullOrEmpty(eboUsername))
-            {
-                logger.LogError($"The {VaultConstants.EquiasEboUsernameKey} is not configured in the vault");
-                throw new SecurityException($"The {VaultConstants.EquiasEboUsernameKey} is not configured in the vault");
-            }
-
-            if (string.IsNullOrEmpty(eboPassword))
-            {
-                logger.LogError($"The {VaultConstants.EquiasEboPasswordKey} is not configured in the vault");
-                throw new SecurityException($"The {VaultConstants.EquiasEboPasswordKey} is not configured in the vault");
-            }
-
-            return new RequestTokenRequest(eboUsername, eboPassword);
-        }
-
-        public async Task<RequestTokenResponse> CreateAuthenticationToken(RequestTokenRequest requestTokenRequest, string apiJwtToken)
-        {
-            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
-            return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, equiasConfiguration);
-        }
-
-        public async Task<EboGetTradeStatusResponse> EboGetTradeStatus(IEnumerable<TradeKey> tradeKeys, RequestTokenResponse requestTokenResponse, string apiJwtToken)
-        {
-            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
             var enumerable = tradeKeys.ToList();
             var tradeIds = enumerable.Select(t => EquiasService.MapTradeId(t.TradeReference, t.TradeLeg));
+            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
+            var requestTokenResponse = await CreateAuthenticationToken(apiJwtToken);
 
             return await equiasService.EboGetTradeStatus(tradeIds, requestTokenResponse, equiasConfiguration);
         }
 
-        public async Task<TradeDataObject> GetTradeAsync(string tradeReference, int tradeLeg, string apiJwtToken)
-        {
-            return (await tradeService.GetTradeAsync(apiJwtToken, tradeReference, tradeLeg)).Data?.SingleOrDefault();
-        }
-
-        public async Task<EboPhysicalTradeResponse> CreatePhysicalTrade(string tradeReference, int tradeLeg, string apiJwtToken)
+        public async Task<EboTradeResponse> CreatePhysicalTrade(string tradeReference, int tradeLeg, string apiJwtToken)
         {
             try
             {
-                var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
-                var requestTokenRequest = await CreateAuthenticationTokenRequest(apiJwtToken);
-                var requestTokenResponse = await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, equiasConfiguration);
+                var requestTokenResponse = await CreateAuthenticationToken(apiJwtToken);
                 var tradeDataObject = await GetTradeAsync(tradeReference, tradeLeg, apiJwtToken);
 
                 if (tradeDataObject.WithholdEquiasSubmission())
@@ -105,11 +73,11 @@ namespace Equias.Managers
 
                     logger.LogInformation($"Withheld Trade updated (EboSubmissionStatus={EquiasConstants.StatusWithheld}), result: {saveTradeWithheld.IsSuccessStatusCode}");
 
-                    return new EboPhysicalTradeResponse();
+                    return new EboTradeResponse();
                 }
 
-                var tradeIds = new List<TradeKey> {new() {TradeReference = tradeReference, TradeLeg = tradeLeg}};
-                var eboGetTradeStatusResponse = await EboGetTradeStatus(tradeIds, requestTokenResponse, apiJwtToken);
+                var tradeIds = new List<TradeKey> { new() { TradeReference = tradeReference, TradeLeg = tradeLeg } };
+                var eboGetTradeStatusResponse = await TradeStatus(tradeIds, apiJwtToken);
                 var updateTradePreSubmission = SetTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject);
                 var savePreSubmission = await SaveTrade(updateTradePreSubmission, apiJwtToken);
 
@@ -168,13 +136,62 @@ namespace Equias.Managers
             return await mappingService.MapTrade(tradeDataObject, tradeSummary, cashflows, profileResponses, apiJwtToken);
         }
 
-        public async Task<EboPhysicalTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)
+        public async Task<EboTradeResponse> AddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)
         {
             var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
             return await equiasService.EboAddPhysicalTrade(physicalTrade, requestTokenResponse, equiasConfiguration);
         }
 
-        public async Task<EboPhysicalTradeResponse> ModifyPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)
+        public async Task<EboTradeResponse> CancelTrade(string tradeReference, int tradeLeg, string apiJwtToken)
+        {
+            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
+            var requestTokenResponse = await CreateAuthenticationToken(apiJwtToken);
+            var cancelTrade = new CancelTrade { TradeId = EquiasService.MapTradeId(tradeReference, tradeLeg) };
+            var eboTradeResponse = await equiasService.CancelTrade(cancelTrade, requestTokenResponse, equiasConfiguration);
+
+            return eboTradeResponse;
+        }
+
+        public async Task<TradeDataObject> GetTradeAsync(string tradeReference, int tradeLeg, string apiJwtToken)
+        {
+            return (await tradeService.GetTradeAsync(apiJwtToken, tradeReference, tradeLeg)).Data?.SingleOrDefault();
+        }
+
+        public async Task<RequestTokenResponse> CreateAuthenticationToken(RequestTokenRequest requestTokenRequest, string apiJwtToken)
+        {
+            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
+            return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, equiasConfiguration);
+        }
+
+        private async Task<RequestTokenResponse> CreateAuthenticationToken(string apiJwtToken)
+        {
+            var requestTokenRequest = await CreateAuthenticationTokenRequest(apiJwtToken);
+            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
+
+            return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, equiasConfiguration);
+        }
+
+        private async Task<RequestTokenRequest> CreateAuthenticationTokenRequest(string apiJwtToken)
+        {
+            var eboUsername = (await vaultService.GetVaultValueAsync(VaultConstants.EquiasEboUsernameKey, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
+            var eboPassword = (await vaultService.GetVaultValueAsync(VaultConstants.EquiasEboPasswordKey, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
+
+            if (string.IsNullOrEmpty(eboUsername))
+            {
+                logger.LogError($"The {VaultConstants.EquiasEboUsernameKey} is not configured in the vault");
+                throw new SecurityException($"The {VaultConstants.EquiasEboUsernameKey} is not configured in the vault");
+            }
+
+            if (string.IsNullOrEmpty(eboPassword))
+            {
+                logger.LogError($"The {VaultConstants.EquiasEboPasswordKey} is not configured in the vault");
+                throw new SecurityException($"The {VaultConstants.EquiasEboPasswordKey} is not configured in the vault");
+            }
+
+            return new RequestTokenRequest(eboUsername, eboPassword);
+        }
+
+        private async Task<EboTradeResponse> ModifyPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)
         {
             var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
             return await equiasService.ModifyPhysicalTrade(physicalTrade, requestTokenResponse, equiasConfiguration);
@@ -207,23 +224,23 @@ namespace Equias.Managers
             return tradeDataObject;
         }
 
-        private static TradeDataObject SetTradePostSubmission(EboPhysicalTradeResponse eboAddPhysicalTradeResponse, TradeDataObject tradeDataObject)
+        private static TradeDataObject SetTradePostSubmission(EboTradeResponse eboAddTradeResponse, TradeDataObject tradeDataObject)
         {
-            if (eboAddPhysicalTradeResponse == null)
+            if (eboAddTradeResponse == null)
             {
-                throw new ArgumentNullException(nameof(eboAddPhysicalTradeResponse));
+                throw new ArgumentNullException(nameof(eboAddTradeResponse));
             }
 
             // Mutation!
-            tradeDataObject.External.Equias.EboTradeId = eboAddPhysicalTradeResponse.TradeId;
-            tradeDataObject.External.Equias.EboTradeVersion = eboAddPhysicalTradeResponse.TradeVersion;
-            tradeDataObject.External.Equias.EboSubmissionStatus = eboAddPhysicalTradeResponse.IsSuccessStatusCode
+            tradeDataObject.External.Equias.EboTradeId = eboAddTradeResponse.TradeId;
+            tradeDataObject.External.Equias.EboTradeVersion = eboAddTradeResponse.TradeVersion;
+            tradeDataObject.External.Equias.EboSubmissionStatus = eboAddTradeResponse.IsSuccessStatusCode
                 ? ApiConstants.SuccessResult
                 : ApiConstants.FailedResult;
 
-            tradeDataObject.External.Equias.EboSubmissionMessage = eboAddPhysicalTradeResponse.IsSuccessStatusCode
+            tradeDataObject.External.Equias.EboSubmissionMessage = eboAddTradeResponse.IsSuccessStatusCode
                 ? null
-                : eboAddPhysicalTradeResponse.Message;
+                : eboAddTradeResponse.Message;
 
             tradeDataObject.External.Equias.EboStatusLastCheckedTime = DateTime.UtcNow;
 

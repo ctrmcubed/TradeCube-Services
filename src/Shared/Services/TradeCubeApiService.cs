@@ -86,6 +86,9 @@ namespace Shared.Services
                     ? $"{action}"
                     : $"{action}/{queryString}";
 
+                logger.LogDebug($"SJP Speciali, BaseAddress: {client.BaseAddress}");
+                logger.LogDebug($"SJP Speciali, Request URI: {requestUri}");
+
                 var response = await client.GetAsync(requestUri);
 
                 response.EnsureSuccessStatusCode();
@@ -107,6 +110,8 @@ namespace Shared.Services
 
             client.BaseAddress = new Uri(tradeCubeConfiguration.WebApiUrl());
             client.DefaultRequestHeaders.Add(ApiConstants.ApiJwtHeader, apiJwtToken);
+
+            logger.LogDebug($"SJP Speciali, JWT: {apiJwtToken}");
 
             return client;
         }
