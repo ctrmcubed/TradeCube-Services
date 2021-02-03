@@ -11,10 +11,13 @@ metadata:
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 data:  
   TRADECUBE_SERVICES_HTTPS_PORT: '{{ .Values.port.servicesSsl }}'
-  TRADECUBE_SERVICES_CERT_NAME: {{ .Values.env.certFile }}
+  TRADECUBE_SERVICES_CERT_NAME: {{ .Values.env.certificateNamePrefix }}{{ .Values.env.certificateNameSuffix }}
   TRADECUBE_SERVICES_CERT_PASSWORD: '{{ .Values.env.certPassword }}'
   TRADECUBE_API_DOMAIN: {{ .Values.env.apiDomain }}
   TRADECUBE_API_PORT: '{{ .Values.env.apiPort }}'
+  TLS_SECRET_NAME: {{ .Release.Name }}{{ .Values.type.certificate }}{{ .Values.type.secret }}
+  PFX_CERTIFICATE_NAME: {{ .Values.env.certificateNameSuffix }}
+  PFX_SECRET_NAME: {{ .Release.Name }}{{ .Values.type.secret }}
   JSREPORT_DOMAIN: {{ .Values.env.jsreportDomain }}
   JSREPORT_PORT: '{{ .Values.env.jsreportPort }}'
   EQUIAS_REQUEST_TOKEN_URI: '{{ .Values.equias.requestTokenURI }}'
