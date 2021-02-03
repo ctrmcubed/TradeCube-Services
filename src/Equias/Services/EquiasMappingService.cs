@@ -1,4 +1,5 @@
-﻿using Equias.Helpers;
+﻿using Equias.Constants;
+using Equias.Helpers;
 using Equias.Models.BackOfficeServices;
 using NodaTime;
 using Shared.DataObjects;
@@ -11,7 +12,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using Equias.Constants;
 
 namespace Equias.Services
 {
@@ -63,7 +63,7 @@ namespace Equias.Services
             }
 
             var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
-            var cashflows = cashflowResponses?.ToList();
+            var cashflows = cashflowResponses.ToList();
             var commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity);
 
             return new PhysicalTrade
@@ -85,7 +85,7 @@ namespace Equias.Services
                 BeneficiaryId = await MapEic(tradeDataObject.Beneficiary?.Party, tradeDataObject.Beneficiary?.Eic?.Eic, "Beneficiary party", apiJwtToken),
                 Intragroup = MapInternalToIntragroup(tradeDataObject.Buyer?.Internal, tradeDataObject.Seller?.Internal),
                 LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom"),
-                Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType),
+                Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType, tradeDataObject.Product?.Commodity?.Commodity),
                 TotalVolume = tradeSummaryResponse?.TotalVolume,
                 TotalVolumeUnit = MapEnergyUnitToVolumeUnit(tradeDataObject.Quantity?.QuantityUnit?.EnergyUnit?.EnergyUnit),
                 TradeExecutionTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(tradeDataObject.TradeDateTime, timezone),
@@ -203,16 +203,16 @@ namespace Equias.Services
                 : mappingTo;
         }
 
-        private string MapContractAgreementToAgreement(string agreementType)
+        private string MapContractAgreementToAgreement(string agreementType, string commodity)
         {
             if (!string.IsNullOrEmpty(agreementType))
             {
                 return agreementType;
             }
 
-            var mappingTo = mappingManager.GetMappingTo("EFET_Agreement", agreementType);
+            var mappingTo = mappingManager.GetMappingTo("EFET_Agreement", commodity);
             return string.IsNullOrEmpty(mappingTo)
-                ? throw new DataException($"Agreement mapping error ({agreementType})")
+                ? throw new DataException($"Agreement mapping error ({commodity})")
                 : mappingTo;
         }
 
