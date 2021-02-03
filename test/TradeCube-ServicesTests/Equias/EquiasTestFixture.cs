@@ -2,10 +2,11 @@
 using Equias.Services;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Shared.Configuration;
+using Shared.Constants;
 using Shared.DataObjects;
 using Shared.Messages;
 using Shared.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TradeCube_ServicesTests.Helpers;
@@ -41,6 +42,20 @@ namespace TradeCube_ServicesTests.Equias
             EquiasAuthenticationService = new EquiasAuthenticationService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
             EquiasService = new EquiasService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
 
+            var vaultDataObjects = new List<VaultDataObject>
+            {
+                new()
+                {
+                    VaultKey = VaultConstants.EquiasEboUsernameKey,
+                    VaultValue = Environment.GetEnvironmentVariable("EQUIAS_USERNAME")
+                },
+                new()
+                {
+                    VaultKey = VaultConstants.EquiasEboPasswordKey,
+                    VaultValue = Environment.GetEnvironmentVariable("EQUIAS_PASSWORD")
+                }
+            };
+
             EquiasManager = new EquiasManager(
                 EquiasAuthenticationService,
                 EquiasService,
@@ -49,10 +64,8 @@ namespace TradeCube_ServicesTests.Equias
                 CreateCashflowService(EquiasCashflows),
                 CreateProfileService(EquiasProfiles),
                 CreateSettingService(),
-                new EquiasMappingService(CreateMappingService(EquiasMappings), CreatePartyService(EquiasParties)),
-                new VaultService(defaultHttpClientFactory, new TradeCubeConfiguration(),
-                    new Logger<VaultService>(LoggerFactory.Create(l => l.AddConsole()))),
-                new Logger<EquiasManager>(LoggerFactory.Create(l => l.AddConsole())));
+                CreateVaultService(vaultDataObjects),
+                new EquiasMappingService(CreateMappingService(EquiasMappings), CreatePartyService(EquiasParties)), new Logger<EquiasManager>(LoggerFactory.Create(l => l.AddConsole())));
         }
 
         private static ITradeService CreateTradeService(IEnumerable<TradeDataObject> trades)
@@ -138,5 +151,18 @@ namespace TradeCube_ServicesTests.Equias
 
             return service.Object;
         }
+
+        private static IVaultService CreateVaultService(IEnumerable<VaultDataObject> data)
+        {
+            var service = new Mock<IVaultService>();
+
+            service
+                .Setup(c => c.GetVaultValueAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync((string vaultKey, string _) =>
+                    new ApiResponseWrapper<IEnumerable<VaultDataObject>> { Data = data.Where(v => v.VaultKey == vaultKey) });
+
+            return service.Object;
+        }
+
     }
 }

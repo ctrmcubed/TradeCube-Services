@@ -29,13 +29,25 @@ namespace TradeCube_ServicesTests.Equias
         {
             var tradeDataObject = await equiasTestFixture.EquiasManager.GetTradeAsync("TEST4", 1, "apiJwtToken");
             var physicalTrade = await equiasTestFixture.EquiasManager.CreatePhysicalTrade(tradeDataObject, "apiJwtToken");
-
-            testOutputHelper.WriteLine(TradeCubeServicesJsonSerializer.Serialize(physicalTrade));
-
+            
             var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade(physicalTrade, await RequestTokenResponse(), "apiJwtToken");
 
-            Assert.Equal("TEST4001", addPhysicalTradeResponse.TradeId);
-            Assert.Equal(1, addPhysicalTradeResponse.TradeVersion);
+            testOutputHelper.WriteLine(TradeCubeServicesJsonSerializer.Serialize(physicalTrade));
+            testOutputHelper.WriteLine(addPhysicalTradeResponse?.Message);
+
+            Assert.Equal("00TEST4001", addPhysicalTradeResponse?.TradeId);
+            Assert.Equal(1, addPhysicalTradeResponse?.TradeVersion);
+        }
+
+        [Fact]
+        public async Task TestCancelTrade()
+        {
+            var tradeDataObject = await equiasTestFixture.EquiasManager.GetTradeAsync("TEST4", 1, "apiJwtToken");
+            var eboTradeResponse = await equiasTestFixture.EquiasManager.CancelTrade(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, "apiJwtToken");
+
+            testOutputHelper.WriteLine(eboTradeResponse?.Message);
+
+            Assert.Equal("00TEST4001", eboTradeResponse?.TradeId);
         }
 
         private async Task<RequestTokenResponse> RequestTokenResponse()

@@ -153,6 +153,11 @@ namespace Equias.Managers
             var requestTokenResponse = await CreateAuthenticationToken(apiJwtToken);
             var cancelTrade = new CancelTrade { TradeId = EquiasService.MapTradeId(tradeReference, tradeLeg) };
             var eboTradeResponse = await equiasService.CancelTrade(cancelTrade, requestTokenResponse, equiasConfiguration);
+            var tradeDataObject = await GetTradeAsync(tradeReference, tradeLeg, apiJwtToken);
+            var addTradePostSubmission = SetTradePostSubmission(eboTradeResponse, tradeDataObject);
+            var savePostSubmissionAdd = await SaveTrade(addTradePostSubmission, apiJwtToken);
+
+            logger.LogInformation($"Cancel Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionAdd.IsSuccessStatusCode}");
 
             return eboTradeResponse;
         }
@@ -243,10 +248,7 @@ namespace Equias.Managers
                 ? ApiConstants.SuccessResult
                 : ApiConstants.FailedResult;
 
-            tradeDataObject.External.Equias.EboSubmissionMessage = eboAddTradeResponse.IsSuccessStatusCode
-                ? null
-                : eboAddTradeResponse.Message;
-
+            tradeDataObject.External.Equias.EboSubmissionMessage = eboAddTradeResponse.Message;
             tradeDataObject.External.Equias.EboStatusLastCheckedTime = DateTime.UtcNow;
 
             return tradeDataObject;

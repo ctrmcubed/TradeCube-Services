@@ -98,8 +98,7 @@ namespace Equias.Services
                 httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
                 httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-                //return await PostAsync<CancelTrade, EboTradeResponse>(httpClient, equiasConfiguration.CancelTradeUri, cancelTrade, false);
-                return await DeleteAsync<CancelTrade, EboTradeResponse>(httpClient, equiasConfiguration.CancelTradeUri, cancelTrade);
+                return await DeleteAsync<CancelTrade, EboTradeResponse>(httpClient, equiasConfiguration.CancelTradeUri, cancelTrade, false);
             }
             catch (Exception ex)
             {
