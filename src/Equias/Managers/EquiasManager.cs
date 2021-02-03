@@ -9,6 +9,7 @@ using Shared.DataObjects;
 using Shared.Extensions;
 using Shared.Managers;
 using Shared.Messages;
+using Shared.Serialization;
 using Shared.Services;
 using System;
 using System.Collections.Generic;
@@ -51,11 +52,15 @@ namespace Equias.Managers
         public async Task<EboGetTradeStatusResponse> TradeStatus(IEnumerable<TradeKey> tradeKeys, string apiJwtToken)
         {
             var enumerable = tradeKeys.ToList();
-            var tradeIds = enumerable.Select(t => EquiasService.MapTradeId(t.TradeReference, t.TradeLeg));
+            var tradeIds = enumerable.Select(t => EquiasService.MapTradeId(t.TradeReference, t.TradeLeg)).ToList();
             var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomain(apiJwtToken));
             var requestTokenResponse = await CreateAuthenticationToken(apiJwtToken);
 
-            return await equiasService.EboGetTradeStatus(tradeIds, requestTokenResponse, equiasConfiguration);
+            logger.LogInformation($"Attempting to get trade status for trades {TradeCubeJsonSerializer.Serialize(tradeIds)}");
+
+            return tradeIds.Any()
+                ? await equiasService.EboGetTradeStatus(tradeIds, requestTokenResponse, equiasConfiguration)
+                : new EboGetTradeStatusResponse();
         }
 
         public async Task<EboTradeResponse> CreatePhysicalTrade(string tradeReference, int tradeLeg, string apiJwtToken)
