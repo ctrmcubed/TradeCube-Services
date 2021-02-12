@@ -38,6 +38,8 @@ namespace Shared.Services
                 deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
                 deserializeAsync.Message = response.ReasonPhrase;
 
+                logger.LogDebug($"PostResponse: {TradeCubeJsonSerializer.Serialize(deserializeAsync)}");
+
                 return deserializeAsync;
             }
             catch (Exception ex)

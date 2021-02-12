@@ -34,7 +34,7 @@ namespace Equias.Managers
         private readonly IProfileService profileService;
 
         public EquiasManager(IEquiasAuthenticationService equiasAuthenticationService, IEquiasService equiasService, ITradeService tradeService, ITradeSummaryService tradeSummaryService,
-            ICashflowService cashflowService, IProfileService profileService, ISettingService settingService, IEquiasMappingService equiasMappingService, IVaultService vaultService,
+            ICashflowService cashflowService, IProfileService profileService, ISettingService settingService, IVaultService vaultService, IEquiasMappingService equiasMappingService,
             ILogger<EquiasManager> logger)
         {
             this.equiasAuthenticationService = equiasAuthenticationService;
@@ -224,7 +224,17 @@ namespace Equias.Managers
                 throw new ArgumentNullException(nameof(eboGetTradeStatusResponse));
             }
 
+            if (tradeDataObject == null)
+            {
+                throw new ArgumentNullException(nameof(tradeDataObject));
+            }
+
             var getTradeStatus = eboGetTradeStatusResponse.States.SingleOrDefault();
+
+            // Mutation!
+
+            tradeDataObject.External ??= new ExternalFieldsType();
+            tradeDataObject.External.Equias ??= new EquiasType();
 
             tradeDataObject.External.Equias.EboSubmissionTime = DateTime.UtcNow;
             tradeDataObject.External.Equias.EboSubmissionStatus = getTradeStatus?.TradeVersion == null
@@ -241,7 +251,16 @@ namespace Equias.Managers
                 throw new ArgumentNullException(nameof(eboAddTradeResponse));
             }
 
+            if (tradeDataObject == null)
+            {
+                throw new ArgumentNullException(nameof(tradeDataObject));
+            }
+
             // Mutation!
+
+            tradeDataObject.External ??= new ExternalFieldsType();
+            tradeDataObject.External.Equias ??= new EquiasType();
+
             tradeDataObject.External.Equias.EboTradeId = eboAddTradeResponse.TradeId;
             tradeDataObject.External.Equias.EboTradeVersion = eboAddTradeResponse.TradeVersion;
             tradeDataObject.External.Equias.EboSubmissionStatus = eboAddTradeResponse.IsSuccessStatusCode

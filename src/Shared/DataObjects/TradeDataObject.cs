@@ -56,5 +56,6 @@ namespace Shared.DataObjects
         public IEnumerable<string> Tags { get; set; }
 
         public ExternalFieldsType External { get; set; }
+        public TradeExtension Extension { get; set; }
     }
 }

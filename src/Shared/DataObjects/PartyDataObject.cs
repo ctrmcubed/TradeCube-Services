@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Shared.DataObjects
@@ -30,5 +31,19 @@ namespace Shared.DataObjects
         public ContactDataObject PrimaryConfirmationContact { get; set; }
 
         public string Image { get; set; }
+
+        public PartyExtension Extension { get; set; }
+    }
+
+    public class UkGasShipperDataObject
+    {
+        public string ShipperCode { get; set; }
+        public string ShipperLongName { get; set; }
+
+        [JsonPropertyName("EIC")]
+        public EnergyIdentificationCodeDataObject Eic { get; set; }
+
+        public string State { get; set; }
+        public DateTime? LastUpdatedDate { get; set; }
     }
 }

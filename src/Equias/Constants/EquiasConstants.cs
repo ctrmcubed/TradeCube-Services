@@ -8,5 +8,6 @@
 
         public static string AgentTypeEcvna = "ECVNA";
         public static string CommodityPower = "Power";
+        public static string CommodityGas = "Gas";
     }
 }

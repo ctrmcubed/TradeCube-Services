@@ -98,23 +98,25 @@ namespace Equias.Services
                     : null,
                 TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(profileResponses, timezone),
                 TraderName = tradeDataObject.InternalTrader?.ContactLongName,
-                HubCodificationInformation = MapHubCodificationInformation(tradeDataObject.External),
+                HubCodificationInformation = commodity == EquiasConstants.CommodityGas
+                    ? await MapHubCodificationInformation(tradeDataObject.Buyer, tradeDataObject.Seller, apiJwtToken)
+                    : null,
                 Agents = commodity == EquiasConstants.CommodityPower
                     ? new List<Agent>
                     {
                         new()
                         {
-                            AgentName = tradeDataObject.External?.UkPowerEcvn?.BscPartyId,
+                            AgentName = tradeDataObject.Extension?.BuyerEnergyAccount,
                             AgentType = EquiasConstants.AgentTypeEcvna,
                             Ecvna = new Ecvna
                             {
-                                BscPartyId = tradeDataObject.External?.UkPowerEcvn?.BscPartyId,
-                                BuyerEnergyAccount = tradeDataObject.External?.UkPowerEcvn?.BuyerEnergyAccount,
-                                SellerEnergyAccount = tradeDataObject.External?.UkPowerEcvn?.SellerEnergyAccount,
-                                BuyerId =  tradeDataObject.External?.UkPowerEcvn?.BuyerId,
-                                SellerId =  tradeDataObject.External?.UkPowerEcvn?.SellerId,
-                                NotificationAgent =  tradeDataObject.External?.UkPowerEcvn?.NotificationAgent,
-                                TransmissionChargeIdentification =  tradeDataObject.External?.UkPowerEcvn?.TransmissionChargeIdentification,
+                                BscPartyId = await MapBscParty(tradeDataObject.Extension?.EcvnAgentParty?.Extension?.BscParty, apiJwtToken),
+                                BuyerEnergyAccount = tradeDataObject.Extension?.BuyerEnergyAccount,
+                                SellerEnergyAccount = tradeDataObject.Extension?.SellerEnergyAccount,
+                                BuyerId =  await MapBuyerSellerId(tradeDataObject.Buyer,  apiJwtToken),
+                                SellerId =  await MapBuyerSellerId(tradeDataObject.Seller,  apiJwtToken),
+                                NotificationAgent =  await MapNotificationAgent(tradeDataObject.Extension?.EcvnAgentParty, apiJwtToken),
+                                TransmissionChargeIdentification =  tradeDataObject.Extension?.Schedule5
                             }
                         }
                     }
@@ -263,15 +265,58 @@ namespace Equias.Services
                 });
         }
 
-        private HubCodificationInformation MapHubCodificationInformation(ExternalFieldsType externalFieldsType)
+        private async Task<HubCodificationInformation> MapHubCodificationInformation(PartyDataObject buyer, PartyDataObject seller, string apiJwtToken)
         {
-            return string.IsNullOrEmpty(externalFieldsType?.UkGasHub?.BuyerHubCode) && string.IsNullOrEmpty(externalFieldsType?.UkGasHub?.SellerHubCode)
-            ? null
-            : new HubCodificationInformation
+            async Task<string> HubCode(PartyDataObject party)
             {
-                BuyerHubCode = externalFieldsType.UkGasHub?.BuyerHubCode,
-                SellerHubCode = externalFieldsType.UkGasHub?.SellerHubCode
+                return party?.Extension?.UkGasShipper?.ShipperCode ??
+                       (await partyService.GetPartyAsync(party?.Party, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.UkGasShipper?.ShipperCode;
+            }
+
+            return new HubCodificationInformation
+            {
+                BuyerHubCode = await HubCode(buyer),
+                SellerHubCode = await HubCode(seller)
             };
+        }
+
+        private async Task<string> MapBscParty(UkBscPartyDataObject ukBscPartyDataObject, string apiJwtToken)
+        {
+            async Task<string> Id(UkBscPartyDataObject bsc)
+            {
+                return bsc?.BscPartyId ??
+                       (await partyService.GetPartyAsync(bsc?.BscPartyId, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.BscParty?.BscPartyId;
+            }
+
+            return ukBscPartyDataObject == null
+                ? throw new DataException("The trade has no BSC Party")
+                : await Id(ukBscPartyDataObject);
+        }
+
+        private async Task<string> MapBuyerSellerId(PartyDataObject party, string apiJwtToken)
+        {
+            async Task<string> Id(PartyDataObject pty)
+            {
+                return pty?.Extension?.BscParty?.BscPartyId ??
+                       (await partyService.GetPartyAsync(pty?.Party, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.BscParty?.BscPartyId;
+            }
+
+            return party == null
+                ? throw new DataException("The trade has no Buyer or Seller")
+                : await Id(party);
+        }
+
+        private async Task<string> MapNotificationAgent(PartyDataObject party, string apiJwtToken)
+        {
+            async Task<string> Eic(PartyDataObject pty)
+            {
+                return pty?.Eic?.Eic ??
+                       (await partyService.GetPartyAsync(pty?.Party, apiJwtToken))?.Data?.SingleOrDefault()?.Eic?.Eic;
+            }
+
+            return party == null
+                ? throw new DataException("The trade has no ECVN Agent")
+                : await Eic(party);
         }
     }
 }
