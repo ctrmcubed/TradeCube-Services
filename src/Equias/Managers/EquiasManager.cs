@@ -96,6 +96,8 @@ namespace Equias.Managers
 
                     if (eboAddPhysicalTradeResponse.IsSuccessStatusCode)
                     {
+                        logger.LogInformation($"AddPhysicalTrade success response, TradeId: {eboAddPhysicalTradeResponse.TradeId}, TradeVersion: {eboAddPhysicalTradeResponse.TradeVersion}");
+
                         var addTradePostSubmission = SetTradePostSubmission(eboAddPhysicalTradeResponse, tradeDataObject);
                         var savePostSubmissionAdd = await SaveTrade(addTradePostSubmission, apiJwtToken);
 
@@ -113,6 +115,8 @@ namespace Equias.Managers
                 var eboModifyPhysicalTradeResponse = await ModifyPhysicalTrade(physicalTrade, requestTokenResponse, apiJwtToken);
                 if (eboModifyPhysicalTradeResponse.IsSuccessStatusCode)
                 {
+                    logger.LogInformation($"ModifyPhysicalTrade success response, TradeId: {eboModifyPhysicalTradeResponse.TradeId}, TradeVersion: {eboModifyPhysicalTradeResponse.TradeVersion}");
+
                     var modifyTradePostSubmission = SetTradePostSubmission(eboModifyPhysicalTradeResponse, tradeDataObject);
                     var savePostSubmissionModify = await SaveTrade(modifyTradePostSubmission, apiJwtToken);
 
