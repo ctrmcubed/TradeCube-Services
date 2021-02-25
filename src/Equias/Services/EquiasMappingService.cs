@@ -8,6 +8,7 @@ using Shared.Helpers;
 using Shared.Managers;
 using Shared.Messages;
 using Shared.Services;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -86,12 +87,12 @@ namespace Equias.Services
                 Intragroup = MapInternalToIntragroup(tradeDataObject.Buyer?.Internal, tradeDataObject.Seller?.Internal),
                 LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom"),
                 Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType, tradeDataObject.Product?.Commodity?.Commodity),
-                TotalVolume = tradeSummaryResponse?.TotalVolume,
+                TotalVolume = AbsoluteValue(tradeSummaryResponse?.TotalVolume),
                 TotalVolumeUnit = MapEnergyUnitToVolumeUnit(tradeDataObject.Quantity?.QuantityUnit?.EnergyUnit?.EnergyUnit),
                 TradeExecutionTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(tradeDataObject.TradeDateTime, timezone),
                 CapacityUnit = MapQuantityUnitToCapacityUnit(tradeDataObject.Quantity?.QuantityUnit?.QuantityUnit),
                 PriceUnit = MapPriceUnit(tradeDataObject.Price?.PriceUnit),
-                TotalContractValue = tradeSummaryResponse?.TotalValue,
+                TotalContractValue = AbsoluteValue(tradeSummaryResponse?.TotalValue),
                 SettlementCurrency = tradeSummaryResponse?.TotalValueCurrency,
                 SettlementDates = cashflows.Any()
                     ? cashflows.SelectMany(d => d.Cashflows.Select(c => c.SettlementDate.ToIso8601DateTime()))
@@ -137,6 +138,14 @@ namespace Equias.Services
 
             return $"{reference}{leg}";
         }
+
+        private static decimal? AbsoluteValue(decimal? value) =>
+            value.HasValue
+                ? Math.Abs(value.Value)
+                : null;
+
+        private static decimal AbsoluteValue(decimal value) =>
+            Math.Abs(value);
 
         private string MapCommodityToMarket(CommodityDataObject commodityDataObject)
         {
@@ -261,7 +270,7 @@ namespace Equias.Services
                     DeliveryStartTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.volume.UtcStartDateTime, dateTimeZone),
                     DeliveryEndTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.volume.UtcEndDateTime, dateTimeZone),
                     Price = pv.price.Value,
-                    ContractCapacity = pv.volume.Value
+                    ContractCapacity = AbsoluteValue(pv.volume.Value)
                 });
         }
 
