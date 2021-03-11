@@ -298,7 +298,7 @@ namespace Equias.Services
             }
 
             return ukBscPartyDataObject == null
-                ? throw new DataException("The trade has no BSC Party")
+                ? throw new DataException("The ECVN Agent has no BSC Party")
                 : await Id(ukBscPartyDataObject);
         }
 
