@@ -69,6 +69,9 @@ namespace Equias.Services
 
             return new PhysicalTrade
             {
+                ActionType = string.IsNullOrWhiteSpace(tradeDataObject.External?.Equias?.EboTradeId)
+                    ? null
+                    : "R",
                 TradeId = TestMapTradeReferenceToTradeId(tradeDataObject.TradeReference, tradeDataObject.TradeLeg),
                 Uti = tradeDataObject.Uti,
                 ProcessInformation = new ProcessInformation
