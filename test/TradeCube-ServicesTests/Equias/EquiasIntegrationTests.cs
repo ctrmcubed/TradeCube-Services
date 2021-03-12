@@ -28,9 +28,9 @@ namespace TradeCube_ServicesTests.Equias
         public async Task TestAddPhysicalTrade_Gas()
         {
             var tradeDataObject = await equiasTestFixture.EquiasManager.GetTradeAsync("TEST4", 1, "apiJwtToken");
-            var physicalTrade = await equiasTestFixture.EquiasManager.CreatePhysicalTrade(tradeDataObject, "apiJwtToken");
+            var physicalTrade = await equiasTestFixture.EquiasManager.CreatePhysicalTradeAsync(tradeDataObject, "apiJwtToken");
             
-            var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTrade(physicalTrade, await RequestTokenResponse(), "apiJwtToken");
+            var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTradeAsync(physicalTrade, await RequestTokenResponse(), "apiJwtToken");
 
             testOutputHelper.WriteLine(TradeCubeServicesJsonSerializer.Serialize(physicalTrade));
             testOutputHelper.WriteLine(addPhysicalTradeResponse?.Message);
@@ -43,7 +43,7 @@ namespace TradeCube_ServicesTests.Equias
         public async Task TestCancelTrade()
         {
             var tradeDataObject = await equiasTestFixture.EquiasManager.GetTradeAsync("TEST4", 1, "apiJwtToken");
-            var eboTradeResponse = await equiasTestFixture.EquiasManager.CancelTrade(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, "apiJwtToken");
+            var eboTradeResponse = await equiasTestFixture.EquiasManager.CancelTradeAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, "apiJwtToken");
 
             testOutputHelper.WriteLine(eboTradeResponse?.Message);
 
@@ -57,7 +57,7 @@ namespace TradeCube_ServicesTests.Equias
 
             var authenticationService = equiasTestFixture.EquiasManager;
 
-            return await authenticationService.CreateAuthenticationToken(new RequestTokenRequest(username, password), "apiJwtToken");
+            return await authenticationService.CreateAuthenticationTokenAsync(new RequestTokenRequest(username, password), "apiJwtToken");
         }
     }
 }
