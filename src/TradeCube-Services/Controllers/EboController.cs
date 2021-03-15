@@ -32,9 +32,7 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-              var eboGetTradeStatusResponse = await equiasManager.TradeStatusAsync(tradeKeys,  apiJwtToken);
-
-                return Json(eboGetTradeStatusResponse);
+                return Json(await equiasManager.TradeStatusAsync(tradeKeys,  apiJwtToken));
             }
             catch (Exception ex)
             {
@@ -48,7 +46,9 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                return Json(await equiasManager.CreatePhysicalTradeAsync(tradeReference, tradeLeg, apiJwtToken));
+                var physicalTradeAsync = await equiasManager.CreatePhysicalTradeAsync(tradeReference, tradeLeg, apiJwtToken);
+
+                return Json(physicalTradeAsync);
             }
             catch (Exception ex)
             {
