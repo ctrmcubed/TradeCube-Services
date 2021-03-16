@@ -97,9 +97,6 @@ namespace Equias.Managers
 
             async Task<EboTradeResponse> ExistingTrade(PhysicalTrade physicalTrade, TradeDataObject tradeDataObject, RequestTokenResponse requestTokenResponse)
             {
-                // Mutation!
-                physicalTrade.ActionType = tradeDataObject.External?.Equias?.EboActionType;
-
                 var eboModifyPhysicalTradeResponse = await ModifyPhysicalTradeAsync(physicalTrade, requestTokenResponse, apiJwtToken);
                 if (!eboModifyPhysicalTradeResponse.IsSuccessStatusCode)
                 {
