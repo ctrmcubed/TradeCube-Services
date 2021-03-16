@@ -67,6 +67,10 @@ namespace Equias.Services
             var cashflows = cashflowResponses.ToList();
             var commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity);
 
+            var buyerEic = await MapEic(tradeDataObject.Buyer, "Buyer party", apiJwtToken);
+            var sellerEic = await MapEic(tradeDataObject.Seller, "Seller party", apiJwtToken);
+            var beneficiaryId = await MapEic(tradeDataObject.Beneficiary, "Beneficiary party", apiJwtToken, buyerEic);
+
             return new PhysicalTrade
             {
                 ActionType = string.IsNullOrWhiteSpace(tradeDataObject.External?.Equias?.EboTradeId)
@@ -84,9 +88,9 @@ namespace Equias.Services
                 Commodity = commodity,
                 TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType),
                 DeliveryPointArea = tradeDataObject.Product?.Commodity?.DeliveryArea?.Eic,
-                BuyerParty = await MapEic(tradeDataObject.Buyer?.Party, tradeDataObject.Buyer?.Eic?.Eic, "Buyer party", apiJwtToken),
-                SellerParty = await MapEic(tradeDataObject.Seller?.Party, tradeDataObject.Seller?.Eic?.Eic, "Seller party", apiJwtToken),
-                BeneficiaryId = await MapEic(tradeDataObject.Beneficiary?.Party, tradeDataObject.Beneficiary?.Eic?.Eic, "Beneficiary party", apiJwtToken),
+                BuyerParty = buyerEic,
+                SellerParty = sellerEic,
+                BeneficiaryId = beneficiaryId,
                 Intragroup = MapInternalToIntragroup(tradeDataObject.Buyer?.Internal, tradeDataObject.Seller?.Internal),
                 LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom"),
                 Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType, tradeDataObject.Product?.Commodity?.Commodity),
@@ -158,7 +162,7 @@ namespace Equias.Services
         private string MapCommodityToCommodity(string commodity)
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_Commodity", commodity);
-            return string.IsNullOrEmpty(mappingTo)
+            return string.IsNullOrWhiteSpace(mappingTo)
                 ? throw new DataException("Commodity mapping error")
                 : mappingTo;
         }
@@ -166,35 +170,39 @@ namespace Equias.Services
         private string MapContractTypeToTransactionType(string contractType)
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_TransactionType", contractType);
-            return string.IsNullOrEmpty(mappingTo)
+            return string.IsNullOrWhiteSpace(mappingTo)
                 ? throw new DataException("TransactionType mapping error")
                 : mappingTo;
         }
 
-        private async Task<string> MapEic(string party, string eic, string label, string apiJwtToken)
+        private async Task<string> MapEic(PartyDataObject party, string label, string apiJwtToken, string defaultValue = null)
         {
             async Task<PartyDataObject> GetPartyAsync(string pty)
             {
                 return (await partyService.GetPartyAsync(pty, apiJwtToken))?.Data?.SingleOrDefault();
             }
 
-            if (!string.IsNullOrEmpty(eic))
+            if (!string.IsNullOrWhiteSpace(party?.Eic?.Eic))
             {
-                return eic;
+                return party.Eic?.Eic;
             }
 
-            if (string.IsNullOrEmpty(party))
+            if (string.IsNullOrWhiteSpace(party?.Party))
             {
-                throw new DataException($"The {label} does not have an EIC");
+                return string.IsNullOrWhiteSpace(defaultValue)
+                    ? throw new DataException($"The {label} does not have an EIC")
+                    : defaultValue;
             }
 
-            var partyDataObject = await GetPartyAsync(party);
-            if (!string.IsNullOrEmpty(partyDataObject?.Eic?.Eic))
+            var partyDataObject = await GetPartyAsync(party.Party);
+            if (!string.IsNullOrWhiteSpace(partyDataObject?.Eic?.Eic))
             {
                 return partyDataObject.Eic?.Eic;
             }
 
-            throw new DataException($"The {label} does not have an EIC");
+            return string.IsNullOrWhiteSpace(defaultValue)
+                ? throw new DataException($"The {label} does not have an EIC")
+                : defaultValue;
         }
 
         private bool? MapInternalToIntragroup(bool? buyer, bool? seller)
@@ -206,26 +214,26 @@ namespace Equias.Services
 
         private string MapShapeDescriptionToLoadType(string shapeDescription, string defaultValue)
         {
-            if (string.IsNullOrEmpty(shapeDescription))
+            if (string.IsNullOrWhiteSpace(shapeDescription))
             {
                 return defaultValue;
             }
 
             var mappingTo = mappingManager.GetMappingTo("EFET_LoadType", shapeDescription);
-            return string.IsNullOrEmpty(mappingTo)
+            return string.IsNullOrWhiteSpace(mappingTo)
                 ? defaultValue
                 : mappingTo;
         }
 
         private string MapContractAgreementToAgreement(string agreementType, string commodity)
         {
-            if (!string.IsNullOrEmpty(agreementType))
+            if (!string.IsNullOrWhiteSpace(agreementType))
             {
                 return agreementType;
             }
 
             var mappingTo = mappingManager.GetMappingTo("EFET_Agreement", commodity);
-            return string.IsNullOrEmpty(mappingTo)
+            return string.IsNullOrWhiteSpace(mappingTo)
                 ? throw new DataException($"Agreement mapping error ({commodity})")
                 : mappingTo;
         }
@@ -233,7 +241,7 @@ namespace Equias.Services
         private string MapEnergyUnitToVolumeUnit(string energyUnit)
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_EnergyUnit", energyUnit);
-            return string.IsNullOrEmpty(mappingTo)
+            return string.IsNullOrWhiteSpace(mappingTo)
                 ? throw new DataException($"TotalVolumeUnit mapping error ({energyUnit})")
                 : mappingTo;
         }
@@ -241,7 +249,7 @@ namespace Equias.Services
         private string MapQuantityUnitToCapacityUnit(string quantityUnit)
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_CapacityUnit", quantityUnit);
-            return string.IsNullOrEmpty(mappingTo)
+            return string.IsNullOrWhiteSpace(mappingTo)
                 ? throw new DataException($"CapacityUnit mapping error ({quantityUnit})")
                 : mappingTo;
         }
@@ -259,7 +267,7 @@ namespace Equias.Services
         private string MapPerEnergyUnitToCapacityUnit(string energyUnit)
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_EnergyUnit", energyUnit);
-            return string.IsNullOrEmpty(mappingTo)
+            return string.IsNullOrWhiteSpace(mappingTo)
                 ? throw new DataException("PriceUnit.CapacityUnit mapping error")
                 : mappingTo;
         }
