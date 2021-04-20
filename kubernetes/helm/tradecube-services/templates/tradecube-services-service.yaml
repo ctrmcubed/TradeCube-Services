@@ -13,10 +13,6 @@ spec:
   selector:
     app: {{ .Release.Name }}{{ .Values.component.services }}
   ports:
-  - port: {{ .Values.service.httpPort }}
-    targetPort: {{ .Values.port.services }}
-    protocol: {{ .Values.service.protocol }}
-    name: http
   - port: {{ .Values.service.httpsPort }}
     targetPort: {{ .Values.port.servicesSsl }}
     protocol: {{ .Values.service.protocol }}
