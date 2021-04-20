@@ -2,8 +2,18 @@
 # helm3 lint tradecube-services
 # OPTIONS='--dry-run --debug'
 # Run with:
-# helm3 upgrade --install --namespace ${TRADECUBE_SERVICES_NAMESPACE} ${TRADECUBE_SERVICES_NAMESPACE} --set ingress.domain=${TRADECUBE_SERVICES_DOMAIN} --set env.certFile=${TRADECUBE_SERVICES_CERTFILE} --set env.certPassword=${TRADECUBE_SERVICES_CERTPASSWORD} --set env.apiDomain=${TRADECUBE_API_DOMAIN} tradecube-services ${OPTIONS}
-
+# cd TradeCube-Services/kubernetes/helm
+# 
+# KUBERNETES_CONTEXT=
+# TRADECUBE_SERVICES_NAMESPACE=
+# TRADECUBE_SERVICES_TAG=
+# TRADECUBE_SERVICES_DOMAIN=
+# TRADECUBE_SERVICES_CERTFILE=
+# TRADECUBE_SERVICES_CERTPASSWORD=
+# TRADECUBE_API_DOMAIN=
+# LETS_ENCRYPT_CLUSTER_ISSUER=
+# 
+# helm upgrade --kube-context ${KUBERNETES_CONTEXT} ${TRADECUBE_SERVICES_NAMESPACE} --install --namespace ${TRADECUBE_SERVICES_NAMESPACE} --set image.servicesTag=${TRADECUBE_SERVICES_TAG}  --set ingress.domain=${TRADECUBE_SERVICES_DOMAIN}  --set env.certificateNameSuffix=${TRADECUBE_SERVICES_CERTFILE}  --set env.certPassword=${TRADECUBE_SERVICES_CERTPASSWORD}  --set env.apiDomain=${TRADECUBE_API_DOMAIN}  --set letsencrypt.clusterIssuer=${LETS_ENCRYPT_CLUSTER_ISSUER}  tradecube-services ${OPTIONS}
 name:
   name: 'Tradecube-Services' # {{ .Values.name.name }}
 
