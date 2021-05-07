@@ -34,6 +34,5 @@ namespace Shared.Services
         {
             return await GetViaJwtAsync<MappingDataObject>("Mapping", apiJwtToken);
         }
-
     }
 }
