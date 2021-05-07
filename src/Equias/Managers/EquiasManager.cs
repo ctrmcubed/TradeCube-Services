@@ -132,6 +132,8 @@ namespace Equias.Managers
 
                 var physicalTrade = await CreatePhysicalTradeAsync(updateTradePreSubmission, apiJwtToken);
 
+                logger.LogDebug($"Physical Trade: {TradeCubeJsonSerializer.Serialize(physicalTrade)}");
+
                 return eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeVersion == null
                     ? await NewTrade(physicalTrade, requestTokenResponse, updateTradePreSubmission)
                     : await ExistingTrade(physicalTrade, tradeDataObject, requestTokenResponse);
