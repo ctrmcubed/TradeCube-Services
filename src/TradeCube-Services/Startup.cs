@@ -73,6 +73,7 @@ namespace TradeCube_Services
                 .AddScoped<IM7PartyService, M7Im7PartyService>()
                 .AddScoped<IPartyService, PartyService>()
                 .AddScoped<IProfileService, ProfileService>()
+                .AddScoped<IPriceUnitService, PriceUnitService>()
                 .AddScoped<IReportTemplateService, ReportTemplateService>()
                 .AddScoped<IReportRenderService, ReportRenderService>()
                 .AddScoped<ISettingService, SettingService>()

@@ -15,7 +15,7 @@
         public string PerPriceUnitType { get; set; }
         public string PerCurrency { get; set; }
         public string PerCryptocurrency { get; set; }
-
-        public EnergyUnitDataObject PerEnergyUnit { get; set; }
+        public string Period { get; set; }
+        public QuantityUnitDataObject PerQuantityUnit { get; set; }
     }
 }
