@@ -7,6 +7,6 @@
         public string Format { get; set; }
         public string Suffix { get; set; }
         public EnergyUnitDataObject EnergyUnit { get; set; }
-        public string Period { get; set; }
+        public string PerPeriod { get; set; }
     }
 }
