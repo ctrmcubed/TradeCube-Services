@@ -260,7 +260,7 @@ namespace Equias.Services
             {
                 Currency = priceUnit?.Currency,
                 UseFractionalUnit = priceUnit?.CurrencyExponent != null && priceUnit.CurrencyExponent != 0,
-                CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerQuantityUnit?.QuantityUnit)
+                CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerQuantityUnit?.EnergyUnit.EnergyUnit)
             };
         }
 
