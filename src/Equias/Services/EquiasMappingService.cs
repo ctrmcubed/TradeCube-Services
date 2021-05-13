@@ -266,9 +266,9 @@ namespace Equias.Services
 
         private string MapPerEnergyUnitToCapacityUnit(string energyUnit)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_CapacityUnit", energyUnit);
+            var mappingTo = mappingManager.GetMappingTo("EFET_EnergyUnit", energyUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException($"CapacityUnit mapping error (EFET_CapacityUnit) ({energyUnit})")
+                ? throw new DataException($"CapacityUnit mapping error (EFET_EnergyUnit) ({energyUnit})")
                 : mappingTo;
         }
 
