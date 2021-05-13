@@ -282,16 +282,36 @@ namespace Equias.Services
 
         private IEnumerable<TimeIntervalQuantity> MapProfileResponsesToDeliveryStartTimes(IEnumerable<ProfileResponse> profileResponses, DateTimeZone dateTimeZone, int? currencyExponent)
         {
+            IEnumerable<(DateTime utcStartDateTime, decimal volume, decimal price)> Zip(IEnumerable<ProfileBase> volumes, IEnumerable<ProfileBase> prices)
+            {
+                var priceList = prices.ToList();
+                var firstPrice = priceList.FirstOrDefault();
+                var priceDict = priceList.ToDictionary(k => k.UtcStartDateTime, v => v);
+
+                foreach (var volume in volumes)
+                {
+                    if (priceDict.ContainsKey(volume.UtcStartDateTime))
+                    {
+                        yield return (volume.UtcStartDateTime, volume.Value, priceDict[volume.UtcStartDateTime].Value);
+                    }
+                    else
+                    {
+                        yield return (volume.UtcStartDateTime, volume.Value, firstPrice?.Value ?? 0);
+                    }
+                }
+            }
+
+
             return profileResponses
-                .SelectMany(p => p.PriceProfile.Zip(p.VolumeProfile, (price, volume) => (price, volume)))
+                .SelectMany(p => Zip(p.VolumeProfile, p.PriceProfile))//p.VolumeProfile.Zip(p.VolumeProfile, (price, volume) => (price, volume)))
                 .Select(pv => new TimeIntervalQuantity
                 {
-                    DeliveryStartTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.volume.UtcStartDateTime, dateTimeZone),
-                    DeliveryEndTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.volume.UtcEndDateTime, dateTimeZone),
-                    Price = pv.price.Value * (currencyExponent.HasValue
+                    DeliveryStartTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.utcStartDateTime, dateTimeZone),
+                    DeliveryEndTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.utcStartDateTime, dateTimeZone),
+                    Price = pv.price * (currencyExponent.HasValue
                         ? (decimal)Math.Pow(10, currencyExponent.Value)
                         : 1.0m),
-                    ContractCapacity = AbsoluteValue(pv.volume.Value)
+                    ContractCapacity = AbsoluteValue(pv.volume)
                 });
         }
 
