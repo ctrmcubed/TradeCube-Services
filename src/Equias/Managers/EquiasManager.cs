@@ -153,6 +153,10 @@ namespace Equias.Managers
             var cashflows = (await cashflowService.CashflowAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data;
             var profileResponses = (await profileService.ProfileAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken, "sparse"))?.Data;
 
+            logger.LogTrace($"Trade Summary: {TradeCubeJsonSerializer.Serialize(tradeSummary)}\r\n");
+            logger.LogTrace($"Trade Cashflows: {TradeCubeJsonSerializer.Serialize(cashflows)}\r\n");
+            logger.LogTrace($"Trade Profile: {TradeCubeJsonSerializer.Serialize(profileResponses)}\r\n");
+
             return await mappingService.MapTrade(tradeDataObject, tradeSummary, cashflows, profileResponses, apiJwtToken);
         }
 

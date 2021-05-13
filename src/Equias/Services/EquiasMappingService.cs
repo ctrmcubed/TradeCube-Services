@@ -104,7 +104,7 @@ namespace Equias.Services
                 SettlementDates = cashflows.Any()
                     ? cashflows.SelectMany(d => d.Cashflows.Select(c => c.SettlementDate.ToIso8601DateTime()))
                     : null,
-                TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(profileResponses, timezone),
+                TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(profileResponses, timezone, tradeDataObject.Price?.PriceUnit?.CurrencyExponent),
                 TraderName = tradeDataObject.InternalTrader?.ContactLongName,
                 HubCodificationInformation = commodity == EquiasConstants.CommodityGas
                     ? await MapHubCodificationInformation(tradeDataObject.Buyer, tradeDataObject.Seller, apiJwtToken)
@@ -124,7 +124,7 @@ namespace Equias.Services
                                 BuyerId =  await MapBuyerSellerId(tradeDataObject.Buyer,  apiJwtToken),
                                 SellerId =  await MapBuyerSellerId(tradeDataObject.Seller,  apiJwtToken),
                                 NotificationAgent =  await MapNotificationAgent(tradeDataObject.Extension?.EcvnAgentParty, apiJwtToken),
-                                TransmissionChargeIdentification =  tradeDataObject.Extension?.Schedule5
+                                TransmissionChargeIdentification =  MapSchedule5(tradeDataObject.Extension?.Schedule5)
                             }
                         }
                     }
@@ -163,7 +163,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_Commodity", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException("Commodity mapping error")
+                ? throw new DataException("Commodity mapping error (EFET_Commodity)")
                 : mappingTo;
         }
 
@@ -171,7 +171,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_TransactionType", contractType);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException("TransactionType mapping error")
+                ? throw new DataException("TransactionType mapping error (EFET_TransactionType)")
                 : mappingTo;
         }
 
@@ -234,7 +234,7 @@ namespace Equias.Services
 
             var mappingTo = mappingManager.GetMappingTo("EFET_Agreement", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException($"Agreement mapping error ({commodity})")
+                ? throw new DataException($"Agreement mapping error (EFET_Agreement) ({commodity})")
                 : mappingTo;
         }
 
@@ -242,7 +242,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_EnergyUnit", energyUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException($"TotalVolumeUnit mapping error ({energyUnit})")
+                ? throw new DataException($"TotalVolumeUnit mapping error (EFET_EnergyUnit) ({energyUnit})")
                 : mappingTo;
         }
 
@@ -250,7 +250,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_CapacityUnit", quantityUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException($"CapacityUnit mapping error ({quantityUnit})")
+                ? throw new DataException($"CapacityUnit mapping error (EFET_CapacityUnit) ({quantityUnit})")
                 : mappingTo;
         }
 
@@ -260,19 +260,27 @@ namespace Equias.Services
             {
                 Currency = priceUnit?.Currency,
                 UseFractionalUnit = priceUnit?.CurrencyExponent != null && priceUnit.CurrencyExponent != 0,
-                CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerEnergyUnit?.EnergyUnit)
+                CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerQuantityUnit?.EnergyUnit.EnergyUnit)
             };
         }
 
         private string MapPerEnergyUnitToCapacityUnit(string energyUnit)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_EnergyUnit", energyUnit);
+            var mappingTo = mappingManager.GetMappingTo("EFET_CapacityUnit", energyUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException("PriceUnit.CapacityUnit mapping error")
+                ? throw new DataException($"CapacityUnit mapping error (EFET_CapacityUnit) ({energyUnit})")
                 : mappingTo;
         }
 
-        private IEnumerable<TimeIntervalQuantity> MapProfileResponsesToDeliveryStartTimes(IEnumerable<ProfileResponse> profileResponses, DateTimeZone dateTimeZone)
+        private string MapSchedule5(string schedule5)
+        {
+            var mappingTo = mappingManager.GetMappingTo("EFET_Schedule5", schedule5);
+            return string.IsNullOrWhiteSpace(mappingTo)
+                ? throw new DataException("Schedule 5 mapping error (EFET_Schedule5)")
+                : mappingTo;
+        }
+
+        private IEnumerable<TimeIntervalQuantity> MapProfileResponsesToDeliveryStartTimes(IEnumerable<ProfileResponse> profileResponses, DateTimeZone dateTimeZone, int? currencyExponent)
         {
             return profileResponses
                 .SelectMany(p => p.PriceProfile.Zip(p.VolumeProfile, (price, volume) => (price, volume)))
@@ -280,7 +288,9 @@ namespace Equias.Services
                 {
                     DeliveryStartTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.volume.UtcStartDateTime, dateTimeZone),
                     DeliveryEndTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.volume.UtcEndDateTime, dateTimeZone),
-                    Price = pv.price.Value,
+                    Price = pv.price.Value * (currencyExponent.HasValue
+                        ? (decimal)Math.Pow(10, currencyExponent.Value)
+                        : 1.0m),
                     ContractCapacity = AbsoluteValue(pv.volume.Value)
                 });
         }
