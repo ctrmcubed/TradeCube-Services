@@ -163,7 +163,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_Commodity", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException("Commodity mapping error (EFET_Commodity)")
+                ? commodity
                 : mappingTo;
         }
 
@@ -171,7 +171,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_TransactionType", contractType);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException("TransactionType mapping error (EFET_TransactionType)")
+                ? contractType
                 : mappingTo;
         }
 
@@ -234,7 +234,7 @@ namespace Equias.Services
 
             var mappingTo = mappingManager.GetMappingTo("EFET_Agreement", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException($"Agreement mapping error (EFET_Agreement) ({commodity})")
+                ? agreementType
                 : mappingTo;
         }
 
@@ -242,7 +242,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_EnergyUnit", energyUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException($"TotalVolumeUnit mapping error (EFET_EnergyUnit) ({energyUnit})")
+                ? energyUnit
                 : mappingTo;
         }
 
@@ -250,7 +250,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_CapacityUnit", quantityUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException($"CapacityUnit mapping error (EFET_CapacityUnit) ({quantityUnit})")
+                ? quantityUnit
                 : mappingTo;
         }
 
@@ -268,7 +268,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_PriceUnit_CapacityUnit", quantityUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException($"CapacityUnit mapping error (EFET_PriceUnit_CapacityUnit) ({quantityUnit})")
+                ? quantityUnit
                 : mappingTo;
         }
 
@@ -276,7 +276,7 @@ namespace Equias.Services
         {
             var mappingTo = mappingManager.GetMappingTo("EFET_Schedule5", schedule5);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException("Schedule 5 mapping error (EFET_Schedule5)")
+                ? schedule5
                 : mappingTo;
         }
 
