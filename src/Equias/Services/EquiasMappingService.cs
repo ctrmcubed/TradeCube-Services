@@ -282,7 +282,7 @@ namespace Equias.Services
 
         private IEnumerable<TimeIntervalQuantity> MapProfileResponsesToDeliveryStartTimes(IEnumerable<ProfileResponse> profileResponses, DateTimeZone dateTimeZone, int? currencyExponent)
         {
-            IEnumerable<(DateTime utcStart, DateTime utcEnd, decimal volume, decimal price)> Zip(IEnumerable<ProfileBase> volumes, IEnumerable<ProfileBase> prices)
+            static IEnumerable<(DateTime utcStart, DateTime utcEnd, decimal volume, decimal price)> Zip(IEnumerable<ProfileBase> volumes, IEnumerable<ProfileBase> prices)
             {
                 var priceList = prices.ToList();
                 var firstPrice = priceList.FirstOrDefault();
