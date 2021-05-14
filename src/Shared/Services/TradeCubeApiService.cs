@@ -86,9 +86,6 @@ namespace Shared.Services
                     ? $"{action}"
                     : $"{action}/{queryString}";
 
-                logger.LogDebug($"SJP Speciali, BaseAddress: {client.BaseAddress}");
-                logger.LogDebug($"SJP Speciali, Request URI: {requestUri}");
-
                 var response = await client.GetAsync(requestUri);
 
                 response.EnsureSuccessStatusCode();

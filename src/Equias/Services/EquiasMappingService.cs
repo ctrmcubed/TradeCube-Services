@@ -282,7 +282,7 @@ namespace Equias.Services
 
         private IEnumerable<TimeIntervalQuantity> MapProfileResponsesToDeliveryStartTimes(IEnumerable<ProfileResponse> profileResponses, DateTimeZone dateTimeZone, int? currencyExponent)
         {
-            IEnumerable<(DateTime utcStartDateTime, decimal volume, decimal price)> Zip(IEnumerable<ProfileBase> volumes, IEnumerable<ProfileBase> prices)
+            IEnumerable<(DateTime utcStart, DateTime utcEnd, decimal volume, decimal price)> Zip(IEnumerable<ProfileBase> volumes, IEnumerable<ProfileBase> prices)
             {
                 var priceList = prices.ToList();
                 var firstPrice = priceList.FirstOrDefault();
@@ -292,22 +292,22 @@ namespace Equias.Services
                 {
                     if (priceDict.ContainsKey(volume.UtcStartDateTime))
                     {
-                        yield return (volume.UtcStartDateTime, volume.Value, priceDict[volume.UtcStartDateTime].Value);
+                        yield return (volume.UtcStartDateTime, volume.UtcEndDateTime, volume.Value, priceDict[volume.UtcStartDateTime].Value);
                     }
                     else
                     {
-                        yield return (volume.UtcStartDateTime, volume.Value, firstPrice?.Value ?? 0);
+                        yield return (volume.UtcStartDateTime, volume.UtcEndDateTime, volume.Value, firstPrice?.Value ?? 0);
                     }
                 }
             }
 
 
             return profileResponses
-                .SelectMany(p => Zip(p.VolumeProfile, p.PriceProfile))//p.VolumeProfile.Zip(p.VolumeProfile, (price, volume) => (price, volume)))
+                .SelectMany(p => Zip(p.VolumeProfile, p.PriceProfile))
                 .Select(pv => new TimeIntervalQuantity
                 {
-                    DeliveryStartTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.utcStartDateTime, dateTimeZone),
-                    DeliveryEndTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.utcStartDateTime, dateTimeZone),
+                    DeliveryStartTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.utcStart, dateTimeZone),
+                    DeliveryEndTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.utcEnd, dateTimeZone),
                     Price = pv.price * (currencyExponent.HasValue
                         ? (decimal)Math.Pow(10, currencyExponent.Value)
                         : 1.0m),
