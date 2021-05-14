@@ -108,8 +108,6 @@ namespace Shared.Services
             client.BaseAddress = new Uri(tradeCubeConfiguration.WebApiUrl());
             client.DefaultRequestHeaders.Add(ApiConstants.ApiJwtHeader, apiJwtToken);
 
-            logger.LogDebug($"SJP Speciali, JWT: {apiJwtToken}");
-
             return client;
         }
 

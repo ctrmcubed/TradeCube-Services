@@ -260,15 +260,15 @@ namespace Equias.Services
             {
                 Currency = priceUnit?.Currency,
                 UseFractionalUnit = priceUnit?.CurrencyExponent != null && priceUnit.CurrencyExponent != 0,
-                CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerQuantityUnit?.EnergyUnit.EnergyUnit)
+                CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerQuantityUnit?.QuantityUnit)
             };
         }
 
-        private string MapPerEnergyUnitToCapacityUnit(string energyUnit)
+        private string MapPerEnergyUnitToCapacityUnit(string quantityUnit)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_EnergyUnit", energyUnit);
+            var mappingTo = mappingManager.GetMappingTo("EFET_PriceUnit_CapacityUnit", quantityUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
-                ? throw new DataException($"CapacityUnit mapping error (EFET_EnergyUnit) ({energyUnit})")
+                ? throw new DataException($"CapacityUnit mapping error (EFET_PriceUnit_CapacityUnit) ({quantityUnit})")
                 : mappingTo;
         }
 
