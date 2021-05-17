@@ -258,6 +258,7 @@ namespace Equias.Managers
             tradeDataObject.External ??= new ExternalFieldsType();
             tradeDataObject.External.Equias ??= new EquiasType();
 
+            tradeDataObject.External.Equias.EboTradeId = eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeId;
             tradeDataObject.External.Equias.EboSubmissionTime = DateTime.UtcNow;
             tradeDataObject.External.Equias.EboSubmissionStatus = getTradeStatus?.TradeVersion == null
                 ? EquiasConstants.StatusSubmitted
