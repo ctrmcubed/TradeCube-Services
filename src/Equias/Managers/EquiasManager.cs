@@ -254,7 +254,6 @@ namespace Equias.Managers
             var getTradeStatus = eboGetTradeStatusResponse.States.SingleOrDefault();
 
             // Mutation!
-
             tradeDataObject.External ??= new ExternalFieldsType();
             tradeDataObject.External.Equias ??= new EquiasType();
 
@@ -280,7 +279,6 @@ namespace Equias.Managers
             }
 
             // Mutation!
-
             tradeDataObject.External ??= new ExternalFieldsType();
             tradeDataObject.External.Equias ??= new EquiasType();
 
