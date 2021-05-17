@@ -80,7 +80,7 @@ namespace Equias.Services
                 Uti = tradeDataObject.Uti,
                 ProcessInformation = new ProcessInformation
                 {
-                    ReportingOnBehalfOf = true,
+                    ReportingOnBehalfOf = false,
                     EmirReportMode = CmsReportType,
                     RemitReportMode = CmsReportType
                 },
