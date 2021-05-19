@@ -104,7 +104,7 @@ namespace Equias.Services
                 SettlementDates = cashflows.Any()
                     ? cashflows.SelectMany(d => d.Cashflows.Select(c => c.SettlementDate.ToIso8601DateTime()))
                     : null,
-                TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(profileResponses, timezone, tradeDataObject.Price?.PriceUnit?.CurrencyExponent),
+                TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(tradeDataObject?.Quantity?.Quantity, profileResponses, timezone, tradeDataObject.Price?.PriceUnit?.CurrencyExponent),
                 TraderName = tradeDataObject.InternalTrader?.ContactLongName,
                 HubCodificationInformation = commodity == EquiasConstants.CommodityGas
                     ? await MapHubCodificationInformation(tradeDataObject.Buyer, tradeDataObject.Seller, apiJwtToken)
@@ -280,7 +280,7 @@ namespace Equias.Services
                 : mappingTo;
         }
 
-        private IEnumerable<TimeIntervalQuantity> MapProfileResponsesToDeliveryStartTimes(IEnumerable<ProfileResponse> profileResponses, DateTimeZone dateTimeZone, int? currencyExponent)
+        private static IEnumerable<TimeIntervalQuantity> MapProfileResponsesToDeliveryStartTimes(decimal? quantity, IEnumerable<ProfileResponse> profileResponses, DateTimeZone dateTimeZone, int? currencyExponent)
         {
             static IEnumerable<(DateTime utcStart, DateTime utcEnd, decimal volume, decimal price)> Zip(IEnumerable<ProfileBase> volumes, IEnumerable<ProfileBase> prices)
             {
@@ -301,9 +301,9 @@ namespace Equias.Services
                 }
             }
 
-
             return profileResponses
                 .SelectMany(p => Zip(p.VolumeProfile, p.PriceProfile))
+                .Where(v => v.volume != 0.0m)
                 .Select(pv => new TimeIntervalQuantity
                 {
                     DeliveryStartTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(pv.utcStart, dateTimeZone),
@@ -311,7 +311,9 @@ namespace Equias.Services
                     Price = pv.price * (currencyExponent.HasValue
                         ? (decimal)Math.Pow(10, currencyExponent.Value)
                         : 1.0m),
-                    ContractCapacity = AbsoluteValue(pv.volume)
+                    ContractCapacity = quantity.HasValue
+                        ? AbsoluteValue(quantity.Value)
+                        : 0
                 });
         }
 
