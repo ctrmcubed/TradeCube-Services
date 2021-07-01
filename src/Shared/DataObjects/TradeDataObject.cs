@@ -57,5 +57,6 @@ namespace Shared.DataObjects
 
         public ExternalFieldsType External { get; set; }
         public TradeExtension Extension { get; set; }
+        public ClonedFrom ClonedFrom { get; set; }
     }
 }
