@@ -188,8 +188,7 @@ namespace Equias.Managers
 
         public async Task<RequestTokenResponse> CreateAuthenticationTokenAsync(RequestTokenRequest requestTokenRequest, string apiJwtToken)
         {
-            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken));
-            return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, equiasConfiguration);
+            return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken)));
         }
 
         private async Task<RequestTokenResponse> CreateAuthenticationTokenAsync(string apiJwtToken)
@@ -225,8 +224,7 @@ namespace Equias.Managers
 
         private async Task<EboTradeResponse> ModifyPhysicalTradeAsync(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)
         {
-            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken));
-            return await equiasService.ModifyPhysicalTrade(physicalTrade, requestTokenResponse, equiasConfiguration);
+            return await equiasService.ModifyPhysicalTrade(physicalTrade, requestTokenResponse, new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken)));
         }
 
         private async Task<string> GetEquiasDomainAsync(string apiJwtToken)
@@ -234,6 +232,7 @@ namespace Equias.Managers
             const string eboUrlSettingName = "EBO_URL";
 
             var apiDomain = (await settingService.GetSettingViaJwtAsync(eboUrlSettingName, apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
+
             return string.IsNullOrEmpty(apiDomain)
                 ? throw new DataException($"The {eboUrlSettingName} is not configured in the system settings")
                 : apiDomain;

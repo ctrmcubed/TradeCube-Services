@@ -4,7 +4,7 @@ namespace Shared.Configuration
 {
     public class EquiasConfiguration : IEquiasConfiguration
     {
-        public string ApiDomain { get; private set; }
+        public string ApiDomain { get; }
         public string RequestTokenUri { get; }
         public string GetTradeStatusUri { get; }
         public string AddPhysicalTradeUri { get; }
