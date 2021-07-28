@@ -9,10 +9,9 @@ namespace Equias.Services
 {
     public interface IEquiasMappingService
     {
-        EquiasMappingService SetMappingManager(MappingManager mapping);
+        IEquiasMappingService SetMappingManager(MappingManager mapping);
         Task<IEnumerable<MappingDataObject>> GetMappingsAsync(string apiJwtToken);
         Task<PhysicalTrade> MapTrade(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse,
             IEnumerable<CashflowResponse> cashflowResponses, IEnumerable<ProfileResponse> profileResponses, string apiJwtToken);
-
     }
 }

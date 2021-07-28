@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Equias.Managers;
-using Equias.Services;
-using Fidectus.Managers;
+﻿using Fidectus.Managers;
 using Fidectus.Services;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -11,6 +6,9 @@ using Shared.Constants;
 using Shared.DataObjects;
 using Shared.Messages;
 using Shared.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TradeCube_ServicesTests.Helpers;
 using TradeCube_ServicesTests.Shared;
 
@@ -22,11 +20,26 @@ namespace TradeCube_ServicesTests.Fidectus
         public IFidectusService FidectusService { get; }
         public IFidectusManager FidectusManager { get; }
 
+        public IEnumerable<FidectusTestType> ExpectedResults { get; set; }
+
+        private IEnumerable<TradeDataObject> FidectusTrades { get; }
+        private IEnumerable<MappingDataObject> FidectusMappings { get; }
+        private IEnumerable<TradeSummaryResponse> FidectusTradeSummaries { get; }
+        private IEnumerable<ProfileResponse> FidectusProfiles { get; }
+        private IEnumerable<PartyDataObject> FidectusParties { get; }
+
         public FidectusTestFixture()
         {
             Configuration.SetEnvironmentVariables();
 
             var defaultHttpClientFactory = new DefaultHttpClientFactory();
+
+            FidectusTrades = FileHelper.ReadJsonFile<IList<TradeDataObject>>(TestHelper.GetTestDataFolder("TestData/Fidectus/mock_trade.json"));
+            FidectusMappings = FileHelper.ReadJsonFile<IList<MappingDataObject>>(TestHelper.GetTestDataFolder("TestData/Fidectus/mock_mapping.json"));
+            FidectusTradeSummaries = FileHelper.ReadJsonFile<IList<TradeSummaryResponse>>(TestHelper.GetTestDataFolder("TestData/Fidectus/mock_tradesummary.json"));
+            FidectusProfiles = FileHelper.ReadJsonFile<IList<ProfileResponse>>(TestHelper.GetTestDataFolder("TestData/Fidectus/mock_tradeprofile.json"));
+            FidectusParties = FileHelper.ReadJsonFile<IList<PartyDataObject>>(TestHelper.GetTestDataFolder("TestData/Fidectus/mock_party.json"));
+            ExpectedResults = FileHelper.ReadJsonFile<IList<FidectusTestType>>(TestHelper.GetTestDataFolder("TestData/Fidectus/expected_results_fidectus_confirms.json"));
 
             FidectusAuthenticationService = new FidectusAuthenticationService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
             FidectusService = new FidectusService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
@@ -48,8 +61,73 @@ namespace TradeCube_ServicesTests.Fidectus
             FidectusManager = new FidectusManager(
                 FidectusAuthenticationService,
                 FidectusService,
+                CreateTradeService(FidectusTrades),
+                CreateTradeSummaryService(FidectusTradeSummaries),
+                CreateProfileService(FidectusProfiles),
                 CreateSettingService(),
-                CreateVaultService(vaultDataObjects), new Logger<FidectusManager>(LoggerFactory.Create(l => l.AddConsole())));
+                CreateVaultService(vaultDataObjects),
+                new FidectusMappingService(CreateMappingService(FidectusMappings), CreatePartyService(FidectusParties)),
+                new Logger<FidectusManager>(LoggerFactory.Create(l => l.AddConsole())));
+        }
+
+        private static ITradeService CreateTradeService(IEnumerable<TradeDataObject> trades)
+        {
+            var service = new Mock<ITradeService>();
+
+            service
+                .Setup(c => c.GetTradeAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                .ReturnsAsync((string _, string tradeReference, int tradeLeg) =>
+                    new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Data = trades.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
+
+            return service.Object;
+        }
+
+        private static IMappingService CreateMappingService(IEnumerable<MappingDataObject> mappings)
+        {
+            var service = new Mock<IMappingService>();
+
+            service
+                .Setup(c => c.GetMappingsViaJwtAsync(It.IsAny<string>()))
+                .ReturnsAsync((string _) =>
+                    new ApiResponseWrapper<IEnumerable<MappingDataObject>> { Data = mappings });
+
+            return service.Object;
+        }
+
+        private static ITradeSummaryService CreateTradeSummaryService(IEnumerable<TradeSummaryResponse> tradeSummaryResponses)
+        {
+            var service = new Mock<ITradeSummaryService>();
+
+            service
+                .Setup(c => c.TradeSummaryAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
+                .ReturnsAsync((string tradeReference, int tradeLeg, string _) =>
+                    new ApiResponseWrapper<IEnumerable<TradeSummaryResponse>> { Data = tradeSummaryResponses.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
+
+            return service.Object;
+        }
+
+        private static IProfileService CreateProfileService(IEnumerable<ProfileResponse> profiles)
+        {
+            var service = new Mock<IProfileService>();
+
+            service
+                .Setup(c => c.ProfileAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync((string tradeReference, int tradeLeg, string _, string _) =>
+                    new ApiResponseWrapper<IEnumerable<ProfileResponse>> { Data = profiles.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
+
+            return service.Object;
+        }
+
+        private static IPartyService CreatePartyService(IEnumerable<PartyDataObject> parties)
+        {
+            var service = new Mock<IPartyService>();
+
+            service
+                .Setup(c => c.GetPartyAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync((string party, string _) =>
+                    new ApiResponseWrapper<IEnumerable<PartyDataObject>> { Data = parties.Where(p => p.Party == party) });
+
+            return service.Object;
         }
 
         private static ISettingService CreateSettingService()
@@ -59,7 +137,7 @@ namespace TradeCube_ServicesTests.Fidectus
             service
                 .Setup(c => c.GetSettingViaJwtAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync((string _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<SettingDataObject>> { Data = new List<SettingDataObject> { new() { SettingValue = "https://staging--fidectus.eu.auth0.com" } } });
+                    new ApiResponseWrapper<IEnumerable<SettingDataObject>> { Data = new List<SettingDataObject> { new() { SettingValue = "https://ebo-test.api.equias.org" } } });
 
             return service.Object;
         }

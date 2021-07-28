@@ -1,0 +1,4097 @@
+[
+    {
+        "TradeReference": "CubeMetricsMockPower0",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:51.193000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "MockBook1"
+        },
+        "Product": {
+            "Product": "UKP.BSLD.MONTH.2021-M03",
+            "ProductLongName": "UK Power Baseload Month March 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Power",
+                "CommodityLongName": "UK Power",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "GB",
+                    "DeliveryAreaLongName": "Great Britain",
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Electricity",
+                    "BaseCommodityLongName": "Electricity",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "GBP/MWh",
+                    "PriceUnitLongName": "GBP/MWh",
+                    "Suffix": "/MWh",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "MW",
+                        "QuantityUnitLongName": "MW",
+                        "Suffix": "MW",
+                        "EnergyUnit": {
+                            "EnergyUnit": "MWh",
+                            "EnergyUnitLongName": "MWh",
+                            "Suffix": "MWh",
+                            "JouleEquivalent": 3600000000.0
+                        },
+                        "PerPeriod": "hour"
+                    },
+                    "Period": "hour"
+                },
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "Image": "https://tradecubelrs.blob.core.windows.net/0009-power/GB-Electricity.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "DayMinuteOffset": -60,
+                "DefaultBillRule": {
+                    "SettlementRule": "GTMA Bill WD+5",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Billing Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 5,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "GTMA Pay WD+10",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Payment Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Month",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-02-28T23:00:00",
+                    "LocalEndDateTime": "2021-03-31T23:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            },
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2019-03-02T00:00:00Z",
+                "UTCEndDateTime": "2021-03-01T00:00:00Z"
+            },
+            "Fingerprint": "7c395f28f8d28ebe0a825517a76dae7cc20083f418f9cdb87a8d5be1417de2e6",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/BSLD-M-03.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty1",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC1"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty1"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader1"
+        },
+        "Counterparty": {
+            "Party": "MockParty1",
+            "EIC": {
+                "EIC": "MockPartyEIC1"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty1"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty1",
+            "EIC": {
+                "EIC": "MockPartyEIC1"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty1"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty1",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC1"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty1"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange1",
+            "EIC": {
+                "EIC": "MockExchangeEIC1"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker1",
+            "EIC": {
+                "EIC": "MockBrokerEIC1"
+            }
+        },
+        "Quantity": {
+            "Quantity": 56.78,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            }
+        },
+        "Price": {
+            "Price": 12.34,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            }
+        },
+        "Extension": {
+            "ECVNAgentParty": {
+                "Extension": {
+                    "BSCParty": {
+                        "BSCPartyId": "MockBSCPartyId1",
+                        "BSCPartyLongName": "MockBSCParty1"
+                    }
+                }
+            },
+            "BuyerEnergyAccount": "Production",
+            "SellerEnergyAccount": "Consumption"
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockPower1",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:51.452000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Sell",
+        "TradingBook": {
+            "TradingBook": "MockBook2"
+        },
+        "Product": {
+            "Product": "UKP.7DPEAK.MONTH.2021-M03",
+            "ProductLongName": "UK Power 7 Day Peak (Mon - Sun) Month March 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Power",
+                "CommodityLongName": "UK Power",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "GB",
+                    "DeliveryAreaLongName": "Great Britain",
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Electricity",
+                    "BaseCommodityLongName": "Electricity",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "GBP/MWh",
+                    "PriceUnitLongName": "GBP/MWh",
+                    "Suffix": "/MWh",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "MW",
+                        "QuantityUnitLongName": "MW",
+                        "Suffix": "MW",
+                        "EnergyUnit": {
+                            "EnergyUnit": "MWh",
+                            "EnergyUnitLongName": "MWh",
+                            "Suffix": "MWh",
+                            "JouleEquivalent": 3600000000.0
+                        },
+                        "PerPeriod": "hour"
+                    },
+                    "Period": "hour"
+                },
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "Image": "https://tradecubelrs.blob.core.windows.net/0009-power/GB-Electricity.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "DayMinuteOffset": -60,
+                "DefaultBillRule": {
+                    "SettlementRule": "GTMA Bill WD+5",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Billing Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 5,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "GTMA Pay WD+10",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Payment Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Peak",
+            "PeriodDescription": "Month",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-02-28T23:00:00",
+                    "LocalEndDateTime": "2021-03-31T23:00:00",
+                    "ApplicableHours": [
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18
+                    ]
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            },
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2019-03-02T00:00:00Z",
+                "UTCEndDateTime": "2021-03-01T00:00:00Z"
+            },
+            "Fingerprint": "f489b0ed89a813db09898950e5915b4d23aa1eacbaa202828ae66694b4e1d624",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/PEAK-M-03.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty2",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC2"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty2"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader2"
+        },
+        "Counterparty": {
+            "Party": "MockParty2",
+            "EIC": {
+                "EIC": "MockPartyEIC2"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty2"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty2",
+            "EIC": {
+                "EIC": "MockPartyEIC2"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty2"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty2",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC2"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty2"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange2",
+            "EIC": {
+                "EIC": "MockExchangeEIC2"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker2",
+            "EIC": {
+                "EIC": "MockBrokerEIC2"
+            }
+        },
+        "Quantity": {
+            "Quantity": 67.89,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            }
+        },
+        "Price": {
+            "Price": 23.45,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            }
+        },
+        "Extension": {
+            "ECVNAgentParty": {
+                "Extension": {
+                    "BSCParty": {
+                        "BSCPartyId": "MockBSCPartyId2",
+                        "BSCPartyLongName": "MockBSCParty2"
+                    }
+                }
+            },
+            "BuyerEnergyAccount": "Consumption",
+            "SellerEnergyAccount": "Production"
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockPower2",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:51.675000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "MockBook3"
+        },
+        "Product": {
+            "Product": "UKP.BSLD.DAY.2021-03-28",
+            "ProductLongName": "UK Power Baseload Day 28 March 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Power",
+                "CommodityLongName": "UK Power",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "GB",
+                    "DeliveryAreaLongName": "Great Britain",
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Electricity",
+                    "BaseCommodityLongName": "Electricity",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "GBP/MWh",
+                    "PriceUnitLongName": "GBP/MWh",
+                    "Suffix": "/MWh",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "MW",
+                        "QuantityUnitLongName": "MW",
+                        "Suffix": "MW",
+                        "EnergyUnit": {
+                            "EnergyUnit": "MWh",
+                            "EnergyUnitLongName": "MWh",
+                            "Suffix": "MWh",
+                            "JouleEquivalent": 3600000000.0
+                        },
+                        "PerPeriod": "hour"
+                    },
+                    "Period": "hour"
+                },
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "Image": "https://tradecubelrs.blob.core.windows.net/0009-power/GB-Electricity.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "DayMinuteOffset": -60,
+                "DefaultBillRule": {
+                    "SettlementRule": "GTMA Bill WD+5",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Billing Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 5,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "GTMA Pay WD+10",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Payment Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-03-27T23:00:00",
+                    "LocalEndDateTime": "2021-03-28T23:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            },
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-03-14T00:00:00Z",
+                "UTCEndDateTime": "2021-03-28T00:00:00Z"
+            },
+            "Fingerprint": "cab3f4ce0b8eb30b460386ef4a725709",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/BSLD-D-28.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty3",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC3"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty3"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader3"
+        },
+        "Counterparty": {
+            "Party": "MockParty3",
+            "EIC": {
+                "EIC": "MockPartyEIC3"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty3"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty3",
+            "EIC": {
+                "EIC": "MockPartyEIC3"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty3"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty3",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC3"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty3"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange3",
+            "EIC": {
+                "EIC": "MockExchangeEIC3"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker3",
+            "EIC": {
+                "EIC": "MockBrokerEIC3"
+            }
+        },
+        "Quantity": {
+            "Quantity": 78.9,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            }
+        },
+        "Price": {
+            "Price": 34.56,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            }
+        },
+        "Extension": {
+            "ECVNAgentParty": {
+                "Extension": {
+                    "BSCParty": {
+                        "BSCPartyId": "MockBSCPartyId3",
+                        "BSCPartyLongName": "MockBSCParty3"
+                    }
+                }
+            },
+            "BuyerEnergyAccount": "Production",
+            "SellerEnergyAccount": "Consumption"
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockPower3",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:51.886000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Sell",
+        "TradingBook": {
+            "TradingBook": "MockBook4"
+        },
+        "Product": {
+            "Product": "UKP.BSLD.DAY.2021-03-29",
+            "ProductLongName": "UK Power Baseload Day 29 March 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Power",
+                "CommodityLongName": "UK Power",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "GB",
+                    "DeliveryAreaLongName": "Great Britain",
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Electricity",
+                    "BaseCommodityLongName": "Electricity",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "GBP/MWh",
+                    "PriceUnitLongName": "GBP/MWh",
+                    "Suffix": "/MWh",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "MW",
+                        "QuantityUnitLongName": "MW",
+                        "Suffix": "MW",
+                        "EnergyUnit": {
+                            "EnergyUnit": "MWh",
+                            "EnergyUnitLongName": "MWh",
+                            "Suffix": "MWh",
+                            "JouleEquivalent": 3600000000.0
+                        },
+                        "PerPeriod": "hour"
+                    },
+                    "Period": "hour"
+                },
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "Image": "https://tradecubelrs.blob.core.windows.net/0009-power/GB-Electricity.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "DayMinuteOffset": -60,
+                "DefaultBillRule": {
+                    "SettlementRule": "GTMA Bill WD+5",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Billing Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 5,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "GTMA Pay WD+10",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Payment Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-03-28T23:00:00",
+                    "LocalEndDateTime": "2021-03-29T23:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            },
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-03-15T00:00:00Z",
+                "UTCEndDateTime": "2021-03-29T00:00:00Z"
+            },
+            "Fingerprint": "3efa66bd8553ee77574636ffecfed633",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/BSLD-D-29.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty4",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC4"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty4"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader4"
+        },
+        "Counterparty": {
+            "Party": "MockParty4",
+            "EIC": {
+                "EIC": "MockPartyEIC4"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty4"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty4",
+            "EIC": {
+                "EIC": "MockPartyEIC4"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty4"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty4",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC4"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty4"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange4",
+            "EIC": {
+                "EIC": "MockExchangeEIC4"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker4",
+            "EIC": {
+                "EIC": "MockBrokerEIC4"
+            }
+        },
+        "Quantity": {
+            "Quantity": 89.01,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            }
+        },
+        "Price": {
+            "Price": 45.67,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            }
+        },
+        "Extension": {
+            "ECVNAgentParty": {
+                "Extension": {
+                    "BSCParty": {
+                        "BSCPartyId": "MockBSCPartyId4",
+                        "BSCPartyLongName": "MockBSCParty4"
+                    }
+                }
+            },
+            "BuyerEnergyAccount": "Consumption",
+            "SellerEnergyAccount": "Production"
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockPower4",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:52.103000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "MockBook5"
+        },
+        "Product": {
+            "Product": "UKP.BSLD.DAY.2021-10-30",
+            "ProductLongName": "UK Power Baseload Day 30 October 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Power",
+                "CommodityLongName": "UK Power",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "GB",
+                    "DeliveryAreaLongName": "Great Britain",
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Electricity",
+                    "BaseCommodityLongName": "Electricity",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "GBP/MWh",
+                    "PriceUnitLongName": "GBP/MWh",
+                    "Suffix": "/MWh",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "MW",
+                        "QuantityUnitLongName": "MW",
+                        "Suffix": "MW",
+                        "EnergyUnit": {
+                            "EnergyUnit": "MWh",
+                            "EnergyUnitLongName": "MWh",
+                            "Suffix": "MWh",
+                            "JouleEquivalent": 3600000000.0
+                        },
+                        "PerPeriod": "hour"
+                    },
+                    "Period": "hour"
+                },
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "Image": "https://tradecubelrs.blob.core.windows.net/0009-power/GB-Electricity.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "DayMinuteOffset": -60,
+                "DefaultBillRule": {
+                    "SettlementRule": "GTMA Bill WD+5",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Billing Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 5,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "GTMA Pay WD+10",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Payment Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-10-29T23:00:00",
+                    "LocalEndDateTime": "2021-10-30T23:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            },
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-10-16T00:00:00Z",
+                "UTCEndDateTime": "2021-10-30T00:00:00Z"
+            },
+            "Fingerprint": "fe813f134d3fa602ea8d650e93e6dc05",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/BSLD-D-30.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty5",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC5"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty5"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader5"
+        },
+        "Counterparty": {
+            "Party": "MockParty5",
+            "EIC": {
+                "EIC": "MockPartyEIC5"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty5"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty5",
+            "EIC": {
+                "EIC": "MockPartyEIC5"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty5"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty5",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC5"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty5"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange5",
+            "EIC": {
+                "EIC": "MockExchangeEIC5"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker5",
+            "EIC": {
+                "EIC": "MockBrokerEIC5"
+            }
+        },
+        "Quantity": {
+            "Quantity": 90.12,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            }
+        },
+        "Price": {
+            "Price": 56.78,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            }
+        },
+        "Extension": {
+            "ECVNAgentParty": {
+                "Extension": {
+                    "BSCParty": {
+                        "BSCPartyId": "MockBSCPartyId5",
+                        "BSCPartyLongName": "MockBSCParty5"
+                    }
+                }
+            },
+            "BuyerEnergyAccount": "Production",
+            "SellerEnergyAccount": "Consumption"
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockPower5",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:52.396000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Sell",
+        "TradingBook": {
+            "TradingBook": "MockBook6"
+        },
+        "Product": {
+            "Product": "UKP.BSLD.DAY.2021-10-31",
+            "ProductLongName": "UK Power Baseload Day 31 October 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Power",
+                "CommodityLongName": "UK Power",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "GB",
+                    "DeliveryAreaLongName": "Great Britain",
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Electricity",
+                    "BaseCommodityLongName": "Electricity",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "GBP/MWh",
+                    "PriceUnitLongName": "GBP/MWh",
+                    "Suffix": "/MWh",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "MW",
+                        "QuantityUnitLongName": "MW",
+                        "Suffix": "MW",
+                        "EnergyUnit": {
+                            "EnergyUnit": "MWh",
+                            "EnergyUnitLongName": "MWh",
+                            "Suffix": "MWh",
+                            "JouleEquivalent": 3600000000.0
+                        },
+                        "PerPeriod": "hour"
+                    },
+                    "Period": "hour"
+                },
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "Image": "https://tradecubelrs.blob.core.windows.net/0009-power/GB-Electricity.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "DayMinuteOffset": -60,
+                "DefaultBillRule": {
+                    "SettlementRule": "GTMA Bill WD+5",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Billing Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 5,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "GTMA Pay WD+10",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Payment Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-10-30T23:00:00",
+                    "LocalEndDateTime": "2021-10-31T23:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            },
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-10-17T00:00:00Z",
+                "UTCEndDateTime": "2021-10-31T00:00:00Z"
+            },
+            "Fingerprint": "e83b8b3ad4ed1aeec1571a006eb09491",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/BSLD-D-31.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty6",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC6"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty6"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader6"
+        },
+        "Counterparty": {
+            "Party": "MockParty6",
+            "EIC": {
+                "EIC": "MockPartyEIC6"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty6"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty6",
+            "EIC": {
+                "EIC": "MockPartyEIC6"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty6"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty6",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC6"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty6"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange6",
+            "EIC": {
+                "EIC": "MockExchangeEIC6"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker6",
+            "EIC": {
+                "EIC": "MockBrokerEIC6"
+            }
+        },
+        "Quantity": {
+            "Quantity": 1.23,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            }
+        },
+        "Price": {
+            "Price": 67.89,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            }
+        },
+        "Extension": {
+            "ECVNAgentParty": {
+                "Extension": {
+                    "BSCParty": {
+                        "BSCPartyId": "MockBSCPartyId6",
+                        "BSCPartyLongName": "MockBSCParty6"
+                    }
+                }
+            },
+            "BuyerEnergyAccount": "Consumption",
+            "SellerEnergyAccount": "Production"
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockPower6",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:52.584000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "MockBook7"
+        },
+        "Product": {
+            "Product": "UKP.7DPEAK.MONTH.2021-M10",
+            "ProductLongName": "UK Power 7 Day Peak (Mon - Sun) Month October 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Power",
+                "CommodityLongName": "UK Power",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "GB",
+                    "DeliveryAreaLongName": "Great Britain",
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Electricity",
+                    "BaseCommodityLongName": "Electricity",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "GBP/MWh",
+                    "PriceUnitLongName": "GBP/MWh",
+                    "Suffix": "/MWh",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "MW",
+                        "QuantityUnitLongName": "MW",
+                        "Suffix": "MW",
+                        "EnergyUnit": {
+                            "EnergyUnit": "MWh",
+                            "EnergyUnitLongName": "MWh",
+                            "Suffix": "MWh",
+                            "JouleEquivalent": 3600000000.0
+                        },
+                        "PerPeriod": "hour"
+                    },
+                    "Period": "hour"
+                },
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "Image": "https://tradecubelrs.blob.core.windows.net/0009-power/GB-Electricity.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "DayMinuteOffset": -60,
+                "DefaultBillRule": {
+                    "SettlementRule": "GTMA Bill WD+5",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Billing Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 5,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "GTMA Pay WD+10",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Payment Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Peak",
+            "PeriodDescription": "Month",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-09-30T23:00:00",
+                    "LocalEndDateTime": "2021-10-31T23:00:00",
+                    "ApplicableHours": [
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18
+                    ]
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            },
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2019-10-02T00:00:00Z",
+                "UTCEndDateTime": "2021-10-01T00:00:00Z"
+            },
+            "Fingerprint": "991a43dd5af0ce26d8d93538ae9561cb07fb03361d24d4e45186e6dd37f740ce",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/PEAK-M-10.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty7",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC7"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty7"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader7"
+        },
+        "Counterparty": {
+            "Party": "MockParty7",
+            "EIC": {
+                "EIC": "MockPartyEIC7"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty7"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty7",
+            "EIC": {
+                "EIC": "MockPartyEIC7"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty7"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty7",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC7"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty7"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange7",
+            "EIC": {
+                "EIC": "MockExchangeEIC7"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker7",
+            "EIC": {
+                "EIC": "MockBrokerEIC7"
+            }
+        },
+        "Quantity": {
+            "Quantity": 12.34,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            }
+        },
+        "Price": {
+            "Price": 78.9,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            }
+        },
+        "Extension": {
+            "ECVNAgentParty": {
+                "Extension": {
+                    "BSCParty": {
+                        "BSCPartyId": "MockBSCPartyId7",
+                        "BSCPartyLongName": "MockBSCParty7"
+                    }
+                }
+            },
+            "BuyerEnergyAccount": "Production",
+            "SellerEnergyAccount": "Consumption"
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockPower7",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:52.788000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "MockBook8"
+        },
+        "Product": {
+            "Product": "UKP.BSLD.DAY.2021-03-27",
+            "ProductLongName": "UK Power Baseload Day 27 March 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Power",
+                "CommodityLongName": "UK Power",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "GB",
+                    "DeliveryAreaLongName": "Great Britain",
+                    "EIC": "10YGB----------A"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Electricity",
+                    "BaseCommodityLongName": "Electricity",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "GBP/MWh",
+                    "PriceUnitLongName": "GBP/MWh",
+                    "Suffix": "/MWh",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "MW",
+                        "QuantityUnitLongName": "MW",
+                        "Suffix": "MW",
+                        "EnergyUnit": {
+                            "EnergyUnit": "MWh",
+                            "EnergyUnitLongName": "MWh",
+                            "Suffix": "MWh",
+                            "JouleEquivalent": 3600000000.0
+                        },
+                        "PerPeriod": "hour"
+                    },
+                    "Period": "hour"
+                },
+                "Period": "sub-daily",
+                "PeriodMinutes": 30,
+                "Image": "https://tradecubelrs.blob.core.windows.net/0009-power/GB-Electricity.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "DayMinuteOffset": -60,
+                "DefaultBillRule": {
+                    "SettlementRule": "GTMA Bill WD+5",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Billing Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 5,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "GTMA Pay WD+10",
+                    "SettlementRuleLongName": "Grid Trade Master Agreement standard Payment Rule (Working Day+5)",
+                    "Commodities": [
+                        "UK Power"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10,
+                    "SkipNonWorkingDayCalendar": {
+                        "Calendar": "England",
+                        "CalendarLongName": "England"
+                    },
+                    "SkipSaturdaySunday": true
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-03-26T23:00:00",
+                    "LocalEndDateTime": "2021-03-27T23:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            },
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-03-13T00:00:00Z",
+                "UTCEndDateTime": "2021-03-27T00:00:00Z"
+            },
+            "Fingerprint": "befb014cc38f932c30a3e19febf6c45e",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/BSLD-D-27.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty8",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC8"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty8"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader8"
+        },
+        "Counterparty": {
+            "Party": "MockParty8",
+            "EIC": {
+                "EIC": "MockPartyEIC8"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty8"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty8",
+            "EIC": {
+                "EIC": "MockPartyEIC8"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCCounterparty8"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty8",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC8"
+            },
+            "Extension": {
+                "BSCParty": {
+                    "BSCPartyId": "MockBSCInternalParty8"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange8",
+            "EIC": {
+                "EIC": "MockExchangeEIC8"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker8",
+            "EIC": {
+                "EIC": "MockBrokerEIC8"
+            }
+        },
+        "Quantity": {
+            "Quantity": 10.0,
+            "QuantityUnit": {
+                "QuantityUnit": "MW",
+                "QuantityUnitLongName": "MW",
+                "Suffix": "MW",
+                "EnergyUnit": {
+                    "EnergyUnit": "MWh",
+                    "EnergyUnitLongName": "MWh",
+                    "Suffix": "MWh",
+                    "JouleEquivalent": 3600000000.0
+                },
+                "PerPeriod": "hour"
+            }
+        },
+        "Price": {
+            "Price": 55.0,
+            "PriceUnit": {
+                "PriceUnit": "GBP/MWh",
+                "PriceUnitLongName": "GBP/MWh",
+                "Suffix": "/MWh",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "MW",
+                    "QuantityUnitLongName": "MW",
+                    "Suffix": "MW",
+                    "EnergyUnit": {
+                        "EnergyUnit": "MWh",
+                        "EnergyUnitLongName": "MWh",
+                        "Suffix": "MWh",
+                        "JouleEquivalent": 3600000000.0
+                    },
+                    "PerPeriod": "hour"
+                },
+                "Period": "hour"
+            }
+        },
+        "Extension": {
+            "ECVNAgentParty": {
+                "Extension": {
+                    "BSCParty": {
+                        "BSCPartyId": "MockBSCPartyId8",
+                        "BSCPartyLongName": "MockBSCParty8"
+                    }
+                }
+            },
+            "BuyerEnergyAccount": "Consumption",
+            "SellerEnergyAccount": "Production"
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockGas0",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:53.006000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Sell",
+        "TradingBook": {
+            "TradingBook": "MockBook9"
+        },
+        "Product": {
+            "Product": "NBP.MONTH.2021-M03",
+            "ProductLongName": "UK Gas NBP Month March 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Gas",
+                "CommodityLongName": "UK Gas",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "UK-GAS-GRID",
+                    "DeliveryAreaLongName": "UK GAS GRID",
+                    "EIC": "21YGB-UKGASGRIDW"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Natural Gas",
+                    "BaseCommodityLongName": "Natural Gas",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "p/Therm",
+                    "PriceUnitLongName": "p/Therm (UK)",
+                    "Suffix": "p/Therm",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "CurrencyExponent": 2,
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "Therms/day (UK)",
+                        "QuantityUnitLongName": "Therms/day (UK)",
+                        "Suffix": "Therms/day",
+                        "EnergyUnit": {
+                            "EnergyUnit": "Therm (UK)",
+                            "EnergyUnitLongName": "Therm (UK)",
+                            "Suffix": "Therm (UK)",
+                            "JouleEquivalent": 105505585.257348
+                        },
+                        "PerPeriod": "day"
+                    },
+                    "Period": "day"
+                },
+                "Period": "day",
+                "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "YearMonthOffset": -3,
+                "DayMinuteOffset": 300,
+                "DefaultBillRule": {
+                    "SettlementRule": "NBP15 Bill 10",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (10th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "NBP15 Pay 20",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (20th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 20
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Month",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-03-01T05:00:00",
+                    "LocalEndDateTime": "2021-04-01T05:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            },
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2019-03-02T00:00:00Z",
+                "UTCEndDateTime": "2021-03-01T00:00:00Z"
+            },
+            "Fingerprint": "1f4a121c5690bdb85448b9de179f86c04b16d6cafef513b019f879e8e2edbf52",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/M-03.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty9",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC9"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper9"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader9"
+        },
+        "Counterparty": {
+            "Party": "MockParty9",
+            "EIC": {
+                "EIC": "MockPartyEIC9"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper9"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty9",
+            "EIC": {
+                "EIC": "MockPartyEIC9"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper9"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty9",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC9"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper9"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange9",
+            "EIC": {
+                "EIC": "MockExchangeEIC9"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker9",
+            "EIC": {
+                "EIC": "MockBrokerEIC9"
+            }
+        },
+        "Quantity": {
+            "Quantity": 56.78,
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            }
+        },
+        "Price": {
+            "Price": 12.34,
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            }
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockGas1",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:53.258000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "MockBook10"
+        },
+        "Product": {
+            "Product": "NBP.DAY.2021-03-26",
+            "ProductLongName": "UK Gas NBP Day 26 March 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Gas",
+                "CommodityLongName": "UK Gas",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "UK-GAS-GRID",
+                    "DeliveryAreaLongName": "UK GAS GRID",
+                    "EIC": "21YGB-UKGASGRIDW"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Natural Gas",
+                    "BaseCommodityLongName": "Natural Gas",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "p/Therm",
+                    "PriceUnitLongName": "p/Therm (UK)",
+                    "Suffix": "p/Therm",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "CurrencyExponent": 2,
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "Therms/day (UK)",
+                        "QuantityUnitLongName": "Therms/day (UK)",
+                        "Suffix": "Therms/day",
+                        "EnergyUnit": {
+                            "EnergyUnit": "Therm (UK)",
+                            "EnergyUnitLongName": "Therm (UK)",
+                            "Suffix": "Therm (UK)",
+                            "JouleEquivalent": 105505585.257348
+                        },
+                        "PerPeriod": "day"
+                    },
+                    "Period": "day"
+                },
+                "Period": "day",
+                "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "YearMonthOffset": -3,
+                "DayMinuteOffset": 300,
+                "DefaultBillRule": {
+                    "SettlementRule": "NBP15 Bill 10",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (10th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "NBP15 Pay 20",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (20th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 20
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-03-26T05:00:00",
+                    "LocalEndDateTime": "2021-03-27T05:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            },
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-03-12T00:00:00Z",
+                "UTCEndDateTime": "2021-03-26T00:00:00Z"
+            },
+            "Fingerprint": "c8336e9d02bb41d804e8096b78882cd5",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/DAY-D-26.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty10",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC10"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper10"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader10"
+        },
+        "Counterparty": {
+            "Party": "MockParty10",
+            "EIC": {
+                "EIC": "MockPartyEIC10"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper10"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty10",
+            "EIC": {
+                "EIC": "MockPartyEIC10"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper10"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty10",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC10"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper10"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange10",
+            "EIC": {
+                "EIC": "MockExchangeEIC10"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker10",
+            "EIC": {
+                "EIC": "MockBrokerEIC10"
+            }
+        },
+        "Quantity": {
+            "Quantity": 67.89,
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            }
+        },
+        "Price": {
+            "Price": 23.45,
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            }
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockGas2",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:53.447000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Sell",
+        "TradingBook": {
+            "TradingBook": "MockBook11"
+        },
+        "Product": {
+            "Product": "NBP.DAY.2021-03-27",
+            "ProductLongName": "UK Gas NBP Day 27 March 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Gas",
+                "CommodityLongName": "UK Gas",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "UK-GAS-GRID",
+                    "DeliveryAreaLongName": "UK GAS GRID",
+                    "EIC": "21YGB-UKGASGRIDW"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Natural Gas",
+                    "BaseCommodityLongName": "Natural Gas",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "p/Therm",
+                    "PriceUnitLongName": "p/Therm (UK)",
+                    "Suffix": "p/Therm",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "CurrencyExponent": 2,
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "Therms/day (UK)",
+                        "QuantityUnitLongName": "Therms/day (UK)",
+                        "Suffix": "Therms/day",
+                        "EnergyUnit": {
+                            "EnergyUnit": "Therm (UK)",
+                            "EnergyUnitLongName": "Therm (UK)",
+                            "Suffix": "Therm (UK)",
+                            "JouleEquivalent": 105505585.257348
+                        },
+                        "PerPeriod": "day"
+                    },
+                    "Period": "day"
+                },
+                "Period": "day",
+                "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "YearMonthOffset": -3,
+                "DayMinuteOffset": 300,
+                "DefaultBillRule": {
+                    "SettlementRule": "NBP15 Bill 10",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (10th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "NBP15 Pay 20",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (20th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 20
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-03-27T05:00:00",
+                    "LocalEndDateTime": "2021-03-28T05:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            },
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-03-13T00:00:00Z",
+                "UTCEndDateTime": "2021-03-27T00:00:00Z"
+            },
+            "Fingerprint": "cb27fcb090c9cbbda415669cbbc7e533",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/DAY-D-27.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty11",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC11"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper11"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader11"
+        },
+        "Counterparty": {
+            "Party": "MockParty11",
+            "EIC": {
+                "EIC": "MockPartyEIC11"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper11"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty11",
+            "EIC": {
+                "EIC": "MockPartyEIC11"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper11"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty11",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC11"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper11"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange11",
+            "EIC": {
+                "EIC": "MockExchangeEIC11"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker11",
+            "EIC": {
+                "EIC": "MockBrokerEIC11"
+            }
+        },
+        "Quantity": {
+            "Quantity": 78.9,
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            }
+        },
+        "Price": {
+            "Price": 34.56,
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            }
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockGas3",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:53.675000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "MockBook12"
+        },
+        "Product": {
+            "Product": "NBP.DAY.2021-03-28",
+            "ProductLongName": "UK Gas NBP Day 28 March 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Gas",
+                "CommodityLongName": "UK Gas",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "UK-GAS-GRID",
+                    "DeliveryAreaLongName": "UK GAS GRID",
+                    "EIC": "21YGB-UKGASGRIDW"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Natural Gas",
+                    "BaseCommodityLongName": "Natural Gas",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "p/Therm",
+                    "PriceUnitLongName": "p/Therm (UK)",
+                    "Suffix": "p/Therm",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "CurrencyExponent": 2,
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "Therms/day (UK)",
+                        "QuantityUnitLongName": "Therms/day (UK)",
+                        "Suffix": "Therms/day",
+                        "EnergyUnit": {
+                            "EnergyUnit": "Therm (UK)",
+                            "EnergyUnitLongName": "Therm (UK)",
+                            "Suffix": "Therm (UK)",
+                            "JouleEquivalent": 105505585.257348
+                        },
+                        "PerPeriod": "day"
+                    },
+                    "Period": "day"
+                },
+                "Period": "day",
+                "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "YearMonthOffset": -3,
+                "DayMinuteOffset": 300,
+                "DefaultBillRule": {
+                    "SettlementRule": "NBP15 Bill 10",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (10th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "NBP15 Pay 20",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (20th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 20
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-03-28T05:00:00",
+                    "LocalEndDateTime": "2021-03-29T05:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            },
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-03-14T00:00:00Z",
+                "UTCEndDateTime": "2021-03-28T00:00:00Z"
+            },
+            "Fingerprint": "706c81182922d74881ef572c0f4c085d",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/DAY-D-28.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty12",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC12"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper12"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader12"
+        },
+        "Counterparty": {
+            "Party": "MockParty12",
+            "EIC": {
+                "EIC": "MockPartyEIC12"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper12"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty12",
+            "EIC": {
+                "EIC": "MockPartyEIC12"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper12"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty12",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC12"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper12"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange12",
+            "EIC": {
+                "EIC": "MockExchangeEIC12"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker12",
+            "EIC": {
+                "EIC": "MockBrokerEIC12"
+            }
+        },
+        "Quantity": {
+            "Quantity": 89.01,
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            }
+        },
+        "Price": {
+            "Price": 45.67,
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            }
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockGas4",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:53.860000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Sell",
+        "TradingBook": {
+            "TradingBook": "MockBook13"
+        },
+        "Product": {
+            "Product": "NBP.DAY.2021-10-29",
+            "ProductLongName": "UK Gas NBP Day 29 October 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Gas",
+                "CommodityLongName": "UK Gas",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "UK-GAS-GRID",
+                    "DeliveryAreaLongName": "UK GAS GRID",
+                    "EIC": "21YGB-UKGASGRIDW"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Natural Gas",
+                    "BaseCommodityLongName": "Natural Gas",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "p/Therm",
+                    "PriceUnitLongName": "p/Therm (UK)",
+                    "Suffix": "p/Therm",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "CurrencyExponent": 2,
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "Therms/day (UK)",
+                        "QuantityUnitLongName": "Therms/day (UK)",
+                        "Suffix": "Therms/day",
+                        "EnergyUnit": {
+                            "EnergyUnit": "Therm (UK)",
+                            "EnergyUnitLongName": "Therm (UK)",
+                            "Suffix": "Therm (UK)",
+                            "JouleEquivalent": 105505585.257348
+                        },
+                        "PerPeriod": "day"
+                    },
+                    "Period": "day"
+                },
+                "Period": "day",
+                "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "YearMonthOffset": -3,
+                "DayMinuteOffset": 300,
+                "DefaultBillRule": {
+                    "SettlementRule": "NBP15 Bill 10",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (10th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "NBP15 Pay 20",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (20th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 20
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-10-29T05:00:00",
+                    "LocalEndDateTime": "2021-10-30T05:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            },
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-10-15T00:00:00Z",
+                "UTCEndDateTime": "2021-10-29T00:00:00Z"
+            },
+            "Fingerprint": "a3f73ba6699e607730f40af44985945f",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/DAY-D-29.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty13",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC13"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper13"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader13"
+        },
+        "Counterparty": {
+            "Party": "MockParty13",
+            "EIC": {
+                "EIC": "MockPartyEIC13"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper13"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty13",
+            "EIC": {
+                "EIC": "MockPartyEIC13"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper13"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty13",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC13"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper13"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange13",
+            "EIC": {
+                "EIC": "MockExchangeEIC13"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker13",
+            "EIC": {
+                "EIC": "MockBrokerEIC13"
+            }
+        },
+        "Quantity": {
+            "Quantity": 90.12,
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            }
+        },
+        "Price": {
+            "Price": 56.78,
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            }
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockGas5",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:54.047000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Buy",
+        "TradingBook": {
+            "TradingBook": "MockBook14"
+        },
+        "Product": {
+            "Product": "NBP.DAY.2021-10-30",
+            "ProductLongName": "UK Gas NBP Day 30 October 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Gas",
+                "CommodityLongName": "UK Gas",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "UK-GAS-GRID",
+                    "DeliveryAreaLongName": "UK GAS GRID",
+                    "EIC": "21YGB-UKGASGRIDW"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Natural Gas",
+                    "BaseCommodityLongName": "Natural Gas",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "p/Therm",
+                    "PriceUnitLongName": "p/Therm (UK)",
+                    "Suffix": "p/Therm",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "CurrencyExponent": 2,
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "Therms/day (UK)",
+                        "QuantityUnitLongName": "Therms/day (UK)",
+                        "Suffix": "Therms/day",
+                        "EnergyUnit": {
+                            "EnergyUnit": "Therm (UK)",
+                            "EnergyUnitLongName": "Therm (UK)",
+                            "Suffix": "Therm (UK)",
+                            "JouleEquivalent": 105505585.257348
+                        },
+                        "PerPeriod": "day"
+                    },
+                    "Period": "day"
+                },
+                "Period": "day",
+                "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "YearMonthOffset": -3,
+                "DayMinuteOffset": 300,
+                "DefaultBillRule": {
+                    "SettlementRule": "NBP15 Bill 10",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (10th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "NBP15 Pay 20",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (20th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 20
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-10-30T05:00:00",
+                    "LocalEndDateTime": "2021-10-31T05:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            },
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-10-16T00:00:00Z",
+                "UTCEndDateTime": "2021-10-30T00:00:00Z"
+            },
+            "Fingerprint": "1bc10addfe9bbbbc9e2ab5e74290c4a4",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/DAY-D-30.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty14",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC14"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper14"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader14"
+        },
+        "Counterparty": {
+            "Party": "MockParty14",
+            "EIC": {
+                "EIC": "MockPartyEIC14"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper14"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty14",
+            "EIC": {
+                "EIC": "MockPartyEIC14"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper14"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty14",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC14"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper14"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange14",
+            "EIC": {
+                "EIC": "MockExchangeEIC14"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker14",
+            "EIC": {
+                "EIC": "MockBrokerEIC14"
+            }
+        },
+        "Quantity": {
+            "Quantity": 1.23,
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            }
+        },
+        "Price": {
+            "Price": 67.89,
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            }
+        }
+    },
+    {
+        "TradeReference": "CubeMetricsMockGas6",
+        "TradeLeg": 1,
+        "TradeDateTime": "2021-07-28T15:42:54.268000Z",
+        "TradeStatus": "Live",
+        "BuySell": "Sell",
+        "TradingBook": {
+            "TradingBook": "MockBook15"
+        },
+        "Product": {
+            "Product": "NBP.DAY.2021-10-31",
+            "ProductLongName": "UK Gas NBP Day 31 October 2021",
+            "ProductType": "Fixed",
+            "Commodity": {
+                "Commodity": "UK Gas",
+                "CommodityLongName": "UK Gas",
+                "Currency": "GBP",
+                "Country": "GB",
+                "DeliveryArea": {
+                    "DeliveryArea": "UK-GAS-GRID",
+                    "DeliveryAreaLongName": "UK GAS GRID",
+                    "EIC": "21YGB-UKGASGRIDW"
+                },
+                "Timezone": "Europe/London",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "BaseCommodity": {
+                    "BaseCommodity": "Natural Gas",
+                    "BaseCommodityLongName": "Natural Gas",
+                    "Category": {
+                        "Category": "Energy",
+                        "CategoryLongName": "Energy",
+                        "AssetClass": "Commodity"
+                    }
+                },
+                "DefaultQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "DefaultPriceUnit": {
+                    "PriceUnit": "p/Therm",
+                    "PriceUnitLongName": "p/Therm (UK)",
+                    "Suffix": "p/Therm",
+                    "PriceUnitType": "Currency",
+                    "Currency": "GBP",
+                    "CurrencyExponent": 2,
+                    "PerPriceUnitType": "Quantity Unit",
+                    "PerQuantityUnit": {
+                        "QuantityUnit": "Therms/day (UK)",
+                        "QuantityUnitLongName": "Therms/day (UK)",
+                        "Suffix": "Therms/day",
+                        "EnergyUnit": {
+                            "EnergyUnit": "Therm (UK)",
+                            "EnergyUnitLongName": "Therm (UK)",
+                            "Suffix": "Therm (UK)",
+                            "JouleEquivalent": 105505585.257348
+                        },
+                        "PerPeriod": "day"
+                    },
+                    "Period": "day"
+                },
+                "Period": "day",
+                "Image": "https://tradecubelrs.blob.core.windows.net/0010-gas/GB-Natural-Gas.png",
+                "RegulatoryMechanisms": [
+                    "EMIR",
+                    "REMIT"
+                ],
+                "YearMonthOffset": -3,
+                "DayMinuteOffset": 300,
+                "DefaultBillRule": {
+                    "SettlementRule": "NBP15 Bill 10",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (10th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 10
+                },
+                "DefaultPayRule": {
+                    "SettlementRule": "NBP15 Pay 20",
+                    "SettlementRuleLongName": "NBP Trading Terms and Conditions 2015 (20th of Month)",
+                    "Commodities": [
+                        "UK Gas"
+                    ],
+                    "AnchorDateType": "EndOfPhysicalDelivery",
+                    "SkipDays": 20
+                },
+                "Visibility": {
+                    "Enabled": true
+                }
+            },
+            "ShapeDescription": "Baseload",
+            "PeriodDescription": "Day",
+            "ProductValue": 1.0,
+            "ProfileDefinition": [
+                {
+                    "LocalStartDateTime": "2021-10-31T05:00:00",
+                    "LocalEndDateTime": "2021-11-01T05:00:00"
+                }
+            ],
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            },
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            },
+            "ContractType": "Forward",
+            "Settlement": {
+                "SettlementType": "Physical",
+                "SettlementPeriod": "Monthly"
+            },
+            "Physical": {
+                "UTCLocal": "Local"
+            },
+            "TradingPeriod": {
+                "UTCStartDateTime": "2021-10-17T00:00:00Z",
+                "UTCEndDateTime": "2021-10-31T00:00:00Z"
+            },
+            "Fingerprint": "e0e9901532dce61b8791533a7a9db39a",
+            "Image": "https://tradecubelrs.blob.core.windows.net/0023-energyproduct/DAY-D-31.png"
+        },
+        "InternalParty": {
+            "Party": "MockInternalParty15",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC15"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper15"
+                }
+            }
+        },
+        "InternalTrader": {
+            "ContactLongName": "MockTrader15"
+        },
+        "Counterparty": {
+            "Party": "MockParty15",
+            "EIC": {
+                "EIC": "MockPartyEIC15"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper15"
+                }
+            }
+        },
+        "Buyer": {
+            "Party": "MockParty15",
+            "EIC": {
+                "EIC": "MockPartyEIC15"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockCounterpartyGasShipper15"
+                }
+            }
+        },
+        "Seller": {
+            "Party": "MockInternalParty15",
+            "EIC": {
+                "EIC": "MockInternalPartyEIC15"
+            },
+            "Extension": {
+                "UKGasShipper": {
+                    "ShipperCode": "MockInternalPartyGasShipper15"
+                }
+            }
+        },
+        "Exchange": {
+            "Party": "MockExchange15",
+            "EIC": {
+                "EIC": "MockExchangeEIC15"
+            }
+        },
+        "Broker": {
+            "Party": "MockBroker15",
+            "EIC": {
+                "EIC": "MockBrokerEIC15"
+            }
+        },
+        "Quantity": {
+            "Quantity": 12.34,
+            "QuantityUnit": {
+                "QuantityUnit": "Therms/day (UK)",
+                "QuantityUnitLongName": "Therms/day (UK)",
+                "Suffix": "Therms/day",
+                "EnergyUnit": {
+                    "EnergyUnit": "Therm (UK)",
+                    "EnergyUnitLongName": "Therm (UK)",
+                    "Suffix": "Therm (UK)",
+                    "JouleEquivalent": 105505585.257348
+                },
+                "PerPeriod": "day"
+            }
+        },
+        "Price": {
+            "Price": 78.9,
+            "PriceUnit": {
+                "PriceUnit": "p/Therm",
+                "PriceUnitLongName": "p/Therm (UK)",
+                "Suffix": "p/Therm",
+                "PriceUnitType": "Currency",
+                "Currency": "GBP",
+                "CurrencyExponent": 2,
+                "PerPriceUnitType": "Quantity Unit",
+                "PerQuantityUnit": {
+                    "QuantityUnit": "Therms/day (UK)",
+                    "QuantityUnitLongName": "Therms/day (UK)",
+                    "Suffix": "Therms/day",
+                    "EnergyUnit": {
+                        "EnergyUnit": "Therm (UK)",
+                        "EnergyUnitLongName": "Therm (UK)",
+                        "Suffix": "Therm (UK)",
+                        "JouleEquivalent": 105505585.257348
+                    },
+                    "PerPeriod": "day"
+                },
+                "Period": "day"
+            }
+        }
+    }
+]

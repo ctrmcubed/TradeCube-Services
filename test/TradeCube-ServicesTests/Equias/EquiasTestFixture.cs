@@ -19,12 +19,13 @@ namespace TradeCube_ServicesTests.Equias
         public EquiasAuthenticationService EquiasAuthenticationService { get; }
         public IEquiasService EquiasService { get; }
         public IEquiasManager EquiasManager { get; }
-        public IEnumerable<TradeDataObject> EquiasTrades { get; }
-        public IEnumerable<MappingDataObject> EquiasMappings { get; }
-        public IEnumerable<TradeSummaryResponse> EquiasTradeSummaries { get; }
-        public IEnumerable<CashflowResponse> EquiasCashflows { get; }
-        public IEnumerable<ProfileResponse> EquiasProfiles { get; }
-        public IEnumerable<PartyDataObject> EquiasParties { get; }
+
+        private IEnumerable<TradeDataObject> EquiasTrades { get; }
+        private IEnumerable<MappingDataObject> EquiasMappings { get; }
+        private IEnumerable<TradeSummaryResponse> EquiasTradeSummaries { get; }
+        private IEnumerable<CashflowResponse> EquiasCashflows { get; }
+        private IEnumerable<ProfileResponse> EquiasProfiles { get; }
+        private IEnumerable<PartyDataObject> EquiasParties { get; }
 
         public EquiasTestFixture()
         {
@@ -65,7 +66,8 @@ namespace TradeCube_ServicesTests.Equias
                 CreateProfileService(EquiasProfiles),
                 CreateSettingService(),
                 CreateVaultService(vaultDataObjects),
-                new EquiasMappingService(CreateMappingService(EquiasMappings), CreatePartyService(EquiasParties)), new Logger<EquiasManager>(LoggerFactory.Create(l => l.AddConsole())));
+                new EquiasMappingService(CreateMappingService(EquiasMappings), CreatePartyService(EquiasParties)), 
+                new Logger<EquiasManager>(LoggerFactory.Create(l => l.AddConsole())));
         }
 
         private static ITradeService CreateTradeService(IEnumerable<TradeDataObject> trades)
@@ -163,6 +165,5 @@ namespace TradeCube_ServicesTests.Equias
 
             return service.Object;
         }
-
     }
 }

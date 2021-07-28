@@ -1,0 +1,1259 @@
+[
+    {
+        "Test": 0,
+        "Description": "UK Power Baseload Month March GMT",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockPower0",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockPower0001@MockInternalPartyEIC1",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC1",
+                "ReceiverID": "MockPartyEIC1",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Power",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "10YGB----------A",
+                "BuyerParty": "MockPartyEIC1",
+                "SellerParty": "MockInternalPartyEIC1",
+                "LoadType": "Base",
+                "Agreement": "GTMA",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": false
+                },
+                "TotalVolume": 42187.54,
+                "TotalVolumeUnit": "MWh",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "MW",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": false
+                    },
+                    "CapacityUnit": "MWh"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-02-28T23:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-31T23:00:00+01:00",
+                        "ContractCapacity": 42187.54,
+                        "Price": 12.34
+                    }
+                ],
+                "TotalContractValue": 520594.2436,
+                "TraderName": "MockTrader1",
+                "Agents": [
+                    {
+                        "AgentType": "ECVNA",
+                        "AgentName": "MockBSCParty1",
+                        "ECVNA": {
+                            "BSCPartyID": "MockBSCPartyId1",
+                            "BuyerEnergyAccount": "Production",
+                            "SellerEnergyAccount": "Consumption",
+                            "BuyerID": "ECVNA",
+                            "SellerID": "MockBSCInternalParty1"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Test": 1,
+        "Description": "UK Power 7DPeak Month March",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockPower1",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockPower1001@MockInternalPartyEIC2",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC2",
+                "ReceiverID": "MockPartyEIC2",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Power",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "10YGB----------A",
+                "BuyerParty": "MockPartyEIC2",
+                "SellerParty": "MockInternalPartyEIC2",
+                "LoadType": "Peak",
+                "Agreement": "GTMA",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": false
+                },
+                "TotalVolume": 25255.08,
+                "TotalVolumeUnit": "MWh",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "MW",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": false
+                    },
+                    "CapacityUnit": "MWh"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-01T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-01T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-02T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-02T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-03T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-03T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-04T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-04T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-05T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-05T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-06T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-06T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-07T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-07T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-08T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-08T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-09T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-09T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-10T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-10T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-11T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-11T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-12T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-12T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-13T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-13T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-14T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-14T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-15T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-15T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-16T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-16T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-17T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-17T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-18T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-18T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-19T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-19T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-20T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-20T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-21T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-21T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-22T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-22T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-23T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-23T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-24T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-24T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-25T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-25T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-26T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-26T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-27T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-27T19:00:00+00:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-28T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-03-28T19:00:00+01:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-29T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-03-29T19:00:00+01:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-30T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-03-30T19:00:00+01:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-31T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-03-31T19:00:00+01:00",
+                        "ContractCapacity": 814.68,
+                        "Price": 23.45
+                    }
+                ],
+                "TotalContractValue": 592231.626,
+                "TraderName": "MockTrader2",
+                "Agents": [
+                    {
+                        "AgentType": "ECVNA",
+                        "AgentName": "MockBSCParty2",
+                        "ECVNA": {
+                            "BSCPartyID": "MockBSCPartyId2",
+                            "BuyerEnergyAccount": "Consumption",
+                            "SellerEnergyAccount": "Production",
+                            "BuyerID": "ECVNA",
+                            "SellerID": "MockBSCInternalParty2"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Test": 2,
+        "Description": "UK Power Baseload Day Short Day Transition",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockPower2",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockPower2001@MockInternalPartyEIC3",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC3",
+                "ReceiverID": "MockPartyEIC3",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Power",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "10YGB----------A",
+                "BuyerParty": "MockPartyEIC3",
+                "SellerParty": "MockInternalPartyEIC3",
+                "LoadType": "Base",
+                "Agreement": "GTMA",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": false
+                },
+                "TotalVolume": 1814.7,
+                "TotalVolumeUnit": "MWh",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "MW",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": false
+                    },
+                    "CapacityUnit": "MWh"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-27T23:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-28T23:00:00+01:00",
+                        "ContractCapacity": 1814.7,
+                        "Price": 34.56
+                    }
+                ],
+                "TotalContractValue": 62716.032,
+                "TraderName": "MockTrader3",
+                "Agents": [
+                    {
+                        "AgentType": "ECVNA",
+                        "AgentName": "MockBSCParty3",
+                        "ECVNA": {
+                            "BSCPartyID": "MockBSCPartyId3",
+                            "BuyerEnergyAccount": "Production",
+                            "SellerEnergyAccount": "Consumption",
+                            "BuyerID": "ECVNA",
+                            "SellerID": "MockBSCInternalParty3"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Test": 3,
+        "Description": "UK Power Baseload March BST",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockPower3",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockPower3001@MockInternalPartyEIC4",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC4",
+                "ReceiverID": "MockPartyEIC4",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Power",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "10YGB----------A",
+                "BuyerParty": "MockPartyEIC4",
+                "SellerParty": "MockInternalPartyEIC4",
+                "LoadType": "Base",
+                "Agreement": "GTMA",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": false
+                },
+                "TotalVolume": 2136.24,
+                "TotalVolumeUnit": "MWh",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "MW",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": false
+                    },
+                    "CapacityUnit": "MWh"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-28T23:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-03-29T23:00:00+01:00",
+                        "ContractCapacity": 2136.24,
+                        "Price": 45.67
+                    }
+                ],
+                "TotalContractValue": 97562.0808,
+                "TraderName": "MockTrader4",
+                "Agents": [
+                    {
+                        "AgentType": "ECVNA",
+                        "AgentName": "MockBSCParty4",
+                        "ECVNA": {
+                            "BSCPartyID": "MockBSCPartyId4",
+                            "BuyerEnergyAccount": "Consumption",
+                            "SellerEnergyAccount": "Production",
+                            "BuyerID": "ECVNA",
+                            "SellerID": "MockBSCInternalParty4"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Test": 4,
+        "Description": "UK Power Baseload October BST",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockPower4",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockPower4001@MockInternalPartyEIC5",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC5",
+                "ReceiverID": "MockPartyEIC5",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Power",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "10YGB----------A",
+                "BuyerParty": "MockPartyEIC5",
+                "SellerParty": "MockInternalPartyEIC5",
+                "LoadType": "Base",
+                "Agreement": "GTMA",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": false
+                },
+                "TotalVolume": 2162.88,
+                "TotalVolumeUnit": "MWh",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "MW",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": false
+                    },
+                    "CapacityUnit": "MWh"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-29T23:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-30T23:00:00+01:00",
+                        "ContractCapacity": 2162.88,
+                        "Price": 56.78
+                    }
+                ],
+                "TotalContractValue": 122808.3264,
+                "TraderName": "MockTrader5",
+                "Agents": [
+                    {
+                        "AgentType": "ECVNA",
+                        "AgentName": "MockBSCParty5",
+                        "ECVNA": {
+                            "BSCPartyID": "MockBSCPartyId5",
+                            "BuyerEnergyAccount": "Production",
+                            "SellerEnergyAccount": "Consumption",
+                            "BuyerID": "ECVNA",
+                            "SellerID": "MockBSCInternalParty5"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Test": 5,
+        "Description": "UK Power Baseload Day Long Day Transition",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockPower5",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockPower5001@MockInternalPartyEIC6",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC6",
+                "ReceiverID": "MockPartyEIC6",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Power",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "10YGB----------A",
+                "BuyerParty": "MockPartyEIC6",
+                "SellerParty": "MockInternalPartyEIC6",
+                "LoadType": "Base",
+                "Agreement": "GTMA",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": false
+                },
+                "TotalVolume": 30.75,
+                "TotalVolumeUnit": "MWh",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "MW",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": false
+                    },
+                    "CapacityUnit": "MWh"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-30T23:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-31T23:00:00+00:00",
+                        "ContractCapacity": 30.75,
+                        "Price": 67.89
+                    }
+                ],
+                "TotalContractValue": 2087.6175,
+                "TraderName": "MockTrader6",
+                "Agents": [
+                    {
+                        "AgentType": "ECVNA",
+                        "AgentName": "MockBSCParty6",
+                        "ECVNA": {
+                            "BSCPartyID": "MockBSCPartyId6",
+                            "BuyerEnergyAccount": "Consumption",
+                            "SellerEnergyAccount": "Production",
+                            "BuyerID": "ECVNA",
+                            "SellerID": "MockBSCInternalParty6"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Test": 6,
+        "Description": "UK Power 7DPeak Month October",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockPower6",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockPower6001@MockInternalPartyEIC7",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC7",
+                "ReceiverID": "MockPartyEIC7",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Power",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "10YGB----------A",
+                "BuyerParty": "MockPartyEIC7",
+                "SellerParty": "MockInternalPartyEIC7",
+                "LoadType": "Peak",
+                "Agreement": "GTMA",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": false
+                },
+                "TotalVolume": 4590.48,
+                "TotalVolumeUnit": "MWh",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "MW",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": false
+                    },
+                    "CapacityUnit": "MWh"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-01T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-01T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-02T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-02T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-03T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-03T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-04T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-04T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-05T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-05T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-06T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-06T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-07T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-07T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-08T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-08T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-09T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-09T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-10T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-10T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-11T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-11T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-12T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-12T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-13T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-13T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-14T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-14T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-15T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-15T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-16T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-16T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-17T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-17T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-18T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-18T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-19T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-19T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-20T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-20T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-21T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-21T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-22T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-22T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-23T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-23T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-24T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-24T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-25T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-25T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-26T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-26T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-27T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-27T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-28T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-28T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-29T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-29T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-30T07:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-30T19:00:00+01:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    },
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-31T07:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-10-31T19:00:00+00:00",
+                        "ContractCapacity": 148.08,
+                        "Price": 78.9
+                    }
+                ],
+                "TotalContractValue": 362188.872,
+                "TraderName": "MockTrader7",
+                "Agents": [
+                    {
+                        "AgentType": "ECVNA",
+                        "AgentName": "MockBSCParty7",
+                        "ECVNA": {
+                            "BSCPartyID": "MockBSCPartyId7",
+                            "BuyerEnergyAccount": "Production",
+                            "SellerEnergyAccount": "Consumption",
+                            "BuyerID": "ECVNA",
+                            "SellerID": "MockBSCInternalParty7"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Test": 7,
+        "Description": "UK Power Baseload Day GMT",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockPower7",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockPower7001@MockInternalPartyEIC8",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC8",
+                "ReceiverID": "MockPartyEIC8",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Power",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "10YGB----------A",
+                "BuyerParty": "MockPartyEIC8",
+                "SellerParty": "MockInternalPartyEIC8",
+                "LoadType": "Base",
+                "Agreement": "GTMA",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": false
+                },
+                "TotalVolume": 240.0,
+                "TotalVolumeUnit": "MWh",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "MW",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": false
+                    },
+                    "CapacityUnit": "MWh"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-26T23:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-27T23:00:00+00:00",
+                        "ContractCapacity": 240.0,
+                        "Price": 55.0
+                    }
+                ],
+                "TotalContractValue": 13200.0,
+                "TraderName": "MockTrader8",
+                "Agents": [
+                    {
+                        "AgentType": "ECVNA",
+                        "AgentName": "MockBSCParty8",
+                        "ECVNA": {
+                            "BSCPartyID": "MockBSCPartyId8",
+                            "BuyerEnergyAccount": "Consumption",
+                            "SellerEnergyAccount": "Production",
+                            "BuyerID": "ECVNA",
+                            "SellerID": "MockBSCInternalParty8"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "Test": 8,
+        "Description": "NBP Gas Month",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockGas0",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockGas0001@MockInternalPartyEIC9",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC9",
+                "ReceiverID": "MockPartyEIC9",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Gas",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "21YGB-UKGASGRIDW",
+                "BuyerParty": "MockPartyEIC9",
+                "SellerParty": "MockInternalPartyEIC9",
+                "LoadType": "Base",
+                "Agreement": "NBP15",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": true
+                },
+                "TotalVolume": 1760.18,
+                "TotalVolumeUnit": "Therm",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "ThermPerDay",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": true
+                    },
+                    "CapacityUnit": "Therms/day (UK)"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-01T05:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-04-01T05:00:00+01:00",
+                        "ContractCapacity": 1760.18,
+                        "Price": 12.34
+                    }
+                ],
+                "TotalContractValue": 217.206212,
+                "TraderName": "MockTrader9",
+                "HubCodificationInformation": {
+                    "BuyerHubCode": "MockCounterpartyGasShipper9",
+                    "SellerHubCode": "MockInternalPartyGasShipper9"
+                }
+            }
+        }
+    },
+    {
+        "Test": 9,
+        "Description": "NBP Gas March GMT",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockGas1",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockGas1001@MockInternalPartyEIC10",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC10",
+                "ReceiverID": "MockPartyEIC10",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Gas",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "21YGB-UKGASGRIDW",
+                "BuyerParty": "MockPartyEIC10",
+                "SellerParty": "MockInternalPartyEIC10",
+                "LoadType": "Base",
+                "Agreement": "NBP15",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": true
+                },
+                "TotalVolume": 67.89,
+                "TotalVolumeUnit": "Therm",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "ThermPerDay",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": true
+                    },
+                    "CapacityUnit": "Therms/day (UK)"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-26T05:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-27T05:00:00+00:00",
+                        "ContractCapacity": 67.89,
+                        "Price": 23.45
+                    }
+                ],
+                "TotalContractValue": 15.920205,
+                "TraderName": "MockTrader10",
+                "HubCodificationInformation": {
+                    "BuyerHubCode": "MockCounterpartyGasShipper10",
+                    "SellerHubCode": "MockInternalPartyGasShipper10"
+                }
+            }
+        }
+    },
+    {
+        "Test": 10,
+        "Description": "NBP Gas Day Short Day Transition",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockGas2",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockGas2001@MockInternalPartyEIC11",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC11",
+                "ReceiverID": "MockPartyEIC11",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Gas",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "21YGB-UKGASGRIDW",
+                "BuyerParty": "MockPartyEIC11",
+                "SellerParty": "MockInternalPartyEIC11",
+                "LoadType": "Base",
+                "Agreement": "NBP15",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": true
+                },
+                "TotalVolume": 78.9,
+                "TotalVolumeUnit": "Therm",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "ThermPerDay",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": true
+                    },
+                    "CapacityUnit": "Therms/day (UK)"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-27T05:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-03-28T05:00:00+01:00",
+                        "ContractCapacity": 78.9,
+                        "Price": 34.56
+                    }
+                ],
+                "TotalContractValue": 27.26784,
+                "TraderName": "MockTrader11",
+                "HubCodificationInformation": {
+                    "BuyerHubCode": "MockCounterpartyGasShipper11",
+                    "SellerHubCode": "MockInternalPartyGasShipper11"
+                }
+            }
+        }
+    },
+    {
+        "Test": 11,
+        "Description": "NBP Gas March BST",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockGas3",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockGas3001@MockInternalPartyEIC12",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC12",
+                "ReceiverID": "MockPartyEIC12",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Gas",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "21YGB-UKGASGRIDW",
+                "BuyerParty": "MockPartyEIC12",
+                "SellerParty": "MockInternalPartyEIC12",
+                "LoadType": "Base",
+                "Agreement": "NBP15",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": true
+                },
+                "TotalVolume": 89.01,
+                "TotalVolumeUnit": "Therm",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "ThermPerDay",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": true
+                    },
+                    "CapacityUnit": "Therms/day (UK)"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-03-28T05:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-03-29T05:00:00+01:00",
+                        "ContractCapacity": 89.01,
+                        "Price": 45.67
+                    }
+                ],
+                "TotalContractValue": 40.650867,
+                "TraderName": "MockTrader12",
+                "HubCodificationInformation": {
+                    "BuyerHubCode": "MockCounterpartyGasShipper12",
+                    "SellerHubCode": "MockInternalPartyGasShipper12"
+                }
+            }
+        }
+    },
+    {
+        "Test": 12,
+        "Description": "NBP Gas October BST",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockGas4",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockGas4001@MockInternalPartyEIC13",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC13",
+                "ReceiverID": "MockPartyEIC13",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Gas",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "21YGB-UKGASGRIDW",
+                "BuyerParty": "MockPartyEIC13",
+                "SellerParty": "MockInternalPartyEIC13",
+                "LoadType": "Base",
+                "Agreement": "NBP15",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": true
+                },
+                "TotalVolume": 90.12,
+                "TotalVolumeUnit": "Therm",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "ThermPerDay",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": true
+                    },
+                    "CapacityUnit": "Therms/day (UK)"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-29T05:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-30T05:00:00+01:00",
+                        "ContractCapacity": 90.12,
+                        "Price": 56.779999999999994
+                    }
+                ],
+                "TotalContractValue": 51.170136,
+                "TraderName": "MockTrader13",
+                "HubCodificationInformation": {
+                    "BuyerHubCode": "MockCounterpartyGasShipper13",
+                    "SellerHubCode": "MockInternalPartyGasShipper13"
+                }
+            }
+        }
+    },
+    {
+        "Test": 13,
+        "Description": "NBP Gas Long Day Transition",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockGas5",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockGas5001@MockInternalPartyEIC14",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC14",
+                "ReceiverID": "MockPartyEIC14",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Gas",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "21YGB-UKGASGRIDW",
+                "BuyerParty": "MockPartyEIC14",
+                "SellerParty": "MockInternalPartyEIC14",
+                "LoadType": "Base",
+                "Agreement": "NBP15",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": true
+                },
+                "TotalVolume": 1.23,
+                "TotalVolumeUnit": "Therm",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "ThermPerDay",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": true
+                    },
+                    "CapacityUnit": "Therms/day (UK)"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-30T05:00:00+01:00",
+                        "DeliveryEndDateAndTime": "2021-10-31T05:00:00+00:00",
+                        "ContractCapacity": 1.23,
+                        "Price": 67.89
+                    }
+                ],
+                "TotalContractValue": 0.835047,
+                "TraderName": "MockTrader14",
+                "HubCodificationInformation": {
+                    "BuyerHubCode": "MockCounterpartyGasShipper14",
+                    "SellerHubCode": "MockInternalPartyGasShipper14"
+                }
+            }
+        }
+    },
+    {
+        "Test": 14,
+        "Description": "NBP Gas October GMT",
+        "Inputs": {
+            "TradeReference": "CubeMetricsMockGas6",
+            "TradeLeg": 1
+        },
+        "ExpectedResults": {
+            "TradeConfirmation": {
+                "DocumentID": "CNF_20210728_CubeMetricsMockGas6001@MockInternalPartyEIC15",
+                "DocumentUsage": "Live",
+                "SenderID": "MockInternalPartyEIC15",
+                "ReceiverID": "MockPartyEIC15",
+                "ReceiverRole": "Trader",
+                "DocumentVersion": 1,
+                "Market": "GB",
+                "Commodity": "Gas",
+                "TransactionType": "FOR",
+                "DeliveryPointArea": "21YGB-UKGASGRIDW",
+                "BuyerParty": "MockPartyEIC15",
+                "SellerParty": "MockInternalPartyEIC15",
+                "LoadType": "Base",
+                "Agreement": "NBP15",
+                "Currency": {
+                    "currencyCodeType": "GBP",
+                    "UseFractionUnit": true
+                },
+                "TotalVolume": 12.34,
+                "TotalVolumeUnit": "Therm",
+                "TradeDate": "2021-07-28",
+                "CapacityUnit": "ThermPerDay",
+                "PriceUnit": {
+                    "Currency": {
+                        "currencyCodeType": "GBP",
+                        "UseFractionUnit": true
+                    },
+                    "CapacityUnit": "Therms/day (UK)"
+                },
+                "TimeIntervalQuantities": [
+                    {
+                        "DeliveryStartDateAndTime": "2021-10-31T05:00:00+00:00",
+                        "DeliveryEndDateAndTime": "2021-11-01T05:00:00+00:00",
+                        "ContractCapacity": 12.34,
+                        "Price": 78.9
+                    }
+                ],
+                "TotalContractValue": 9.73626,
+                "TraderName": "MockTrader15",
+                "HubCodificationInformation": {
+                    "BuyerHubCode": "MockCounterpartyGasShipper15",
+                    "SellerHubCode": "MockInternalPartyGasShipper15"
+                }
+            }
+        }
+    }
+]
