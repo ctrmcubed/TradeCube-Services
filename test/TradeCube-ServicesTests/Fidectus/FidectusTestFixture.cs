@@ -58,13 +58,37 @@ namespace TradeCube_ServicesTests.Fidectus
                 }
             };
 
+            var settingDataObjects = new List<SettingDataObject>
+            {
+                new()
+                {
+                    SettingName = "FIDECTUS_URL",
+                    SettingValue = "https://staging.gen.fidectus.com/api/v1"
+                },
+                new()
+                {
+                    SettingName = "FIDECTUS_AUTH_URL",
+                    SettingValue = "https://staging--fidectus.eu.auth0.com/oauth/token"
+                },
+                new()
+                {
+                    SettingName = "FIDECTUS_AUDIENCE",
+                    SettingValue = "fidectus_open_api_staging"
+                },
+                new()
+                {
+                    SettingName = "FIDECTUS_TENANT",
+                    SettingValue = "staging--fidectus"
+                }
+            };
+
             FidectusManager = new FidectusManager(
                 FidectusAuthenticationService,
                 FidectusService,
                 CreateTradeService(FidectusTrades),
                 CreateTradeSummaryService(FidectusTradeSummaries),
                 CreateProfileService(FidectusProfiles),
-                CreateSettingService(),
+                CreateSettingService(settingDataObjects),
                 CreateVaultService(vaultDataObjects),
                 new FidectusMappingService(CreateMappingService(FidectusMappings), CreatePartyService(FidectusParties)),
                 new Logger<FidectusManager>(LoggerFactory.Create(l => l.AddConsole())));
@@ -130,19 +154,16 @@ namespace TradeCube_ServicesTests.Fidectus
             return service.Object;
         }
 
-        private static ISettingService CreateSettingService()
+        private static ISettingService CreateSettingService(IEnumerable<SettingDataObject> settings)
         {
             var service = new Mock<ISettingService>();
 
             service
                 .Setup(c => c.GetSettingViaJwtAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync((string _, string _) =>
+                .ReturnsAsync((string settingName, string _) =>
                     new ApiResponseWrapper<IEnumerable<SettingDataObject>>
                     {
-                        Data = new List<SettingDataObject>
-                        {
-                            new() {SettingValue = "https://ebo-test.api.equias.org"},
-                        }
+                        Data = settings.Where(s => s.SettingName == settingName)
                     });
 
             service
@@ -150,10 +171,7 @@ namespace TradeCube_ServicesTests.Fidectus
                 .ReturnsAsync((string _) =>
                     new ApiResponseWrapper<IEnumerable<SettingDataObject>>
                     {
-                        Data = new List<SettingDataObject>
-                        {
-                            new() {SettingValue = "https://ebo-test.api.equias.org"},
-                        }
+                        Data = settings
                     });
 
             return service.Object;

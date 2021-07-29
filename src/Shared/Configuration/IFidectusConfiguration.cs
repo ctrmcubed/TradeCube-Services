@@ -2,7 +2,9 @@
 {
     public interface IFidectusConfiguration
     {
-        string ApiDomain { get; }
-        string RequestTokenUri { get; }
+        public string FidectusUrl { get; }
+        public string FidectusAuthUrl { get; }
+        public string FidectusAudience { get; }
+        public string FidectusConfirmationUrl { get; }
     }
 }

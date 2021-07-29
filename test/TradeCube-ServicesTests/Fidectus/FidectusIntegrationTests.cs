@@ -1,5 +1,4 @@
-﻿using Fidectus.Messages;
-using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,19 +14,16 @@ namespace TradeCube_ServicesTests.Fidectus
         }
 
         [Fact]
-        public async Task TestGetAuthenticationToken()
+        public async Task TestPostConfirmation()
         {
-            Assert.False(string.IsNullOrEmpty((await RequestTokenResponse()).AccessToken));
-        }
+            var test = fidectusTestFixture.ExpectedResults.SingleOrDefault(t => t.Description == "UK Power Baseload Month March GMT");
 
-        private async Task<RequestTokenResponse> RequestTokenResponse()
-        {
-            var username = Environment.GetEnvironmentVariable("FIDECTUS_CLIENT_ID");
-            var password = Environment.GetEnvironmentVariable("FIDECTUS_SECRET");
+            Assert.NotNull(test);
 
-            var authenticationService = fidectusTestFixture.FidectusManager;
+            var (tradeConfirmation, settingHelper) = await fidectusTestFixture.FidectusManager.CreateTradeConfirmationAsync(test.Inputs.TradeReference, test.Inputs.TradeLeg, "apiJwtToken");
+            var confirmationResponse = await fidectusTestFixture.FidectusManager.SendTradeConfirmationAsync(tradeConfirmation, "apiJwtToken", settingHelper);
 
-            return await authenticationService.CreateAuthenticationTokenAsync(new RequestTokenRequest(username, password), "apiJwtToken");
+            Assert.True(confirmationResponse.IsSuccessStatusCode);
         }
     }
 }

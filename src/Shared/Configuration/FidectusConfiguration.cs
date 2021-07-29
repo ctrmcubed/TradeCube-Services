@@ -4,18 +4,18 @@ namespace Shared.Configuration
 {
     public class FidectusConfiguration : IFidectusConfiguration
     {
-        public string ApiDomain { get; }
-        public string RequestTokenUri { get; }
+        public string FidectusUrl { get; }
+        public string FidectusAuthUrl { get; }
+        public string FidectusAudience { get; }
+        public string FidectusConfirmationUrl { get; }
 
-        public FidectusConfiguration()
+        public FidectusConfiguration(string fidectusUrl, string fidectusAuthUrl, string fidectusAudience)
         {
-            RequestTokenUri = Environment.GetEnvironmentVariable("FIDECTUS_REQUEST_TOKEN_URI");
-        }
+            FidectusUrl = fidectusUrl;
+            FidectusAuthUrl = fidectusAuthUrl;
+            FidectusAudience = fidectusAudience;
 
-        public FidectusConfiguration(string apiDomain)
-        {
-            ApiDomain = apiDomain;
-            RequestTokenUri = Environment.GetEnvironmentVariable("FIDECTUS_REQUEST_TOKEN_URI");
+            FidectusConfirmationUrl = Environment.GetEnvironmentVariable("FIDECTUS_CONFIRMATION_URI");
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Shared.Serialization
 
         public static string Serialize(object t)
         {
-            return JsonSerializer.Serialize(t);
+            return JsonSerializer.Serialize(t, new JsonSerializerOptions { IgnoreNullValues = true });
         }
 
         public static async Task<TV> DeserializeAsync<TV>(Stream stream)

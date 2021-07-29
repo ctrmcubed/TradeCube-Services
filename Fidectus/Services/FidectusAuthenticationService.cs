@@ -21,9 +21,9 @@ namespace Fidectus.Services
         {
             var httpClient = httpClientFactory.CreateClient();
 
-            httpClient.BaseAddress = new Uri(fidectusConfiguration.ApiDomain);
+            httpClient.BaseAddress = new Uri(fidectusConfiguration.FidectusAuthUrl);
 
-            return await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, fidectusConfiguration.RequestTokenUri, requestTokenRequest);
+            return await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, fidectusConfiguration.FidectusAuthUrl, requestTokenRequest);
         }
     }
 }

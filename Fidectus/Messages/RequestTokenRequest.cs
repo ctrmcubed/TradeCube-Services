@@ -21,11 +21,11 @@ namespace Fidectus.Messages
         [JsonPropertyName("grant_type")]
         public string GrantType { get; }
 
-        public RequestTokenRequest(string username, string password)
+        public RequestTokenRequest(string username, string password, string audience)
         {
             ClientId = username;
             ClientSecret = password;
-            Audience = "fidectus_open_api_staging";
+            Audience = audience;
             GrantType = "client_credentials";
         }
     }
