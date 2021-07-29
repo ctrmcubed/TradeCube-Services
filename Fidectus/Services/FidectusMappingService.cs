@@ -1,10 +1,10 @@
 ﻿using Fidectus.Constants;
+using Fidectus.Helpers;
 using Fidectus.Models;
 using NodaTime;
 using Shared.DataObjects;
 using Shared.Extensions;
 using Shared.Helpers;
-using Shared.Managers;
 using Shared.Messages;
 using Shared.Services;
 using System;
@@ -20,7 +20,6 @@ namespace Fidectus.Services
     {
         private readonly IMappingService mappingService;
         private readonly IPartyService partyService;
-        private MappingManager mappingManager;
 
         public FidectusMappingService(IMappingService mappingService, IPartyService partyService)
         {
@@ -28,18 +27,13 @@ namespace Fidectus.Services
             this.partyService = partyService;
         }
 
-        public IFidectusMappingService SetMappingManager(MappingManager mapping)
-        {
-            mappingManager = mapping;
-            return this;
-        }
-
         public async Task<IEnumerable<MappingDataObject>> GetMappingsAsync(string apiJwtToken)
         {
             return (await mappingService.GetMappingsViaJwtAsync(apiJwtToken))?.Data;
         }
 
-        public async Task<TradeConfirmation> MapConfirmation(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse, IEnumerable<ProfileResponse> profileResponses, string apiJwtToken)
+        public async Task<TradeConfirmation> MapConfirmation(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse,
+            IEnumerable<ProfileResponse> profileResponses, MappingHelper mappingHelper, SettingHelper settingsHelper, string apiJwtToken)
         {
             if (tradeDataObject == null)
             {
@@ -56,105 +50,137 @@ namespace Fidectus.Services
                 throw new DataException("No profile data");
             }
 
-            var senderId = await MapSenderId(tradeDataObject, apiJwtToken);
-            var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
-            var commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity);
 
+            var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
+
+            var senderId = await MapSenderId(tradeDataObject, apiJwtToken);
+            var receiverId = await MapReceiverId(tradeDataObject, apiJwtToken);
             var buyerEic = await MapEic(tradeDataObject.Buyer, "Buyer party", apiJwtToken);
             var sellerEic = await MapEic(tradeDataObject.Seller, "Seller party", apiJwtToken);
-            var beneficiaryId = await MapEic(tradeDataObject.Beneficiary, "Beneficiary party", apiJwtToken, buyerEic);
 
             return new TradeConfirmation
             {
                 DocumentId = MapDocumentId(tradeDataObject, senderId),
-                //Uti = tradeDataObject.Uti,
-                //ProcessInformation =
-                //    new ProcessInformation
-                //    {
-                //        ReportingOnBehalfOf = false,
-                //        EmirReportMode = CmsReportType,
-                //        RemitReportMode = CmsReportType
-                //    },
-                DocumentUsage = "",
+                DocumentUsage = settingsHelper.GetSetting("FidectusConfirmationUsage", "Live"),
                 SenderId = senderId,
-                ReceiverId = "",
-                Market = MapCommodityToMarket(tradeDataObject.Product?.Commodity),
-                Commodity = commodity,
-                TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType),
+                ReceiverId = receiverId,
+                ReceiverRole = "Trader",
+                DocumentVersion = 1,
+                Market = tradeDataObject.Product?.Commodity?.Country,
+                Commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper),
+                TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType, mappingHelper),
                 DeliveryPointArea = tradeDataObject.Product?.Commodity?.DeliveryArea?.Eic,
                 BuyerParty = buyerEic,
                 SellerParty = sellerEic,
-                //BeneficiaryId = beneficiaryId,
-                //Intragroup = MapInternalToIntragroup(tradeDataObject.Buyer?.Internal, tradeDataObject.Seller?.Internal),
-                LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom"),
-                Agreement =
-                    MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType,
-                        tradeDataObject.Product?.Commodity?.Commodity),
+                LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom", mappingHelper),
+                Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType, tradeDataObject.Product?.Commodity?.Commodity, mappingHelper),
+                Currency = MapPriceUnitToCurrency(tradeDataObject.Price?.PriceUnit),
                 TotalVolume = AbsoluteValue(tradeSummaryResponse?.TotalVolume),
-                TotalVolumeUnit = MapEnergyUnitToVolumeUnit(tradeDataObject.Quantity?.QuantityUnit?.EnergyUnit?.EnergyUnit),
-                //TradeExecutionTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(tradeDataObject.TradeDateTime, timezone),
-                CapacityUnit = MapQuantityUnitToCapacityUnit(tradeDataObject.Quantity?.QuantityUnit?.QuantityUnit),
-                PriceUnit = MapPriceUnit(tradeDataObject.Price?.PriceUnit),
+                TotalVolumeUnit = MapEnergyUnitToVolumeUnit(tradeDataObject.Quantity?.QuantityUnit?.EnergyUnit?.EnergyUnit, mappingHelper),
+                TradeDate = tradeDataObject.TradeDateTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                CapacityUnit = MapQuantityUnitToCapacityUnit(tradeDataObject.Quantity?.QuantityUnit?.QuantityUnit, mappingHelper),
+                PriceUnit = MapPriceUnitToPriceUnit(tradeDataObject.Price?.PriceUnit, mappingHelper),
                 TotalContractValue = AbsoluteValue(tradeSummaryResponse?.TotalValue),
-                //SettlementCurrency = tradeSummaryResponse?.TotalValueCurrency,
-                //SettlementDates = cashflows.Any()
-                //    ? cashflows.SelectMany(d => d.Cashflows.Select(c => c.SettlementDate.ToIso8601DateTime()))
-                //    : null,
-                TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(tradeDataObject?.Quantity?.Quantity, profileResponses, timezone, tradeDataObject.Price?.PriceUnit?.CurrencyExponent),
+                TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(tradeDataObject.Quantity?.Quantity, profileResponses, timezone, tradeDataObject.Price?.PriceUnit?.CurrencyExponent),
                 TraderName = tradeDataObject.InternalTrader?.ContactLongName,
-                HubCodificationInformation = commodity == FidectusConstants.CommodityGas
+                HubCodificationInformation = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper) == FidectusConstants.CommodityGas
                     ? await MapHubCodificationInformation(tradeDataObject.Buyer, tradeDataObject.Seller, apiJwtToken)
                     : null,
-                //Agents = commodity == FidectusConstants.CommodityPower
-                //    ? new List<Agent>
-                //    {
-                //        new()
-                //        {
-                //            AgentName = tradeDataObject.Extension?.BuyerEnergyAccount,
-                //            AgentType = FidectusConstants.AgentTypeEcvna,
-                //            Ecvna = new Ecvna
-                //            {
-                //                BscPartyId =
-                //                    await MapBscParty(
-                //                        tradeDataObject.Extension?.EcvnAgentParty?.Extension?.BscParty,
-                //                        apiJwtToken),
-                //                BuyerEnergyAccount = tradeDataObject.Extension?.BuyerEnergyAccount,
-                //                SellerEnergyAccount = tradeDataObject.Extension?.SellerEnergyAccount,
-                //                BuyerId = await MapBuyerSellerId(tradeDataObject.Buyer, apiJwtToken),
-                //                SellerId = await MapBuyerSellerId(tradeDataObject.Seller, apiJwtToken),
-                //                NotificationAgent =
-                //                    await MapNotificationAgent(tradeDataObject.Extension?.EcvnAgentParty,
-                //                        apiJwtToken),
-                //                TransmissionChargeIdentification =
-                //                    MapSchedule5(tradeDataObject.Extension?.Schedule5)
-                //            }
-                //        }
-                //    }
-                //    : null
+                Agents = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper) == FidectusConstants.CommodityPower
+                    ? new List<Agent>
+                    {
+                        new()
+                        {
+                            AgentName = tradeDataObject.Extension?.EcvnAgentParty?.Extension?.BscParty?.BscPartyLongName,
+                            AgentType = FidectusConstants.AgentTypeEcvna,
+                            Ecvna = new Ecvna
+                            {
+                                BscPartyId = await MapBscParty(tradeDataObject.Extension?.EcvnAgentParty?.Extension?.BscParty, apiJwtToken),
+                                BuyerEnergyAccount = tradeDataObject.Extension?.BuyerEnergyAccount,
+                                SellerEnergyAccount = tradeDataObject.Extension?.SellerEnergyAccount,
+                                BuyerId = await MapBuyerSellerId(tradeDataObject.Buyer, apiJwtToken),
+                                SellerId = await MapBuyerSellerId(tradeDataObject.Seller, apiJwtToken),
+                            }
+                        }
+                    }
+                    : null
             };
-
         }
 
         private async Task<string> MapSenderId(TradeDataObject tradeDataObject, string apiJwtToken)
         {
             async Task<string> Party(TradeDataObject trade, string token)
             {
-                // TODO check LEI?
                 var party = await partyService.GetPartyAsync(trade.Counterparty?.Party, token);
+                var singleOrDefault = party?.Data?.SingleOrDefault();
 
-                return party?.Data?.FirstOrDefault()?.Eic?.Eic;
+                if (singleOrDefault is null)
+                {
+                    throw new DataException("The Internal party does not have an EIC or LEI");
+                }
+
+                if (!string.IsNullOrEmpty(singleOrDefault.Eic?.Eic))
+                {
+                    return singleOrDefault.Eic?.Eic;
+                }
+
+                return string.IsNullOrEmpty(singleOrDefault.Lei?.Lei)
+                    ? throw new DataException("The Internal party does not have an EIC or LEI")
+                    : singleOrDefault.Lei?.Lei;
+            }
+
+            async Task<string> Lei(TradeDataObject trade, string token)
+            {
+                return string.IsNullOrWhiteSpace(tradeDataObject.InternalParty?.Lei?.Lei)
+                    ? await Party(trade, token)
+                    : tradeDataObject.InternalParty?.Lei?.Lei;
             }
 
             return string.IsNullOrWhiteSpace(tradeDataObject.InternalParty?.Eic?.Eic)
-                ? await Party(tradeDataObject, apiJwtToken)
+                ? await Lei(tradeDataObject, apiJwtToken)
                 : tradeDataObject.InternalParty?.Eic?.Eic;
+        }
+
+        private async Task<string> MapReceiverId(TradeDataObject tradeDataObject, string apiJwtToken)
+        {
+            async Task<string> Party(TradeDataObject trade, string token)
+            {
+                var party = await partyService.GetPartyAsync(trade.Counterparty?.Party, token);
+                var singleOrDefault = party?.Data?.SingleOrDefault();
+
+                if (singleOrDefault is null)
+                {
+                    throw new DataException("The Counterparty does not have an EIC or LEI");
+                }
+
+                if (!string.IsNullOrEmpty(singleOrDefault.Eic?.Eic))
+                {
+                    return singleOrDefault.Eic?.Eic;
+                }
+
+                return string.IsNullOrEmpty(singleOrDefault.Lei?.Lei)
+                    ? throw new DataException("The Counterparty party does not have an EIC or LEI")
+                    : singleOrDefault.Lei?.Lei;
+            }
+
+            async Task<string> Lei(TradeDataObject trade, string token)
+            {
+                return string.IsNullOrWhiteSpace(tradeDataObject.Counterparty?.Lei?.Lei)
+                    ? await Party(trade, token)
+                    : tradeDataObject.Counterparty?.Lei?.Lei;
+            }
+
+            return string.IsNullOrWhiteSpace(tradeDataObject.Counterparty?.Eic?.Eic)
+                ? await Lei(tradeDataObject, apiJwtToken)
+                : tradeDataObject.Counterparty?.Eic?.Eic;
         }
 
         private static string MapDocumentId(TradeDataObject tradeDataObject, string senderId)
         {
             var tradeId = TestMapTradeReferenceToTradeId(tradeDataObject.TradeReference, tradeDataObject.TradeLeg);
+            var tradeDateTime = tradeDataObject.TradeDateTime.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
 
-            return $"{FidectusConstants.ConfirmationDocument}_{tradeDataObject.TradeDateTime.ToString("yyyyMMdd", CultureInfo.InvariantCulture)}_{tradeId}@{senderId}";
+            return $"{FidectusConstants.ConfirmationDocument}_{tradeDateTime}_{tradeId}@{senderId}";
         }
 
         private static string TestMapTradeReferenceToTradeId(string tradeReference, int tradeLeg)
@@ -179,22 +205,17 @@ namespace Fidectus.Services
         private static decimal AbsoluteValue(decimal value) =>
             Math.Abs(value);
 
-        private string MapCommodityToMarket(CommodityDataObject commodityDataObject)
+        private static string MapCommodityToCommodity(string commodity, MappingHelper mappingHelper)
         {
-            return commodityDataObject?.Country;
-        }
-
-        private string MapCommodityToCommodity(string commodity)
-        {
-            var mappingTo = mappingManager.GetMappingTo("EFET_Commodity", commodity);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_Commodity", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? commodity
                 : mappingTo;
         }
 
-        private string MapContractTypeToTransactionType(string contractType)
+        private static string MapContractTypeToTransactionType(string contractType, MappingHelper mappingHelper)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_TransactionType", contractType);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_TransactionType", contractType);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? contractType
                 : mappingTo;
@@ -230,79 +251,68 @@ namespace Fidectus.Services
                 : defaultValue;
         }
 
-        private bool? MapInternalToIntragroup(bool? buyer, bool? seller)
-        {
-            return buyer.HasValue && buyer.Value && seller.HasValue && seller.Value
-                ? true
-                : null;
-        }
-
-        private string MapShapeDescriptionToLoadType(string shapeDescription, string defaultValue)
+        private static string MapShapeDescriptionToLoadType(string shapeDescription, string defaultValue, MappingHelper mappingHelper)
         {
             if (string.IsNullOrWhiteSpace(shapeDescription))
             {
                 return defaultValue;
             }
 
-            var mappingTo = mappingManager.GetMappingTo("EFET_LoadType", shapeDescription);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_LoadType", shapeDescription);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? defaultValue
                 : mappingTo;
         }
 
-        private string MapContractAgreementToAgreement(string agreementType, string commodity)
+        private static string MapContractAgreementToAgreement(string agreementType, string commodity, MappingHelper mappingHelper)
         {
             if (!string.IsNullOrWhiteSpace(agreementType))
             {
                 return agreementType;
             }
 
-            var mappingTo = mappingManager.GetMappingTo("EFET_Agreement", commodity);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_Agreement", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? agreementType
                 : mappingTo;
         }
 
-        private string MapEnergyUnitToVolumeUnit(string energyUnit)
+        private static Currency MapPriceUnitToCurrency(PriceUnitDataObject priceUnit)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_EnergyUnit", energyUnit);
+            return new()
+            {
+                CurrencyCodeType = priceUnit?.Currency,
+                UseFractionUnit = priceUnit?.CurrencyExponent is not null
+            };
+        }
+
+        private static string MapEnergyUnitToVolumeUnit(string energyUnit, MappingHelper mappingHelper)
+        {
+            var mappingTo = mappingHelper.GetMappingTo("EFET_EnergyUnit", energyUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? energyUnit
                 : mappingTo;
         }
 
-        private string MapQuantityUnitToCapacityUnit(string quantityUnit)
+        private static string MapQuantityUnitToCapacityUnit(string quantityUnit, MappingHelper mappingHelper)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_CapacityUnit", quantityUnit);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_CapacityUnit", quantityUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? quantityUnit
                 : mappingTo;
         }
 
-        private PriceUnit MapPriceUnit(PriceUnitDataObject priceUnit)
+        private static PriceUnit MapPriceUnitToPriceUnit(PriceUnitDataObject priceUnit, MappingHelper mappingHelper)
         {
-            return new PriceUnit
+            return new()
             {
-                //Currency =  priceUnit?.Currency,
-                //UseFractionalUnit = priceUnit?.CurrencyExponent != null && priceUnit.CurrencyExponent != 0,
-                CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerQuantityUnit?.QuantityUnit)
+                Currency = new Currency
+                {
+                    CurrencyCodeType = priceUnit?.Currency,
+                    UseFractionUnit = priceUnit?.CurrencyExponent is not null
+                },
+                CapacityUnit = mappingHelper.GetMappingTo("EFET_PriceUnit_CapacityUnit", priceUnit?.PerQuantityUnit?.QuantityUnit)
             };
-        }
-
-        private string MapPerEnergyUnitToCapacityUnit(string quantityUnit)
-        {
-            var mappingTo = mappingManager.GetMappingTo("EFET_PriceUnit_CapacityUnit", quantityUnit);
-            return string.IsNullOrWhiteSpace(mappingTo)
-                ? quantityUnit
-                : mappingTo;
-        }
-
-        private string MapSchedule5(string schedule5)
-        {
-            var mappingTo = mappingManager.GetMappingTo("EFET_Schedule5", schedule5);
-            return string.IsNullOrWhiteSpace(mappingTo)
-                ? schedule5
-                : mappingTo;
         }
 
         private static IEnumerable<TimeIntervalQuantity> MapProfileResponsesToDeliveryStartTimes(decimal? quantity, IEnumerable<ProfileResponse> profileResponses, DateTimeZone dateTimeZone, int? currencyExponent)
@@ -331,14 +341,14 @@ namespace Fidectus.Services
                 .Where(v => v.volume != 0.0m)
                 .Select(pv => new TimeIntervalQuantity
                 {
-                    //DeliveryStartTimestamp = FidectusDateTimeHelper.FormatDateTimeWithOffset(pv.utcStart, dateTimeZone),
-                    //DeliveryEndTimestamp = FidectusDateTimeHelper.FormatDateTimeWithOffset(pv.utcEnd, dateTimeZone),
+                    DeliveryStartDateAndTime = FidectusDateTimeHelper.FormatDateTimeWithOffset(pv.utcStart, dateTimeZone),
+                    DeliveryEndDateAndTime = FidectusDateTimeHelper.FormatDateTimeWithOffset(pv.utcEnd, dateTimeZone),
                     Price = pv.price * (currencyExponent.HasValue
                         ? (decimal)Math.Pow(10, currencyExponent.Value)
                         : 1.0m),
-                    //ContractCapacity = quantity.HasValue
-                    //    ? AbsoluteValue(quantity.Value)
-                    //    : 0
+                    ContractCapacity = quantity.HasValue
+                        ? AbsoluteValue(quantity.Value)
+                        : 0
                 });
         }
 
@@ -381,19 +391,6 @@ namespace Fidectus.Services
             return party == null
                 ? throw new DataException("The trade has no Buyer or Seller")
                 : await Id(party);
-        }
-
-        private async Task<string> MapNotificationAgent(PartyDataObject party, string apiJwtToken)
-        {
-            async Task<string> Eic(PartyDataObject pty)
-            {
-                return pty?.Eic?.Eic ??
-                       (await partyService.GetPartyAsync(pty?.Party, apiJwtToken))?.Data?.SingleOrDefault()?.Eic?.Eic;
-            }
-
-            return party == null
-                ? throw new DataException("The trade has no ECVN Agent")
-                : await Eic(party);
         }
     }
 }

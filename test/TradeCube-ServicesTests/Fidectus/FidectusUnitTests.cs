@@ -138,8 +138,8 @@ namespace TradeCube_ServicesTests.Fidectus
             Assert.Equal(test.ExpectedResults.TradeConfirmation.PriceUnit.CapacityUnit, tradeConfirmation.PriceUnit.CapacityUnit);
             Assert.Equal(test.ExpectedResults.TradeConfirmation.TotalContractValue, tradeConfirmation.TotalContractValue);
             Assert.Equal(test.ExpectedResults.TradeConfirmation.TraderName, tradeConfirmation.TraderName);
-            Assert.Equal(test.ExpectedResults.TradeConfirmation.HubCodificationInformation.BuyerHubCode, tradeConfirmation.HubCodificationInformation.BuyerHubCode);
-            Assert.Equal(test.ExpectedResults.TradeConfirmation.HubCodificationInformation.SellerHubCode, tradeConfirmation.HubCodificationInformation.SellerHubCode);
+            Assert.Equal(test.ExpectedResults.TradeConfirmation.HubCodificationInformation?.BuyerHubCode, tradeConfirmation.HubCodificationInformation?.BuyerHubCode);
+            Assert.Equal(test.ExpectedResults.TradeConfirmation.HubCodificationInformation?.SellerHubCode, tradeConfirmation.HubCodificationInformation?.SellerHubCode);
 
             // Time Interval Quantities
             Assert.Equal(test.ExpectedResults.TradeConfirmation.TimeIntervalQuantities.Count(), tradeConfirmation.TimeIntervalQuantities.Count());
@@ -166,27 +166,31 @@ namespace TradeCube_ServicesTests.Fidectus
             }
 
             // Agents
-            Assert.Equal(test.ExpectedResults.TradeConfirmation.Agents.Count(), tradeConfirmation.Agents.Count());
+            Assert.Equal(test.ExpectedResults.TradeConfirmation.Agents is null, tradeConfirmation.Agents is null);
+            Assert.Equal(test.ExpectedResults.TradeConfirmation.Agents?.Count(), tradeConfirmation.Agents?.Count());
 
-            var zippedAgents = test.ExpectedResults.TradeConfirmation.Agents.Zip(tradeConfirmation.Agents,
-                (e, a) => new
-                {
-                    AgentName = a.AgentName == e.AgentName
-                        ? a.AgentName
-                        : throw new DataException("Misaligned Agent"),
-                    e,
-                    a
-                });
-
-            foreach (var agent in zippedAgents)
+            if (test.ExpectedResults.TradeConfirmation.Agents is not null && tradeConfirmation.Agents is not null)
             {
-                Assert.Equal(agent.e.AgentType, agent.a.AgentType);
-                Assert.Equal(agent.e.AgentName, agent.a.AgentName);
-                Assert.Equal(agent.e.ECVNA.BSCPartyID, agent.a.ECVNA.BSCPartyID);
-                Assert.Equal(agent.e.ECVNA.BuyerEnergyAccount, agent.a.ECVNA.BuyerEnergyAccount);
-                Assert.Equal(agent.e.ECVNA.SellerEnergyAccount, agent.a.ECVNA.SellerEnergyAccount);
-                Assert.Equal(agent.e.ECVNA.BuyerID, agent.a.ECVNA.BuyerID);
-                Assert.Equal(agent.e.ECVNA.SellerID, agent.a.ECVNA.SellerID);
+                var zippedAgents = test.ExpectedResults.TradeConfirmation.Agents.Zip(tradeConfirmation.Agents,
+                    (e, a) => new
+                    {
+                        AgentName = a.AgentName == e.AgentName
+                            ? a.AgentName
+                            : throw new DataException("Misaligned Agent"),
+                        e,
+                        a
+                    });
+
+                foreach (var agent in zippedAgents)
+                {
+                    Assert.Equal(agent.e.AgentType, agent.a.AgentType);
+                    Assert.Equal(agent.e.AgentName, agent.a.AgentName);
+                    Assert.Equal(agent.e.Ecvna.BscPartyId, agent.a.Ecvna.BscPartyId);
+                    Assert.Equal(agent.e.Ecvna.BuyerEnergyAccount, agent.a.Ecvna.BuyerEnergyAccount);
+                    Assert.Equal(agent.e.Ecvna.SellerEnergyAccount, agent.a.Ecvna.SellerEnergyAccount);
+                    Assert.Equal(agent.e.Ecvna.BuyerId, agent.a.Ecvna.BuyerId);
+                    Assert.Equal(agent.e.Ecvna.SellerId, agent.a.Ecvna.SellerId);
+                }
             }
         }
     }

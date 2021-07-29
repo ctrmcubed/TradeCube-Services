@@ -7,7 +7,7 @@ using Shared.Configuration;
 using Shared.Constants;
 using Shared.DataObjects;
 using Shared.Extensions;
-using Shared.Managers;
+using Shared.Helpers;
 using Shared.Messages;
 using Shared.Serialization;
 using Shared.Services;
@@ -147,8 +147,7 @@ namespace Equias.Managers
 
         public async Task<PhysicalTrade> CreatePhysicalTradeAsync(TradeDataObject tradeDataObject, string apiJwtToken)
         {
-            var mappingManager = new MappingManager(await equiasMappingService.GetMappingsAsync(apiJwtToken));
-            var mappingService = equiasMappingService.SetMappingManager(mappingManager);
+            var mappingHelper = new MappingHelper(await equiasMappingService.GetMappingsAsync(apiJwtToken));
             var tradeSummary = (await tradeSummaryService.TradeSummaryAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.FirstOrDefault();
             var cashflows = (await cashflowService.CashflowAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data;
             var profileResponses = (await profileService.ProfileAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken, ProfileTradeConstants.ProfileFormatSparse))?.Data;
@@ -157,7 +156,7 @@ namespace Equias.Managers
             logger.LogTrace($"Trade Cashflows: {TradeCubeJsonSerializer.Serialize(cashflows)}\r\n");
             logger.LogTrace($"Trade Profile: {TradeCubeJsonSerializer.Serialize(profileResponses)}\r\n");
 
-            return await mappingService.MapTrade(tradeDataObject, tradeSummary, cashflows, profileResponses, apiJwtToken);
+            return await equiasMappingService.MapTrade(tradeDataObject, tradeSummary, cashflows, profileResponses, mappingHelper, apiJwtToken);
         }
 
         public async Task<EboTradeResponse> AddPhysicalTradeAsync(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)

@@ -205,6 +205,11 @@
         "MappingTo": "Therm"
     },
     {
+        "MappingKey": "EFET_PriceUnit_CapacityUnit",
+        "MappingFrom": "Therms/day (UK)",
+        "MappingTo": "ThermPerDay"
+    },
+    {
         "MappingKey": "EFET_Schedule5",
         "MappingFrom": "Schedule 5 On",
         "MappingTo": "Schedule 5 on"

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Shared.Managers
+namespace Shared.Helpers
 {
-    public class MappingManager
+    public class MappingHelper
     {
         private readonly Dictionary<(string MappingKey, string MappingFrom), MappingDataObject> mappings;
 
-        public MappingManager(IEnumerable<MappingDataObject> mappings)
+        public MappingHelper(IEnumerable<MappingDataObject> mappings)
         {
             this.mappings = mappings.ToDictionary(k => (k.MappingKey, k.MappingFrom), v => v);
         }
@@ -20,7 +20,7 @@ namespace Shared.Managers
             return mappings.ContainsKey(compositeKey)
                 ? mappings[compositeKey]?.MappingTo
                 : null;
-            ;
         }
+
     }
 }

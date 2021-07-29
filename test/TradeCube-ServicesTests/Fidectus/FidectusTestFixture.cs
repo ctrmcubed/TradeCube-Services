@@ -137,7 +137,24 @@ namespace TradeCube_ServicesTests.Fidectus
             service
                 .Setup(c => c.GetSettingViaJwtAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync((string _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<SettingDataObject>> { Data = new List<SettingDataObject> { new() { SettingValue = "https://ebo-test.api.equias.org" } } });
+                    new ApiResponseWrapper<IEnumerable<SettingDataObject>>
+                    {
+                        Data = new List<SettingDataObject>
+                        {
+                            new() {SettingValue = "https://ebo-test.api.equias.org"},
+                        }
+                    });
+
+            service
+                .Setup(c => c.GetSettingsViaJwtAsync(It.IsAny<string>()))
+                .ReturnsAsync((string _) =>
+                    new ApiResponseWrapper<IEnumerable<SettingDataObject>>
+                    {
+                        Data = new List<SettingDataObject>
+                        {
+                            new() {SettingValue = "https://ebo-test.api.equias.org"},
+                        }
+                    });
 
             return service.Object;
         }

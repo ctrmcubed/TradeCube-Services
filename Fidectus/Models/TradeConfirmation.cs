@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -10,21 +9,18 @@ namespace Fidectus.Models
         public string Agreement { get; set; }
         public string BuyerParty { get; set; }
 
-        [JsonProperty("DocumentID")]
         [JsonPropertyName("DocumentID")]
         public string DocumentId { get; set; }
 
         public string DocumentUsage { get; set; }
         public int DocumentVersion { get; set; }
 
-        [JsonProperty("ReceiverID")]
         [JsonPropertyName("ReceiverID")]
         public string ReceiverId { get; set; }
 
         public string ReceiverRole { get; set; }
         public string SellerParty { get; set; }
 
-        [JsonProperty("SenderID")]
         [JsonPropertyName("SenderID")]
         public string SenderId { get; set; }
 

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Shared.Configuration;
 using Shared.Constants;
 using Shared.DataObjects;
-using Shared.Managers;
+using Shared.Helpers;
 using Shared.Serialization;
 using Shared.Services;
 using System.Data;
@@ -42,15 +42,15 @@ namespace Fidectus.Managers
 
         public async Task<TradeConfirmation> CreateTradeConfirmationAsync(TradeDataObject tradeDataObject, string apiJwtToken)
         {
-            var mappingManager = new MappingManager(await fidectusMappingService.GetMappingsAsync(apiJwtToken));
-            var mappingService = fidectusMappingService.SetMappingManager(mappingManager);
+            var mappingHelper = new MappingHelper(await fidectusMappingService.GetMappingsAsync(apiJwtToken));
+            var settingsHelper = new SettingHelper((await settingService.GetSettingsViaJwtAsync(apiJwtToken))?.Data);
             var tradeSummary = (await tradeSummaryService.TradeSummaryAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.FirstOrDefault();
             var profileResponses = (await profileService.ProfileAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken, ProfileTradeConstants.ProfileFormatSparse))?.Data;
 
             logger.LogTrace($"Trade Summary: {TradeCubeJsonSerializer.Serialize(tradeSummary)}\r\n");
             logger.LogTrace($"Trade Profile: {TradeCubeJsonSerializer.Serialize(profileResponses)}\r\n");
 
-            return await mappingService.MapConfirmation(tradeDataObject, tradeSummary, profileResponses, apiJwtToken);
+            return await fidectusMappingService.MapConfirmation(tradeDataObject, tradeSummary, profileResponses, mappingHelper, settingsHelper, apiJwtToken);
         }
 
         public async Task<TradeDataObject> GetTradeAsync(string tradeReference, int tradeLeg, string apiJwtToken)

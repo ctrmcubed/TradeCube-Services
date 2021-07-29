@@ -2,8 +2,10 @@
 {
     public static class FidectusConstants
     {
-        public static readonly string CommodityPower = "Power";
-        public static readonly string CommodityGas = "Gas";
-        public static readonly string ConfirmationDocument = "CNF";
+        public const string CommodityPower = "Power";
+        public const string CommodityGas = "Gas";
+        public const string ConfirmationDocument = "CNF";
+
+        public const string AgentTypeEcvna = "ECVNA";
     }
 }

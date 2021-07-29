@@ -1,6 +1,6 @@
 [
     {
-        "TradeReference": "CubeMetricsMockPower0",
+        "TradeReference": "FidectusConfirmsMockPower0",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -21,7 +21,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockPower1",
+        "TradeReference": "FidectusConfirmsMockPower1",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -342,7 +342,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockPower2",
+        "TradeReference": "FidectusConfirmsMockPower2",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -363,7 +363,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockPower3",
+        "TradeReference": "FidectusConfirmsMockPower3",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -384,7 +384,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockPower4",
+        "TradeReference": "FidectusConfirmsMockPower4",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -405,7 +405,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockPower5",
+        "TradeReference": "FidectusConfirmsMockPower5",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -426,7 +426,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockPower6",
+        "TradeReference": "FidectusConfirmsMockPower6",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -747,7 +747,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockPower7",
+        "TradeReference": "FidectusConfirmsMockPower7",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -768,7 +768,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockGas0",
+        "TradeReference": "FidectusConfirmsMockGas0",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -789,7 +789,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockGas1",
+        "TradeReference": "FidectusConfirmsMockGas1",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -810,7 +810,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockGas2",
+        "TradeReference": "FidectusConfirmsMockGas2",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -831,7 +831,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockGas3",
+        "TradeReference": "FidectusConfirmsMockGas3",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -852,7 +852,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockGas4",
+        "TradeReference": "FidectusConfirmsMockGas4",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -873,7 +873,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockGas5",
+        "TradeReference": "FidectusConfirmsMockGas5",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",
@@ -894,7 +894,7 @@
         ]
     },
     {
-        "TradeReference": "CubeMetricsMockGas6",
+        "TradeReference": "FidectusConfirmsMockGas6",
         "TradeLeg": 1,
         "ProfileFormat": "Sparse",
         "Currency": "GBP",

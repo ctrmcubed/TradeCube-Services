@@ -1,11 +1,19 @@
-﻿namespace Fidectus.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Fidectus.Models
 {
     public class Ecvna
     {
-        public string BSCPartyID { get; set; }
+        [JsonPropertyName("BSCPartyID")]
+        public string BscPartyId { get; set; }
+
         public string BuyerEnergyAccount { get; set; }
         public string SellerEnergyAccount { get; set; }
-        public string BuyerID { get; set; }
-        public string SellerID { get; set; }
+
+        [JsonPropertyName("BuyerID")]
+        public string BuyerId { get; set; }
+
+        [JsonPropertyName("SellerID")]
+        public string SellerId { get; set; }
     }
 }

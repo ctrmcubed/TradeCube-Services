@@ -15,8 +15,4 @@ namespace Fidectus.Services
             this.logger = logger;
         }
     }
-
-    public interface IFidectusService
-    {
-    }
 }

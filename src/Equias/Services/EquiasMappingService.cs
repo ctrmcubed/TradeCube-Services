@@ -5,7 +5,6 @@ using NodaTime;
 using Shared.DataObjects;
 using Shared.Extensions;
 using Shared.Helpers;
-using Shared.Managers;
 using Shared.Messages;
 using Shared.Services;
 using System;
@@ -21,7 +20,7 @@ namespace Equias.Services
         private readonly IMappingService mappingService;
         private readonly IPartyService partyService;
         private const string CmsReportType = "CmsReport";
-        private MappingManager mappingManager;
+        //private MappingManager mappingManager;
 
         public EquiasMappingService(IMappingService mappingService, IPartyService partyService)
         {
@@ -29,11 +28,11 @@ namespace Equias.Services
             this.partyService = partyService;
         }
 
-        public IEquiasMappingService SetMappingManager(MappingManager mapping)
-        {
-            mappingManager = mapping;
-            return this;
-        }
+        //public IEquiasMappingService SetMappingManager(MappingManager mapping)
+        //{
+        //    mappingManager = mapping;
+        //    return this;
+        //}
 
         public async Task<IEnumerable<MappingDataObject>> GetMappingsAsync(string apiJwtToken)
         {
@@ -41,7 +40,7 @@ namespace Equias.Services
         }
 
         public async Task<PhysicalTrade> MapTrade(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse, IEnumerable<CashflowResponse> cashflowResponses,
-            IEnumerable<ProfileResponse> profileResponses, string apiJwtToken)
+            IEnumerable<ProfileResponse> profileResponses, MappingHelper mappingHelper, string apiJwtToken)
         {
             if (tradeDataObject == null)
             {
@@ -65,7 +64,7 @@ namespace Equias.Services
 
             var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
             var cashflows = cashflowResponses.ToList();
-            var commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity);
+            var commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper);
 
             var buyerEic = await MapEic(tradeDataObject.Buyer, "Buyer party", apiJwtToken);
             var sellerEic = await MapEic(tradeDataObject.Seller, "Seller party", apiJwtToken);
@@ -86,19 +85,19 @@ namespace Equias.Services
                 },
                 Market = MapCommodityToMarket(tradeDataObject.Product?.Commodity),
                 Commodity = commodity,
-                TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType),
+                TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType, mappingHelper),
                 DeliveryPointArea = tradeDataObject.Product?.Commodity?.DeliveryArea?.Eic,
                 BuyerParty = buyerEic,
                 SellerParty = sellerEic,
                 BeneficiaryId = beneficiaryId,
                 Intragroup = MapInternalToIntragroup(tradeDataObject.Buyer?.Internal, tradeDataObject.Seller?.Internal),
-                LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom"),
-                Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType, tradeDataObject.Product?.Commodity?.Commodity),
+                LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom", mappingHelper),
+                Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType, tradeDataObject.Product?.Commodity?.Commodity, mappingHelper),
                 TotalVolume = AbsoluteValue(tradeSummaryResponse?.TotalVolume),
-                TotalVolumeUnit = MapEnergyUnitToVolumeUnit(tradeDataObject.Quantity?.QuantityUnit?.EnergyUnit?.EnergyUnit),
+                TotalVolumeUnit = MapEnergyUnitToVolumeUnit(tradeDataObject.Quantity?.QuantityUnit?.EnergyUnit?.EnergyUnit, mappingHelper),
                 TradeExecutionTimestamp = EquiasDateTimeHelper.FormatDateTimeWithOffset(tradeDataObject.TradeDateTime, timezone),
-                CapacityUnit = MapQuantityUnitToCapacityUnit(tradeDataObject.Quantity?.QuantityUnit?.QuantityUnit),
-                PriceUnit = MapPriceUnit(tradeDataObject.Price?.PriceUnit),
+                CapacityUnit = MapQuantityUnitToCapacityUnit(tradeDataObject.Quantity?.QuantityUnit?.QuantityUnit, mappingHelper),
+                PriceUnit = MapPriceUnit(tradeDataObject.Price?.PriceUnit, mappingHelper),
                 TotalContractValue = AbsoluteValue(tradeSummaryResponse?.TotalValue),
                 SettlementCurrency = tradeSummaryResponse?.TotalValueCurrency,
                 SettlementDates = cashflows.Any()
@@ -124,7 +123,7 @@ namespace Equias.Services
                                 BuyerId =  await MapBuyerSellerId(tradeDataObject.Buyer,  apiJwtToken),
                                 SellerId =  await MapBuyerSellerId(tradeDataObject.Seller,  apiJwtToken),
                                 NotificationAgent =  await MapNotificationAgent(tradeDataObject.Extension?.EcvnAgentParty, apiJwtToken),
-                                TransmissionChargeIdentification =  MapSchedule5(tradeDataObject.Extension?.Schedule5)
+                                TransmissionChargeIdentification =  MapSchedule5(tradeDataObject.Extension?.Schedule5, mappingHelper)
                             }
                         }
                     }
@@ -159,17 +158,17 @@ namespace Equias.Services
             return commodityDataObject?.Country;
         }
 
-        private string MapCommodityToCommodity(string commodity)
+        private string MapCommodityToCommodity(string commodity, MappingHelper mappingHelper)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_Commodity", commodity);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_Commodity", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? commodity
                 : mappingTo;
         }
 
-        private string MapContractTypeToTransactionType(string contractType)
+        private string MapContractTypeToTransactionType(string contractType, MappingHelper mappingHelper)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_TransactionType", contractType);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_TransactionType", contractType);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? contractType
                 : mappingTo;
@@ -212,69 +211,69 @@ namespace Equias.Services
                 : null;
         }
 
-        private string MapShapeDescriptionToLoadType(string shapeDescription, string defaultValue)
+        private string MapShapeDescriptionToLoadType(string shapeDescription, string defaultValue, MappingHelper mappingHelper)
         {
             if (string.IsNullOrWhiteSpace(shapeDescription))
             {
                 return defaultValue;
             }
 
-            var mappingTo = mappingManager.GetMappingTo("EFET_LoadType", shapeDescription);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_LoadType", shapeDescription);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? defaultValue
                 : mappingTo;
         }
 
-        private string MapContractAgreementToAgreement(string agreementType, string commodity)
+        private string MapContractAgreementToAgreement(string agreementType, string commodity, MappingHelper mappingHelper)
         {
             if (!string.IsNullOrWhiteSpace(agreementType))
             {
                 return agreementType;
             }
 
-            var mappingTo = mappingManager.GetMappingTo("EFET_Agreement", commodity);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_Agreement", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? agreementType
                 : mappingTo;
         }
 
-        private string MapEnergyUnitToVolumeUnit(string energyUnit)
+        private string MapEnergyUnitToVolumeUnit(string energyUnit, MappingHelper mappingHelper)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_EnergyUnit", energyUnit);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_EnergyUnit", energyUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? energyUnit
                 : mappingTo;
         }
 
-        private string MapQuantityUnitToCapacityUnit(string quantityUnit)
+        private string MapQuantityUnitToCapacityUnit(string quantityUnit, MappingHelper mappingHelper)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_CapacityUnit", quantityUnit);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_CapacityUnit", quantityUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? quantityUnit
                 : mappingTo;
         }
 
-        private PriceUnit MapPriceUnit(PriceUnitDataObject priceUnit)
+        private PriceUnit MapPriceUnit(PriceUnitDataObject priceUnit, MappingHelper mappingHelper)
         {
             return new PriceUnit
             {
                 Currency = priceUnit?.Currency,
                 UseFractionalUnit = priceUnit?.CurrencyExponent != null && priceUnit.CurrencyExponent != 0,
-                CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerQuantityUnit?.QuantityUnit)
+                CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerQuantityUnit?.QuantityUnit, mappingHelper)
             };
         }
 
-        private string MapPerEnergyUnitToCapacityUnit(string quantityUnit)
+        private string MapPerEnergyUnitToCapacityUnit(string quantityUnit, MappingHelper mappingHelper)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_PriceUnit_CapacityUnit", quantityUnit);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_PriceUnit_CapacityUnit", quantityUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? quantityUnit
                 : mappingTo;
         }
 
-        private string MapSchedule5(string schedule5)
+        private string MapSchedule5(string schedule5, MappingHelper mappingHelper)
         {
-            var mappingTo = mappingManager.GetMappingTo("EFET_Schedule5", schedule5);
+            var mappingTo = mappingHelper.GetMappingTo("EFET_Schedule5", schedule5);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? schedule5
                 : mappingTo;
