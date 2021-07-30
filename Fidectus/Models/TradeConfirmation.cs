@@ -37,6 +37,7 @@ namespace Fidectus.Models
         public IEnumerable<TimeIntervalQuantity> TimeIntervalQuantities { get; set; }
         public decimal? TotalContractValue { get; set; }
         public HubCodificationInformation HubCodificationInformation { get; set; }
+        public AccountAndChargeInformation AccountAndChargeInformation { get; set; }
         public IEnumerable<Agent> Agents { get; set; }
         public TradeTime TradeTime { get; set; }
         public string TraderName { get; set; }

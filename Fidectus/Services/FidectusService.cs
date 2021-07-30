@@ -30,6 +30,7 @@ namespace Fidectus.Services
 
                 httpClient.BaseAddress = new Uri(fidectusConfiguration.FidectusUrl);
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {requestTokenResponse?.AccessToken}");
+                httpClient.DefaultRequestHeaders.Add("CompanyId-Context", "60e70a7fb3fce11b7bfb438b");
 
                 return await PostAsync<TradeConfirmationRequest, TradeConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
             }

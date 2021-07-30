@@ -86,6 +86,7 @@ namespace Fidectus.Services
                 HubCodificationInformation = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper) == FidectusConstants.CommodityGas
                     ? await MapHubCodificationInformation(tradeDataObject.Buyer, tradeDataObject.Seller, apiJwtToken)
                     : null,
+                AccountAndChargeInformation = MapAccountAndChargeInformation(tradeDataObject),
                 Agents = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper) == FidectusConstants.CommodityPower
                     ? new List<Agent>
                     {
@@ -341,8 +342,8 @@ namespace Fidectus.Services
                 .Where(v => v.volume != 0.0m)
                 .Select(pv => new TimeIntervalQuantity
                 {
-                    DeliveryStartDateAndTime = FidectusDateTimeHelper.FormatDateTimeWithOffset(pv.utcStart, dateTimeZone),
-                    DeliveryEndDateAndTime = FidectusDateTimeHelper.FormatDateTimeWithOffset(pv.utcEnd, dateTimeZone),
+                    DeliveryStartTimestamp = FidectusDateTimeHelper.FormatDateTimeWithOffset(pv.utcStart, dateTimeZone),
+                    DeliveryEndTimestamp = FidectusDateTimeHelper.FormatDateTimeWithOffset(pv.utcEnd, dateTimeZone),
                     Price = pv.price * (currencyExponent.HasValue
                         ? (decimal)Math.Pow(10, currencyExponent.Value)
                         : 1.0m),
@@ -350,6 +351,17 @@ namespace Fidectus.Services
                         ? AbsoluteValue(quantity.Value)
                         : 0
                 });
+        }
+
+        private static AccountAndChargeInformation MapAccountAndChargeInformation(TradeDataObject tradeDataObject)
+        {
+            return new AccountAndChargeInformation
+            {
+                BuyerEnergyAccountIdentification = tradeDataObject?.Extension?.BuyerEnergyAccount,
+                SellerEnergyAccountIdentification = tradeDataObject?.Extension?.SellerEnergyAccount,
+                TransmissionChargeIdentification = tradeDataObject?.Extension?.Schedule5,
+                NotificationAgent = tradeDataObject?.Extension?.EcvnAgentParty?.Eic?.Eic
+            };
         }
 
         private async Task<HubCodificationInformation> MapHubCodificationInformation(PartyDataObject buyer, PartyDataObject seller, string apiJwtToken)

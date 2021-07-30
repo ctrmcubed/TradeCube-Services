@@ -139,6 +139,10 @@ namespace TradeCube_ServicesTests.Fidectus
             Assert.Equal(test.ExpectedResults.TradeConfirmation.TraderName, tradeConfirmation.TraderName);
             Assert.Equal(test.ExpectedResults.TradeConfirmation.HubCodificationInformation?.BuyerHubCode, tradeConfirmation.HubCodificationInformation?.BuyerHubCode);
             Assert.Equal(test.ExpectedResults.TradeConfirmation.HubCodificationInformation?.SellerHubCode, tradeConfirmation.HubCodificationInformation?.SellerHubCode);
+            Assert.Equal(test.ExpectedResults.TradeConfirmation.AccountAndChargeInformation?.BuyerEnergyAccountIdentification, tradeConfirmation.AccountAndChargeInformation?.BuyerEnergyAccountIdentification);
+            Assert.Equal(test.ExpectedResults.TradeConfirmation.AccountAndChargeInformation?.SellerEnergyAccountIdentification, tradeConfirmation.AccountAndChargeInformation?.SellerEnergyAccountIdentification);
+            Assert.Equal(test.ExpectedResults.TradeConfirmation.AccountAndChargeInformation?.TransmissionChargeIdentification, tradeConfirmation.AccountAndChargeInformation?.TransmissionChargeIdentification);
+            Assert.Equal(test.ExpectedResults.TradeConfirmation.AccountAndChargeInformation?.NotificationAgent, tradeConfirmation.AccountAndChargeInformation?.NotificationAgent);
 
             // Time Interval Quantities
             Assert.Equal(test.ExpectedResults.TradeConfirmation.TimeIntervalQuantities.Count(), tradeConfirmation.TimeIntervalQuantities.Count());
@@ -146,11 +150,11 @@ namespace TradeCube_ServicesTests.Fidectus
             var zippedTimeIntervalQuantities = test.ExpectedResults.TradeConfirmation.TimeIntervalQuantities.Zip(tradeConfirmation.TimeIntervalQuantities,
                 (e, a) => new
                 {
-                    DeliveryStartDateAndTime = e.DeliveryStartDateAndTime == a.DeliveryStartDateAndTime
-                        ? a.DeliveryStartDateAndTime
+                    DeliveryStartTimestamp = e.DeliveryStartTimestamp == a.DeliveryStartTimestamp
+                        ? a.DeliveryStartTimestamp
                         : throw new DataException("Misaligned DeliveryStartDateAndTime"),
-                    DeliveryEndDateAndTime = e.DeliveryEndDateAndTime == a.DeliveryEndDateAndTime
-                        ? a.DeliveryEndDateAndTime
+                    DeliveryEndTimestamp = e.DeliveryEndTimestamp == a.DeliveryEndTimestamp
+                        ? a.DeliveryEndTimestamp
                         : throw new DataException("Misaligned DeliveryEndDateAndTime"),
                     e,
                     a
@@ -158,8 +162,8 @@ namespace TradeCube_ServicesTests.Fidectus
 
             foreach (var timeIntervalQuantity in zippedTimeIntervalQuantities)
             {
-                Assert.Equal(timeIntervalQuantity.e.DeliveryStartDateAndTime, timeIntervalQuantity.a.DeliveryStartDateAndTime);
-                Assert.Equal(timeIntervalQuantity.e.DeliveryEndDateAndTime, timeIntervalQuantity.a.DeliveryEndDateAndTime);
+                Assert.Equal(timeIntervalQuantity.e.DeliveryStartTimestamp, timeIntervalQuantity.a.DeliveryStartTimestamp);
+                Assert.Equal(timeIntervalQuantity.e.DeliveryEndTimestamp, timeIntervalQuantity.a.DeliveryEndTimestamp);
                 Assert.Equal(timeIntervalQuantity.e.ContractCapacity, timeIntervalQuantity.a.ContractCapacity);
                 Assert.Equal(timeIntervalQuantity.e.Price, timeIntervalQuantity.a.Price);
             }

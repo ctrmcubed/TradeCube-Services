@@ -2,7 +2,7 @@
     {
         "TradeReference": "FidectusConfirmsMockPower0",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:50.142000Z",
+        "TradeDateTime": "2021-07-30T16:21:11.862000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -268,6 +268,9 @@
         },
         "Extension": {
             "ECVNAgentParty": {
+                "EIC": {
+                    "EIC": "MockInternalPartyEIC1"
+                },
                 "Extension": {
                     "BSCParty": {
                         "BSCPartyId": "MockBSCPartyId1",
@@ -276,13 +279,14 @@
                 }
             },
             "BuyerEnergyAccount": "Production",
-            "SellerEnergyAccount": "Consumption"
+            "SellerEnergyAccount": "Consumption",
+            "Schedule5": "Schedule 5 On"
         }
     },
     {
         "TradeReference": "FidectusConfirmsMockPower1",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:50.298000Z",
+        "TradeDateTime": "2021-07-30T16:21:12.030000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -562,6 +566,9 @@
         },
         "Extension": {
             "ECVNAgentParty": {
+                "EIC": {
+                    "EIC": "MockPartyEIC2"
+                },
                 "Extension": {
                     "BSCParty": {
                         "BSCPartyId": "MockBSCPartyId2",
@@ -570,13 +577,14 @@
                 }
             },
             "BuyerEnergyAccount": "Consumption",
-            "SellerEnergyAccount": "Production"
+            "SellerEnergyAccount": "Production",
+            "Schedule5": "Schedule 5 Off"
         }
     },
     {
         "TradeReference": "FidectusConfirmsMockPower2",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:50.442000Z",
+        "TradeDateTime": "2021-07-30T16:21:12.174000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -842,6 +850,9 @@
         },
         "Extension": {
             "ECVNAgentParty": {
+                "EIC": {
+                    "EIC": "MockInternalPartyEIC3"
+                },
                 "Extension": {
                     "BSCParty": {
                         "BSCPartyId": "MockBSCPartyId3",
@@ -850,13 +861,14 @@
                 }
             },
             "BuyerEnergyAccount": "Production",
-            "SellerEnergyAccount": "Consumption"
+            "SellerEnergyAccount": "Consumption",
+            "Schedule5": "Schedule 5 On"
         }
     },
     {
         "TradeReference": "FidectusConfirmsMockPower3",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:50.577000Z",
+        "TradeDateTime": "2021-07-30T16:21:12.311000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -1122,6 +1134,9 @@
         },
         "Extension": {
             "ECVNAgentParty": {
+                "EIC": {
+                    "EIC": "MockPartyEIC4"
+                },
                 "Extension": {
                     "BSCParty": {
                         "BSCPartyId": "MockBSCPartyId4",
@@ -1130,13 +1145,14 @@
                 }
             },
             "BuyerEnergyAccount": "Consumption",
-            "SellerEnergyAccount": "Production"
+            "SellerEnergyAccount": "Production",
+            "Schedule5": "Schedule 5 Off"
         }
     },
     {
         "TradeReference": "FidectusConfirmsMockPower4",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:50.714000Z",
+        "TradeDateTime": "2021-07-30T16:21:12.463000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -1402,6 +1418,9 @@
         },
         "Extension": {
             "ECVNAgentParty": {
+                "EIC": {
+                    "EIC": "MockInternalPartyEIC5"
+                },
                 "Extension": {
                     "BSCParty": {
                         "BSCPartyId": "MockBSCPartyId5",
@@ -1410,13 +1429,14 @@
                 }
             },
             "BuyerEnergyAccount": "Production",
-            "SellerEnergyAccount": "Consumption"
+            "SellerEnergyAccount": "Consumption",
+            "Schedule5": "Schedule 5 On"
         }
     },
     {
         "TradeReference": "FidectusConfirmsMockPower5",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:50.848000Z",
+        "TradeDateTime": "2021-07-30T16:21:12.608000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -1682,6 +1702,9 @@
         },
         "Extension": {
             "ECVNAgentParty": {
+                "EIC": {
+                    "EIC": "MockPartyEIC6"
+                },
                 "Extension": {
                     "BSCParty": {
                         "BSCPartyId": "MockBSCPartyId6",
@@ -1690,13 +1713,14 @@
                 }
             },
             "BuyerEnergyAccount": "Consumption",
-            "SellerEnergyAccount": "Production"
+            "SellerEnergyAccount": "Production",
+            "Schedule5": "Schedule 5 Off"
         }
     },
     {
         "TradeReference": "FidectusConfirmsMockPower6",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:50.983000Z",
+        "TradeDateTime": "2021-07-30T16:21:12.748000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -1976,6 +2000,9 @@
         },
         "Extension": {
             "ECVNAgentParty": {
+                "EIC": {
+                    "EIC": "MockInternalPartyEIC7"
+                },
                 "Extension": {
                     "BSCParty": {
                         "BSCPartyId": "MockBSCPartyId7",
@@ -1984,13 +2011,14 @@
                 }
             },
             "BuyerEnergyAccount": "Production",
-            "SellerEnergyAccount": "Consumption"
+            "SellerEnergyAccount": "Consumption",
+            "Schedule5": "Schedule 5 On"
         }
     },
     {
         "TradeReference": "FidectusConfirmsMockPower7",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:51.119000Z",
+        "TradeDateTime": "2021-07-30T16:21:12.894000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -2256,6 +2284,9 @@
         },
         "Extension": {
             "ECVNAgentParty": {
+                "EIC": {
+                    "EIC": "MockPartyEIC8"
+                },
                 "Extension": {
                     "BSCParty": {
                         "BSCPartyId": "MockBSCPartyId8",
@@ -2264,13 +2295,14 @@
                 }
             },
             "BuyerEnergyAccount": "Consumption",
-            "SellerEnergyAccount": "Production"
+            "SellerEnergyAccount": "Production",
+            "Schedule5": "Schedule 5 Off"
         }
     },
     {
         "TradeReference": "FidectusConfirmsMockGas0",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:51.254000Z",
+        "TradeDateTime": "2021-07-30T16:21:13.032000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -2531,7 +2563,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas1",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:51.395000Z",
+        "TradeDateTime": "2021-07-30T16:21:13.166000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -2792,7 +2824,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas2",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:51.525000Z",
+        "TradeDateTime": "2021-07-30T16:21:13.304000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -3053,7 +3085,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas3",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:51.661000Z",
+        "TradeDateTime": "2021-07-30T16:21:13.438000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -3314,7 +3346,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas4",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:51.795000Z",
+        "TradeDateTime": "2021-07-30T16:21:13.574000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -3575,7 +3607,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas5",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:51.930000Z",
+        "TradeDateTime": "2021-07-30T16:21:13.712000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -3836,7 +3868,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas6",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-29T12:31:52.065000Z",
+        "TradeDateTime": "2021-07-30T16:21:13.852000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
