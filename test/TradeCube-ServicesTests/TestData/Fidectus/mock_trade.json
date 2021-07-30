@@ -2,7 +2,7 @@
     {
         "TradeReference": "FidectusConfirmsMockPower0",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:11.862000Z",
+        "TradeDateTime": "2021-07-30T17:30:44.686000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -171,7 +171,7 @@
         "InternalParty": {
             "Party": "MockInternalParty1",
             "EIC": {
-                "EIC": "MockInternalPartyEIC1"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -185,7 +185,7 @@
         "Counterparty": {
             "Party": "MockParty1",
             "EIC": {
-                "EIC": "MockPartyEIC1"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -196,7 +196,7 @@
         "Buyer": {
             "Party": "MockParty1",
             "EIC": {
-                "EIC": "MockPartyEIC1"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -207,7 +207,7 @@
         "Seller": {
             "Party": "MockInternalParty1",
             "EIC": {
-                "EIC": "MockInternalPartyEIC1"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -216,15 +216,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange1",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC1"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker1",
             "EIC": {
-                "EIC": "MockBrokerEIC1"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -269,7 +269,7 @@
         "Extension": {
             "ECVNAgentParty": {
                 "EIC": {
-                    "EIC": "MockInternalPartyEIC1"
+                    "EIC": "11CUBEDTRADER-TE"
                 },
                 "Extension": {
                     "BSCParty": {
@@ -286,7 +286,7 @@
     {
         "TradeReference": "FidectusConfirmsMockPower1",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:12.030000Z",
+        "TradeDateTime": "2021-07-30T17:30:44.854000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -469,7 +469,7 @@
         "InternalParty": {
             "Party": "MockInternalParty2",
             "EIC": {
-                "EIC": "MockInternalPartyEIC2"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -483,7 +483,7 @@
         "Counterparty": {
             "Party": "MockParty2",
             "EIC": {
-                "EIC": "MockPartyEIC2"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -494,7 +494,7 @@
         "Buyer": {
             "Party": "MockParty2",
             "EIC": {
-                "EIC": "MockPartyEIC2"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -505,7 +505,7 @@
         "Seller": {
             "Party": "MockInternalParty2",
             "EIC": {
-                "EIC": "MockInternalPartyEIC2"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -514,15 +514,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange2",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC2"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker2",
             "EIC": {
-                "EIC": "MockBrokerEIC2"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -567,7 +567,7 @@
         "Extension": {
             "ECVNAgentParty": {
                 "EIC": {
-                    "EIC": "MockPartyEIC2"
+                    "EIC": "22CUBEDTRADER-TE"
                 },
                 "Extension": {
                     "BSCParty": {
@@ -584,7 +584,7 @@
     {
         "TradeReference": "FidectusConfirmsMockPower2",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:12.174000Z",
+        "TradeDateTime": "2021-07-30T17:30:45.003000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -753,7 +753,7 @@
         "InternalParty": {
             "Party": "MockInternalParty3",
             "EIC": {
-                "EIC": "MockInternalPartyEIC3"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -767,7 +767,7 @@
         "Counterparty": {
             "Party": "MockParty3",
             "EIC": {
-                "EIC": "MockPartyEIC3"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -778,7 +778,7 @@
         "Buyer": {
             "Party": "MockParty3",
             "EIC": {
-                "EIC": "MockPartyEIC3"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -789,7 +789,7 @@
         "Seller": {
             "Party": "MockInternalParty3",
             "EIC": {
-                "EIC": "MockInternalPartyEIC3"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -798,15 +798,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange3",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC3"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker3",
             "EIC": {
-                "EIC": "MockBrokerEIC3"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -851,7 +851,7 @@
         "Extension": {
             "ECVNAgentParty": {
                 "EIC": {
-                    "EIC": "MockInternalPartyEIC3"
+                    "EIC": "11CUBEDTRADER-TE"
                 },
                 "Extension": {
                     "BSCParty": {
@@ -868,7 +868,7 @@
     {
         "TradeReference": "FidectusConfirmsMockPower3",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:12.311000Z",
+        "TradeDateTime": "2021-07-30T17:30:45.138000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -1037,7 +1037,7 @@
         "InternalParty": {
             "Party": "MockInternalParty4",
             "EIC": {
-                "EIC": "MockInternalPartyEIC4"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1051,7 +1051,7 @@
         "Counterparty": {
             "Party": "MockParty4",
             "EIC": {
-                "EIC": "MockPartyEIC4"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1062,7 +1062,7 @@
         "Buyer": {
             "Party": "MockParty4",
             "EIC": {
-                "EIC": "MockPartyEIC4"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1073,7 +1073,7 @@
         "Seller": {
             "Party": "MockInternalParty4",
             "EIC": {
-                "EIC": "MockInternalPartyEIC4"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1082,15 +1082,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange4",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC4"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker4",
             "EIC": {
-                "EIC": "MockBrokerEIC4"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -1135,7 +1135,7 @@
         "Extension": {
             "ECVNAgentParty": {
                 "EIC": {
-                    "EIC": "MockPartyEIC4"
+                    "EIC": "22CUBEDTRADER-TE"
                 },
                 "Extension": {
                     "BSCParty": {
@@ -1152,7 +1152,7 @@
     {
         "TradeReference": "FidectusConfirmsMockPower4",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:12.463000Z",
+        "TradeDateTime": "2021-07-30T17:30:45.273000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -1321,7 +1321,7 @@
         "InternalParty": {
             "Party": "MockInternalParty5",
             "EIC": {
-                "EIC": "MockInternalPartyEIC5"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1335,7 +1335,7 @@
         "Counterparty": {
             "Party": "MockParty5",
             "EIC": {
-                "EIC": "MockPartyEIC5"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1346,7 +1346,7 @@
         "Buyer": {
             "Party": "MockParty5",
             "EIC": {
-                "EIC": "MockPartyEIC5"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1357,7 +1357,7 @@
         "Seller": {
             "Party": "MockInternalParty5",
             "EIC": {
-                "EIC": "MockInternalPartyEIC5"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1366,15 +1366,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange5",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC5"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker5",
             "EIC": {
-                "EIC": "MockBrokerEIC5"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -1419,7 +1419,7 @@
         "Extension": {
             "ECVNAgentParty": {
                 "EIC": {
-                    "EIC": "MockInternalPartyEIC5"
+                    "EIC": "11CUBEDTRADER-TE"
                 },
                 "Extension": {
                     "BSCParty": {
@@ -1436,7 +1436,7 @@
     {
         "TradeReference": "FidectusConfirmsMockPower5",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:12.608000Z",
+        "TradeDateTime": "2021-07-30T17:30:45.411000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -1605,7 +1605,7 @@
         "InternalParty": {
             "Party": "MockInternalParty6",
             "EIC": {
-                "EIC": "MockInternalPartyEIC6"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1619,7 +1619,7 @@
         "Counterparty": {
             "Party": "MockParty6",
             "EIC": {
-                "EIC": "MockPartyEIC6"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1630,7 +1630,7 @@
         "Buyer": {
             "Party": "MockParty6",
             "EIC": {
-                "EIC": "MockPartyEIC6"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1641,7 +1641,7 @@
         "Seller": {
             "Party": "MockInternalParty6",
             "EIC": {
-                "EIC": "MockInternalPartyEIC6"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1650,15 +1650,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange6",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC6"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker6",
             "EIC": {
-                "EIC": "MockBrokerEIC6"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -1703,7 +1703,7 @@
         "Extension": {
             "ECVNAgentParty": {
                 "EIC": {
-                    "EIC": "MockPartyEIC6"
+                    "EIC": "22CUBEDTRADER-TE"
                 },
                 "Extension": {
                     "BSCParty": {
@@ -1720,7 +1720,7 @@
     {
         "TradeReference": "FidectusConfirmsMockPower6",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:12.748000Z",
+        "TradeDateTime": "2021-07-30T17:30:45.541000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -1903,7 +1903,7 @@
         "InternalParty": {
             "Party": "MockInternalParty7",
             "EIC": {
-                "EIC": "MockInternalPartyEIC7"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1917,7 +1917,7 @@
         "Counterparty": {
             "Party": "MockParty7",
             "EIC": {
-                "EIC": "MockPartyEIC7"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1928,7 +1928,7 @@
         "Buyer": {
             "Party": "MockParty7",
             "EIC": {
-                "EIC": "MockPartyEIC7"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1939,7 +1939,7 @@
         "Seller": {
             "Party": "MockInternalParty7",
             "EIC": {
-                "EIC": "MockInternalPartyEIC7"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -1948,15 +1948,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange7",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC7"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker7",
             "EIC": {
-                "EIC": "MockBrokerEIC7"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -2001,7 +2001,7 @@
         "Extension": {
             "ECVNAgentParty": {
                 "EIC": {
-                    "EIC": "MockInternalPartyEIC7"
+                    "EIC": "11CUBEDTRADER-TE"
                 },
                 "Extension": {
                     "BSCParty": {
@@ -2018,7 +2018,7 @@
     {
         "TradeReference": "FidectusConfirmsMockPower7",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:12.894000Z",
+        "TradeDateTime": "2021-07-30T17:30:45.678000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -2187,7 +2187,7 @@
         "InternalParty": {
             "Party": "MockInternalParty8",
             "EIC": {
-                "EIC": "MockInternalPartyEIC8"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -2201,7 +2201,7 @@
         "Counterparty": {
             "Party": "MockParty8",
             "EIC": {
-                "EIC": "MockPartyEIC8"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -2212,7 +2212,7 @@
         "Buyer": {
             "Party": "MockParty8",
             "EIC": {
-                "EIC": "MockPartyEIC8"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -2223,7 +2223,7 @@
         "Seller": {
             "Party": "MockInternalParty8",
             "EIC": {
-                "EIC": "MockInternalPartyEIC8"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "BSCParty": {
@@ -2232,15 +2232,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange8",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC8"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker8",
             "EIC": {
-                "EIC": "MockBrokerEIC8"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -2285,7 +2285,7 @@
         "Extension": {
             "ECVNAgentParty": {
                 "EIC": {
-                    "EIC": "MockPartyEIC8"
+                    "EIC": "22CUBEDTRADER-TE"
                 },
                 "Extension": {
                     "BSCParty": {
@@ -2302,7 +2302,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas0",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:13.032000Z",
+        "TradeDateTime": "2021-07-30T17:30:45.810000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -2463,7 +2463,7 @@
         "InternalParty": {
             "Party": "MockInternalParty9",
             "EIC": {
-                "EIC": "MockInternalPartyEIC9"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -2477,7 +2477,7 @@
         "Counterparty": {
             "Party": "MockParty9",
             "EIC": {
-                "EIC": "MockPartyEIC9"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -2488,7 +2488,7 @@
         "Buyer": {
             "Party": "MockParty9",
             "EIC": {
-                "EIC": "MockPartyEIC9"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -2499,7 +2499,7 @@
         "Seller": {
             "Party": "MockInternalParty9",
             "EIC": {
-                "EIC": "MockInternalPartyEIC9"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -2508,15 +2508,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange9",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC9"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker9",
             "EIC": {
-                "EIC": "MockBrokerEIC9"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -2563,7 +2563,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas1",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:13.166000Z",
+        "TradeDateTime": "2021-07-30T17:30:45.939000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -2724,7 +2724,7 @@
         "InternalParty": {
             "Party": "MockInternalParty10",
             "EIC": {
-                "EIC": "MockInternalPartyEIC10"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -2738,7 +2738,7 @@
         "Counterparty": {
             "Party": "MockParty10",
             "EIC": {
-                "EIC": "MockPartyEIC10"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -2749,7 +2749,7 @@
         "Buyer": {
             "Party": "MockParty10",
             "EIC": {
-                "EIC": "MockPartyEIC10"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -2760,7 +2760,7 @@
         "Seller": {
             "Party": "MockInternalParty10",
             "EIC": {
-                "EIC": "MockInternalPartyEIC10"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -2769,15 +2769,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange10",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC10"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker10",
             "EIC": {
-                "EIC": "MockBrokerEIC10"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -2824,7 +2824,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas2",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:13.304000Z",
+        "TradeDateTime": "2021-07-30T17:30:46.071000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -2985,7 +2985,7 @@
         "InternalParty": {
             "Party": "MockInternalParty11",
             "EIC": {
-                "EIC": "MockInternalPartyEIC11"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -2999,7 +2999,7 @@
         "Counterparty": {
             "Party": "MockParty11",
             "EIC": {
-                "EIC": "MockPartyEIC11"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3010,7 +3010,7 @@
         "Buyer": {
             "Party": "MockParty11",
             "EIC": {
-                "EIC": "MockPartyEIC11"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3021,7 +3021,7 @@
         "Seller": {
             "Party": "MockInternalParty11",
             "EIC": {
-                "EIC": "MockInternalPartyEIC11"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3030,15 +3030,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange11",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC11"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker11",
             "EIC": {
-                "EIC": "MockBrokerEIC11"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -3085,7 +3085,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas3",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:13.438000Z",
+        "TradeDateTime": "2021-07-30T17:30:46.203000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -3246,7 +3246,7 @@
         "InternalParty": {
             "Party": "MockInternalParty12",
             "EIC": {
-                "EIC": "MockInternalPartyEIC12"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3260,7 +3260,7 @@
         "Counterparty": {
             "Party": "MockParty12",
             "EIC": {
-                "EIC": "MockPartyEIC12"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3271,7 +3271,7 @@
         "Buyer": {
             "Party": "MockParty12",
             "EIC": {
-                "EIC": "MockPartyEIC12"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3282,7 +3282,7 @@
         "Seller": {
             "Party": "MockInternalParty12",
             "EIC": {
-                "EIC": "MockInternalPartyEIC12"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3291,15 +3291,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange12",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC12"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker12",
             "EIC": {
-                "EIC": "MockBrokerEIC12"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -3346,7 +3346,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas4",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:13.574000Z",
+        "TradeDateTime": "2021-07-30T17:30:46.339000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -3507,7 +3507,7 @@
         "InternalParty": {
             "Party": "MockInternalParty13",
             "EIC": {
-                "EIC": "MockInternalPartyEIC13"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3521,7 +3521,7 @@
         "Counterparty": {
             "Party": "MockParty13",
             "EIC": {
-                "EIC": "MockPartyEIC13"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3532,7 +3532,7 @@
         "Buyer": {
             "Party": "MockParty13",
             "EIC": {
-                "EIC": "MockPartyEIC13"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3543,7 +3543,7 @@
         "Seller": {
             "Party": "MockInternalParty13",
             "EIC": {
-                "EIC": "MockInternalPartyEIC13"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3552,15 +3552,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange13",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC13"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker13",
             "EIC": {
-                "EIC": "MockBrokerEIC13"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -3607,7 +3607,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas5",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:13.712000Z",
+        "TradeDateTime": "2021-07-30T17:30:46.473000Z",
         "TradeStatus": "Live",
         "BuySell": "Buy",
         "TradingBook": {
@@ -3768,7 +3768,7 @@
         "InternalParty": {
             "Party": "MockInternalParty14",
             "EIC": {
-                "EIC": "MockInternalPartyEIC14"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3782,7 +3782,7 @@
         "Counterparty": {
             "Party": "MockParty14",
             "EIC": {
-                "EIC": "MockPartyEIC14"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3793,7 +3793,7 @@
         "Buyer": {
             "Party": "MockParty14",
             "EIC": {
-                "EIC": "MockPartyEIC14"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3804,7 +3804,7 @@
         "Seller": {
             "Party": "MockInternalParty14",
             "EIC": {
-                "EIC": "MockInternalPartyEIC14"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -3813,15 +3813,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange14",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC14"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker14",
             "EIC": {
-                "EIC": "MockBrokerEIC14"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {
@@ -3868,7 +3868,7 @@
     {
         "TradeReference": "FidectusConfirmsMockGas6",
         "TradeLeg": 1,
-        "TradeDateTime": "2021-07-30T16:21:13.852000Z",
+        "TradeDateTime": "2021-07-30T17:30:46.605000Z",
         "TradeStatus": "Live",
         "BuySell": "Sell",
         "TradingBook": {
@@ -4029,7 +4029,7 @@
         "InternalParty": {
             "Party": "MockInternalParty15",
             "EIC": {
-                "EIC": "MockInternalPartyEIC15"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -4043,7 +4043,7 @@
         "Counterparty": {
             "Party": "MockParty15",
             "EIC": {
-                "EIC": "MockPartyEIC15"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -4054,7 +4054,7 @@
         "Buyer": {
             "Party": "MockParty15",
             "EIC": {
-                "EIC": "MockPartyEIC15"
+                "EIC": "22CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -4065,7 +4065,7 @@
         "Seller": {
             "Party": "MockInternalParty15",
             "EIC": {
-                "EIC": "MockInternalPartyEIC15"
+                "EIC": "11CUBEDTRADER-TE"
             },
             "Extension": {
                 "UKGasShipper": {
@@ -4074,15 +4074,15 @@
             }
         },
         "Exchange": {
-            "Party": "MockExchange15",
+            "Party": "22CUBEDTRADER-TE",
             "EIC": {
-                "EIC": "MockExchangeEIC15"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Broker": {
             "Party": "MockBroker15",
             "EIC": {
-                "EIC": "MockBrokerEIC15"
+                "EIC": "22CUBEDTRADER-TE"
             }
         },
         "Quantity": {

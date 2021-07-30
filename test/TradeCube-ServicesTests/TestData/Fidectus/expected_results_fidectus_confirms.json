@@ -8,18 +8,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower0001@MockInternalPartyEIC1",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower0001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC1",
-                "ReceiverID": "MockPartyEIC1",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Power",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "10YGB----------A",
-                "BuyerParty": "MockPartyEIC1",
-                "SellerParty": "MockInternalPartyEIC1",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
@@ -64,7 +64,7 @@
                     "BuyerEnergyAccountIdentification": "Production",
                     "SellerEnergyAccountIdentification": "Consumption",
                     "TransmissionChargeIdentification": "Schedule 5 On",
-                    "NotificationAgent": "MockInternalPartyEIC1"
+                    "NotificationAgent": "11CUBEDTRADER-TE"
                 }
             }
         }
@@ -78,18 +78,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower1001@MockInternalPartyEIC2",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower1001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC2",
-                "ReceiverID": "MockPartyEIC2",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Power",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "10YGB----------A",
-                "BuyerParty": "MockPartyEIC2",
-                "SellerParty": "MockInternalPartyEIC2",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Peak",
                 "Agreement": "GTMA",
                 "Currency": {
@@ -314,7 +314,7 @@
                     "BuyerEnergyAccountIdentification": "Consumption",
                     "SellerEnergyAccountIdentification": "Production",
                     "TransmissionChargeIdentification": "Schedule 5 Off",
-                    "NotificationAgent": "MockPartyEIC2"
+                    "NotificationAgent": "22CUBEDTRADER-TE"
                 }
             }
         }
@@ -328,18 +328,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower2001@MockInternalPartyEIC3",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower2001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC3",
-                "ReceiverID": "MockPartyEIC3",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Power",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "10YGB----------A",
-                "BuyerParty": "MockPartyEIC3",
-                "SellerParty": "MockInternalPartyEIC3",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
@@ -384,7 +384,7 @@
                     "BuyerEnergyAccountIdentification": "Production",
                     "SellerEnergyAccountIdentification": "Consumption",
                     "TransmissionChargeIdentification": "Schedule 5 On",
-                    "NotificationAgent": "MockInternalPartyEIC3"
+                    "NotificationAgent": "11CUBEDTRADER-TE"
                 }
             }
         }
@@ -398,18 +398,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower3001@MockInternalPartyEIC4",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower3001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC4",
-                "ReceiverID": "MockPartyEIC4",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Power",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "10YGB----------A",
-                "BuyerParty": "MockPartyEIC4",
-                "SellerParty": "MockInternalPartyEIC4",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
@@ -454,7 +454,7 @@
                     "BuyerEnergyAccountIdentification": "Consumption",
                     "SellerEnergyAccountIdentification": "Production",
                     "TransmissionChargeIdentification": "Schedule 5 Off",
-                    "NotificationAgent": "MockPartyEIC4"
+                    "NotificationAgent": "22CUBEDTRADER-TE"
                 }
             }
         }
@@ -468,18 +468,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower4001@MockInternalPartyEIC5",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower4001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC5",
-                "ReceiverID": "MockPartyEIC5",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Power",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "10YGB----------A",
-                "BuyerParty": "MockPartyEIC5",
-                "SellerParty": "MockInternalPartyEIC5",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
@@ -524,7 +524,7 @@
                     "BuyerEnergyAccountIdentification": "Production",
                     "SellerEnergyAccountIdentification": "Consumption",
                     "TransmissionChargeIdentification": "Schedule 5 On",
-                    "NotificationAgent": "MockInternalPartyEIC5"
+                    "NotificationAgent": "11CUBEDTRADER-TE"
                 }
             }
         }
@@ -538,18 +538,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower5001@MockInternalPartyEIC6",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower5001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC6",
-                "ReceiverID": "MockPartyEIC6",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Power",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "10YGB----------A",
-                "BuyerParty": "MockPartyEIC6",
-                "SellerParty": "MockInternalPartyEIC6",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
@@ -594,7 +594,7 @@
                     "BuyerEnergyAccountIdentification": "Consumption",
                     "SellerEnergyAccountIdentification": "Production",
                     "TransmissionChargeIdentification": "Schedule 5 Off",
-                    "NotificationAgent": "MockPartyEIC6"
+                    "NotificationAgent": "22CUBEDTRADER-TE"
                 }
             }
         }
@@ -608,18 +608,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower6001@MockInternalPartyEIC7",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower6001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC7",
-                "ReceiverID": "MockPartyEIC7",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Power",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "10YGB----------A",
-                "BuyerParty": "MockPartyEIC7",
-                "SellerParty": "MockInternalPartyEIC7",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Peak",
                 "Agreement": "GTMA",
                 "Currency": {
@@ -844,7 +844,7 @@
                     "BuyerEnergyAccountIdentification": "Production",
                     "SellerEnergyAccountIdentification": "Consumption",
                     "TransmissionChargeIdentification": "Schedule 5 On",
-                    "NotificationAgent": "MockInternalPartyEIC7"
+                    "NotificationAgent": "11CUBEDTRADER-TE"
                 }
             }
         }
@@ -858,18 +858,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower7001@MockInternalPartyEIC8",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockPower7001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC8",
-                "ReceiverID": "MockPartyEIC8",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Power",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "10YGB----------A",
-                "BuyerParty": "MockPartyEIC8",
-                "SellerParty": "MockInternalPartyEIC8",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
@@ -914,7 +914,7 @@
                     "BuyerEnergyAccountIdentification": "Consumption",
                     "SellerEnergyAccountIdentification": "Production",
                     "TransmissionChargeIdentification": "Schedule 5 Off",
-                    "NotificationAgent": "MockPartyEIC8"
+                    "NotificationAgent": "22CUBEDTRADER-TE"
                 }
             }
         }
@@ -928,18 +928,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas0001@MockInternalPartyEIC9",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas0001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC9",
-                "ReceiverID": "MockPartyEIC9",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Gas",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "21YGB-UKGASGRIDW",
-                "BuyerParty": "MockPartyEIC9",
-                "SellerParty": "MockInternalPartyEIC9",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
@@ -983,18 +983,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas1001@MockInternalPartyEIC10",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas1001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC10",
-                "ReceiverID": "MockPartyEIC10",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Gas",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "21YGB-UKGASGRIDW",
-                "BuyerParty": "MockPartyEIC10",
-                "SellerParty": "MockInternalPartyEIC10",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
@@ -1038,18 +1038,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas2001@MockInternalPartyEIC11",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas2001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC11",
-                "ReceiverID": "MockPartyEIC11",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Gas",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "21YGB-UKGASGRIDW",
-                "BuyerParty": "MockPartyEIC11",
-                "SellerParty": "MockInternalPartyEIC11",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
@@ -1093,18 +1093,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas3001@MockInternalPartyEIC12",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas3001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC12",
-                "ReceiverID": "MockPartyEIC12",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Gas",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "21YGB-UKGASGRIDW",
-                "BuyerParty": "MockPartyEIC12",
-                "SellerParty": "MockInternalPartyEIC12",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
@@ -1148,18 +1148,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas4001@MockInternalPartyEIC13",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas4001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC13",
-                "ReceiverID": "MockPartyEIC13",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Gas",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "21YGB-UKGASGRIDW",
-                "BuyerParty": "MockPartyEIC13",
-                "SellerParty": "MockInternalPartyEIC13",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
@@ -1203,18 +1203,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas5001@MockInternalPartyEIC14",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas5001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC14",
-                "ReceiverID": "MockPartyEIC14",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Gas",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "21YGB-UKGASGRIDW",
-                "BuyerParty": "MockPartyEIC14",
-                "SellerParty": "MockInternalPartyEIC14",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
@@ -1258,18 +1258,18 @@
         },
         "ExpectedResults": {
             "TradeConfirmation": {
-                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas6001@MockInternalPartyEIC15",
+                "DocumentID": "CNF_20210730_FidectusConfirmsMockGas6001@11CUBEDTRADER-TE",
                 "DocumentUsage": "Live",
-                "SenderID": "MockInternalPartyEIC15",
-                "ReceiverID": "MockPartyEIC15",
+                "SenderID": "11CUBEDTRADER-TE",
+                "ReceiverID": "22CUBEDTRADER-TE",
                 "ReceiverRole": "Trader",
                 "DocumentVersion": 1,
                 "Market": "GB",
                 "Commodity": "Gas",
                 "TransactionType": "FOR",
                 "DeliveryPointArea": "21YGB-UKGASGRIDW",
-                "BuyerParty": "MockPartyEIC15",
-                "SellerParty": "MockInternalPartyEIC15",
+                "BuyerParty": "22CUBEDTRADER-TE",
+                "SellerParty": "11CUBEDTRADER-TE",
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {

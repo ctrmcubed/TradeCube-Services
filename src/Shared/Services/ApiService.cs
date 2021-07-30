@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using NLog;
 using Shared.Messages;
 using Shared.Serialization;
 using System;
@@ -7,14 +8,13 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using NLog;
 
 namespace Shared.Services
 {
     public class ApiService
     {
         private readonly ILogger<ApiService> logger;
-        private Logger fred = LogManager.GetCurrentClassLogger();
+        private readonly Logger classLogger = LogManager.GetCurrentClassLogger();
 
         protected ApiService(ILogger<ApiService> logger)
         {
@@ -25,7 +25,7 @@ namespace Shared.Services
         {
             try
             {
-                fred.Debug(TradeCubeJsonSerializer.Serialize(body));
+                classLogger.Debug(TradeCubeJsonSerializer.Serialize(body));
 
                 var response = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
 
@@ -36,12 +36,14 @@ namespace Shared.Services
 
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
 
-                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = false });
+
+                classLogger.Debug(TradeCubeJsonSerializer.Serialize(deserializeAsync));
 
                 deserializeAsync.Status = response.StatusCode.ToString();
                 deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
                 deserializeAsync.Message = response.ReasonPhrase;
-
+                
                 logger.LogDebug($"PostResponse: {TradeCubeJsonSerializer.Serialize(deserializeAsync)}");
 
                 return deserializeAsync;
