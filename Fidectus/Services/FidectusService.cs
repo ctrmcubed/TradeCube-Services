@@ -34,10 +34,12 @@ namespace Fidectus.Services
 
                 var (response, httpResponse) = await PostAsync<TradeConfirmationRequest, TradeConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
 
-                logger.LogInformation($"FidectusSendTradeConfirmation: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+                logger.LogInformation($"FidectusSendTradeConfirmation: {httpResponse.StatusCode}");
 
                 // Mutation!
                 response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+
+                // Other HttpResponse fields not needed
 
                 return response;
             }

@@ -6,5 +6,9 @@ namespace Fidectus.Messages
     {
         [JsonPropertyName("access_token")]
         public string AccessToken { get; set; }
+
+        public bool IsSuccessStatusCode { get; set; }
+        public string Status { get; set; }
+        public string Message { get; set; }
     }
 }

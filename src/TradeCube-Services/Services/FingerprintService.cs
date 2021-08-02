@@ -26,7 +26,12 @@ namespace TradeCube_Services.Services
             {
                 var (response, httpResponse) = await TradeCubePostViaApiKeyAsync<FingerprintRequest, ApiResponseWrapper<IEnumerable<FingerprintResponse>>>(apiKey, "Fingerprint", fingerprintRequest);
 
-                logger.LogInformation($"FingerprintAsync: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+                logger.LogInformation($"FingerprintAsync: {httpResponse.StatusCode}");
+
+                // Mutation!
+                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+                response.Status = httpResponse.StatusCode.ToString();
+                response.Message = httpResponse.ReasonPhrase;
 
                 return response;
             }

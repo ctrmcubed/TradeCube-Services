@@ -27,7 +27,12 @@ namespace Fidectus.Services
 
             var (response, httpResponse) = await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, fidectusConfiguration.FidectusAuthUrl, requestTokenRequest);
 
-            logger.LogInformation($"FidectusGetAuthenticationToken: {httpResponse.IsSuccessStatusCode}");
+            logger.LogInformation($"FidectusGetAuthenticationToken: {httpResponse.StatusCode}");
+
+            // Mutation!
+            response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+            response.Status = httpResponse.StatusCode.ToString();
+            response.Message = httpResponse.ReasonPhrase;
 
             return response;
         }

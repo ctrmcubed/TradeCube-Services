@@ -27,10 +27,12 @@ namespace Equias.Services
 
             var (response, httpResponse) = await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, equiasConfiguration.RequestTokenUri, requestTokenRequest);
 
-            logger.LogInformation($"EboGetAuthenticationToken: {httpResponse.IsSuccessStatusCode}");
+            logger.LogInformation($"EboGetAuthenticationToken: {httpResponse.StatusCode}");
 
             // Mutation!
             response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+            response.Status = httpResponse.StatusCode.ToString();
+            response.Message = httpResponse.ReasonPhrase;
 
             return response;
         }

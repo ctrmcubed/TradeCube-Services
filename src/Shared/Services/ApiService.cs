@@ -66,7 +66,7 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) 
+        protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true)
         {
             static Uri ConstructUrl(string baseAddress, string uri)
             {

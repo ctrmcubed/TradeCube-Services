@@ -56,7 +56,12 @@ namespace Shared.Services
 
                 var (response, httpResponse) = await TradeCubePostViaJwtAsync<JObject, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
 
-                logger.LogInformation($"TradeCubePostViaJwtAsync: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+                logger.LogInformation($"TradeCubePostViaJwtAsync: {httpResponse.StatusCode}");
+
+                // Mutation!
+                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+                response.Status = httpResponse.StatusCode.ToString();
+                response.Message = httpResponse.ReasonPhrase;
 
                 return response;
             }
@@ -77,7 +82,12 @@ namespace Shared.Services
             {
                 var (response, httpResponse) = await TradeCubePostViaApiKeyAsync<ApiRequest<IEnumerable<TradeDataObject>>, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiKey, "Trade/Merge", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
 
-                logger.LogInformation($"TradeCubePostViaApiKeyAsync: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+                logger.LogInformation($"TradeCubePostViaApiKeyAsync: {httpResponse.StatusCode}");
+
+                // Mutation!
+                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+                response.Status = httpResponse.StatusCode.ToString();
+                response.Message = httpResponse.ReasonPhrase;
 
                 return response;
             }
@@ -98,7 +108,12 @@ namespace Shared.Services
             {
                 var (response, httpResponse) = await TradeCubePutViaJwtAsync<ApiRequest<IEnumerable<TradeDataObject>>, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/Merge", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
 
-                logger.LogInformation($"TradeCubePutViaJwtAsync: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+                logger.LogInformation($"TradeCubePutViaJwtAsync: {httpResponse.StatusCode}");
+
+                // Mutation!
+                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+                response.Status = httpResponse.StatusCode.ToString();
+                response.Message = httpResponse.ReasonPhrase;
 
                 return response;
             }

@@ -4,8 +4,6 @@ namespace Fidectus.Messages
 {
     public class TradeConfirmationResponse
     {
-        public bool IsSuccessStatusCode { get; set; }
-
         [JsonPropertyName("status")]
         public int Status { get; set; }
 
@@ -21,5 +19,6 @@ namespace Fidectus.Messages
         [JsonPropertyName("timestamp")]
         public long Timestamp { get; set; }
 
+        public bool IsSuccessStatusCode { get; set; }
     }
 }

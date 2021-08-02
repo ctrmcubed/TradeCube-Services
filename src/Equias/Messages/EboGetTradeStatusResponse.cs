@@ -7,6 +7,8 @@ namespace Equias.Messages
         public IEnumerable<EboGetTradeStatus> States { get; set; }
 
         public bool IsSuccessStatusCode { get; set; }
+        public string Status { get; set; }
+        public string Message { get; set; }
 
         public EboGetTradeStatusResponse()
         {

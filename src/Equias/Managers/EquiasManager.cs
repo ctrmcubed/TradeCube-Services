@@ -71,7 +71,7 @@ namespace Equias.Managers
 
                 var saveTradeWithheld = await SaveTradeAsync(tradeDataObject, jwt);
 
-                logger.LogInformation($"Withheld Trade updated (EboSubmissionStatus={EquiasConstants.StatusWithheld}), result: {saveTradeWithheld.IsSuccessStatusCode}");
+                logger.LogInformation($"Withheld Trade updated (EboSubmissionStatus={EquiasConstants.StatusWithheld}), result: {saveTradeWithheld.Status}");
 
                 return new EboTradeResponse();
             }
@@ -90,7 +90,7 @@ namespace Equias.Managers
                 var addTradePostSubmission = SetTradePostSubmission(eboAddPhysicalTradeResponse, updateTradePreSubmission);
                 var savePostSubmissionAdd = await SaveTradeAsync(addTradePostSubmission, apiJwtToken);
 
-                logger.LogInformation($"Add physical Trade updated (EboSubmissionStatus={addTradePostSubmission.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionAdd.IsSuccessStatusCode}");
+                logger.LogInformation($"Add physical Trade updated (EboSubmissionStatus={addTradePostSubmission.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionAdd.Status}");
 
                 return eboAddPhysicalTradeResponse;
             }
@@ -108,7 +108,7 @@ namespace Equias.Managers
                 var modifyTradePostSubmission = SetTradePostSubmission(eboModifyPhysicalTradeResponse, tradeDataObject);
                 var savePostSubmissionModify = await SaveTradeAsync(modifyTradePostSubmission, apiJwtToken);
 
-                logger.LogInformation($"Modify physical Trade updated (EboSubmissionStatus={modifyTradePostSubmission.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionModify.IsSuccessStatusCode}");
+                logger.LogInformation($"Modify physical Trade updated (EboSubmissionStatus={modifyTradePostSubmission.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionModify.Status}");
 
                 return eboModifyPhysicalTradeResponse;
             }
@@ -128,7 +128,7 @@ namespace Equias.Managers
                 var updateTradePreSubmission = SetTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject);
                 var savePreSubmission = await SaveTradeAsync(updateTradePreSubmission, apiJwtToken);
 
-                logger.LogInformation($"Pre-submission Trade updated (EboSubmissionStatus={updateTradePreSubmission.External.Equias.EboSubmissionStatus}), result: {savePreSubmission.IsSuccessStatusCode}");
+                logger.LogInformation($"Pre-submission Trade updated (EboSubmissionStatus={updateTradePreSubmission.External.Equias.EboSubmissionStatus}), result: {savePreSubmission.Status}");
 
                 var physicalTrade = await CreatePhysicalTradeAsync(updateTradePreSubmission, apiJwtToken);
 
@@ -174,7 +174,7 @@ namespace Equias.Managers
             var addTradePostSubmission = SetTradePostSubmission(eboTradeResponse, tradeDataObject);
             var savePostSubmissionAdd = await SaveTradeAsync(addTradePostSubmission, apiJwtToken);
 
-            logger.LogInformation($"Cancel Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionAdd.IsSuccessStatusCode}");
+            logger.LogInformation($"Cancel Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionAdd.Status}");
 
             return eboTradeResponse;
         }

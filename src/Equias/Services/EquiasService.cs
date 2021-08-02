@@ -34,10 +34,12 @@ namespace Equias.Services
 
                 var (response, httpResponse) = await PostAsync<IEnumerable<string>, EboGetTradeStatusResponse>(httpClient, equiasConfiguration.GetTradeStatusUri, tradeIds, false);
 
-                logger.LogInformation($"EboGetTradeStatus: {httpResponse.IsSuccessStatusCode}");
+                logger.LogInformation($"EboGetTradeStatus: {httpResponse.StatusCode}");
 
                 // Mutation!
                 response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+                response.Status = httpResponse.StatusCode.ToString();
+                response.Message = httpResponse.ReasonPhrase;
 
                 return response;
             }
@@ -61,10 +63,12 @@ namespace Equias.Services
 
                 var (response, httpResponse) = await PostAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade, false);
 
-                logger.LogInformation($"EboAddPhysicalTrade: {httpResponse.IsSuccessStatusCode}");
+                logger.LogInformation($"EboAddPhysicalTrade: {httpResponse.StatusCode}");
 
                 // Mutation!
                 response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+                response.Status = httpResponse.StatusCode.ToString();
+                response.Message = httpResponse.ReasonPhrase;
 
                 return response;
             }
@@ -92,10 +96,12 @@ namespace Equias.Services
 
                 var (response, httpResponse) = await PostAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.ModifyPhysicalTradeUri, physicalTrade, false);
 
-                logger.LogInformation($"EboModifyPhysicalTrade: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+                logger.LogInformation($"EboModifyPhysicalTrade: {httpResponse.StatusCode}");
 
                 // Mutation!
                 response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+                response.Status = httpResponse.StatusCode.ToString();
+                response.Message = httpResponse.ReasonPhrase;
 
                 return response;
             }
