@@ -32,7 +32,14 @@ namespace Equias.Services
                 httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
                 httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-                return await PostAsync<IEnumerable<string>, EboGetTradeStatusResponse>(httpClient, equiasConfiguration.GetTradeStatusUri, tradeIds, false);
+                var (response, httpResponse) = await PostAsync<IEnumerable<string>, EboGetTradeStatusResponse>(httpClient, equiasConfiguration.GetTradeStatusUri, tradeIds, false);
+
+                logger.LogInformation($"EboGetTradeStatus: {httpResponse.IsSuccessStatusCode}");
+
+                // Mutation!
+                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+
+                return response;
             }
             catch (Exception ex)
             {
@@ -52,7 +59,14 @@ namespace Equias.Services
                 httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
                 httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-                return await PostAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade, false);
+                var (response, httpResponse) = await PostAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade, false);
+
+                logger.LogInformation($"EboAddPhysicalTrade: {httpResponse.IsSuccessStatusCode}");
+
+                // Mutation!
+                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+
+                return response;
             }
             catch (Exception ex)
             {
@@ -65,7 +79,7 @@ namespace Equias.Services
             }
         }
 
-        public async Task<EboTradeResponse> ModifyPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration)
+        public async Task<EboTradeResponse> EboModifyPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration)
         {
             try
             {
@@ -76,7 +90,14 @@ namespace Equias.Services
                 httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
                 httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-                return await PostAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.ModifyPhysicalTradeUri, physicalTrade, false);
+                var (response, httpResponse) = await PostAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.ModifyPhysicalTradeUri, physicalTrade, false);
+
+                logger.LogInformation($"EboModifyPhysicalTrade: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+
+                // Mutation!
+                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+
+                return response;
             }
             catch (Exception ex)
             {
@@ -89,7 +110,7 @@ namespace Equias.Services
             }
         }
 
-        public async Task<EboTradeResponse> CancelTrade(CancelTrade cancelTrade, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration)
+        public async Task<EboTradeResponse> EboCancelTrade(CancelTrade cancelTrade, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration)
         {
             try
             {

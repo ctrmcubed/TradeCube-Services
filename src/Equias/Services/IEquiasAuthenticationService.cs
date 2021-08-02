@@ -6,6 +6,6 @@ namespace Equias.Services
 {
     public interface IEquiasAuthenticationService
     {
-        Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest, IEquiasConfiguration equiasConfiguration);
+        Task<RequestTokenResponse> EboGetAuthenticationToken(RequestTokenRequest requestTokenRequest, IEquiasConfiguration equiasConfiguration);
     }
 }

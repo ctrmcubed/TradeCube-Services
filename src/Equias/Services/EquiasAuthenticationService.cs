@@ -11,19 +11,28 @@ namespace Equias.Services
     public class EquiasAuthenticationService : ApiService, IEquiasAuthenticationService
     {
         private readonly IHttpClientFactory httpClientFactory;
+        private readonly ILogger<ApiService> logger;
 
         public EquiasAuthenticationService(IHttpClientFactory httpClientFactory, ILogger<ApiService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
+            this.logger = logger;
         }
 
-        public async Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest, IEquiasConfiguration equiasConfiguration)
+        public async Task<RequestTokenResponse> EboGetAuthenticationToken(RequestTokenRequest requestTokenRequest, IEquiasConfiguration equiasConfiguration)
         {
             var httpClient = httpClientFactory.CreateClient();
 
             httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
 
-            return await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, equiasConfiguration.RequestTokenUri, requestTokenRequest);
+            var (response, httpResponse) = await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, equiasConfiguration.RequestTokenUri, requestTokenRequest);
+
+            logger.LogInformation($"EboGetAuthenticationToken: {httpResponse.IsSuccessStatusCode}");
+
+            // Mutation!
+            response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+
+            return response;
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using NLog;
-using Shared.Messages;
 using Shared.Serialization;
 using System;
 using System.Net.Http;
@@ -14,39 +12,28 @@ namespace Shared.Services
     public class ApiService
     {
         private readonly ILogger<ApiService> logger;
-        private readonly Logger classLogger = LogManager.GetCurrentClassLogger();
 
         protected ApiService(ILogger<ApiService> logger)
         {
             this.logger = logger;
         }
 
-        protected async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse
+        protected async Task<(TV response, HttpResponseMessage httpResponse)> PostAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true)
         {
             try
             {
-                classLogger.Debug(TradeCubeJsonSerializer.Serialize(body));
-
-                var response = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+                var httpResponse = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
 
                 if (ensureSuccess)
                 {
-                    response.EnsureSuccessStatusCode();
+                    httpResponse.EnsureSuccessStatusCode();
                 }
 
-                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                await using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
 
-                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = false });
+                var response = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = false });
 
-                classLogger.Debug(TradeCubeJsonSerializer.Serialize(deserializeAsync));
-
-                deserializeAsync.Status = response.StatusCode.ToString();
-                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
-                deserializeAsync.Message = response.ReasonPhrase;
-                
-                logger.LogDebug($"PostResponse: {TradeCubeJsonSerializer.Serialize(deserializeAsync)}");
-
-                return deserializeAsync;
+                return (response, httpResponse);
             }
             catch (Exception ex)
             {
@@ -55,26 +42,22 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<TV> PutAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse
+        protected async Task<(TV deserializeAsync, HttpResponseMessage response)> PutAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true)
         {
             try
             {
-                var response = await client.PutAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+                var httpResponse = await client.PutAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
 
                 if (ensureSuccess)
                 {
-                    response.EnsureSuccessStatusCode();
+                    httpResponse.EnsureSuccessStatusCode();
                 }
 
-                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                await using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
 
-                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+                var response = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
 
-                deserializeAsync.Status = response.StatusCode.ToString();
-                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
-                deserializeAsync.Message = response.ReasonPhrase;
-
-                return deserializeAsync;
+                return (response, httpResponse);
             }
             catch (Exception ex)
             {
@@ -83,7 +66,7 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse
+        protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) 
         {
             static Uri ConstructUrl(string baseAddress, string uri)
             {
@@ -95,7 +78,6 @@ namespace Shared.Services
             try
             {
                 // Standard DeleteAsync does not support sending a body
-
                 var serializedBody = TradeCubeJsonSerializer.Serialize(body);
 
                 var request = new HttpRequestMessage
@@ -105,22 +87,16 @@ namespace Shared.Services
                     Content = new StringContent(serializedBody, Encoding.UTF8, "application/json")
                 };
 
-                var response = await client.SendAsync(request);
+                var httpResponse = await client.SendAsync(request);
 
                 if (ensureSuccess)
                 {
-                    response.EnsureSuccessStatusCode();
+                    httpResponse.EnsureSuccessStatusCode();
                 }
 
-                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                await using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
 
-                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
-
-                deserializeAsync.Status = response.StatusCode.ToString();
-                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
-                deserializeAsync.Message = response.ReasonPhrase;
-
-                return deserializeAsync;
+                return await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
             }
             catch (Exception ex)
             {

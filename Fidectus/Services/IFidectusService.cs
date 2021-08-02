@@ -6,6 +6,6 @@ namespace Fidectus.Services
 {
     public interface IFidectusService
     {
-        Task<TradeConfirmationResponse> SendTradeConfirmation(TradeConfirmationRequest tradeConfirmationRequest, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration);
+        Task<TradeConfirmationResponse> FidectusSendTradeConfirmation(TradeConfirmationRequest tradeConfirmationRequest, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration);
     }
 }

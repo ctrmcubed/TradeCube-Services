@@ -11,19 +11,25 @@ namespace Fidectus.Services
     public class FidectusAuthenticationService : ApiService, IFidectusAuthenticationService
     {
         private readonly IHttpClientFactory httpClientFactory;
+        private readonly ILogger<ApiService> logger;
 
         public FidectusAuthenticationService(IHttpClientFactory httpClientFactory, ILogger<ApiService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
+            this.logger = logger;
         }
 
-        public async Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest, IFidectusConfiguration fidectusConfiguration)
+        public async Task<RequestTokenResponse> FidectusGetAuthenticationToken(RequestTokenRequest requestTokenRequest, IFidectusConfiguration fidectusConfiguration)
         {
             var httpClient = httpClientFactory.CreateClient();
 
             httpClient.BaseAddress = new Uri(fidectusConfiguration.FidectusAuthUrl);
 
-            return await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, fidectusConfiguration.FidectusAuthUrl, requestTokenRequest);
+            var (response, httpResponse) = await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, fidectusConfiguration.FidectusAuthUrl, requestTokenRequest);
+
+            logger.LogInformation($"FidectusGetAuthenticationToken: {httpResponse.IsSuccessStatusCode}");
+
+            return response;
         }
     }
 }

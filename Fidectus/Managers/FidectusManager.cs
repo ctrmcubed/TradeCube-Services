@@ -64,9 +64,7 @@ namespace Fidectus.Managers
         {
             try
             {
-                var requestTokenResponse = await CreateAuthenticationTokenAsync(apiJwtToken, settingHelper);
-
-                return await SendTradeConfirmation(tradeConfirmation, requestTokenResponse, settingHelper);
+                return await SendTradeConfirmation(tradeConfirmation, await CreateAuthenticationTokenAsync(apiJwtToken, settingHelper), settingHelper);
             }
             catch (Exception ex)
             {
@@ -99,7 +97,7 @@ namespace Fidectus.Managers
             var fidectusConfiguration = new FidectusConfiguration(settingHelper.GetSetting("FIDECTUS_URL"), settingHelper.GetSetting("FIDECTUS_AUTH_URL"), settingHelper.GetSetting("FIDECTUS_AUDIENCE"));
             var tradeConfirmationRequest = new TradeConfirmationRequest {TradeConfirmation = tradeConfirmation};
 
-            return await fidectusService.SendTradeConfirmation(tradeConfirmationRequest, requestTokenResponse, fidectusConfiguration);
+            return await fidectusService.FidectusSendTradeConfirmation(tradeConfirmationRequest, requestTokenResponse, fidectusConfiguration);
         }
 
         private async Task<RequestTokenResponse> CreateAuthenticationTokenAsync(string apiJwtToken, SettingHelper settingHelper)
@@ -107,7 +105,7 @@ namespace Fidectus.Managers
             var requestTokenRequest = await CreateAuthenticationTokenRequestAsync(apiJwtToken);
             var fidectusConfiguration = new FidectusConfiguration(settingHelper.GetSetting("FIDECTUS_URL"), settingHelper.GetSetting("FIDECTUS_AUTH_URL"), settingHelper.GetSetting("FIDECTUS_AUDIENCE"));
 
-            return await fidectusAuthenticationService.GetAuthenticationToken(requestTokenRequest, fidectusConfiguration);
+            return await fidectusAuthenticationService.FidectusGetAuthenticationToken(requestTokenRequest, fidectusConfiguration);
         }
 
         private async Task<RequestTokenRequest> CreateAuthenticationTokenRequestAsync(string apiJwtToken)

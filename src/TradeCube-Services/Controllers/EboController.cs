@@ -46,9 +46,7 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                var physicalTradeAsync = await equiasManager.CreatePhysicalTradeAsync(tradeReference, tradeLeg, apiJwtToken);
-
-                return Json(physicalTradeAsync);
+                return Json(await equiasManager.CreatePhysicalTradeAsync(tradeReference, tradeLeg, apiJwtToken));
             }
             catch (Exception ex)
             {

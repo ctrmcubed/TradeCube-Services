@@ -6,6 +6,6 @@ namespace Fidectus.Services
 {
     public interface IFidectusAuthenticationService
     {
-        Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest, IFidectusConfiguration fidectusConfiguration);
+        Task<RequestTokenResponse> FidectusGetAuthenticationToken(RequestTokenRequest requestTokenRequest, IFidectusConfiguration fidectusConfiguration);
     }
 }

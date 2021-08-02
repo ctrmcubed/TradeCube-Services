@@ -1,9 +1,8 @@
-﻿using Shared.Messages;
-
-namespace Equias.Messages
+﻿namespace Equias.Messages
 {
-    public class RequestTokenResponse : ApiResponse
+    public class RequestTokenResponse
     {
         public string Token { get; set; }
+        public bool IsSuccessStatusCode { get; set; }
     }
 }

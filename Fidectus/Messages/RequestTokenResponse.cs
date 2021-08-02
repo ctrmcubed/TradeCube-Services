@@ -1,12 +1,9 @@
-﻿using Newtonsoft.Json;
-using Shared.Messages;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Fidectus.Messages
 {
-    public class RequestTokenResponse : ApiResponse
+    public class RequestTokenResponse
     {
-        [JsonProperty("access_token")]
         [JsonPropertyName("access_token")]
         public string AccessToken { get; set; }
     }

@@ -24,7 +24,11 @@ namespace TradeCube_Services.Services
         {
             try
             {
-                return await TradeCubePostViaApiKeyAsync<FingerprintRequest, ApiResponseWrapper<IEnumerable<FingerprintResponse>>>(apiKey, "Fingerprint", fingerprintRequest);
+                var (response, httpResponse) = await TradeCubePostViaApiKeyAsync<FingerprintRequest, ApiResponseWrapper<IEnumerable<FingerprintResponse>>>(apiKey, "Fingerprint", fingerprintRequest);
+
+                logger.LogInformation($"FingerprintAsync: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+
+                return response;
             }
             catch (Exception ex)
             {

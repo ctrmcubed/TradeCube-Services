@@ -54,7 +54,11 @@ namespace Shared.Services
                     new JProperty("TradeReference", new JObject(new JProperty("$in", new JArray(tradeRequest.TradeReferences))))
                 };
 
-                return await TradeCubePostViaJwtAsync<JObject, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
+                var (response, httpResponse) = await TradeCubePostViaJwtAsync<JObject, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
+
+                logger.LogInformation($"TradeCubePostViaJwtAsync: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+
+                return response;
             }
             catch (Exception ex)
             {
@@ -71,8 +75,11 @@ namespace Shared.Services
         {
             try
             {
-                return await TradeCubePostViaApiKeyAsync<ApiRequest<IEnumerable<TradeDataObject>>,
-                    ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiKey, "Trade/Merge", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
+                var (response, httpResponse) = await TradeCubePostViaApiKeyAsync<ApiRequest<IEnumerable<TradeDataObject>>, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiKey, "Trade/Merge", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
+
+                logger.LogInformation($"TradeCubePostViaApiKeyAsync: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+
+                return response;
             }
             catch (Exception ex)
             {
@@ -89,8 +96,11 @@ namespace Shared.Services
         {
             try
             {
-                return await TradeCubePutViaJwtAsync<ApiRequest<IEnumerable<TradeDataObject>>,
-                    ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/Merge", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
+                var (response, httpResponse) = await TradeCubePutViaJwtAsync<ApiRequest<IEnumerable<TradeDataObject>>, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/Merge", new ApiRequest<IEnumerable<TradeDataObject>>(trades));
+
+                logger.LogInformation($"TradeCubePutViaJwtAsync: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+
+                return response;
             }
             catch (Exception ex)
             {

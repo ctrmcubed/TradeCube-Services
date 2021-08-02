@@ -161,8 +161,7 @@ namespace Equias.Managers
 
         public async Task<EboTradeResponse> AddPhysicalTradeAsync(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)
         {
-            var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken));
-            return await equiasService.EboAddPhysicalTrade(physicalTrade, requestTokenResponse, equiasConfiguration);
+            return await equiasService.EboAddPhysicalTrade(physicalTrade, requestTokenResponse, new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken)));
         }
 
         public async Task<EboTradeResponse> CancelTradeAsync(string tradeReference, int tradeLeg, string apiJwtToken)
@@ -170,7 +169,7 @@ namespace Equias.Managers
             var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken));
             var requestTokenResponse = await CreateAuthenticationTokenAsync(apiJwtToken);
             var cancelTrade = new CancelTrade { TradeId = EquiasService.MapTradeId(tradeReference, tradeLeg) };
-            var eboTradeResponse = await equiasService.CancelTrade(cancelTrade, requestTokenResponse, equiasConfiguration);
+            var eboTradeResponse = await equiasService.EboCancelTrade(cancelTrade, requestTokenResponse, equiasConfiguration);
             var tradeDataObject = await GetTradeAsync(tradeReference, tradeLeg, apiJwtToken);
             var addTradePostSubmission = SetTradePostSubmission(eboTradeResponse, tradeDataObject);
             var savePostSubmissionAdd = await SaveTradeAsync(addTradePostSubmission, apiJwtToken);
@@ -187,7 +186,7 @@ namespace Equias.Managers
 
         public async Task<RequestTokenResponse> CreateAuthenticationTokenAsync(RequestTokenRequest requestTokenRequest, string apiJwtToken)
         {
-            return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken)));
+            return await equiasAuthenticationService.EboGetAuthenticationToken(requestTokenRequest, new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken)));
         }
 
         private async Task<RequestTokenResponse> CreateAuthenticationTokenAsync(string apiJwtToken)
@@ -195,7 +194,7 @@ namespace Equias.Managers
             var requestTokenRequest = await CreateAuthenticationTokenRequestAsync(apiJwtToken);
             var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken));
 
-            return await equiasAuthenticationService.GetAuthenticationToken(requestTokenRequest, equiasConfiguration);
+            return await equiasAuthenticationService.EboGetAuthenticationToken(requestTokenRequest, equiasConfiguration);
         }
 
         private async Task<RequestTokenRequest> CreateAuthenticationTokenRequestAsync(string apiJwtToken)
@@ -220,7 +219,7 @@ namespace Equias.Managers
 
         private async Task<EboTradeResponse> ModifyPhysicalTradeAsync(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, string apiJwtToken)
         {
-            return await equiasService.ModifyPhysicalTrade(physicalTrade, requestTokenResponse, new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken)));
+            return await equiasService.EboModifyPhysicalTrade(physicalTrade, requestTokenResponse, new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken)));
         }
 
         private async Task<string> GetEquiasDomainAsync(string apiJwtToken)

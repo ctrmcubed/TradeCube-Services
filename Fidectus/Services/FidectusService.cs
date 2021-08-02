@@ -20,7 +20,7 @@ namespace Fidectus.Services
             this.logger = logger;
         }
 
-        public async Task<TradeConfirmationResponse> SendTradeConfirmation(TradeConfirmationRequest tradeConfirmationRequest, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
+        public async Task<TradeConfirmationResponse> FidectusSendTradeConfirmation(TradeConfirmationRequest tradeConfirmationRequest, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
         {
             try
             {
@@ -32,7 +32,14 @@ namespace Fidectus.Services
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {requestTokenResponse?.AccessToken}");
                 httpClient.DefaultRequestHeaders.Add("CompanyId-Context", "60e70a7fb3fce11b7bfb438b");
 
-                return await PostAsync<TradeConfirmationRequest, TradeConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
+                var (response, httpResponse) = await PostAsync<TradeConfirmationRequest, TradeConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
+
+                logger.LogInformation($"FidectusSendTradeConfirmation: {response.IsSuccessStatusCode}, {httpResponse.IsSuccessStatusCode}");
+
+                // Mutation!
+                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+
+                return response;
             }
             catch (Exception ex)
             {
