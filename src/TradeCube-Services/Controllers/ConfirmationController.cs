@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Fidectus.Managers;
+using Fidectus.Messages;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shared.Constants;
 using Shared.Messages;
 using System;
 using System.Threading.Tasks;
-using TradeCube_Services.Parameters;
-using TradeCube_Services.Services;
 
 namespace TradeCube_Services.Controllers
 {
@@ -16,40 +16,39 @@ namespace TradeCube_Services.Controllers
     [Route("v{version:apiVersion}/[controller]")]
     public class ConfirmationController : Controller
     {
-        private readonly IConfirmationReportService confirmationReportService;
+        private readonly IFidectusManager fidectusManager;
         private readonly ILogger<ConfirmationController> logger;
 
-        public ConfirmationController(IConfirmationReportService confirmationReportService, ILogger<ConfirmationController> logger)
+        public ConfirmationController(IFidectusManager fidectusManager, ILogger<ConfirmationController> logger)
         {
-            this.confirmationReportService = confirmationReportService;
+            this.fidectusManager = fidectusManager;
             this.logger = logger;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Confirmation([FromHeader] string apiJwtToken, [FromBody] WebServiceRequest webServiceRequest)
+        [HttpPost("{key}")]
+        public async Task<IActionResult> Confirmation([FromHeader] string apiJwtToken, string key, [FromQuery(Name = "tradeLeg")] int? leg)
         {
             try
             {
-                var confirmationReportParameters = new ConfirmationReportParameters
-                {
-                    ApiJwtToken = apiJwtToken,
-                    ActionName = webServiceRequest.ActionName,
-                    Template = TemplateConstants.ConfirmationTemplate,
-                    Format = webServiceRequest.Format,
-                    TradeReferences = webServiceRequest.Entities
-                };
-
-                var confirmationReport = await confirmationReportService.CreateReportAsync(confirmationReportParameters);
-
-                return confirmationReport.Status == ApiConstants.SuccessResult
-                    ? (IActionResult)Ok(confirmationReport)
-                    : BadRequest(confirmationReport);
+                return !string.IsNullOrWhiteSpace(key) && leg.HasValue
+                    ? Json(await fidectusManager.SendConfirmationAsync(key, leg.Value, apiJwtToken))
+                    : BadRequest();
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                return BadRequest(new ApiResponseWrapper<WebServiceResponse> { Message = ex.Message, Status = ApiConstants.FailedResult });
+
+                return BadRequest(new ApiResponseWrapper<SendConfirmationResponse>
+                {
+                    Message = ex.Message,
+                    Status = ApiConstants.FailedResult,
+                    Data = new SendConfirmationResponse
+                    {
+                        Message = ex.Message
+                    }
+                });
             }
         }
+
     }
 }

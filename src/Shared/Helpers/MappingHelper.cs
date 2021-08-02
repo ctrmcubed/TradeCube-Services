@@ -21,6 +21,5 @@ namespace Shared.Helpers
                 ? mappings[compositeKey]?.MappingTo
                 : null;
         }
-
     }
 }

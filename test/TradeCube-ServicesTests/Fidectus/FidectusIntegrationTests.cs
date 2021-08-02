@@ -20,8 +20,9 @@ namespace TradeCube_ServicesTests.Fidectus
 
             Assert.NotNull(test);
 
-            var (tradeConfirmation, settingHelper) = await fidectusTestFixture.FidectusManager.CreateTradeConfirmationAsync(test.Inputs.TradeReference, test.Inputs.TradeLeg, "apiJwtToken");
-            var confirmationResponse = await fidectusTestFixture.FidectusManager.SendTradeConfirmationAsync(tradeConfirmation, "apiJwtToken", settingHelper);
+            var tradeDataObject = await fidectusTestFixture.FidectusManager.GetTradeAsync(test.Inputs.TradeReference, test.Inputs.TradeLeg, "apiJwtToken");
+            var (tradeConfirmation, configurationHelper) = await fidectusTestFixture.FidectusManager.CreateTradeConfirmationAsync(tradeDataObject, "apiJwtToken");
+            var confirmationResponse = await fidectusTestFixture.FidectusManager.SendConfirmationAsync(tradeConfirmation, "apiJwtToken");
 
             Assert.True(confirmationResponse.IsSuccessStatusCode);
         }

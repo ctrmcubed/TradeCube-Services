@@ -27,13 +27,27 @@ namespace Fidectus.Services
             this.partyService = partyService;
         }
 
+        public string MapTradeReferenceToTradeId(string tradeReference, int tradeLeg)
+        {
+            var reference = tradeReference
+                .ToAlphaNumericOnly()
+                .GetLast(27)
+                .Pad(7, '0');
+
+            var leg = tradeLeg
+                .ToString()
+                .Pad(3, '0');
+
+            return $"{reference}{leg}";
+        }
+
         public async Task<IEnumerable<MappingDataObject>> GetMappingsAsync(string apiJwtToken)
         {
             return (await mappingService.GetMappingsViaJwtAsync(apiJwtToken))?.Data;
         }
 
         public async Task<TradeConfirmation> MapConfirmation(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse,
-            IEnumerable<ProfileResponse> profileResponses, MappingHelper mappingHelper, SettingHelper settingsHelper, string apiJwtToken)
+            IEnumerable<ProfileResponse> profileResponses, ConfigurationHelper configurationHelper, string apiJwtToken)
         {
             if (tradeDataObject == null)
             {
@@ -58,10 +72,13 @@ namespace Fidectus.Services
             var buyerEic = await MapEic(tradeDataObject.Buyer, "Buyer party", apiJwtToken);
             var sellerEic = await MapEic(tradeDataObject.Seller, "Seller party", apiJwtToken);
 
+            var mappingHelper = configurationHelper.MappingHelper;
+            var settingHelper = configurationHelper.SettingHelper;
+
             return new TradeConfirmation
             {
                 DocumentId = MapDocumentId(tradeDataObject, senderId),
-                DocumentUsage = settingsHelper.GetSetting("FidectusConfirmationUsage", "Live"),
+                DocumentUsage = settingHelper.GetSetting("FidectusConfirmationUsage", "Live"),
                 SenderId = senderId,
                 ReceiverId = receiverId,
                 ReceiverRole = "Trader",
@@ -176,26 +193,12 @@ namespace Fidectus.Services
                 : tradeDataObject.Counterparty?.Eic?.Eic;
         }
 
-        private static string MapDocumentId(TradeDataObject tradeDataObject, string senderId)
+        private string MapDocumentId(TradeDataObject tradeDataObject, string senderId)
         {
-            var tradeId = TestMapTradeReferenceToTradeId(tradeDataObject.TradeReference, tradeDataObject.TradeLeg);
+            var tradeId = MapTradeReferenceToTradeId(tradeDataObject.TradeReference, tradeDataObject.TradeLeg);
             var tradeDateTime = tradeDataObject.TradeDateTime.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
 
             return $"{FidectusConstants.ConfirmationDocument}_{tradeDateTime}_{tradeId}@{senderId}";
-        }
-
-        private static string TestMapTradeReferenceToTradeId(string tradeReference, int tradeLeg)
-        {
-            var reference = tradeReference
-                .ToAlphaNumericOnly()
-                .GetLast(27)
-                .Pad(7, '0');
-
-            var leg = tradeLeg
-                .ToString()
-                .Pad(3, '0');
-
-            return $"{reference}{leg}";
         }
 
         private static decimal? AbsoluteValue(decimal? value) =>

@@ -48,7 +48,7 @@ namespace TradeCube_Services.Controllers
                 var webhookResponse = await notificationService.NotifyAsync(webhookParameters);
 
                 return webhookResponse.Status == ApiConstants.SuccessResult
-                    ? (IActionResult)Ok(webhookResponse)
+                    ? Ok(webhookResponse)
                     : BadRequest(webhookResponse);
             }
             catch (Exception ex)

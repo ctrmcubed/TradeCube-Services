@@ -2,7 +2,7 @@
 
 namespace Fidectus.Messages
 {
-    public class TradeConfirmationResponse
+    public class SendConfirmationResponse
     {
         [JsonPropertyName("status")]
         public int Status { get; set; }

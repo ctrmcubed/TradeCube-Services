@@ -18,11 +18,11 @@ namespace Shared.Services
             this.logger = logger;
         }
 
-        protected async Task<(TV response, HttpResponseMessage httpResponse)> PostAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true)
+        protected async Task<(TV response, HttpResponseMessage httpResponse)> GetAsync<TV>(HttpClient client, string uri, bool ensureSuccess = true)
         {
             try
             {
-                var httpResponse = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+                var httpResponse = await client.GetAsync(uri);
 
                 if (ensureSuccess)
                 {
@@ -42,11 +42,35 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<(TV deserializeAsync, HttpResponseMessage response)> PutAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true)
+        protected async Task<(TV response, HttpResponseMessage httpResponse)> PostAsync<T, TV>(HttpClient client, string uri, T body, bool ensureSuccess = true)
         {
             try
             {
-                var httpResponse = await client.PutAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+                var httpResponse = await client.PostAsJsonAsync(uri, body, new JsonSerializerOptions { IgnoreNullValues = true });
+
+                if (ensureSuccess)
+                {
+                    httpResponse.EnsureSuccessStatusCode();
+                }
+
+                await using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
+
+                var response = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = false });
+
+                return (response, httpResponse);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        protected async Task<(TV deserializeAsync, HttpResponseMessage response)> PutAsync<T, TV>(HttpClient client, string uri, T body, bool ensureSuccess = true)
+        {
+            try
+            {
+                var httpResponse = await client.PutAsJsonAsync(uri, body, new JsonSerializerOptions { IgnoreNullValues = true });
 
                 if (ensureSuccess)
                 {
@@ -66,7 +90,7 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true)
+        protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string uri, T body, bool ensureSuccess = true)
         {
             static Uri ConstructUrl(string baseAddress, string uri)
             {
@@ -83,7 +107,7 @@ namespace Shared.Services
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Delete,
-                    RequestUri = ConstructUrl(client.BaseAddress?.ToString(), action),
+                    RequestUri = ConstructUrl(client.BaseAddress?.ToString(), uri),
                     Content = new StringContent(serializedBody, Encoding.UTF8, "application/json")
                 };
 

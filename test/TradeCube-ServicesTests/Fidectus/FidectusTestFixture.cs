@@ -79,6 +79,11 @@ namespace TradeCube_ServicesTests.Fidectus
                 {
                     SettingName = "FIDECTUS_TENANT",
                     SettingValue = "staging--fidectus"
+                },
+                new ()
+                {
+                    SettingName = "FIDECTUS_COMPANYID",
+                    SettingValue =  Environment.GetEnvironmentVariable("FIDECTUS_COMPANYID")
                 }
             };
 

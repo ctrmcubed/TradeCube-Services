@@ -39,7 +39,7 @@ namespace TradeCube_Services.Controllers
                 var saveTrade = await tradeService.PostTradesViaApiKeyAsync(apiKey, new List<TradeDataObject> { tradeDataObject });
 
                 return saveTrade.Status == ApiConstants.SuccessResult
-                    ? (IActionResult)Ok(tradeDataObject)
+                    ? Ok(tradeDataObject)
                     : BadRequest(saveTrade.Message);
             }
             catch (Exception ex)

@@ -4,6 +4,7 @@ using Shared.Configuration;
 using Shared.Serialization;
 using Shared.Services;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -20,19 +21,54 @@ namespace Fidectus.Services
             this.logger = logger;
         }
 
-        public async Task<TradeConfirmationResponse> FidectusSendTradeConfirmation(TradeConfirmationRequest tradeConfirmationRequest, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
+        public async Task<GetConfirmationResponse> GetTradeConfirmation(string companyId, IEnumerable<string> docIds, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
         {
             try
             {
+                var httpClient = httpClientFactory.CreateClient();
+
+                httpClient.BaseAddress = new Uri(fidectusConfiguration.FidectusUrl);
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {requestTokenResponse?.AccessToken}");
+                httpClient.DefaultRequestHeaders.Add("CompanyId-Context", companyId);
+
+                var uri = $"{fidectusConfiguration.FidectusConfirmationUrl}?docIds={docIds}";
+
+                var (response, httpResponse) = await GetAsync<GetConfirmationResponse>(httpClient, uri, false);
+
+                // Mutation!
+                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
+
+                // Other HttpResponse fields not needed
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return new GetConfirmationResponse
+                {
+                    IsSuccessStatusCode = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
+
+        public async Task<SendConfirmationResponse> SendTradeConfirmation(string companyId,
+            TradeConfirmationRequest tradeConfirmationRequest, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
+        {
+            try
+            {
+                logger.LogInformation($"CompanyId: {companyId}");
                 logger.LogInformation($"{TradeCubeJsonSerializer.Serialize(tradeConfirmationRequest)}");
 
                 var httpClient = httpClientFactory.CreateClient();
 
                 httpClient.BaseAddress = new Uri(fidectusConfiguration.FidectusUrl);
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {requestTokenResponse?.AccessToken}");
-                httpClient.DefaultRequestHeaders.Add("CompanyId-Context", "60e70a7fb3fce11b7bfb438b");
+                httpClient.DefaultRequestHeaders.Add("CompanyId-Context", companyId);
 
-                var (response, httpResponse) = await PostAsync<TradeConfirmationRequest, TradeConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
+                var (response, httpResponse) = await PostAsync<TradeConfirmationRequest, SendConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
 
                 logger.LogInformation($"FidectusSendTradeConfirmation: {httpResponse.StatusCode}");
 
@@ -46,7 +82,7 @@ namespace Fidectus.Services
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                return new TradeConfirmationResponse
+                return new SendConfirmationResponse
                 {
                     IsSuccessStatusCode = false,
                     Message = ex.Message
