@@ -31,7 +31,7 @@ namespace TradeCube_Services.Controllers
             try
             {
                 return !string.IsNullOrWhiteSpace(key) && leg.HasValue
-                    ? Json(await fidectusManager.SendConfirmationAsync(key, leg.Value, apiJwtToken))
+                    ? Json(await fidectusManager.ProcessConfirmationAsync(key, leg.Value, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)))
                     : BadRequest();
             }
             catch (Exception ex)

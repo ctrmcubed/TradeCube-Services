@@ -31,32 +31,46 @@ namespace Fidectus.Services
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {requestTokenResponse?.AccessToken}");
                 httpClient.DefaultRequestHeaders.Add("CompanyId-Context", companyId);
 
-                var uri = $"{fidectusConfiguration.FidectusConfirmationUrl}?docIds={docIds}";
-
+                var uri = $"{fidectusConfiguration.FidectusConfirmationUrl}?docIds={string.Join(",", docIds)}";
                 var (response, httpResponse) = await GetAsync<GetConfirmationResponse>(httpClient, uri, false);
 
-                // Mutation!
-                response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
-
-                // Other HttpResponse fields not needed
+                logger.LogInformation($"GetTradeConfirmation: {httpResponse.StatusCode}");
 
                 return response;
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                return new GetConfirmationResponse
-                {
-                    IsSuccessStatusCode = false,
-                    Message = ex.Message
-                };
+                return new GetConfirmationResponse();
             }
         }
 
 
-        public async Task<SendConfirmationResponse> SendTradeConfirmation(string companyId,
-            TradeConfirmationRequest tradeConfirmationRequest, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
+        public async Task<SendConfirmationResponse> SendTradeConfirmation(string method, string companyId, TradeConfirmationRequest tradeConfirmationRequest,
+            RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
         {
+            async Task<(SendConfirmationResponse response, HttpResponseMessage httpResponse)> PostConfirmationAsync(HttpClient httpClient)
+            {
+                return await PostAsync<TradeConfirmationRequest, SendConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
+            }
+
+            async Task<(SendConfirmationResponse response, HttpResponseMessage httpResponse)> PutConfirmationAsync(HttpClient httpClient)
+            {
+                var url = $"{fidectusConfiguration.FidectusConfirmationUrl}/{tradeConfirmationRequest.TradeConfirmation?.DocumentId}";
+
+                return (new SendConfirmationResponse(), await PutAsync(httpClient, url, tradeConfirmationRequest, false));
+            }
+
+            async Task<(SendConfirmationResponse response, HttpResponseMessage httpResponse)> HttpMethod(string httpMethod, HttpClient httpClient)
+            {
+                return httpMethod switch
+                {
+                    "POST" => await PostConfirmationAsync(httpClient),
+                    "PUT" => await PutConfirmationAsync(httpClient),
+                    _ => throw new Exception($"Unknown HTTP method ({method})")
+                };
+            }
+
             try
             {
                 logger.LogInformation($"CompanyId: {companyId}");
@@ -68,14 +82,14 @@ namespace Fidectus.Services
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {requestTokenResponse?.AccessToken}");
                 httpClient.DefaultRequestHeaders.Add("CompanyId-Context", companyId);
 
-                var (response, httpResponse) = await PostAsync<TradeConfirmationRequest, SendConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
+                logger.LogInformation($"FidectusSendTradeConfirmation, HTTP method: {method}");
+
+                var (response, httpResponse) = await HttpMethod(method, httpClient);
 
                 logger.LogInformation($"FidectusSendTradeConfirmation: {httpResponse.StatusCode}");
 
                 // Mutation!
                 response.IsSuccessStatusCode = httpResponse.IsSuccessStatusCode;
-
-                // Other HttpResponse fields not needed
 
                 return response;
             }

@@ -90,6 +90,26 @@ namespace Shared.Services
             }
         }
 
+        protected async Task<HttpResponseMessage> PutAsync<T>(HttpClient client, string uri, T body, bool ensureSuccess = true)
+        {
+            try
+            {
+                var httpResponse = await client.PutAsJsonAsync(uri, body, new JsonSerializerOptions { IgnoreNullValues = true });
+
+                if (ensureSuccess)
+                {
+                    httpResponse.EnsureSuccessStatusCode();
+                }
+
+                return httpResponse;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
         protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string uri, T body, bool ensureSuccess = true)
         {
             static Uri ConstructUrl(string baseAddress, string uri)

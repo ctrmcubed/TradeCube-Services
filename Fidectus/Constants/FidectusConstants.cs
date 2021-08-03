@@ -7,5 +7,8 @@
         public const string ConfirmationDocument = "CNF";
 
         public const string AgentTypeEcvna = "ECVNA";
+
+        public const string SubmissionStatusSubmitted = "Submitted";
+        public const string SubmissionStatusResubmitted = "Resubmitted";
     }
 }

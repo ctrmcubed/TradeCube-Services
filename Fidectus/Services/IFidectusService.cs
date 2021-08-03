@@ -8,6 +8,6 @@ namespace Fidectus.Services
     public interface IFidectusService
     {
         Task<GetConfirmationResponse> GetTradeConfirmation(string companyId, IEnumerable<string> docIds, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration);
-        Task<SendConfirmationResponse> SendTradeConfirmation(string companyId, TradeConfirmationRequest tradeConfirmationRequest, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration);
+        Task<SendConfirmationResponse> SendTradeConfirmation(string method, string companyId, TradeConfirmationRequest tradeConfirmationRequest, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration);
     }
 }

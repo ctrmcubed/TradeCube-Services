@@ -2,6 +2,7 @@
 using Fidectus.Helpers;
 using Fidectus.Models;
 using NodaTime;
+using Shared.Configuration;
 using Shared.DataObjects;
 using Shared.Extensions;
 using Shared.Helpers;
@@ -47,7 +48,7 @@ namespace Fidectus.Services
         }
 
         public async Task<TradeConfirmation> MapConfirmation(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse,
-            IEnumerable<ProfileResponse> profileResponses, ConfigurationHelper configurationHelper, string apiJwtToken)
+            IEnumerable<ProfileResponse> profileResponses, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
             if (tradeDataObject == null)
             {
@@ -72,39 +73,36 @@ namespace Fidectus.Services
             var buyerEic = await MapEic(tradeDataObject.Buyer, "Buyer party", apiJwtToken);
             var sellerEic = await MapEic(tradeDataObject.Seller, "Seller party", apiJwtToken);
 
-            var mappingHelper = configurationHelper.MappingHelper;
-            var settingHelper = configurationHelper.SettingHelper;
-
             return new TradeConfirmation
             {
                 DocumentId = MapDocumentId(tradeDataObject, senderId),
-                DocumentUsage = settingHelper.GetSetting("FidectusConfirmationUsage", "Live"),
+                DocumentUsage = fidectusConfiguration.GetSetting("FidectusConfirmationUsage", "Live"),
                 SenderId = senderId,
                 ReceiverId = receiverId,
                 ReceiverRole = "Trader",
                 DocumentVersion = 1,
                 Market = tradeDataObject.Product?.Commodity?.Country,
-                Commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper),
-                TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType, mappingHelper),
+                Commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, fidectusConfiguration),
+                TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType, fidectusConfiguration),
                 DeliveryPointArea = tradeDataObject.Product?.Commodity?.DeliveryArea?.Eic,
                 BuyerParty = buyerEic,
                 SellerParty = sellerEic,
-                LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom", mappingHelper),
-                Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType, tradeDataObject.Product?.Commodity?.Commodity, mappingHelper),
+                LoadType = MapShapeDescriptionToLoadType(tradeDataObject.Product?.ShapeDescription, "Custom", fidectusConfiguration),
+                Agreement = MapContractAgreementToAgreement(tradeDataObject.Contract?.AgreementType?.AgreementType, tradeDataObject.Product?.Commodity?.Commodity, fidectusConfiguration),
                 Currency = MapPriceUnitToCurrency(tradeDataObject.Price?.PriceUnit),
                 TotalVolume = AbsoluteValue(tradeSummaryResponse?.TotalVolume),
-                TotalVolumeUnit = MapEnergyUnitToVolumeUnit(tradeDataObject.Quantity?.QuantityUnit?.EnergyUnit?.EnergyUnit, mappingHelper),
+                TotalVolumeUnit = MapEnergyUnitToVolumeUnit(tradeDataObject.Quantity?.QuantityUnit?.EnergyUnit?.EnergyUnit, fidectusConfiguration),
                 TradeDate = tradeDataObject.TradeDateTime.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-                CapacityUnit = MapQuantityUnitToCapacityUnit(tradeDataObject.Quantity?.QuantityUnit?.QuantityUnit, mappingHelper),
-                PriceUnit = MapPriceUnitToPriceUnit(tradeDataObject.Price?.PriceUnit, mappingHelper),
+                CapacityUnit = MapQuantityUnitToCapacityUnit(tradeDataObject.Quantity?.QuantityUnit?.QuantityUnit, fidectusConfiguration),
+                PriceUnit = MapPriceUnitToPriceUnit(tradeDataObject.Price?.PriceUnit, fidectusConfiguration),
                 TotalContractValue = AbsoluteValue(tradeSummaryResponse?.TotalValue),
                 TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(tradeDataObject.Quantity?.Quantity, profileResponses, timezone, tradeDataObject.Price?.PriceUnit?.CurrencyExponent),
                 TraderName = tradeDataObject.InternalTrader?.ContactLongName,
-                HubCodificationInformation = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper) == FidectusConstants.CommodityGas
+                HubCodificationInformation = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, fidectusConfiguration) == FidectusConstants.CommodityGas
                     ? await MapHubCodificationInformation(tradeDataObject.Buyer, tradeDataObject.Seller, apiJwtToken)
                     : null,
                 AccountAndChargeInformation = MapAccountAndChargeInformation(tradeDataObject),
-                Agents = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper) == FidectusConstants.CommodityPower
+                Agents = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, fidectusConfiguration) == FidectusConstants.CommodityPower
                     ? new List<Agent>
                     {
                         new()
@@ -209,17 +207,17 @@ namespace Fidectus.Services
         private static decimal AbsoluteValue(decimal value) =>
             Math.Abs(value);
 
-        private static string MapCommodityToCommodity(string commodity, MappingHelper mappingHelper)
+        private static string MapCommodityToCommodity(string commodity, IFidectusConfiguration fidectusConfiguration)
         {
-            var mappingTo = mappingHelper.GetMappingTo("EFET_Commodity", commodity);
+            var mappingTo = fidectusConfiguration.GetMappingTo("EFET_Commodity", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? commodity
                 : mappingTo;
         }
 
-        private static string MapContractTypeToTransactionType(string contractType, MappingHelper mappingHelper)
+        private static string MapContractTypeToTransactionType(string contractType, IFidectusConfiguration fidectusConfiguration)
         {
-            var mappingTo = mappingHelper.GetMappingTo("EFET_TransactionType", contractType);
+            var mappingTo = fidectusConfiguration.GetMappingTo("EFET_TransactionType", contractType);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? contractType
                 : mappingTo;
@@ -255,27 +253,27 @@ namespace Fidectus.Services
                 : defaultValue;
         }
 
-        private static string MapShapeDescriptionToLoadType(string shapeDescription, string defaultValue, MappingHelper mappingHelper)
+        private static string MapShapeDescriptionToLoadType(string shapeDescription, string defaultValue, IFidectusConfiguration fidectusConfiguration)
         {
             if (string.IsNullOrWhiteSpace(shapeDescription))
             {
                 return defaultValue;
             }
 
-            var mappingTo = mappingHelper.GetMappingTo("EFET_LoadType", shapeDescription);
+            var mappingTo = fidectusConfiguration.GetMappingTo("EFET_LoadType", shapeDescription);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? defaultValue
                 : mappingTo;
         }
 
-        private static string MapContractAgreementToAgreement(string agreementType, string commodity, MappingHelper mappingHelper)
+        private static string MapContractAgreementToAgreement(string agreementType, string commodity, IFidectusConfiguration fidectusConfiguration)
         {
             if (!string.IsNullOrWhiteSpace(agreementType))
             {
                 return agreementType;
             }
 
-            var mappingTo = mappingHelper.GetMappingTo("EFET_Agreement", commodity);
+            var mappingTo = fidectusConfiguration.GetMappingTo("EFET_Agreement", commodity);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? agreementType
                 : mappingTo;
@@ -290,23 +288,23 @@ namespace Fidectus.Services
             };
         }
 
-        private static string MapEnergyUnitToVolumeUnit(string energyUnit, MappingHelper mappingHelper)
+        private static string MapEnergyUnitToVolumeUnit(string energyUnit, IFidectusConfiguration fidectusConfiguration)
         {
-            var mappingTo = mappingHelper.GetMappingTo("EFET_EnergyUnit", energyUnit);
+            var mappingTo = fidectusConfiguration.GetMappingTo("EFET_EnergyUnit", energyUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? energyUnit
                 : mappingTo;
         }
 
-        private static string MapQuantityUnitToCapacityUnit(string quantityUnit, MappingHelper mappingHelper)
+        private static string MapQuantityUnitToCapacityUnit(string quantityUnit, IFidectusConfiguration fidectusConfiguration)
         {
-            var mappingTo = mappingHelper.GetMappingTo("EFET_CapacityUnit", quantityUnit);
+            var mappingTo = fidectusConfiguration.GetMappingTo("EFET_CapacityUnit", quantityUnit);
             return string.IsNullOrWhiteSpace(mappingTo)
                 ? quantityUnit
                 : mappingTo;
         }
 
-        private static PriceUnit MapPriceUnitToPriceUnit(PriceUnitDataObject priceUnit, MappingHelper mappingHelper)
+        private static PriceUnit MapPriceUnitToPriceUnit(PriceUnitDataObject priceUnit, IFidectusConfiguration fidectusConfiguration)
         {
             return new()
             {
@@ -315,7 +313,7 @@ namespace Fidectus.Services
                     CurrencyCodeType = priceUnit?.Currency,
                     UseFractionUnit = priceUnit?.CurrencyExponent is not null
                 },
-                CapacityUnit = mappingHelper.GetMappingTo("EFET_PriceUnit_CapacityUnit", priceUnit?.PerQuantityUnit?.QuantityUnit)
+                CapacityUnit = fidectusConfiguration.GetMappingTo("EFET_PriceUnit_CapacityUnit", priceUnit?.PerQuantityUnit?.QuantityUnit)
             };
         }
 

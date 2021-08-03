@@ -1,5 +1,5 @@
-﻿using Fidectus.Helpers;
-using Fidectus.Models;
+﻿using Fidectus.Models;
+using Shared.Configuration;
 using Shared.DataObjects;
 using Shared.Messages;
 using System.Collections.Generic;
@@ -13,6 +13,6 @@ namespace Fidectus.Services
         Task<IEnumerable<MappingDataObject>> GetMappingsAsync(string apiJwtToken);
 
         Task<TradeConfirmation> MapConfirmation(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse, IEnumerable<ProfileResponse> profileResponses,
-           ConfigurationHelper configurationHelper, string apiJwtToken);
+            string apiJwtToken, IFidectusConfiguration fidectusConfiguration);
     }
 }

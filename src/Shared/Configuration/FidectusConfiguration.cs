@@ -47,5 +47,15 @@ namespace Shared.Configuration
 
             return companyId;
         }
+
+        public string GetSetting(string key, string defaultValue)
+        {
+            return settingHelper.GetSetting(key, defaultValue);
+        }
+
+        public string GetMappingTo(string key, string mappingFrom)
+        {
+            return mappingHelper.GetMappingTo(key, mappingFrom);
+        }
     }
 }

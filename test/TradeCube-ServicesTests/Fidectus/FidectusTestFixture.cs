@@ -108,6 +108,10 @@ namespace TradeCube_ServicesTests.Fidectus
                 .ReturnsAsync((string _, string tradeReference, int tradeLeg) =>
                     new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Data = trades.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
 
+            service.Setup(c => c.PutTradesViaJwtAsync(It.IsAny<string>(), It.IsAny<IEnumerable<TradeDataObject>>()))
+                .ReturnsAsync((string _, IEnumerable<TradeDataObject> _) =>
+                    new ApiResponseWrapper<IEnumerable<TradeDataObject>> { IsSuccessStatusCode = true });
+
             return service.Object;
         }
 
