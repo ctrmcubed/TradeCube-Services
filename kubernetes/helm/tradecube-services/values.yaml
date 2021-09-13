@@ -36,6 +36,11 @@ equias:
   modifyPhysicalTradeURI: /eBOWebApi/api/v1.0/Trade/ModifyPhysicalTrade # {{ .Values.equias.modifyPhysicalTradeURI }}
   cancelTradeURI: /eBOWebApi/api/v1.0/Trade/CancelTrade                 # {{ .Values.equias.cancelTradeURI }}
 
+fidectus:
+  confirmationURI: /api/v1/confirmation                     # {{ .Values.fidectus.confirmationURI }}
+  confirmationBoxResultURI: /api/v1/confirmation-box-result # {{ .Values.fidectus.confirmationBoxResultURI }}
+
+
 service:
   port: 80       # {{ .Values.service.port }}
   targetPort: 80 # {{ .Values.service.targetPort }}
