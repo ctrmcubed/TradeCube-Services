@@ -52,11 +52,8 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 var exchangeId = m7Trade.Product.exchangeId;
                 var aggressorIndicator = m7Trade.aggressorIndicator?.ToUpper();
 
-                var allMappings =
-                    (await mappingService.GetMappingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.MappingKey, v => v);
-
-                var allSettings =
-                    (await settingService.GetSettingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.SettingName, v => v);
+                var allMappings = (await mappingService.GetMappingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.MappingKey, v => v);
+                var allSettings = (await settingService.GetSettingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.SettingName, v => v);
 
                 var tradeStatus = "Live";
                 var quantityType = "Fixed";

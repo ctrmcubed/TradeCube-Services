@@ -45,6 +45,7 @@ namespace Shared.Services
                 };
             }
         }
+
         public async Task<ApiResponseWrapper<IEnumerable<TradeDataObject>>> GetTradesAsync(string apiJwtToken, TradeRequest tradeRequest)
         {
             try

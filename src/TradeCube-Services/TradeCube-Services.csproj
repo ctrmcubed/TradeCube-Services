@@ -21,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Fidectus\Fidectus.csproj" />
     <ProjectReference Include="..\Equias\Equias.csproj" />
+    <ProjectReference Include="..\Fidectus\Fidectus.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 

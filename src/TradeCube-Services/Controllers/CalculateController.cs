@@ -47,7 +47,7 @@ namespace TradeCube_Services.Controllers
                 };
 
                 return formulaEvaluatorResponse.IsSuccess
-                    ? (IActionResult)Ok(apiResponseWrapper)
+                    ? Ok(apiResponseWrapper)
                     : BadRequest(apiResponseWrapper);
             }
             catch (Exception ex)

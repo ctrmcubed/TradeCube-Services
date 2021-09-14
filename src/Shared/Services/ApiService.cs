@@ -19,6 +19,30 @@ namespace Shared.Services
             this.logger = logger;
         }
 
+        protected async Task<(TV response, HttpResponseMessage httpResponse)> GetAsync<TV>(HttpClient client, string uri, bool ensureSuccess = true)
+        {
+            try
+            {
+                var httpResponse = await client.GetAsync(uri);
+
+                if (ensureSuccess)
+                {
+                    httpResponse.EnsureSuccessStatusCode();
+                }
+
+                await using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
+
+                var response = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = false });
+
+                return (response, httpResponse);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
         protected async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse
         {
             try
@@ -33,6 +57,11 @@ namespace Shared.Services
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
 
                 var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+
+                if (deserializeAsync is null)
+                {
+                    return null;
+                }
 
                 deserializeAsync.Status = response.StatusCode.ToString();
                 deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;

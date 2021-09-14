@@ -1,0 +1,152 @@
+[
+    {
+        "TradeReference": "FidectusConfirmsMockPower0",
+        "TradeLeg": 1,
+        "TotalVolume": 42187.54,
+        "TotalValue": 520594.2436,
+        "WeightedAveragePrice": 12.34,
+        "TotalVolumeUnit": "MWh",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "GBP/MWh"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockPower1",
+        "TradeLeg": 1,
+        "TotalVolume": -25255.08,
+        "TotalValue": -592231.626,
+        "WeightedAveragePrice": 23.45,
+        "TotalVolumeUnit": "MWh",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "GBP/MWh"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockPower2",
+        "TradeLeg": 1,
+        "TotalVolume": 1814.7,
+        "TotalValue": 62716.032,
+        "WeightedAveragePrice": 34.56,
+        "TotalVolumeUnit": "MWh",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "GBP/MWh"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockPower3",
+        "TradeLeg": 1,
+        "TotalVolume": -2136.24,
+        "TotalValue": -97562.0808,
+        "WeightedAveragePrice": 45.67,
+        "TotalVolumeUnit": "MWh",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "GBP/MWh"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockPower4",
+        "TradeLeg": 1,
+        "TotalVolume": 2162.88,
+        "TotalValue": 122808.3264,
+        "WeightedAveragePrice": 56.78,
+        "TotalVolumeUnit": "MWh",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "GBP/MWh"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockPower5",
+        "TradeLeg": 1,
+        "TotalVolume": -30.75,
+        "TotalValue": -2087.6175,
+        "WeightedAveragePrice": 67.89,
+        "TotalVolumeUnit": "MWh",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "GBP/MWh"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockPower6",
+        "TradeLeg": 1,
+        "TotalVolume": 4590.48,
+        "TotalValue": 362188.872,
+        "WeightedAveragePrice": 78.9,
+        "TotalVolumeUnit": "MWh",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "GBP/MWh"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockPower7",
+        "TradeLeg": 1,
+        "TotalVolume": 240.0,
+        "TotalValue": 13200.0,
+        "WeightedAveragePrice": 55.0,
+        "TotalVolumeUnit": "MWh",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "GBP/MWh"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockGas0",
+        "TradeLeg": 1,
+        "TotalVolume": -1760.18,
+        "TotalValue": -217.206212,
+        "WeightedAveragePrice": 12.34,
+        "TotalVolumeUnit": "Therm (UK)",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "p/Therm"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockGas1",
+        "TradeLeg": 1,
+        "TotalVolume": 67.89,
+        "TotalValue": 15.920205,
+        "WeightedAveragePrice": 23.45,
+        "TotalVolumeUnit": "Therm (UK)",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "p/Therm"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockGas2",
+        "TradeLeg": 1,
+        "TotalVolume": -78.9,
+        "TotalValue": -27.26784,
+        "WeightedAveragePrice": 34.56,
+        "TotalVolumeUnit": "Therm (UK)",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "p/Therm"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockGas3",
+        "TradeLeg": 1,
+        "TotalVolume": 89.01,
+        "TotalValue": 40.650867,
+        "WeightedAveragePrice": 45.67,
+        "TotalVolumeUnit": "Therm (UK)",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "p/Therm"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockGas4",
+        "TradeLeg": 1,
+        "TotalVolume": -90.12,
+        "TotalValue": -51.170136,
+        "WeightedAveragePrice": 56.78,
+        "TotalVolumeUnit": "Therm (UK)",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "p/Therm"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockGas5",
+        "TradeLeg": 1,
+        "TotalVolume": 1.23,
+        "TotalValue": 0.835047,
+        "WeightedAveragePrice": 67.89,
+        "TotalVolumeUnit": "Therm (UK)",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "p/Therm"
+    },
+    {
+        "TradeReference": "FidectusConfirmsMockGas6",
+        "TradeLeg": 1,
+        "TotalVolume": -12.34,
+        "TotalValue": -9.73626,
+        "WeightedAveragePrice": 78.9,
+        "TotalVolumeUnit": "Therm (UK)",
+        "TotalValueCurrency": "GBP",
+        "WeightedAveragePriceUnit": "p/Therm"
+    }
+]
