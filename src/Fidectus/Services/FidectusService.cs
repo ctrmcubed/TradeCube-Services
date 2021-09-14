@@ -45,7 +45,7 @@ namespace Fidectus.Services
             }
         }
 
-        public async Task<GetConfirmationResponse> GetBoxResult(string companyId, string docId, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
+        public async Task<BoxResultResponse> GetBoxResult(string companyId, string docId, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace Fidectus.Services
                 httpClient.DefaultRequestHeaders.Add("CompanyId-Context", companyId);
 
                 var uri = $"{fidectusConfiguration.FidectusConfirmationBoxResultUrl}/{docId}";
-                var (response, httpResponse) = await GetAsync<GetConfirmationResponse>(httpClient, uri, false);
+                var (response, httpResponse) = await GetAsync<BoxResultResponse>(httpClient, uri, false);
 
                 logger.LogInformation($"GetBoxResult: {httpResponse.StatusCode}");
 
@@ -65,7 +65,7 @@ namespace Fidectus.Services
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                return new GetConfirmationResponse();
+                return new BoxResultResponse();
             }
         }
 

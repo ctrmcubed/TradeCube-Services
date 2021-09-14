@@ -1,4 +1,4 @@
-﻿namespace Equias.Messages
+﻿namespace Shared.Messages
 {
     public class TradeKey
     {

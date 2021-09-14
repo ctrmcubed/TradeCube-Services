@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Shared.Configuration;
 using Shared.Constants;
 using Shared.DataObjects;
+using Shared.Extensions;
 using Shared.Helpers;
 using Shared.Messages;
 using Shared.Serialization;
@@ -54,7 +55,7 @@ namespace Fidectus.Managers
             return new FidectusConfiguration(settingHelper, mappingHelper);
         }
 
-        public async Task<SendConfirmationResponse> ProcessConfirmationAsync(string tradeReference, int tradeLeg, string apiJwtToken, FidectusConfiguration fidectusConfiguration)
+        public async Task<SendConfirmationResponse> ProcessConfirmationAsync(string tradeReference, int tradeLeg, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
             static int? DocumentVersion(GetConfirmationResponse confirmationResponse)
             {
@@ -112,6 +113,45 @@ namespace Fidectus.Managers
             return confirmationResponse;
         }
 
+        public async IAsyncEnumerable<BoxResultResponse> BoxResults(IEnumerable<TradeKey> tradeKeys, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
+        {
+            var requestTokenResponse = await CreateAuthenticationTokenAsync(apiJwtToken, fidectusConfiguration);
+            var companyId = fidectusConfiguration.CompanyId();
+
+            foreach (var tradeKey in tradeKeys)
+            {
+                var tradeDataObject = await GetTradeAsync(tradeKey.TradeReference, tradeKey.TradeLeg, apiJwtToken);
+                if (tradeDataObject is null)
+                {
+                    continue;
+                }
+
+                yield return await fidectusService.GetBoxResult(companyId, tradeDataObject.FidectusDocumentId(), requestTokenResponse, fidectusConfiguration);
+            }
+        }
+
+        public async Task<TradeDataObject> GetTradeAsync(string tradeReference, int tradeLeg, string apiJwtToken)
+        {
+            return (await tradeService.GetTradeAsync(apiJwtToken, tradeReference, tradeLeg)).Data?.SingleOrDefault();
+        }
+
+        public async Task<TradeConfirmation> CreateTradeConfirmationAsync(TradeDataObject tradeDataObject, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
+        {
+            try
+            {
+                var tradeConfirmation = await MapTradeConfirmationAsync(tradeDataObject, apiJwtToken, fidectusConfiguration);
+
+                logger.LogDebug($"Trade Confirmation: {TradeCubeJsonSerializer.Serialize(tradeConfirmation)}");
+
+                return tradeConfirmation;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
         private static TradeDataObject SetPreSubmissionUpdates(TradeDataObject tradeDataObject, int? version)
         {
             // Mutation!
@@ -137,28 +177,6 @@ namespace Fidectus.Managers
             tradeDataObject.External.Confirmation.Message = confirmationResponse.Message;
 
             return tradeDataObject;
-        }
-
-        public async Task<TradeDataObject> GetTradeAsync(string tradeReference, int tradeLeg, string apiJwtToken)
-        {
-            return (await tradeService.GetTradeAsync(apiJwtToken, tradeReference, tradeLeg)).Data?.SingleOrDefault();
-        }
-
-        public async Task<TradeConfirmation> CreateTradeConfirmationAsync(TradeDataObject tradeDataObject, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
-        {
-            try
-            {
-                var tradeConfirmation = await MapTradeConfirmationAsync(tradeDataObject, apiJwtToken, fidectusConfiguration);
-
-                logger.LogDebug($"Trade Confirmation: {TradeCubeJsonSerializer.Serialize(tradeConfirmation)}");
-
-                return tradeConfirmation;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
         }
 
         private async Task<SendConfirmationResponse> SendConfirmationAsync(string method, TradeConfirmation tradeConfirmation, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)

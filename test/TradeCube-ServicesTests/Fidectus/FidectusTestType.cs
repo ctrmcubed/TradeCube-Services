@@ -1,4 +1,6 @@
-﻿namespace TradeCube_ServicesTests.Fidectus
+﻿using Fidectus.Messages;
+
+namespace TradeCube_ServicesTests.Fidectus
 {
     public class FidectusTestType
     {

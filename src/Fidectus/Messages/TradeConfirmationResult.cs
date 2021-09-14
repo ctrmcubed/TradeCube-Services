@@ -1,6 +1,6 @@
 ﻿using Fidectus.Models;
 
-namespace TradeCube_ServicesTests.Fidectus
+namespace Fidectus.Messages
 {
     public class TradeConfirmationResult
     {

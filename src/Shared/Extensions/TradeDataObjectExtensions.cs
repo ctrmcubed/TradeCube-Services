@@ -8,5 +8,22 @@ namespace Shared.Extensions
         {
             return tradeDataObject?.External?.Equias?.EboWhithhold != null && tradeDataObject.External.Equias.EboWhithhold.Value;
         }
+
+        public static string EboActionType(this TradeDataObject tradeDataObject)
+        {
+            return string.IsNullOrWhiteSpace(tradeDataObject.External?.Equias?.EboTradeId)
+                ? null
+                : "R";
+        }
+
+        public static string EboStatus(this TradeDataObject tradeDataObject)
+        {
+            return tradeDataObject.External?.Equias?.CmStatus;
+        }
+
+        public static string FidectusDocumentId(this TradeDataObject tradeDataObject)
+        {
+            return tradeDataObject.External?.Confirmation?.DocumentId;
+        }
     }
 }

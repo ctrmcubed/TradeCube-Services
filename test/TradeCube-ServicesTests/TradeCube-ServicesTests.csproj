@@ -34,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Fidectus\Fidectus.csproj" />
     <ProjectReference Include="..\..\src\Equias\Equias.csproj" />
     <ProjectReference Include="..\..\src\Fidectus\Fidectus.csproj" />
   </ItemGroup>

@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Fidectus.Managers;
+using Fidectus.Messages;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shared.Constants;
 using Shared.Messages;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Fidectus.Managers;
-using Fidectus.Messages;
 
 namespace TradeCube_Services.Controllers
 {
@@ -50,5 +52,18 @@ namespace TradeCube_Services.Controllers
             }
         }
 
+        [HttpPost("Result")]
+        public async Task<IActionResult> Result([FromHeader] string apiJwtToken, [FromBody] IEnumerable<TradeKey> tradeKeys)
+        {
+            try
+            {
+                return Json(await fidectusManager.BoxResults(tradeKeys, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)).ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return BadRequest(new ApiResponseWrapper<BoxResultResponse> { Message = ex.Message, Status = ApiConstants.FailedResult });
+            }
+        }
     }
 }
