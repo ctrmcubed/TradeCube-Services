@@ -55,29 +55,26 @@ namespace Fidectus.Managers
             return new FidectusConfiguration(settingHelper, mappingHelper);
         }
 
-        public async Task<SendConfirmationResponse> ProcessConfirmationAsync(string tradeReference, int tradeLeg, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
+        public async Task<ConfirmationResponse> ProcessConfirmationAsync(string tradeReference, int tradeLeg, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
-            static int? DocumentVersion(GetConfirmationResponse confirmationResponse)
+            static int? DocumentVersion(BoxResultResponse boxResultResponse)
             {
-                return confirmationResponse?.EcmEnvelopes is null || !confirmationResponse.EcmEnvelopes.Any()
-                    ? null
-                    : confirmationResponse.EcmEnvelopes.FirstOrDefault()?.TradeConfirmation?.DocumentVersion;
+                return boxResultResponse?.Envelope?.Payload?.Message?.BoxResult?.DocumentVersion;
             }
 
             static bool IsWithheld(TradeDataObject trade)
             {
-                return trade.External?.Confirmation?.Withhold is not null && trade.External.Confirmation.Withhold;
+                return trade.WithholdFidectusSubmission();
             }
 
             var tradeDataObject = await GetTradeAsync(tradeReference, tradeLeg, apiJwtToken);
             if (tradeDataObject is null || IsWithheld(tradeDataObject))
             {
-                return new SendConfirmationResponse();
+                return new ConfirmationResponse();
             }
 
             var requestTokenResponse = await CreateAuthenticationTokenAsync(apiJwtToken, fidectusConfiguration);
-            var tradeId = fidectusMappingService.MapTradeReferenceToTradeId(tradeReference, tradeLeg);
-            var getConfirmationResponse = await fidectusService.GetTradeConfirmation(fidectusConfiguration.CompanyId(), new List<string> { tradeId }, requestTokenResponse, fidectusConfiguration);
+            var getConfirmationResponse = await fidectusService.GetBoxResult(fidectusConfiguration.CompanyId(), tradeDataObject.FidectusDocumentId(), requestTokenResponse, fidectusConfiguration);
             var documentVersion = DocumentVersion(getConfirmationResponse);
 
             logger.LogInformation($"Document version: {documentVersion}");
@@ -162,10 +159,12 @@ namespace Fidectus.Managers
                 ? FidectusConstants.SubmissionStatusResubmitted
                 : FidectusConstants.SubmissionStatusSubmitted;
 
+            tradeDataObject.External.Confirmation.ConfirmationProvider = ConfirmationConstants.ConfirmationProviderFidectus;
+
             return tradeDataObject;
         }
 
-        private static TradeDataObject SetPostSubmissionUpdates(TradeDataObject tradeDataObject, SendConfirmationResponse confirmationResponse)
+        private static TradeDataObject SetPostSubmissionUpdates(TradeDataObject tradeDataObject, ConfirmationResponse confirmationResponse)
         {
             // Mutation!
             tradeDataObject.External ??= new ExternalFieldsType();
@@ -174,12 +173,12 @@ namespace Fidectus.Managers
                 ? "Success"
                 : "Failed";
 
-            tradeDataObject.External.Confirmation.Message = confirmationResponse.Message;
+            tradeDataObject.External.Confirmation.SubmissionMessage = confirmationResponse.Message;
 
             return tradeDataObject;
         }
 
-        private async Task<SendConfirmationResponse> SendConfirmationAsync(string method, TradeConfirmation tradeConfirmation, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
+        private async Task<ConfirmationResponse> SendConfirmationAsync(string method, TradeConfirmation tradeConfirmation, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
             try
             {
@@ -192,7 +191,7 @@ namespace Fidectus.Managers
             }
         }
 
-        private async Task<SendConfirmationResponse> SendTradeConfirmation(string method, TradeConfirmation tradeConfirmation, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
+        private async Task<ConfirmationResponse> SendTradeConfirmation(string method, TradeConfirmation tradeConfirmation, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
         {
             var tradeConfirmationRequest = new TradeConfirmationRequest { TradeConfirmation = tradeConfirmation };
 

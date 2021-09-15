@@ -1,5 +1,7 @@
 using Equias.Managers;
 using Equias.Services;
+using Fidectus.Managers;
+using Fidectus.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -53,7 +55,8 @@ namespace TradeCube_Services
 
             // Managers
             services
-                .AddScoped<IEquiasManager, EquiasManager>();
+                .AddScoped<IEquiasManager, EquiasManager>()
+                .AddScoped<IFidectusManager, FidectusManager>();
 
             // Services
             services
@@ -66,6 +69,9 @@ namespace TradeCube_Services
                 .AddScoped<IEquiasAuthenticationService, EquiasAuthenticationService>()
                 .AddScoped<IEquiasMappingService, EquiasMappingService>()
                 .AddScoped<IEquiasService, EquiasService>()
+                .AddScoped<IFidectusAuthenticationService, FidectusAuthenticationService>()
+                .AddScoped<IFidectusService, FidectusService>()
+                .AddScoped<IFidectusMappingService, FidectusMappingService>()
                 .AddScoped<IFingerprintService, FingerprintService>()
                 .AddScoped<IMappingService, MappingService>()
                 .AddScoped<IM7TradeService, M7TradeService>()

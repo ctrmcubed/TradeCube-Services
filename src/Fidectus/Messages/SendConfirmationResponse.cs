@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Fidectus.Messages
 {
-    public class SendConfirmationResponse : ApiResponse
+    public class ConfirmationResponse : ApiResponse
     {
         [JsonPropertyName("status")]
         public new int Status { get; set; }

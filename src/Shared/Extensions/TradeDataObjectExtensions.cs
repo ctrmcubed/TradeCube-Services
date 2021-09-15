@@ -21,6 +21,11 @@ namespace Shared.Extensions
             return tradeDataObject.External?.Equias?.CmStatus;
         }
 
+        public static bool WithholdFidectusSubmission(this TradeDataObject tradeDataObject)
+        {
+            return tradeDataObject?.External?.Confirmation?.Withhold != null && tradeDataObject.External.Confirmation.Withhold.Value;
+        }
+
         public static string FidectusDocumentId(this TradeDataObject tradeDataObject)
         {
             return tradeDataObject.External?.Confirmation?.DocumentId;
