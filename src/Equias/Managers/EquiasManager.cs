@@ -147,7 +147,7 @@ namespace Equias.Managers
 
                 logger.LogDebug($"Physical Trade: {TradeCubeJsonSerializer.Serialize(physicalTrade)}");
 
-                return eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeVersion == null
+                return eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeVersion is null
                     ? await NewTrade(physicalTrade, requestTokenResponse, updateTradePreSubmission)
                     : await ExistingTrade(physicalTrade, tradeDataObject, requestTokenResponse);
             }
@@ -246,12 +246,12 @@ namespace Equias.Managers
 
         private static TradeDataObject SetTradePreSubmission(EboGetTradeStatusResponse eboGetTradeStatusResponse, TradeDataObject tradeDataObject)
         {
-            if (eboGetTradeStatusResponse == null)
+            if (eboGetTradeStatusResponse is null)
             {
                 throw new ArgumentNullException(nameof(eboGetTradeStatusResponse));
             }
 
-            if (tradeDataObject == null)
+            if (tradeDataObject is null)
             {
                 throw new ArgumentNullException(nameof(tradeDataObject));
             }
@@ -264,7 +264,7 @@ namespace Equias.Managers
 
             tradeDataObject.External.Equias.EboTradeId = eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeId;
             tradeDataObject.External.Equias.EboSubmissionTime = DateTime.UtcNow;
-            tradeDataObject.External.Equias.EboSubmissionStatus = getTradeStatus?.TradeVersion == null
+            tradeDataObject.External.Equias.EboSubmissionStatus = getTradeStatus?.TradeVersion is null
                 ? EquiasConstants.StatusSubmitted
                 : EquiasConstants.StatusResubmitted;
 
@@ -273,12 +273,12 @@ namespace Equias.Managers
 
         private static TradeDataObject SetTradePostSubmission(EboTradeResponse eboAddTradeResponse, TradeDataObject tradeDataObject)
         {
-            if (eboAddTradeResponse == null)
+            if (eboAddTradeResponse is null)
             {
                 throw new ArgumentNullException(nameof(eboAddTradeResponse));
             }
 
-            if (tradeDataObject == null)
+            if (tradeDataObject is null)
             {
                 throw new ArgumentNullException(nameof(tradeDataObject));
             }

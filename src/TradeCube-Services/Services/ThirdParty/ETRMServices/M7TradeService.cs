@@ -73,27 +73,27 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 var internalTrader = await contactService.MapInternalTraderAsync(userCode, allMappings, allSettings, apiKey);
                 var venue = await venueService.MapVenueAsync(exchangeId, allMappings, allSettings, apiKey);
 
-                if (internalParty == null)
+                if (internalParty is null)
                 {
                     throw new DataException("Could not map InternalParty");
                 }
 
-                if (counterparty == null)
+                if (counterparty is null)
                 {
                     throw new DataException("Could not map Counterparty");
                 }
 
-                if (tradingBook == null)
+                if (tradingBook is null)
                 {
                     throw new DataException("Could not map TradingBook");
                 }
 
-                if (internalTrader == null)
+                if (internalTrader is null)
                 {
                     throw new DataException("Could not map InternalTrader");
                 }
 
-                if (venue == null)
+                if (venue is null)
                 {
                     throw new DataException("Could not map Venue");
                 }

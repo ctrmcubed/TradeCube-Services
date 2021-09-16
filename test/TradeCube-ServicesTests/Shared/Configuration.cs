@@ -30,7 +30,7 @@ namespace TradeCube_ServicesTests.Shared
                 .SelectMany(prop => prop.Value.Children<JProperty>())
                 .ToList();
 
-            if (variables == null)
+            if (variables is null)
             {
                 return;
             }

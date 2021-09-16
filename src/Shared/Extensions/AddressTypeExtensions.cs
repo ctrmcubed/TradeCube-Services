@@ -7,7 +7,7 @@ namespace Shared.Extensions
     {
         public static string ConcatenateAddress(this AddressType addressType, string separator = ",")
         {
-            return addressType == null
+            return addressType is null
                 ? null
                 : string.Join(separator, new List<string>
                 {
@@ -23,7 +23,7 @@ namespace Shared.Extensions
 
         public static AddressType SplitAddress(this string addressBlob)
         {
-            if (addressBlob == null)
+            if (addressBlob is null)
             {
                 return null;
             }

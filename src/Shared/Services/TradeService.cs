@@ -27,7 +27,7 @@ namespace Shared.Services
             {
                 var trade = await GetViaJwtAsync<TradeDataObject>("Trade", apiJwtToken, $"{tradeReference}?TradeLeg={tradeLeg}");
 
-                return trade == null
+                return trade is null
                     ? new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                     {
                         Message = "Trade not found",

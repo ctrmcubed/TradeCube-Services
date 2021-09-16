@@ -35,22 +35,22 @@ namespace Equias.Services
         public async Task<PhysicalTrade> MapTrade(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse, IEnumerable<CashflowResponse> cashflowResponses,
             IEnumerable<ProfileResponse> profileResponses, MappingHelper mappingHelper, string apiJwtToken)
         {
-            if (tradeDataObject == null)
+            if (tradeDataObject is null)
             {
                 throw new DataException("Trade is null");
             }
 
-            if (tradeDataObject.Product?.Commodity?.Timezone == null)
+            if (tradeDataObject.Product?.Commodity?.Timezone is null)
             {
                 throw new DataException("Trade's timezone is null");
             }
 
-            if (cashflowResponses == null)
+            if (cashflowResponses is null)
             {
                 throw new DataException("No cashflow data");
             }
 
-            if (profileResponses == null)
+            if (profileResponses is null)
             {
                 throw new DataException("No profile data");
             }
@@ -249,7 +249,7 @@ namespace Equias.Services
             return new PriceUnit
             {
                 Currency = priceUnit?.Currency,
-                UseFractionalUnit = priceUnit?.CurrencyExponent != null && priceUnit.CurrencyExponent != 0,
+                UseFractionalUnit = priceUnit?.CurrencyExponent is not null && priceUnit.CurrencyExponent != 0,
                 CapacityUnit = MapPerEnergyUnitToCapacityUnit(priceUnit?.PerQuantityUnit?.QuantityUnit, mappingHelper)
             };
         }
@@ -330,7 +330,7 @@ namespace Equias.Services
                        (await partyService.GetPartyAsync(bsc?.BscPartyId, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.BscParty?.BscPartyId;
             }
 
-            return ukBscPartyDataObject == null
+            return ukBscPartyDataObject is null
                 ? throw new DataException("The ECVN Agent has no BSC Party")
                 : await Id(ukBscPartyDataObject);
         }
@@ -343,7 +343,7 @@ namespace Equias.Services
                        (await partyService.GetPartyAsync(pty?.Party, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.BscParty?.BscPartyId;
             }
 
-            return party == null
+            return party is null
                 ? throw new DataException("The trade has no Buyer or Seller")
                 : await Id(party);
         }
@@ -356,7 +356,7 @@ namespace Equias.Services
                        (await partyService.GetPartyAsync(pty?.Party, apiJwtToken))?.Data?.SingleOrDefault()?.Eic?.Eic;
             }
 
-            return party == null
+            return party is null
                 ? throw new DataException("The trade has no ECVN Agent")
                 : await Eic(party);
         }

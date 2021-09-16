@@ -57,29 +57,20 @@ namespace Fidectus.Managers
 
         public async Task<ConfirmationResponse> ProcessConfirmationAsync(string tradeReference, int tradeLeg, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
-            static int? DocumentVersion(BoxResultResponse boxResultResponse)
-            {
-                return boxResultResponse?.Envelope?.Payload?.Message?.BoxResult?.DocumentVersion;
-            }
-
-            static bool IsWithheld(TradeDataObject trade)
-            {
-                return trade.WithholdFidectusSubmission();
-            }
-
             var tradeDataObject = await GetTradeAsync(tradeReference, tradeLeg, apiJwtToken);
-            if (tradeDataObject is null || IsWithheld(tradeDataObject))
+            if (tradeDataObject is null || tradeDataObject.IsConfirmationWithheld())
             {
                 return new ConfirmationResponse();
             }
 
-            var requestTokenResponse = await CreateAuthenticationTokenAsync(apiJwtToken, fidectusConfiguration);
-            var getConfirmationResponse = await fidectusService.GetBoxResult(fidectusConfiguration.CompanyId(), tradeDataObject.FidectusDocumentId(), requestTokenResponse, fidectusConfiguration);
-            var documentVersion = DocumentVersion(getConfirmationResponse);
+            var confirmationDocumentId = tradeDataObject.ConfirmationDocumentId();
 
-            logger.LogInformation($"Document version: {documentVersion}");
+            if (string.IsNullOrWhiteSpace(confirmationDocumentId))
+            {
+                return new ConfirmationResponse { Message = "Trade has already been confirmed" };
+            }
 
-            var tradePreSubmission = SetPreSubmissionUpdates(tradeDataObject, documentVersion);
+            var tradePreSubmission = SetPreSubmissionUpdates(tradeDataObject, confirmationDocumentId);
             var savePreSubmission = await SaveTradeAsync(tradePreSubmission, apiJwtToken);
 
             if (!savePreSubmission.IsSuccessStatusCode)
@@ -88,11 +79,16 @@ namespace Fidectus.Managers
             }
 
             var tradeConfirmation = await CreateTradeConfirmationAsync(tradeDataObject, apiJwtToken, fidectusConfiguration);
-            var confirmationResponse = documentVersion.HasValue
-                ? await SendConfirmationAsync("PUT", tradeConfirmation, apiJwtToken, fidectusConfiguration)
-                : await SendConfirmationAsync("POST", tradeConfirmation, apiJwtToken, fidectusConfiguration);
 
-            logger.LogInformation($"Confirmation response: {confirmationResponse.Status}");
+            logger.LogInformation($"Confirmation: {TradeCubeJsonSerializer.Serialize(tradeConfirmation)}");
+
+            var method = string.IsNullOrWhiteSpace(confirmationDocumentId)
+                ? "PUT"
+                : "POST";
+
+            var confirmationResponse = await SendConfirmationAsync(method, tradeConfirmation, apiJwtToken, fidectusConfiguration);
+
+            logger.LogInformation($"Confirmation response: {confirmationResponse.StatusCode}");
 
             if (!confirmationResponse.IsSuccessStatusCode)
             {
@@ -123,7 +119,7 @@ namespace Fidectus.Managers
                     continue;
                 }
 
-                yield return await fidectusService.GetBoxResult(companyId, tradeDataObject.FidectusDocumentId(), requestTokenResponse, fidectusConfiguration);
+                yield return await fidectusService.GetBoxResult(companyId, tradeDataObject.ConfirmationDocumentId(), requestTokenResponse, fidectusConfiguration);
             }
         }
 
@@ -149,15 +145,15 @@ namespace Fidectus.Managers
             }
         }
 
-        private static TradeDataObject SetPreSubmissionUpdates(TradeDataObject tradeDataObject, int? version)
+        private static TradeDataObject SetPreSubmissionUpdates(TradeDataObject tradeDataObject, string documentId)
         {
             // Mutation!
             tradeDataObject.External ??= new ExternalFieldsType();
             tradeDataObject.External.Confirmation ??= new ConfirmationType();
             tradeDataObject.External.Confirmation.SubmissionTime = DateTime.UtcNow;
-            tradeDataObject.External.Confirmation.SubmissionStatus = version.HasValue
-                ? FidectusConstants.SubmissionStatusResubmitted
-                : FidectusConstants.SubmissionStatusSubmitted;
+            tradeDataObject.External.Confirmation.SubmissionStatus = string.IsNullOrWhiteSpace(documentId)
+                ? FidectusConstants.SubmissionStatusSubmitted
+                : FidectusConstants.SubmissionStatusResubmitted;
 
             tradeDataObject.External.Confirmation.ConfirmationProvider = ConfirmationConstants.ConfirmationProviderFidectus;
 
@@ -182,7 +178,8 @@ namespace Fidectus.Managers
         {
             try
             {
-                return await SendTradeConfirmation(method, tradeConfirmation, await CreateAuthenticationTokenAsync(apiJwtToken, fidectusConfiguration), fidectusConfiguration);
+                return await SendTradeConfirmation(method, tradeConfirmation,
+                    await CreateAuthenticationTokenAsync(apiJwtToken, fidectusConfiguration), fidectusConfiguration);
             }
             catch (Exception ex)
             {
@@ -191,11 +188,11 @@ namespace Fidectus.Managers
             }
         }
 
-        private async Task<ConfirmationResponse> SendTradeConfirmation(string method, TradeConfirmation tradeConfirmation, RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
+        private async Task<ConfirmationResponse> SendTradeConfirmation(string method, TradeConfirmation tradeConfirmation,
+            RequestTokenResponse requestTokenResponse, IFidectusConfiguration fidectusConfiguration)
         {
-            var tradeConfirmationRequest = new TradeConfirmationRequest { TradeConfirmation = tradeConfirmation };
-
-            return await fidectusService.SendTradeConfirmation(method, fidectusConfiguration.CompanyId(tradeConfirmation.SenderId), tradeConfirmationRequest, requestTokenResponse, fidectusConfiguration);
+            return await fidectusService.SendTradeConfirmation(method, fidectusConfiguration.CompanyId(tradeConfirmation.SenderId),
+                    new TradeConfirmationRequest { TradeConfirmation = tradeConfirmation }, requestTokenResponse, fidectusConfiguration);
         }
 
         private async Task<TradeConfirmation> MapTradeConfirmationAsync(TradeDataObject tradeDataObject, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
@@ -219,15 +216,15 @@ namespace Fidectus.Managers
             var fidectusClientId = (await vaultService.GetVaultValueAsync(VaultConstants.FidectusClientId, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
             var fidectusClientSecret = (await vaultService.GetVaultValueAsync(VaultConstants.FidectusClientSecret, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
 
-            if (string.IsNullOrEmpty(fidectusClientId))
+            if (string.IsNullOrWhiteSpace(fidectusClientId))
             {
                 logger.LogError($"The {VaultConstants.FidectusClientId} is not configured in the vault");
-                throw new SecurityException($"The {VaultConstants.FidectusClientSecret} is not configured in the vault");
+                throw new SecurityException($"The {VaultConstants.FidectusClientId} is not configured in the vault");
             }
 
             if (string.IsNullOrEmpty(fidectusClientSecret))
             {
-                logger.LogError($"The {VaultConstants.FidectusClientId} is not configured in the vault");
+                logger.LogError($"The {VaultConstants.FidectusClientSecret} is not configured in the vault");
                 throw new SecurityException($"The {VaultConstants.FidectusClientSecret} is not configured in the vault");
             }
 

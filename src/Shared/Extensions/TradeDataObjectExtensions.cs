@@ -6,7 +6,7 @@ namespace Shared.Extensions
     {
         public static bool WithholdEquiasSubmission(this TradeDataObject tradeDataObject)
         {
-            return tradeDataObject?.External?.Equias?.EboWhithhold != null && tradeDataObject.External.Equias.EboWhithhold.Value;
+            return tradeDataObject?.External?.Equias?.EboWhithhold is not null && tradeDataObject.External.Equias.EboWhithhold.Value;
         }
 
         public static string EboActionType(this TradeDataObject tradeDataObject)
@@ -21,12 +21,12 @@ namespace Shared.Extensions
             return tradeDataObject.External?.Equias?.CmStatus;
         }
 
-        public static bool WithholdFidectusSubmission(this TradeDataObject tradeDataObject)
+        public static bool IsConfirmationWithheld(this TradeDataObject tradeDataObject)
         {
-            return tradeDataObject?.External?.Confirmation?.Withhold != null && tradeDataObject.External.Confirmation.Withhold.Value;
+            return tradeDataObject?.External?.Confirmation?.Withhold is not null && tradeDataObject.External.Confirmation.Withhold.Value;
         }
 
-        public static string FidectusDocumentId(this TradeDataObject tradeDataObject)
+        public static string ConfirmationDocumentId(this TradeDataObject tradeDataObject)
         {
             return tradeDataObject.External?.Confirmation?.DocumentId;
         }

@@ -78,6 +78,26 @@ namespace Shared.Services
             }
         }
 
+        protected async Task<HttpResponseMessage> PostAsync<T>(HttpClient client, string action, T body, bool ensureSuccess = true)
+        {
+            try
+            {
+                var response = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+
+                if (ensureSuccess)
+                {
+                    response.EnsureSuccessStatusCode();
+                }
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
         protected async Task<TV> PutAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse
         {
             try
@@ -98,6 +118,26 @@ namespace Shared.Services
                 deserializeAsync.Message = response.ReasonPhrase;
 
                 return deserializeAsync;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        protected async Task<HttpResponseMessage> PutAsync<T>(HttpClient client, string action, T body, bool ensureSuccess = true)
+        {
+            try
+            {
+                var response = await client.PutAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+
+                if (ensureSuccess)
+                {
+                    response.EnsureSuccessStatusCode();
+                }
+
+                return response;
             }
             catch (Exception ex)
             {

@@ -88,7 +88,7 @@ namespace TradeCube_Services.Services
                 {
                     var buyerCountry = countryLookupService.Lookup(trade.Buyer?.PrimaryConfirmationContact?.PrimaryAddress?.Country);
 
-                    trade.Buyer.PrimaryConfirmationContact.PrimaryAddress.Country = buyerCountry == null
+                    trade.Buyer.PrimaryConfirmationContact.PrimaryAddress.Country = buyerCountry is null
                         ? trade.Buyer?.PrimaryConfirmationContact?.PrimaryAddress?.Country
                         : buyerCountry.CountryLongName;
                 }
@@ -97,7 +97,7 @@ namespace TradeCube_Services.Services
                 {
                     var sellerCountry = countryLookupService.Lookup(trade.Seller?.PrimaryConfirmationContact?.PrimaryAddress?.Country);
 
-                    trade.Seller.PrimaryConfirmationContact.PrimaryAddress.Country = sellerCountry == null
+                    trade.Seller.PrimaryConfirmationContact.PrimaryAddress.Country = sellerCountry is null
                         ? trade.Seller.PrimaryConfirmationContact.PrimaryAddress.Country
                         : sellerCountry.CountryLongName;
                 }

@@ -49,14 +49,24 @@ namespace Fidectus.Services
         {
             async Task<ConfirmationResponse> PostConfirmationAsync(HttpClient httpClient)
             {
-                return await PostAsync<TradeConfirmationRequest, ConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
+                var httpResponseMessage = await PostAsync(httpClient, fidectusConfiguration.FidectusConfirmationUrl, tradeConfirmationRequest, false);
+
+                return new ConfirmationResponse
+                {
+                    IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode,
+                    StatusCode = (int)httpResponseMessage.StatusCode
+                };
             }
 
             async Task<ConfirmationResponse> PutConfirmationAsync(HttpClient httpClient)
             {
-                var url = $"{fidectusConfiguration.FidectusConfirmationUrl}/{tradeConfirmationRequest.TradeConfirmation?.DocumentId}";
+                var httpResponseMessage = await PutAsync(httpClient, $"{fidectusConfiguration.FidectusConfirmationUrl}/{tradeConfirmationRequest.TradeConfirmation?.DocumentId}", tradeConfirmationRequest, false);
 
-                return await PutAsync<TradeConfirmationRequest, ConfirmationResponse>(httpClient, url, tradeConfirmationRequest, false);
+                return new ConfirmationResponse
+                {
+                    IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode,
+                    StatusCode = (int)httpResponseMessage.StatusCode
+                };
             }
 
             async Task<ConfirmationResponse> HttpMethod(string httpMethod, HttpClient httpClient)

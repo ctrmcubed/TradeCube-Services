@@ -50,24 +50,24 @@ namespace Fidectus.Services
         public async Task<TradeConfirmation> MapConfirmation(TradeDataObject tradeDataObject, TradeSummaryResponse tradeSummaryResponse,
             IEnumerable<ProfileResponse> profileResponses, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
-            if (tradeDataObject == null)
+            if (tradeDataObject is null)
             {
                 throw new DataException("Trade is null");
             }
 
-            if (tradeDataObject.Product?.Commodity?.Timezone == null)
+            if (tradeDataObject.Product?.Commodity?.Timezone is null)
             {
                 throw new DataException("Trade's timezone is null");
             }
 
-            if (profileResponses == null)
+            if (profileResponses is null)
             {
                 throw new DataException("No profile data");
             }
 
 
             var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
-
+            
             var senderId = await MapSenderId(tradeDataObject, apiJwtToken);
             var receiverId = await MapReceiverId(tradeDataObject, apiJwtToken);
             var buyerEic = await MapEic(tradeDataObject.Buyer, "Buyer party", apiJwtToken);
@@ -127,22 +127,20 @@ namespace Fidectus.Services
         {
             async Task<string> Party(TradeDataObject trade, string token)
             {
-                var party = await partyService.GetPartyAsync(trade.Counterparty?.Party, token);
-                var singleOrDefault = party?.Data?.SingleOrDefault();
-
-                if (singleOrDefault is null)
+                var internalParty = (await partyService.GetPartyAsync(trade.InternalParty?.Party, token))?.Data?.SingleOrDefault();
+                if (internalParty is null)
                 {
                     throw new DataException("The Internal party does not have an EIC or LEI");
                 }
 
-                if (!string.IsNullOrEmpty(singleOrDefault.Eic?.Eic))
+                if (!string.IsNullOrWhiteSpace(internalParty.Eic?.Eic))
                 {
-                    return singleOrDefault.Eic?.Eic;
+                    return internalParty.Eic?.Eic;
                 }
 
-                return string.IsNullOrEmpty(singleOrDefault.Lei?.Lei)
+                return string.IsNullOrWhiteSpace(internalParty.Lei?.Lei)
                     ? throw new DataException("The Internal party does not have an EIC or LEI")
-                    : singleOrDefault.Lei?.Lei;
+                    : internalParty.Lei?.Lei;
             }
 
             async Task<string> Lei(TradeDataObject trade, string token)
@@ -169,12 +167,12 @@ namespace Fidectus.Services
                     throw new DataException("The Counterparty does not have an EIC or LEI");
                 }
 
-                if (!string.IsNullOrEmpty(singleOrDefault.Eic?.Eic))
+                if (!string.IsNullOrWhiteSpace(singleOrDefault.Eic?.Eic))
                 {
                     return singleOrDefault.Eic?.Eic;
                 }
 
-                return string.IsNullOrEmpty(singleOrDefault.Lei?.Lei)
+                return string.IsNullOrWhiteSpace(singleOrDefault.Lei?.Lei)
                     ? throw new DataException("The Counterparty party does not have an EIC or LEI")
                     : singleOrDefault.Lei?.Lei;
             }
@@ -388,7 +386,7 @@ namespace Fidectus.Services
                        (await partyService.GetPartyAsync(bsc?.BscPartyId, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.BscParty?.BscPartyId;
             }
 
-            return ukBscPartyDataObject == null
+            return ukBscPartyDataObject is null
                 ? throw new DataException("The ECVN Agent has no BSC Party")
                 : await Id(ukBscPartyDataObject);
         }
@@ -401,7 +399,7 @@ namespace Fidectus.Services
                        (await partyService.GetPartyAsync(pty?.Party, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.BscParty?.BscPartyId;
             }
 
-            return party == null
+            return party is null
                 ? throw new DataException("The trade has no Buyer or Seller")
                 : await Id(party);
         }
