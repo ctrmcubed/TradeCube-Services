@@ -115,14 +115,14 @@ namespace TradeCube_Services
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "TradeCube-Services API v1");
             });
 
-            app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseHttpsRedirection();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks("/health");
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

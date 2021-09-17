@@ -191,5 +191,47 @@ namespace Shared.Services
                 throw;
             }
         }
+
+        protected async Task<HttpResponseMessage> DeleteAsync<T>(HttpClient client, string action, T body, bool ensureSuccess = true)
+        {
+            static Uri ConstructUrl(string baseAddress, string uri)
+            {
+                return baseAddress.EndsWith("/") && uri.StartsWith("/")
+                    ? new Uri($"{baseAddress}{uri.TrimStart('/')}")
+                    : new Uri($"{baseAddress}{uri}");
+            }
+
+            try
+            {
+                // Standard DeleteAsync does not support sending a body
+
+                var serializedBody = body is null
+                    ? null
+                    : TradeCubeJsonSerializer.Serialize(body);
+
+                var request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Delete,
+                    RequestUri = ConstructUrl(client.BaseAddress?.ToString(), action),
+                    Content = serializedBody is null
+                        ? null
+                        : new StringContent(serializedBody, Encoding.UTF8, "application/json")
+                };
+
+                var response = await client.SendAsync(request);
+
+                if (ensureSuccess)
+                {
+                    response.EnsureSuccessStatusCode();
+                }
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
     }
 }

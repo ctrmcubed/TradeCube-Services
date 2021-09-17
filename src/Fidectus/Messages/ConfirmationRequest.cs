@@ -2,7 +2,7 @@
 
 namespace Fidectus.Messages
 {
-    public class TradeConfirmationRequest
+    public class ConfirmationRequest
     {
         public TradeConfirmation TradeConfirmation { get; set; }
     }

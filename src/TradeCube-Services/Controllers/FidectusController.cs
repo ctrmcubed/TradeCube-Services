@@ -34,13 +34,35 @@ namespace TradeCube_Services.Controllers
             {
                 return string.IsNullOrWhiteSpace(tradeReference)
                     ? BadRequest()
-                    : Json(await fidectusManager.ProcessConfirmationAsync(tradeReference, tradeLeg, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
-
+                    : Json(await fidectusManager.ConfirmAsync(tradeReference, tradeLeg, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
+                return BadRequest(new ApiResponseWrapper<ConfirmationResponse>
+                {
+                    Message = ex.Message,
+                    Status = ApiConstants.FailedResult,
+                    Data = new ConfirmationResponse
+                    {
+                        Message = ex.Message
+                    }
+                });
+            }
+        }
 
+        [HttpDelete("Confirmation")]
+        public async Task<IActionResult> DeleteConfirmation([FromHeader] string apiJwtToken, [FromQuery] string tradeReference, [FromQuery] int tradeLeg)
+        {
+            try
+            {
+                return string.IsNullOrWhiteSpace(tradeReference)
+                    ? BadRequest()
+                    : Json(await fidectusManager.CancelAsync(tradeReference, tradeLeg, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
                 return BadRequest(new ApiResponseWrapper<ConfirmationResponse>
                 {
                     Message = ex.Message,
@@ -58,12 +80,25 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                return Json(await fidectusManager.BoxResults(tradeKeys, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)).ToListAsync());
+                var confirmationResultResponses = await fidectusManager.BoxResults(tradeKeys, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)).ToListAsync();
+
+                return Json(new ConfirmationResultResponses
+                {
+                    Responses = confirmationResultResponses
+                });
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                return BadRequest(new ApiResponseWrapper<BoxResultResponse> { Message = ex.Message, Status = ApiConstants.FailedResult });
+                return BadRequest(new ApiResponseWrapper<ConfirmationResultResponses>
+                {
+                    Message = ex.Message,
+                    Status = ApiConstants.FailedResult,
+                    Data = new ConfirmationResultResponses
+                    {
+                        Message = ex.Message
+                    }
+                });
             }
         }
     }

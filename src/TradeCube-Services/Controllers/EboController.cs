@@ -51,7 +51,6 @@ namespace TradeCube_Services.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-
                 return BadRequest(new ApiResponseWrapper<EboTradeResponse>
                 {
                     Message = ex.Message,
