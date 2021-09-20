@@ -52,11 +52,8 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 var exchangeId = m7Trade.Product.exchangeId;
                 var aggressorIndicator = m7Trade.aggressorIndicator?.ToUpper();
 
-                var allMappings =
-                    (await mappingService.GetMappingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.MappingKey, v => v);
-
-                var allSettings =
-                    (await settingService.GetSettingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.SettingName, v => v);
+                var allMappings = (await mappingService.GetMappingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.MappingKey, v => v);
+                var allSettings = (await settingService.GetSettingsViaApiKeyAsync(apiKey)).Data.ToDictionary(k => k.SettingName, v => v);
 
                 var tradeStatus = "Live";
                 var quantityType = "Fixed";
@@ -76,27 +73,27 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 var internalTrader = await contactService.MapInternalTraderAsync(userCode, allMappings, allSettings, apiKey);
                 var venue = await venueService.MapVenueAsync(exchangeId, allMappings, allSettings, apiKey);
 
-                if (internalParty == null)
+                if (internalParty is null)
                 {
                     throw new DataException("Could not map InternalParty");
                 }
 
-                if (counterparty == null)
+                if (counterparty is null)
                 {
                     throw new DataException("Could not map Counterparty");
                 }
 
-                if (tradingBook == null)
+                if (tradingBook is null)
                 {
                     throw new DataException("Could not map TradingBook");
                 }
 
-                if (internalTrader == null)
+                if (internalTrader is null)
                 {
                     throw new DataException("Could not map InternalTrader");
                 }
 
-                if (venue == null)
+                if (venue is null)
                 {
                     throw new DataException("Could not map Venue");
                 }

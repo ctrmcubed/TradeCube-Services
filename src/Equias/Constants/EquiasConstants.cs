@@ -5,9 +5,10 @@
         public const string StatusSubmitted = "Submitted";
         public const string StatusResubmitted = "Resubmitted";
         public const string StatusWithheld = "Withheld";
+        public const string StatusMatched = "Matched";
 
-        public static string AgentTypeEcvna = "ECVNA";
-        public static string CommodityPower = "Power";
-        public static string CommodityGas = "Gas";
+        public const string AgentTypeEcvna = "ECVNA";
+        public const string CommodityPower = "Power";
+        public const string CommodityGas = "Gas";
     }
 }

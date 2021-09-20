@@ -37,7 +37,7 @@ namespace TradeCube_Services.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                return BadRequest(new ApiResponseWrapper<WebServiceResponse> { Message = ex.Message, Status = ApiConstants.FailedResult });
+                return BadRequest(new ApiResponseWrapper<EboGetTradeStatusResponse> { Message = ex.Message, Status = ApiConstants.FailedResult });
             }
         }
 
@@ -46,14 +46,11 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                var physicalTradeAsync = await equiasManager.CreatePhysicalTradeAsync(tradeReference, tradeLeg, apiJwtToken);
-
-                return Json(physicalTradeAsync);
+                return Json(await equiasManager.CreatePhysicalTradeAsync(tradeReference, tradeLeg, apiJwtToken));
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-
                 return BadRequest(new ApiResponseWrapper<EboTradeResponse>
                 {
                     Message = ex.Message,

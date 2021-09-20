@@ -1,6 +1,7 @@
 ﻿using Equias.Messages;
 using Equias.Models.BackOfficeServices;
 using Shared.DataObjects;
+using Shared.Messages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

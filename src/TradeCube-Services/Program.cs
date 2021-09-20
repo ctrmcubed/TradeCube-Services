@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog;
 using NLog.Web;
 using System;
 using TradeCube_Services.Helpers;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace TradeCube_Services
 {
@@ -22,12 +24,10 @@ namespace TradeCube_Services
             catch (Exception ex)
             {
                 logger.Error(ex, $"Stopped TradeCubeServices because of exception {ex.Message}");
-                throw;
             }
             finally
             {
-                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                NLog.LogManager.Shutdown();
+                LogManager.Shutdown();
             }
         }
 

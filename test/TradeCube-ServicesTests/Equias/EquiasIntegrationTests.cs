@@ -55,9 +55,9 @@ namespace TradeCube_ServicesTests.Equias
             var username = Environment.GetEnvironmentVariable("EQUIAS_USERNAME");
             var password = Environment.GetEnvironmentVariable("EQUIAS_PASSWORD");
 
-            var authenticationService = equiasTestFixture.EquiasManager;
+            var equiasManager = equiasTestFixture.EquiasManager;
 
-            return await authenticationService.CreateAuthenticationTokenAsync(new RequestTokenRequest(username, password), "apiJwtToken");
+            return await equiasManager.CreateAuthenticationTokenAsync(new RequestTokenRequest(username, password), "apiJwtToken");
         }
     }
 }

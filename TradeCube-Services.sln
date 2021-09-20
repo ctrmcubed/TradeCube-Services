@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equias", "src\Equias\Equias
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "src\Shared\Shared.csproj", "{9B957CBD-6BC1-4113-AB7A-2D3A4284AD9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeCube-ServicesTests", "test\TradeCube-ServicesTests\TradeCube-ServicesTests.csproj", "{76C2E8D1-FBBE-4DB7-B8D5-7BBDEF306968}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeCube-ServicesTests", "test\TradeCube-ServicesTests\TradeCube-ServicesTests.csproj", "{76C2E8D1-FBBE-4DB7-B8D5-7BBDEF306968}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fidectus", "src\Fidectus\Fidectus.csproj", "{284B84D9-6162-49BC-B2A7-5FE67DCAB362}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{76C2E8D1-FBBE-4DB7-B8D5-7BBDEF306968}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76C2E8D1-FBBE-4DB7-B8D5-7BBDEF306968}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76C2E8D1-FBBE-4DB7-B8D5-7BBDEF306968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{284B84D9-6162-49BC-B2A7-5FE67DCAB362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{284B84D9-6162-49BC-B2A7-5FE67DCAB362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{284B84D9-6162-49BC-B2A7-5FE67DCAB362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{284B84D9-6162-49BC-B2A7-5FE67DCAB362}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,7 +17,7 @@ namespace Equias.Services
             this.httpClientFactory = httpClientFactory;
         }
 
-        public async Task<RequestTokenResponse> GetAuthenticationToken(RequestTokenRequest requestTokenRequest, IEquiasConfiguration equiasConfiguration)
+        public async Task<RequestTokenResponse> EboGetAuthenticationToken(RequestTokenRequest requestTokenRequest, IEquiasConfiguration equiasConfiguration)
         {
             var httpClient = httpClientFactory.CreateClient();
 

@@ -12,5 +12,6 @@ namespace Equias.Services
         Task<EboTradeResponse> EboAddPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration);
         Task<EboTradeResponse> ModifyPhysicalTrade(PhysicalTrade physicalTrade, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration);
         Task<EboTradeResponse> CancelTrade(CancelTrade cancelTrade, RequestTokenResponse requestTokenResponse, IEquiasConfiguration equiasConfiguration);
+
     }
 }
