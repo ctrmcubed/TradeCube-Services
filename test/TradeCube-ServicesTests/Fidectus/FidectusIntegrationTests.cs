@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Shared.Messages;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -21,7 +22,8 @@ namespace TradeCube_ServicesTests.Fidectus
             Assert.NotNull(test);
 
             var fidectusConfiguration = await fidectusTestFixture.FidectusManager.GetFidectusConfiguration("apiJwtToken");
-            var confirmationResponse = await fidectusTestFixture.FidectusManager.ConfirmAsync(test.Inputs.TradeReference, test.Inputs.TradeLeg, "apiJwtToken", fidectusConfiguration);
+            var tradeKey = new TradeKey(test.Inputs.TradeReference, test.Inputs.TradeLeg);
+            var confirmationResponse = await fidectusTestFixture.FidectusManager.ConfirmAsync(tradeKey, "apiJwtToken", fidectusConfiguration);
 
             Assert.True(confirmationResponse.IsSuccessStatusCode);
         }

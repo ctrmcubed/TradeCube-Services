@@ -11,7 +11,6 @@ using Shared.Messages;
 using Shared.Serialization;
 using Shared.Services;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security;
@@ -54,12 +53,12 @@ namespace Fidectus.Managers
             return new FidectusConfiguration(settingHelper, mappingHelper);
         }
 
-        public async Task<ConfirmationResponse> ConfirmAsync(string tradeReference, int tradeLeg, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
+        public async Task<ConfirmationResponse> ConfirmAsync(TradeKey tradeKey, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
-            var tradeDataObject = await GetTradeAsync(tradeReference, tradeLeg, apiJwtToken);
+            var tradeDataObject = await GetTradeAsync(tradeKey.TradeReference, tradeKey.TradeLeg, apiJwtToken);
             if (tradeDataObject is null || tradeDataObject.IsConfirmationWithheld())
             {
-                return new ConfirmationResponse();
+                return new ConfirmationResponse { IsSuccessStatusCode = true };
             }
 
             var confirmationDocumentId = tradeDataObject.ConfirmationDocumentId();
@@ -90,9 +89,9 @@ namespace Fidectus.Managers
             throw new DataException("Failed to send confirmation");
         }
 
-        public async Task<ConfirmationResponse> CancelAsync(string tradeReference, int tradeLeg, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
+        public async Task<ConfirmationResponse> CancelAsync(TradeKey tradeKey, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
-            var tradeDataObject = await GetTradeAsync(tradeReference, tradeLeg, apiJwtToken);
+            var tradeDataObject = await GetTradeAsync(tradeKey.TradeReference, tradeKey.TradeLeg, apiJwtToken);
             if (tradeDataObject is null || tradeDataObject.IsConfirmationWithheld())
             {
                 return new ConfirmationResponse();
@@ -115,33 +114,29 @@ namespace Fidectus.Managers
             return confirmationResponse;
         }
 
-        public async IAsyncEnumerable<ConfirmationResultResponse> BoxResults(IEnumerable<TradeKey> tradeKeys, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
+        public async Task<ConfirmationResultResponse> BoxResult(TradeKey tradeKey, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
+            var tradeDataObject = await GetTradeAsync(tradeKey.TradeReference, tradeKey.TradeLeg, apiJwtToken);
+            if (tradeDataObject is null)
+            {
+                return new ConfirmationResultResponse();
+            }
+
             var requestTokenResponse = await CreateAuthenticationTokenAsync(apiJwtToken, fidectusConfiguration);
             var companyId = fidectusConfiguration.CompanyId();
+            var boxResultResponse = await fidectusService.GetBoxResult(companyId, tradeDataObject.ConfirmationDocumentId(), requestTokenResponse, fidectusConfiguration);
 
-            foreach (var tradeKey in tradeKeys)
+            return new ConfirmationResultResponse
             {
-                var tradeDataObject = await GetTradeAsync(tradeKey.TradeReference, tradeKey.TradeLeg, apiJwtToken);
-                if (tradeDataObject is null)
-                {
-                    continue;
-                }
-
-                var boxResultResponse = await fidectusService.GetBoxResult(companyId, tradeDataObject.ConfirmationDocumentId(), requestTokenResponse, fidectusConfiguration);
-
-                yield return new ConfirmationResultResponse
-                {
-                    Id = boxResultResponse.Id,
-                    DocumentId = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.DocumentId,
-                    DocumentVersion = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.DocumentVersion,
-                    DocumentType = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.DocumentType,
-                    State = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.State,
-                    Timestamp = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.Timestamp,
-                    CounterpartyDocumentId = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.Counterparty?.DocumentId,
-                    CounterpartyDocumentVersion = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.Counterparty?.DocumentVersion,
-                };
-            }
+                Id = boxResultResponse.Id,
+                DocumentId = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.DocumentId,
+                DocumentVersion = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.DocumentVersion,
+                DocumentType = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.DocumentType,
+                State = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.State,
+                Timestamp = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.Timestamp,
+                CounterpartyDocumentId = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.Counterparty?.DocumentId,
+                CounterpartyDocumentVersion = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.Counterparty?.DocumentVersion,
+            };
         }
 
         public async Task<TradeDataObject> GetTradeAsync(string tradeReference, int tradeLeg, string apiJwtToken)
