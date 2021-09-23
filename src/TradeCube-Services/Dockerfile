@@ -2,8 +2,9 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS base
 
 WORKDIR /src
 COPY ["TradeCube-Services/", "TradeCube-Services/"]
-COPY ["Equias/", "Equias/"]
 COPY ["Shared/", "Shared/"]
+COPY ["Equias/", "Equias/"]
+COPY ["Fidectus/", "Fidectus/"]
 
 RUN dotnet restore "TradeCube-Services/TradeCube-Services.csproj"
 
