@@ -132,6 +132,7 @@ namespace Fidectus.Services
                 var (response, httpResponse) = await GetAsync<BoxResultResponse>(httpClient, uri, false);
 
                 logger.LogInformation($"GetBoxResult: {httpResponse.StatusCode}");
+                logger.LogInformation($"{TradeCubeJsonSerializer.Serialize(response)}");
 
                 return response;
             }
