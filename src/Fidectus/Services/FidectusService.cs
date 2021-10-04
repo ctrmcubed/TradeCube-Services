@@ -58,7 +58,7 @@ namespace Fidectus.Services
 
                 var response = await HttpMethod(method, httpClient);
 
-                logger.LogInformation($"FidectusSendTradeConfirmation: {response.Status}");
+                logger.LogDebug($"PostResponse: {TradeCubeJsonSerializer.Serialize(response)}");
 
                 // Mutation!
                 response.IsSuccessStatusCode = response.IsSuccessStatusCode;

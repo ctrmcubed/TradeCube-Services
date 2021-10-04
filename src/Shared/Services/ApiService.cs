@@ -2,6 +2,7 @@
 using Shared.Messages;
 using Shared.Serialization;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -43,7 +44,7 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse
+        protected async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse, new()
         {
             try
             {
@@ -56,62 +57,7 @@ namespace Shared.Services
 
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
 
-                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
-
-                if (deserializeAsync is null)
-                {
-                    return null;
-                }
-
-                deserializeAsync.Status = response.StatusCode.ToString();
-                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
-                deserializeAsync.Message = response.ReasonPhrase;
-
-                logger.LogDebug($"PostResponse: {TradeCubeJsonSerializer.Serialize(deserializeAsync)}");
-
-                return deserializeAsync;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
-        }
-
-        protected async Task<HttpResponseMessage> PostAsync<T>(HttpClient client, string action, T body, bool ensureSuccess = true)
-        {
-            try
-            {
-                var response = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
-
-                if (ensureSuccess)
-                {
-                    response.EnsureSuccessStatusCode();
-                }
-
-                return response;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
-        }
-
-        protected async Task<TV> PutAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse
-        {
-            try
-            {
-                var response = await client.PutAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
-
-                if (ensureSuccess)
-                {
-                    response.EnsureSuccessStatusCode();
-                }
-
-                await using var responseStream = await response.Content.ReadAsStreamAsync();
-
-                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+                var deserializeAsync = await DeserializeAsync<TV>(responseStream);
 
                 deserializeAsync.Status = response.StatusCode.ToString();
                 deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
@@ -126,7 +72,7 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<HttpResponseMessage> PutAsync<T>(HttpClient client, string action, T body, bool ensureSuccess = true)
+        protected async Task<TV> PutAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse, new()
         {
             try
             {
@@ -137,7 +83,15 @@ namespace Shared.Services
                     response.EnsureSuccessStatusCode();
                 }
 
-                return response;
+                await using var responseStream = await response.Content.ReadAsStreamAsync();
+
+                var deserializeAsync = await DeserializeAsync<TV>(responseStream);
+
+                deserializeAsync.Status = response.StatusCode.ToString();
+                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
+                deserializeAsync.Message = response.ReasonPhrase;
+
+                return deserializeAsync;
             }
             catch (Exception ex)
             {
@@ -226,6 +180,23 @@ namespace Shared.Services
                 }
 
                 return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        private async Task<TV> DeserializeAsync<TV>(Stream stream) where TV : new()
+        {
+            try
+            {
+                return await TradeCubeJsonSerializer.DeserializeAsync<TV>(stream) ?? default;
+            }
+            catch (FormatException)
+            {
+                return new TV();
             }
             catch (Exception ex)
             {
