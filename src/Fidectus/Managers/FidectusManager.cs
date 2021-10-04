@@ -81,7 +81,7 @@ namespace Fidectus.Managers
 
             if (confirmationResponse.StatusCode == 409)
             {
-                logger.LogInformation($"Already confirmed ({confirmationResponse.StatusCode}), trying a PUT...");
+                logger.LogInformation($"Already sent ({confirmationResponse.StatusCode}), trying a PUT...");
 
                 return await SendConfirmationAsync("PUT", tradeConfirmation, apiJwtToken, fidectusConfiguration);
             }
@@ -137,7 +137,7 @@ namespace Fidectus.Managers
                 State = boxResultResponse.BoxResult?.State,
                 Timestamp = boxResultResponse.BoxResult?.Timestamp,
                 CounterpartyDocumentId = boxResultResponse.BoxResult?.Counterparty?.DocumentId,
-                CounterpartyDocumentVersion = boxResultResponse.BoxResult?.Counterparty?.DocumentVersion,
+                CounterpartyDocumentVersion = boxResultResponse.BoxResult?.Counterparty?.DocumentVersion
             };
         }
 
