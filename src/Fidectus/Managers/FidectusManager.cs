@@ -129,13 +129,13 @@ namespace Fidectus.Managers
             return new ConfirmationResultResponse
             {
                 Id = boxResultResponse.Id,
-                DocumentId = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.DocumentId,
-                DocumentVersion = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.DocumentVersion,
-                DocumentType = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.DocumentType,
-                State = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.State,
-                Timestamp = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.Timestamp,
-                CounterpartyDocumentId = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.Counterparty?.DocumentId,
-                CounterpartyDocumentVersion = boxResultResponse.Envelope?.Payload?.Message?.BoxResult?.Counterparty?.DocumentVersion,
+                DocumentId = boxResultResponse.BoxResult?.DocumentId,
+                DocumentVersion = boxResultResponse.BoxResult?.DocumentVersion,
+                DocumentType = boxResultResponse.BoxResult?.DocumentType,
+                State = boxResultResponse.BoxResult?.State,
+                Timestamp = boxResultResponse.BoxResult?.Timestamp,
+                CounterpartyDocumentId = boxResultResponse.BoxResult?.Counterparty?.DocumentId,
+                CounterpartyDocumentVersion = boxResultResponse.BoxResult?.Counterparty?.DocumentVersion,
             };
         }
 

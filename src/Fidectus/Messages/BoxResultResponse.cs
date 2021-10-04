@@ -7,6 +7,6 @@ namespace Fidectus.Messages
         [JsonPropertyName("ID")]
         public string Id { get; set; }
 
-        public BoxResultEnvelope Envelope { get; set; }
+        public BoxResult BoxResult { get; set; }
     }
 }

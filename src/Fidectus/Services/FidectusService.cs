@@ -30,7 +30,7 @@ namespace Fidectus.Services
                 return new ConfirmationResponse
                 {
                     IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode,
-                    StatusCode = (int)httpResponseMessage.StatusCode,
+                    StatusCode = (int?)httpResponseMessage.StatusCode,
                     DocumentId = confirmationRequest.TradeConfirmation?.DocumentId
                 };
             }
@@ -42,7 +42,7 @@ namespace Fidectus.Services
                 return new ConfirmationResponse
                 {
                     IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode,
-                    StatusCode = (int)httpResponseMessage.StatusCode,
+                    StatusCode = (int?)httpResponseMessage.StatusCode,
                     DocumentId = confirmationRequest.TradeConfirmation?.DocumentId
                 };
             }
