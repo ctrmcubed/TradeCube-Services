@@ -194,14 +194,10 @@ namespace Shared.Services
             {
                 return await TradeCubeJsonSerializer.DeserializeAsync<TV>(stream) ?? default;
             }
-            catch (FormatException)
-            {
-                return new TV();
-            }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
-                throw;
+                logger.LogError($"Could not parse json response ({ex.Message})");
+                return new TV();
             }
         }
     }

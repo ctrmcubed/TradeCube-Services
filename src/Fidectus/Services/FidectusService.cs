@@ -62,6 +62,7 @@ namespace Fidectus.Services
 
                 // Mutation!
                 response.IsSuccessStatusCode = response.IsSuccessStatusCode;
+                response.DocumentId = confirmationRequest.TradeConfirmation.DocumentId;
 
                 return response;
             }
