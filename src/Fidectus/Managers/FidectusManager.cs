@@ -86,7 +86,7 @@ namespace Fidectus.Managers
                 return await SendConfirmationAsync("PUT", tradeConfirmation, apiJwtToken, fidectusConfiguration);
             }
 
-            throw new DataException("Failed to send confirmation");
+            throw new DataException($"Failed to send confirmation ({confirmationResponse.Message})");
         }
 
         public async Task<ConfirmationResponse> CancelAsync(TradeKey tradeKey, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)

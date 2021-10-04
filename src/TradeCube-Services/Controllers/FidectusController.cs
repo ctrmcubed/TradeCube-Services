@@ -30,9 +30,11 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
+                var confirmationResponse = await fidectusManager.ConfirmAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken));
+
                 return tradeKey is null
                     ? BadRequest()
-                    : Json(await fidectusManager.ConfirmAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
+                    : Json(confirmationResponse);
             }
             catch (Exception ex)
             {
