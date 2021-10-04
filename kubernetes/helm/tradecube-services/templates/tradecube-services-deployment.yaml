@@ -114,7 +114,7 @@ spec:
           # periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
       - image: '{{ .Values.image.jsreportRepo }}/{{ .Values.image.jsreport }}:{{ .Values.image.jsreportTag }}'
         name: {{ .Release.Name }}{{ .Values.component.jsreport }}{{ .Values.type.pod }}
-        imagePullPolicy: "Always"
+        imagePullPolicy: "IfNotPresent"
       volumes:
         - name: {{ .Release.Name }}{{ .Values.certificate.volumeName }}
           secret:
