@@ -92,6 +92,16 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}{{ .Values.type.configmap }}
                 key: EQUIAS_CANCEL_TRADE_URI
+          - name: FIDECTUS_CONFIRMATION_URI
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: FIDECTUS_CONFIRMATION_URI
+          - name: FIDECTUS_CONFIRMATION_BOX_RESULT_URI
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: FIDECTUS_CONFIRMATION_BOX_RESULT_URI
           # readinessProbe:
           # tcpSocket:
             # port: {{ .Values.port.services }}
