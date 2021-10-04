@@ -67,11 +67,12 @@ namespace Fidectus.Services
 
 
             var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
-            
+
             var senderId = await MapSenderId(tradeDataObject, apiJwtToken);
             var receiverId = await MapReceiverId(tradeDataObject, apiJwtToken);
             var buyerEic = await MapEic(tradeDataObject.Buyer, "Buyer party", apiJwtToken);
             var sellerEic = await MapEic(tradeDataObject.Seller, "Seller party", apiJwtToken);
+            var commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, fidectusConfiguration);
 
             return new TradeConfirmation
             {
@@ -82,7 +83,7 @@ namespace Fidectus.Services
                 ReceiverRole = "Trader",
                 DocumentVersion = 1,
                 Market = tradeDataObject.Product?.Commodity?.Country,
-                Commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, fidectusConfiguration),
+                Commodity = commodity,
                 TransactionType = MapContractTypeToTransactionType(tradeDataObject.Product?.ContractType, fidectusConfiguration),
                 DeliveryPointArea = tradeDataObject.Product?.Commodity?.DeliveryArea?.Eic,
                 BuyerParty = buyerEic,
@@ -98,11 +99,13 @@ namespace Fidectus.Services
                 TotalContractValue = AbsoluteValue(tradeSummaryResponse?.TotalValue),
                 TimeIntervalQuantities = MapProfileResponsesToDeliveryStartTimes(tradeDataObject.Quantity?.Quantity, profileResponses, timezone, tradeDataObject.Price?.PriceUnit?.CurrencyExponent),
                 TraderName = tradeDataObject.InternalTrader?.ContactLongName,
-                HubCodificationInformation = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, fidectusConfiguration) == FidectusConstants.CommodityGas
+                HubCodificationInformation = commodity == FidectusConstants.CommodityGas
                     ? await MapHubCodificationInformation(tradeDataObject.Buyer, tradeDataObject.Seller, apiJwtToken)
                     : null,
-                AccountAndChargeInformation = MapAccountAndChargeInformation(tradeDataObject),
-                Agents = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, fidectusConfiguration) == FidectusConstants.CommodityPower
+                AccountAndChargeInformation = commodity == FidectusConstants.CommodityPower
+                    ? MapAccountAndChargeInformation(tradeDataObject)
+                    : null,
+                Agents = commodity == FidectusConstants.CommodityPower
                     ? new List<Agent>
                     {
                         new()
