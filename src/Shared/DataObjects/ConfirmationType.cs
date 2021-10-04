@@ -15,7 +15,7 @@ namespace Shared.DataObjects
         public string CMStatus { get; set; }
         public string CMMessage { get; set; }
         public string CounterpartyDocumentId { get; set; }
-        public string CounterpartyDocumentVersion { get; set; }
+        public int? CounterpartyDocumentVersion { get; set; }
         public string ConfirmationProvider { get; set; }
     }
 }
