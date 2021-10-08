@@ -28,7 +28,7 @@ namespace Fidectus.Services
 
         public async Task<RequestTokenResponse> FidectusGetAuthenticationToken(RequestTokenRequest requestTokenRequest, IFidectusConfiguration fidectusConfiguration)
         {
-            var requestTokenResponse = await redisService.Get<FidectusAuthenticationToken>(RedisConstants.FidectusAuthenticationTokenKey);
+            var requestTokenResponse = await redisService.Get<FidectusAuthenticationToken>(RedisConstants.FidectusAuthenticationTokenKey, requestTokenRequest.ClientId);
 
             if (!string.IsNullOrWhiteSpace(requestTokenResponse?.AccessToken))
             {
@@ -46,7 +46,7 @@ namespace Fidectus.Services
             var getAuthenticationToken = await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, fidectusConfiguration.FidectusAuthUrl, requestTokenRequest);
             var fidectusAuthenticationToken = new FidectusAuthenticationToken { AccessToken = getAuthenticationToken.AccessToken };
 
-            await redisService.Set(fidectusAuthenticationToken, 24, RedisConstants.FidectusAuthenticationTokenKey);
+            await redisService.Set(fidectusAuthenticationToken, 24, RedisConstants.FidectusAuthenticationTokenKey, requestTokenRequest.ClientId);
 
             return getAuthenticationToken;
         }
