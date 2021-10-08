@@ -47,6 +47,16 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}{{ .Values.type.configmap }}
                 key: TRADECUBE_SERVICES_CERT_PASSWORD
+          - name: TRADECUBE_SERVICES_REDIS_HOSTS
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TRADECUBE_SERVICES_REDIS_HOSTS
+          - name: TRADECUBE_SERVICES_REDIS_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TRADECUBE_SERVICES_REDIS_PASSWORD
           - name: TRADECUBE_API_DOMAIN
             valueFrom:
               configMapKeyRef:
