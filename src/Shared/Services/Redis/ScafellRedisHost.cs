@@ -1,4 +1,4 @@
-﻿namespace Shared.Redis
+﻿namespace Shared.Services.Redis
 {
     public class ScafellRedisHost
     {

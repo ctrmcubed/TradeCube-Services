@@ -1,16 +1,15 @@
-﻿using NLog;
-using Shared.Services.Redis;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using NLog;
 using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core.Abstractions;
 using StackExchange.Redis.Extensions.Core.Configuration;
 using StackExchange.Redis.Extensions.Core.Implementations;
 using StackExchange.Redis.Extensions.System.Text.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Shared.Redis
+namespace Shared.Services.Redis
 {
     public class RedisService : IRedisService
     {
