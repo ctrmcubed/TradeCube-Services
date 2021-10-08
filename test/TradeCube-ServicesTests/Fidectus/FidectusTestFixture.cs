@@ -6,6 +6,7 @@ using Shared.Constants;
 using Shared.DataObjects;
 using Shared.Messages;
 using Shared.Services;
+using Shared.Services.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace TradeCube_ServicesTests.Fidectus
             FidectusParties = FileHelper.ReadJsonFile<IList<PartyDataObject>>(TestHelper.GetTestDataFolder("TestData/Fidectus/mock_party.json"));
             ExpectedResults = FileHelper.ReadJsonFile<IList<FidectusTestType>>(TestHelper.GetTestDataFolder("TestData/Fidectus/expected_results_fidectus_confirms.json"));
 
-            FidectusAuthenticationService = new FidectusAuthenticationService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
+            FidectusAuthenticationService = new FidectusAuthenticationService(defaultHttpClientFactory, new Mock<IRedisService>().Object, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
             FidectusService = new FidectusService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
 
             var vaultDataObjects = new List<VaultDataObject>

@@ -23,7 +23,7 @@
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": false
                 },
                 "TotalVolume": 42187.54,
@@ -32,7 +32,7 @@
                 "CapacityUnit": "MW",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": false
                     },
                     "CapacityUnit": "MWh"
@@ -93,7 +93,7 @@
                 "LoadType": "Peak",
                 "Agreement": "GTMA",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": false
                 },
                 "TotalVolume": 25255.08,
@@ -102,7 +102,7 @@
                 "CapacityUnit": "MW",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": false
                     },
                     "CapacityUnit": "MWh"
@@ -343,7 +343,7 @@
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": false
                 },
                 "TotalVolume": 1814.7,
@@ -352,7 +352,7 @@
                 "CapacityUnit": "MW",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": false
                     },
                     "CapacityUnit": "MWh"
@@ -413,7 +413,7 @@
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": false
                 },
                 "TotalVolume": 2136.24,
@@ -422,7 +422,7 @@
                 "CapacityUnit": "MW",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": false
                     },
                     "CapacityUnit": "MWh"
@@ -483,7 +483,7 @@
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": false
                 },
                 "TotalVolume": 2162.88,
@@ -492,7 +492,7 @@
                 "CapacityUnit": "MW",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": false
                     },
                     "CapacityUnit": "MWh"
@@ -553,7 +553,7 @@
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": false
                 },
                 "TotalVolume": 30.75,
@@ -562,7 +562,7 @@
                 "CapacityUnit": "MW",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": false
                     },
                     "CapacityUnit": "MWh"
@@ -623,7 +623,7 @@
                 "LoadType": "Peak",
                 "Agreement": "GTMA",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": false
                 },
                 "TotalVolume": 4590.48,
@@ -632,7 +632,7 @@
                 "CapacityUnit": "MW",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": false
                     },
                     "CapacityUnit": "MWh"
@@ -873,7 +873,7 @@
                 "LoadType": "Base",
                 "Agreement": "GTMA",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": false
                 },
                 "TotalVolume": 240.0,
@@ -882,7 +882,7 @@
                 "CapacityUnit": "MW",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": false
                     },
                     "CapacityUnit": "MWh"
@@ -943,7 +943,7 @@
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": true
                 },
                 "TotalVolume": 1760.18,
@@ -952,7 +952,7 @@
                 "CapacityUnit": "ThermPerDay",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": true
                     },
                     "CapacityUnit": "ThermPerDay"
@@ -998,7 +998,7 @@
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": true
                 },
                 "TotalVolume": 67.89,
@@ -1007,7 +1007,7 @@
                 "CapacityUnit": "ThermPerDay",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": true
                     },
                     "CapacityUnit": "ThermPerDay"
@@ -1053,7 +1053,7 @@
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": true
                 },
                 "TotalVolume": 78.9,
@@ -1062,7 +1062,7 @@
                 "CapacityUnit": "ThermPerDay",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": true
                     },
                     "CapacityUnit": "ThermPerDay"
@@ -1108,7 +1108,7 @@
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": true
                 },
                 "TotalVolume": 89.01,
@@ -1117,7 +1117,7 @@
                 "CapacityUnit": "ThermPerDay",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": true
                     },
                     "CapacityUnit": "ThermPerDay"
@@ -1163,7 +1163,7 @@
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": true
                 },
                 "TotalVolume": 90.12,
@@ -1172,7 +1172,7 @@
                 "CapacityUnit": "ThermPerDay",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": true
                     },
                     "CapacityUnit": "ThermPerDay"
@@ -1218,7 +1218,7 @@
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": true
                 },
                 "TotalVolume": 1.23,
@@ -1227,7 +1227,7 @@
                 "CapacityUnit": "ThermPerDay",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": true
                     },
                     "CapacityUnit": "ThermPerDay"
@@ -1273,7 +1273,7 @@
                 "LoadType": "Base",
                 "Agreement": "NBP15",
                 "Currency": {
-                    "currencyCodeType": "GBP",
+                    "CurrencyCodeType": "GBP",
                     "UseFractionUnit": true
                 },
                 "TotalVolume": 12.34,
@@ -1282,7 +1282,7 @@
                 "CapacityUnit": "ThermPerDay",
                 "PriceUnit": {
                     "Currency": {
-                        "currencyCodeType": "GBP",
+                        "CurrencyCodeType": "GBP",
                         "UseFractionUnit": true
                     },
                     "CapacityUnit": "ThermPerDay"

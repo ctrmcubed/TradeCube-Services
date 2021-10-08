@@ -10,7 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Shared.Configuration;
+using Shared.Redis;
 using Shared.Services;
+using Shared.Services.Redis;
+using StackExchange.Redis.Extensions.Core.Configuration;
 using TradeCube_Services.Services;
 using TradeCube_Services.Services.ThirdParty.ETRMServices;
 
@@ -29,6 +32,8 @@ namespace TradeCube_Services
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var redis = new RedisService(configuration.GetSection("RedisConfiguration").Get<RedisConfiguration>()).ConnectionMultiplexer();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TradeCube-Services API", Version = "v1", Description = "TradeCube-Services API" });
@@ -89,6 +94,10 @@ namespace TradeCube_Services
                 .AddScoped<IVaultService, VaultService>()
                 .AddScoped<IVenueService, VenueService>();
 
+            services
+                .AddSingleton<IRedisService>(_ =>
+                    new RedisService(configuration.GetSection("RedisConfiguration").Get<RedisConfiguration>()));
+
             services.AddHealthChecks();
 
             services
@@ -108,6 +117,7 @@ namespace TradeCube_Services
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
