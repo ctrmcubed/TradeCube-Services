@@ -74,10 +74,10 @@ namespace Shared.Services.Redis
         }
 
         private static IEnumerable<ScafellRedisHost> RedisHosts() =>
-            RedisHosts(Environment.GetEnvironmentVariable("SCAFELL_REDIS_HOSTS"));
+            RedisHosts(Environment.GetEnvironmentVariable("TRADECUBE_REDIS_HOSTS"));
 
         private static string RedisPassword() =>
-            Environment.GetEnvironmentVariable("SCAFELL_REDIS_PASSWORD");
+            Environment.GetEnvironmentVariable("TRADECUBE_REDIS_PASSWORD");
 
         private static RedisConfiguration MergeConfiguration(RedisConfiguration redisConfiguration, IEnumerable<ScafellRedisHost> environmentVariableHosts, string environmentPassword)
         {
