@@ -24,6 +24,8 @@ env:
   certificateNameSuffix: <not-set>     # {{ .Values.env.certificateNameSuffix }}
   certPassword: <not-set>              # {{ .Values.env.certPassword }}
   environment: <not-set>               # {{ .Values.env.environment }}
+  redisHosts: <not-set>                # {{ .Values.env.redisHosts }}
+  redisPassword: <not-set>             # {{ .Values.env.redisPassword }}
   apiDomain: https://api.tradecube.io  # {{ .Values.env.apiDomain }}
   apiPort: 443                         # {{ .Values.env.apiPort }}
   jsreportDomain: http://localhost     # {{ .Values.env.jsreportDomain }}
