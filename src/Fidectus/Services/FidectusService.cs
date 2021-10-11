@@ -1,7 +1,7 @@
 ﻿using Fidectus.Messages;
 using Microsoft.Extensions.Logging;
 using Shared.Configuration;
-using Shared.Serialization;
+using Shared.Extensions;
 using Shared.Services;
 using System;
 using System.Net.Http;
@@ -46,7 +46,7 @@ namespace Fidectus.Services
             try
             {
                 logger.LogInformation($"CompanyId: {companyId}");
-                logger.LogInformation($"{TradeCubeJsonSerializer.Serialize(confirmationRequest)}");
+                logger.JsonLogDebug("SendConfirmation Request: ", confirmationRequest);
 
                 var httpClient = httpClientFactory.CreateClient();
 
@@ -58,7 +58,7 @@ namespace Fidectus.Services
 
                 var response = await HttpMethod(method, httpClient);
 
-                logger.LogDebug($"PostResponse: {TradeCubeJsonSerializer.Serialize(response)}");
+                logger.JsonLogDebug("SendConfirmation", response);
 
                 // Mutation!
                 response.IsSuccessStatusCode = response.IsSuccessStatusCode;
@@ -89,15 +89,18 @@ namespace Fidectus.Services
                 httpClient.DefaultRequestHeaders.Add("CompanyId-Context", companyId);
 
                 var uri = $"{fidectusConfiguration.FidectusConfirmationUrl}/{docId}";
-                var httpResponseMessage = await DeleteAsync<ConfirmationResponse>(httpClient, uri, null);
+                var confirmationResponse = await DeleteAsync<ConfirmationResponse>(httpClient, uri, false);
 
-                logger.LogInformation($"CancelConfirmation: {httpResponseMessage.StatusCode}");
-
-                return new ConfirmationResponse
+                var response = new ConfirmationResponse
                 {
-                    IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode,
-                    StatusCode = (int)httpResponseMessage.StatusCode
+                    IsSuccessStatusCode = confirmationResponse.IsSuccessStatusCode,
+                    StatusCode = confirmationResponse.StatusCode,
+                    Message = confirmationResponse.Message
                 };
+
+                logger.JsonLogDebug($"DeleteConfirmation {confirmationResponse.StatusCode}", response);
+
+                return response;
             }
             catch (Exception ex)
             {
@@ -119,8 +122,7 @@ namespace Fidectus.Services
                 var uri = $"{fidectusConfiguration.FidectusConfirmationBoxResultUrl}/{docId}";
                 var (response, httpResponse) = await GetAsync<BoxResultResponse>(httpClient, uri, false);
 
-                logger.LogInformation($"GetBoxResult: {httpResponse.StatusCode}");
-                logger.LogInformation($"{TradeCubeJsonSerializer.Serialize(response)}");
+                logger.JsonLogDebug($"GetBoxResult {httpResponse.StatusCode}", response);
 
                 return response;
             }

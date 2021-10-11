@@ -100,6 +100,43 @@ namespace Shared.Services
             }
         }
 
+        protected async Task<TV> DeleteAsync<TV>(HttpClient client, string action, bool ensureSuccess = true) where TV : ApiResponse
+        {
+            static Uri ConstructUrl(string baseAddress, string uri)
+            {
+                return baseAddress.EndsWith("/") && uri.StartsWith("/")
+                    ? new Uri($"{baseAddress}{uri.TrimStart('/')}")
+                    : new Uri($"{baseAddress}{uri}");
+            }
+
+            try
+            {
+                var constructUrl = ConstructUrl(client.BaseAddress?.ToString(), action);
+                var response = await client.DeleteAsync(constructUrl);
+
+                if (ensureSuccess)
+                {
+                    response.EnsureSuccessStatusCode();
+                }
+
+                await using var responseStream = await response.Content.ReadAsStreamAsync();
+
+                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+
+                deserializeAsync.Status = response.StatusCode.ToString();
+                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
+                deserializeAsync.Message = response.ReasonPhrase;
+
+                return deserializeAsync;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+
         protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse
         {
             static Uri ConstructUrl(string baseAddress, string uri)
