@@ -45,7 +45,7 @@ namespace Fidectus.Services
 
             try
             {
-                logger.LogInformation($"CompanyId: {companyId}");
+                logger.LogInformation($"CompanyId-Context: '{companyId}', FidectusUrl: '{fidectusConfiguration.FidectusUrl}'");
                 logger.JsonLogDebug("SendConfirmation Request: ", confirmationRequest);
 
                 var httpClient = httpClientFactory.CreateClient();

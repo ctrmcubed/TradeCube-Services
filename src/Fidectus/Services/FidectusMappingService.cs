@@ -226,11 +226,6 @@ namespace Fidectus.Services
 
         private async Task<string> MapEic(PartyDataObject party, string label, string apiJwtToken, string defaultValue = null)
         {
-            async Task<PartyDataObject> GetPartyAsync(string pty)
-            {
-                return (await partyService.GetPartyAsync(pty, apiJwtToken))?.Data?.SingleOrDefault();
-            }
-
             if (!string.IsNullOrWhiteSpace(party?.Eic?.Eic))
             {
                 return party.Eic?.Eic;
@@ -243,7 +238,7 @@ namespace Fidectus.Services
                     : defaultValue;
             }
 
-            var partyDataObject = await GetPartyAsync(party.Party);
+            var partyDataObject = await GetPartyAsync("Buyer/Seller", party.Party, apiJwtToken);
             if (!string.IsNullOrWhiteSpace(partyDataObject?.Eic?.Eic))
             {
                 return partyDataObject.Eic?.Eic;
@@ -371,7 +366,7 @@ namespace Fidectus.Services
             async Task<string> HubCode(PartyDataObject party)
             {
                 return party?.Extension?.UkGasShipper?.ShipperCode ??
-                       (await partyService.GetPartyAsync(party?.Party, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.UkGasShipper?.ShipperCode;
+                       (await GetPartyAsync("Buyer/Seller", party?.Party, apiJwtToken))?.Extension?.UkGasShipper?.ShipperCode;
             }
 
             return new HubCodificationInformation
@@ -386,7 +381,7 @@ namespace Fidectus.Services
             async Task<string> Id(UkBscPartyDataObject bsc)
             {
                 return bsc?.BscPartyId ??
-                       (await partyService.GetPartyAsync(bsc?.BscPartyId, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.BscParty?.BscPartyId;
+                       (await GetPartyAsync("BSC Party", bsc?.BscPartyId, apiJwtToken))?.Extension?.BscParty?.BscPartyId;
             }
 
             return ukBscPartyDataObject is null
@@ -399,12 +394,22 @@ namespace Fidectus.Services
             async Task<string> Id(PartyDataObject pty)
             {
                 return pty?.Extension?.BscParty?.BscPartyId ??
-                       (await partyService.GetPartyAsync(pty?.Party, apiJwtToken))?.Data?.SingleOrDefault()?.Extension?.BscParty?.BscPartyId;
+                       (await GetPartyAsync("Buyer/Seller", pty?.Party, apiJwtToken))?.Extension?.BscParty?.BscPartyId;
             }
 
             return party is null
                 ? throw new DataException("The trade has no Buyer or Seller")
                 : await Id(party);
+        }
+
+        private async Task<PartyDataObject> GetPartyAsync(string requestSource, string party, string apiJwtToken)
+        {
+            if (string.IsNullOrWhiteSpace(party))
+            {
+                throw new DataException($"'{requestSource}' party name is not configured correctly");
+            }
+
+            return (await partyService.GetPartyAsync(party, apiJwtToken))?.Data?.SingleOrDefault();
         }
     }
 }
