@@ -20,22 +20,22 @@ namespace Shared.Services
             this.logger = logger;
         }
 
-        protected async Task<(TV response, HttpResponseMessage httpResponse)> GetAsync<TV>(HttpClient client, string uri, bool ensureSuccess = true)
+        protected async Task<(TV response, HttpResponseMessage httpResponse)> GetAsync<TV>(HttpClient client, string uri, bool ensureSuccess = true) where TV : ApiResponse, new()
         {
             try
             {
-                var httpResponse = await client.GetAsync(uri);
+                var httpResponseMessage = await client.GetAsync(uri);
 
                 if (ensureSuccess)
                 {
-                    httpResponse.EnsureSuccessStatusCode();
+                    httpResponseMessage.EnsureSuccessStatusCode();
                 }
 
-                await using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
+                await using var responseStream = await httpResponseMessage.Content.ReadAsStreamAsync();
 
-                var response = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = false });
+                var response = await DeserializeAsync<TV>(responseStream);
 
-                return (response, httpResponse);
+                return (response, httpResponseMessage);
             }
             catch (Exception ex)
             {
@@ -48,22 +48,22 @@ namespace Shared.Services
         {
             try
             {
-                var response = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+                var httpResponseMessage = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
 
                 if (ensureSuccess)
                 {
-                    response.EnsureSuccessStatusCode();
+                    httpResponseMessage.EnsureSuccessStatusCode();
                 }
 
-                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                await using var responseStream = await httpResponseMessage.Content.ReadAsStreamAsync();
 
-                var deserializeAsync = await DeserializeAsync<TV>(responseStream);
+                var response = await DeserializeAsync<TV>(responseStream);
 
-                deserializeAsync.Status = response.StatusCode.ToString();
-                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
-                deserializeAsync.Message = response.ReasonPhrase;
+                response.StatusCode = (int?)httpResponseMessage.StatusCode;
+                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
+                response.Message = httpResponseMessage.ReasonPhrase;
 
-                return deserializeAsync;
+                return response;
             }
             catch (Exception ex)
             {
@@ -76,22 +76,22 @@ namespace Shared.Services
         {
             try
             {
-                var response = await client.PutAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+                var httpResponseMessage = await client.PutAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
 
                 if (ensureSuccess)
                 {
-                    response.EnsureSuccessStatusCode();
+                    httpResponseMessage.EnsureSuccessStatusCode();
                 }
 
-                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                await using var responseStream = await httpResponseMessage.Content.ReadAsStreamAsync();
 
-                var deserializeAsync = await DeserializeAsync<TV>(responseStream);
+                var response = await DeserializeAsync<TV>(responseStream);
 
-                deserializeAsync.Status = response.StatusCode.ToString();
-                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
-                deserializeAsync.Message = response.ReasonPhrase;
+                response.StatusCode = (int?)httpResponseMessage.StatusCode;
+                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
+                response.Message = httpResponseMessage.ReasonPhrase;
 
-                return deserializeAsync;
+                return response;
             }
             catch (Exception ex)
             {
@@ -100,7 +100,7 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<TV> DeleteAsync<TV>(HttpClient client, string action, bool ensureSuccess = true) where TV : ApiResponse
+        protected async Task<TV> DeleteAsync<TV>(HttpClient client, string action, bool ensureSuccess = true) where TV : ApiResponse, new()
         {
             static Uri ConstructUrl(string baseAddress, string uri)
             {
@@ -112,22 +112,22 @@ namespace Shared.Services
             try
             {
                 var constructUrl = ConstructUrl(client.BaseAddress?.ToString(), action);
-                var response = await client.DeleteAsync(constructUrl);
+                var httpResponseMessage = await client.DeleteAsync(constructUrl);
 
                 if (ensureSuccess)
                 {
-                    response.EnsureSuccessStatusCode();
+                    httpResponseMessage.EnsureSuccessStatusCode();
                 }
 
-                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                await using var responseStream = await httpResponseMessage.Content.ReadAsStreamAsync();
 
-                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+                var response = await DeserializeAsync<TV>(responseStream);
 
-                deserializeAsync.Status = response.StatusCode.ToString();
-                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
-                deserializeAsync.Message = response.ReasonPhrase;
+                response.StatusCode = (int?)httpResponseMessage.StatusCode;
+                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
+                response.Message = httpResponseMessage.ReasonPhrase;
 
-                return deserializeAsync;
+                return response;
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace Shared.Services
         }
 
 
-        protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse
+        protected async Task<TV> DeleteAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse, new()
         {
             static Uri ConstructUrl(string baseAddress, string uri)
             {
@@ -159,62 +159,20 @@ namespace Shared.Services
                     Content = new StringContent(serializedBody, Encoding.UTF8, "application/json")
                 };
 
-                var response = await client.SendAsync(request);
+                var httpResponseMessage = await client.SendAsync(request);
 
                 if (ensureSuccess)
                 {
-                    response.EnsureSuccessStatusCode();
+                    httpResponseMessage.EnsureSuccessStatusCode();
                 }
 
-                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                await using var responseStream = await httpResponseMessage.Content.ReadAsStreamAsync();
 
-                var deserializeAsync = await TradeCubeJsonSerializer.DeserializeAsync<TV>(responseStream);
+                var response = await DeserializeAsync<TV>(responseStream);
 
-                deserializeAsync.Status = response.StatusCode.ToString();
-                deserializeAsync.IsSuccessStatusCode = response.IsSuccessStatusCode;
-                deserializeAsync.Message = response.ReasonPhrase;
-
-                return deserializeAsync;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
-        }
-
-        protected async Task<HttpResponseMessage> DeleteAsync<T>(HttpClient client, string action, T body, bool ensureSuccess = true)
-        {
-            static Uri ConstructUrl(string baseAddress, string uri)
-            {
-                return baseAddress.EndsWith("/") && uri.StartsWith("/")
-                    ? new Uri($"{baseAddress}{uri.TrimStart('/')}")
-                    : new Uri($"{baseAddress}{uri}");
-            }
-
-            try
-            {
-                // Standard DeleteAsync does not support sending a body
-
-                var serializedBody = body is null
-                    ? null
-                    : TradeCubeJsonSerializer.Serialize(body);
-
-                var request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Delete,
-                    RequestUri = ConstructUrl(client.BaseAddress?.ToString(), action),
-                    Content = serializedBody is null
-                        ? null
-                        : new StringContent(serializedBody, Encoding.UTF8, "application/json")
-                };
-
-                var response = await client.SendAsync(request);
-
-                if (ensureSuccess)
-                {
-                    response.EnsureSuccessStatusCode();
-                }
+                response.StatusCode = (int?)httpResponseMessage.StatusCode;
+                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
+                response.Message = httpResponseMessage.ReasonPhrase;
 
                 return response;
             }
@@ -229,7 +187,7 @@ namespace Shared.Services
         {
             try
             {
-                return await TradeCubeJsonSerializer.DeserializeAsync<TV>(stream) ?? default;
+                return await TradeCubeJsonSerializer.DeserializeAsync<TV>(stream, new JsonSerializerOptions { PropertyNameCaseInsensitive = false }) ?? default;
             }
             catch (Exception ex)
             {

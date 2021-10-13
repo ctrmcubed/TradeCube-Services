@@ -37,6 +37,7 @@ namespace Shared.Services
                 {
                     Message = ex.Message,
                     Status = HttpStatusCode.BadRequest.ToString(),
+                    StatusCode = (int?)HttpStatusCode.BadRequest,
                     Data = new List<T>()
                 };
             }
@@ -55,6 +56,7 @@ namespace Shared.Services
                 {
                     Message = ex.Message,
                     Status = HttpStatusCode.BadRequest.ToString(),
+                    StatusCode = (int?)HttpStatusCode.BadRequest,
                     Data = new List<T>()
                 };
             }

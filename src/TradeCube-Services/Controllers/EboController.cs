@@ -6,6 +6,7 @@ using Shared.Constants;
 using Shared.Messages;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace TradeCube_Services.Controllers
@@ -37,7 +38,12 @@ namespace TradeCube_Services.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                return BadRequest(new ApiResponseWrapper<EboGetTradeStatusResponse> { Message = ex.Message, Status = ApiConstants.FailedResult });
+                return BadRequest(new ApiResponseWrapper<EboGetTradeStatusResponse>
+                {
+                    Message = ex.Message, 
+                    Status = ApiConstants.FailedResult,
+                    StatusCode = (int?)HttpStatusCode.BadRequest
+                });
             }
         }
 
@@ -55,6 +61,7 @@ namespace TradeCube_Services.Controllers
                 {
                     Message = ex.Message,
                     Status = ApiConstants.FailedResult,
+                    StatusCode = (int?)HttpStatusCode.BadRequest,
                     Data = new EboTradeResponse
                     {
                         Message = ex.Message

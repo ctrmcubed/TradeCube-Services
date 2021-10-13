@@ -31,7 +31,8 @@ namespace Shared.Services
                     ? new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                     {
                         Message = "Trade not found",
-                        Status = HttpStatusCode.BadRequest.ToString()
+                        Status = HttpStatusCode.BadRequest.ToString(),
+                        StatusCode = (int?)HttpStatusCode.BadRequest
                     }
                     : new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Data = trade.Data };
             }
@@ -41,7 +42,8 @@ namespace Shared.Services
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = ex.Message,
-                    Status = HttpStatusCode.BadRequest.ToString()
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    StatusCode = (int?)HttpStatusCode.BadRequest
                 };
             }
         }
@@ -63,7 +65,8 @@ namespace Shared.Services
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = ex.Message,
-                    Status = HttpStatusCode.BadRequest.ToString()
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    StatusCode = (int?)HttpStatusCode.BadRequest
                 };
             }
         }
@@ -81,7 +84,8 @@ namespace Shared.Services
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = ex.Message,
-                    Status = HttpStatusCode.BadRequest.ToString()
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    StatusCode = (int?)HttpStatusCode.BadRequest
                 };
             }
         }
@@ -99,7 +103,8 @@ namespace Shared.Services
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = ex.Message,
-                    Status = HttpStatusCode.BadRequest.ToString()
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    StatusCode = (int?)HttpStatusCode.BadRequest
                 };
             }
         }

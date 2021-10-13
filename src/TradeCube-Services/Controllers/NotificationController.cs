@@ -4,6 +4,7 @@ using Shared.Constants;
 using Shared.Messages;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using TradeCube_Services.Parameters;
 using TradeCube_Services.Services;
@@ -58,6 +59,7 @@ namespace TradeCube_Services.Controllers
                 {
                     Message = ex.Message,
                     Status = ApiConstants.FailedResult,
+                    StatusCode = (int?)HttpStatusCode.BadRequest,
                     Data = new WebhookResponse
                     {
                         Webhook = webhookRequest.Webhook

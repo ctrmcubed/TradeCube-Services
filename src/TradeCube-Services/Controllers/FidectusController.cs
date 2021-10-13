@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Shared.Constants;
 using Shared.Messages;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace TradeCube_Services.Controllers
@@ -30,9 +31,19 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                return tradeKey is null
-                    ? BadRequest()
-                    : Json(await fidectusManager.ConfirmAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
+                if (tradeKey is null)
+                {
+                    return BadRequest();
+                }
+
+                var confirmationResponse = (await fidectusManager.ConfirmAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
+
+                if (confirmationResponse.IsSuccessStatusCode)
+                {
+                    return Json(confirmationResponse);
+                }
+
+                return BadRequest(confirmationResponse);
             }
             catch (Exception ex)
             {
@@ -41,6 +52,7 @@ namespace TradeCube_Services.Controllers
                 {
                     Message = ex.Message,
                     Status = ApiConstants.FailedResult,
+                    StatusCode = (int?)HttpStatusCode.BadRequest,
                     Data = new ConfirmationResponse
                     {
                         Message = ex.Message
@@ -54,9 +66,19 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                return tradeKey is null
-                    ? BadRequest()
-                    : Json(await fidectusManager.CancelAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
+                if (tradeKey is null)
+                {
+                    return BadRequest();
+                }
+
+                var confirmationResponse = await fidectusManager.CancelAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken));
+
+                if (confirmationResponse.IsSuccessStatusCode)
+                {
+                    return Json(confirmationResponse);
+                }
+
+                return BadRequest(confirmationResponse);
             }
             catch (Exception ex)
             {
@@ -65,6 +87,7 @@ namespace TradeCube_Services.Controllers
                 {
                     Message = ex.Message,
                     Status = ApiConstants.FailedResult,
+                    StatusCode = (int?)HttpStatusCode.BadRequest,
                     Data = new ConfirmationResponse
                     {
                         Message = ex.Message
@@ -78,9 +101,12 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                return tradeKey is null
-                    ? BadRequest()
-                    : Json(await fidectusManager.BoxResult(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
+                if (tradeKey is null)
+                {
+                    return BadRequest();
+                }
+
+                return Json(await fidectusManager.BoxResult(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
             }
             catch (Exception ex)
             {
@@ -89,6 +115,7 @@ namespace TradeCube_Services.Controllers
                 {
                     Message = ex.Message,
                     Status = ApiConstants.FailedResult,
+                    StatusCode = (int?)HttpStatusCode.BadRequest,
                     Data = new ConfirmationResultResponse
                     {
                         Message = ex.Message
