@@ -38,12 +38,14 @@ namespace TradeCube_Services.Controllers
                     {
                         Value = formulaEvaluatorResponse.Value
                     },
-                    Message = "The Formula calculation process failed",
-                    ErrorCount = 1,
-                    Errors = new List<string>
-                    {
-                        formulaEvaluatorResponse.Message
-                    }
+                    Message = formulaEvaluatorResponse.Message,
+                    ErrorCount = formulaEvaluatorResponse.IsSuccess ? 0 : 1,
+                    Errors = formulaEvaluatorResponse.IsSuccess
+                        ? new List<string>()
+                        : new List<string>
+                        {
+                            formulaEvaluatorResponse.Message
+                        }
                 };
 
                 return formulaEvaluatorResponse.IsSuccess
@@ -52,7 +54,7 @@ namespace TradeCube_Services.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return BadRequest(new ApiResponseWrapper<WebServiceResponse> { Message = ex.Message, Status = ApiConstants.FailedResult });
             }
         }
