@@ -13,7 +13,7 @@ namespace TradeCube_Services.Services
     public class VenueService : TradeCubeApiService, IVenueService
     {
         public VenueService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<VenueService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

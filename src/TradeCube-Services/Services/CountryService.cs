@@ -12,7 +12,7 @@ namespace TradeCube_Services.Services
     public class CountryService : TradeCubeApiService, ICountryService
     {
         public CountryService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<CountryService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

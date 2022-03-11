@@ -10,7 +10,7 @@ namespace Shared.Services
     public class CashflowService : TradeCubeApiService, ICashflowService
     {
         public CashflowService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<CashflowService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

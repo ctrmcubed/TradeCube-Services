@@ -12,7 +12,7 @@ namespace Shared.Services
     public class M7Im7PartyService : TradeCubeApiService, IM7PartyService
     {
         public M7Im7PartyService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<M7Im7PartyService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

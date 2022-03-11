@@ -34,7 +34,7 @@ namespace TradeCube_Services.Services
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError($"The template could not be read ({templateType})", ex.Message);
+                    logger.LogError("The template could not be read ({TemplateType}, {Message})", templateType, ex.Message);
                     return new ApiResponseWrapper<ReportTemplate>(ApiConstants.FailedResult, new ReportTemplate()) { Message = ex.Message };
                 }
             }
@@ -55,7 +55,7 @@ namespace TradeCube_Services.Services
             }
             catch (IOException e)
             {
-                logger.LogError($"The file could not be read ({filename})", e.Message);
+                logger.LogError("The file could not be read ({Filename}, {Message})", filename, e.Message);
                 throw;
             }
         }

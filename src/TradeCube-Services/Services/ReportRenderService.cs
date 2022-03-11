@@ -28,7 +28,7 @@ namespace TradeCube_Services.Services
                 var rs = new ReportingService(url);
                 var recipe = MapFormatToRecipe(format);
 
-                logger.LogInformation($"Attempting to render report. URL: {url}, Recipe: {recipe}");
+                logger.LogInformation("Attempting to render report. URL: {Url}, Recipe: {Recipe}", url, recipe);
 
                 var report = await rs.RenderAsync(new RenderRequest
                 {
@@ -48,7 +48,7 @@ namespace TradeCube_Services.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }

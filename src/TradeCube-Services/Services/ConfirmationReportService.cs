@@ -66,7 +66,7 @@ namespace TradeCube_Services.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ApiResponseWrapper<WebServiceResponse> { Status = ApiConstants.FailedResult, Message = ex.Message };
             }
         }

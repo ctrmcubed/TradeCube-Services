@@ -75,7 +75,7 @@ namespace Fidectus.Managers
 
             if (confirmationResponse.StatusCode == 409)
             {
-                logger.LogInformation($"Already sent ({confirmationResponse.StatusCode}), trying a PUT...");
+                logger.LogInformation("Already sent ({StatusCode}), trying a PUT...", confirmationResponse.StatusCode);
 
                 return await SendConfirmationAsync("PUT", tradeConfirmation, apiJwtToken, fidectusConfiguration);
             }
@@ -143,7 +143,7 @@ namespace Fidectus.Managers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -158,7 +158,7 @@ namespace Fidectus.Managers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -172,7 +172,7 @@ namespace Fidectus.Managers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -197,13 +197,13 @@ namespace Fidectus.Managers
 
             if (string.IsNullOrWhiteSpace(fidectusClientId))
             {
-                logger.LogError($"The {VaultConstants.FidectusClientId} is not configured in the vault");
+                logger.LogError("The {FidectusClientId} is not configured in the vault", VaultConstants.FidectusClientId);
                 throw new SecurityException($"The {VaultConstants.FidectusClientId} is not configured in the vault");
             }
 
             if (string.IsNullOrEmpty(fidectusClientSecret))
             {
-                logger.LogError($"The {VaultConstants.FidectusClientSecret} is not configured in the vault");
+                logger.LogError("The {FidectusClientSecret} is not configured in the vault", VaultConstants.FidectusClientSecret);
                 throw new SecurityException($"The {VaultConstants.FidectusClientSecret} is not configured in the vault");
             }
 

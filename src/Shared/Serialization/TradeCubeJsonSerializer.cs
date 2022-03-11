@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -14,10 +15,15 @@ namespace Shared.Serialization
 
         public static string Serialize(object t)
         {
-            return JsonSerializer.Serialize(t, new JsonSerializerOptions { IgnoreNullValues = true, WriteIndented = true });
+            return JsonSerializer.Serialize(t, new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                WriteIndented = true
+            });
         }
 
-        public static async Task<TV> DeserializeAsync<TV>(Stream stream, JsonSerializerOptions jsonSerializerOptions = null)
+        public static async Task<TV> DeserializeAsync<TV>(Stream stream,
+            JsonSerializerOptions jsonSerializerOptions = null)
         {
             try
             {

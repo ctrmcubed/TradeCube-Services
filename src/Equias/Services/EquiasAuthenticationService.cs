@@ -12,7 +12,7 @@ namespace Equias.Services
     {
         private readonly IHttpClientFactory httpClientFactory;
 
-        public EquiasAuthenticationService(IHttpClientFactory httpClientFactory, ILogger<ApiService> logger) : base(logger)
+        public EquiasAuthenticationService(IHttpClientFactory httpClientFactory, ILogger<EquiasAuthenticationService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
         }

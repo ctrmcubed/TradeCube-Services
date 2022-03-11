@@ -13,7 +13,7 @@ namespace TradeCube_Services.Services
     public class TradingBookService : TradeCubeApiService, ITradingBookService
     {
         public TradingBookService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<TradingBookService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

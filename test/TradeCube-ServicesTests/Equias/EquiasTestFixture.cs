@@ -40,8 +40,8 @@ namespace TradeCube_ServicesTests.Equias
             EquiasProfiles = FileHelper.ReadJsonFile<IList<ProfileResponse>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasProfiles.json"));
             EquiasParties = FileHelper.ReadJsonFile<IList<PartyDataObject>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasParties.json"));
 
-            EquiasAuthenticationService = new EquiasAuthenticationService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
-            EquiasService = new EquiasService(defaultHttpClientFactory, new Logger<ApiService>(LoggerFactory.Create(l => l.AddConsole())));
+            EquiasAuthenticationService = new EquiasAuthenticationService(defaultHttpClientFactory, new Logger<EquiasAuthenticationService>(LoggerFactory.Create(l => l.AddConsole())));
+            EquiasService = new EquiasService(defaultHttpClientFactory, new Logger<EquiasService>(LoggerFactory.Create(l => l.AddConsole())));
 
             var vaultDataObjects = new List<VaultDataObject>
             {

@@ -47,7 +47,7 @@ namespace TradeCube_Services.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return BadRequest(new ApiResponseWrapper<ConfirmationResponse>
                 {
                     Message = ex.Message,
@@ -82,7 +82,7 @@ namespace TradeCube_Services.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return BadRequest(new ApiResponseWrapper<ConfirmationResponse>
                 {
                     Message = ex.Message,
@@ -110,7 +110,7 @@ namespace TradeCube_Services.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return BadRequest(new ApiResponseWrapper<ConfirmationResultResponse>
                 {
                     Message = ex.Message,

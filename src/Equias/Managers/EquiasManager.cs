@@ -56,7 +56,7 @@ namespace Equias.Managers
             var equiasConfiguration = new EquiasConfiguration(await GetEquiasDomainAsync(apiJwtToken));
             var requestTokenResponse = await CreateAuthenticationTokenAsync(apiJwtToken);
 
-            logger.LogInformation($"Attempting to get trade status for trades {TradeCubeJsonSerializer.Serialize(tradeIds)}");
+            logger.LogInformation("Attempting to get trade status for trades {TradeIds}", TradeCubeJsonSerializer.Serialize(tradeIds));
 
             return tradeIds.Any()
                 ? await equiasService.EboGetTradeStatus(tradeIds, requestTokenResponse, equiasConfiguration)
@@ -71,7 +71,9 @@ namespace Equias.Managers
 
                 var saveTradeWithheld = await SaveTradeAsync(tradeDataObject, jwt);
 
-                logger.LogInformation($"Withheld Trade updated (EboSubmissionStatus={EquiasConstants.StatusWithheld}), result: {saveTradeWithheld.Status}");
+                logger.LogInformation("Withheld Trade updated (EboSubmissionStatus={StatusWithheld}), result: {Status}",
+                    EquiasConstants.StatusWithheld,
+                    saveTradeWithheld.Status);
 
                 return new EboTradeResponse();
             }
@@ -85,12 +87,16 @@ namespace Equias.Managers
                     throw new DataException($"Add physical Trade failed result: {eboAddPhysicalTradeResponse.Message}");
                 }
 
-                logger.LogInformation($"AddPhysicalTrade success response, TradeId: {eboAddPhysicalTradeResponse.TradeId}, TradeVersion: {eboAddPhysicalTradeResponse.TradeVersion}");
+                logger.LogInformation("AddPhysicalTrade success response, TradeId: {TradeId}, TradeVersion: {TradeVersion}",
+                    eboAddPhysicalTradeResponse.TradeId,
+                    eboAddPhysicalTradeResponse.TradeVersion);
 
                 var addTradePostSubmission = SetTradePostSubmission(eboAddPhysicalTradeResponse, updateTradePreSubmission);
                 var savePostSubmissionAdd = await SaveTradeAsync(addTradePostSubmission, apiJwtToken);
 
-                logger.LogInformation($"Add physical Trade updated (EboSubmissionStatus={addTradePostSubmission.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionAdd.Status}");
+                logger.LogInformation("Add physical Trade updated (EboSubmissionStatus={EboSubmissionStatus}), result: {Status}",
+                    addTradePostSubmission.External.Equias.EboSubmissionStatus,
+                    savePostSubmissionAdd.Status);
 
                 return eboAddPhysicalTradeResponse;
             }
@@ -103,12 +109,16 @@ namespace Equias.Managers
                     throw new DataException($"Modify physical Trade failed result: {eboModifyPhysicalTradeResponse.Message}");
                 }
 
-                logger.LogInformation($"ModifyPhysicalTrade success response, TradeId: {eboModifyPhysicalTradeResponse.TradeId}, TradeVersion: {eboModifyPhysicalTradeResponse.TradeVersion}");
+                logger.LogInformation("ModifyPhysicalTrade success response, TradeId: {TradeId}, TradeVersion: {TradeVersion}",
+                    eboModifyPhysicalTradeResponse.TradeId,
+                    eboModifyPhysicalTradeResponse.TradeVersion);
 
                 var modifyTradePostSubmission = SetTradePostSubmission(eboModifyPhysicalTradeResponse, tradeDataObject);
                 var savePostSubmissionModify = await SaveTradeAsync(modifyTradePostSubmission, apiJwtToken);
 
-                logger.LogInformation($"Modify physical Trade updated (EboSubmissionStatus={modifyTradePostSubmission.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionModify.Status}");
+                logger.LogInformation("Modify physical Trade updated (EboSubmissionStatus={EboSubmissionStatus}), result: {Status}",
+                    modifyTradePostSubmission.External.Equias.EboSubmissionStatus,
+                    savePostSubmissionModify.Status);
 
                 return eboModifyPhysicalTradeResponse;
             }
@@ -141,11 +151,13 @@ namespace Equias.Managers
                 var updateTradePreSubmission = SetTradePreSubmission(eboGetTradeStatusResponse, tradeDataObject);
                 var savePreSubmission = await SaveTradeAsync(updateTradePreSubmission, apiJwtToken);
 
-                logger.LogInformation($"Pre-submission Trade updated (EboSubmissionStatus={updateTradePreSubmission.External.Equias.EboSubmissionStatus}), result: {savePreSubmission.Status}");
+                logger.LogInformation("Pre-submission Trade updated (EboSubmissionStatus={EboSubmissionStatus}), result: {Status}",
+                    updateTradePreSubmission.External.Equias.EboSubmissionStatus,
+                    savePreSubmission.Status);
 
                 var physicalTrade = await CreatePhysicalTradeAsync(updateTradePreSubmission, apiJwtToken);
 
-                logger.LogDebug($"Physical Trade: {TradeCubeJsonSerializer.Serialize(physicalTrade)}");
+                logger.LogDebug("Physical Trade: {PhysicalTrade)}",TradeCubeJsonSerializer.Serialize(physicalTrade));
 
                 return eboGetTradeStatusResponse.States.SingleOrDefault()?.TradeVersion is null
                     ? await NewTrade(physicalTrade, requestTokenResponse, updateTradePreSubmission)
@@ -153,7 +165,7 @@ namespace Equias.Managers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -165,9 +177,9 @@ namespace Equias.Managers
             var cashflows = (await cashflowService.CashflowAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data;
             var profileResponses = (await profileService.ProfileAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken, ProfileTradeConstants.ProfileFormatSparse))?.Data;
 
-            logger.LogTrace($"Trade Summary: {TradeCubeJsonSerializer.Serialize(tradeSummary)}\r\n");
-            logger.LogTrace($"Trade Cashflows: {TradeCubeJsonSerializer.Serialize(cashflows)}\r\n");
-            logger.LogTrace($"Trade Profile: {TradeCubeJsonSerializer.Serialize(profileResponses)}\r\n");
+            logger.LogTrace("Trade Summary: {TradeSummary}\r\n", TradeCubeJsonSerializer.Serialize(tradeSummary));
+            logger.LogTrace("Trade Cashflows: {TradeCashflows}\r\n", TradeCubeJsonSerializer.Serialize(cashflows));
+            logger.LogTrace("Trade Profile: {TradeProfile}\r\n", TradeCubeJsonSerializer.Serialize(profileResponses));
 
             return await equiasMappingService.MapTrade(tradeDataObject, tradeSummary, cashflows, profileResponses, mappingHelper, apiJwtToken);
         }
@@ -187,7 +199,9 @@ namespace Equias.Managers
             var addTradePostSubmission = SetTradePostSubmission(eboTradeResponse, tradeDataObject);
             var savePostSubmissionAdd = await SaveTradeAsync(addTradePostSubmission, apiJwtToken);
 
-            logger.LogInformation($"Cancel Trade updated (EboSubmissionStatus={tradeDataObject.External.Equias.EboSubmissionStatus}), result: {savePostSubmissionAdd.Status}");
+            logger.LogInformation("Cancel Trade updated (EboSubmissionStatus={EboSubmissionStatus}), result: {Status}",
+                tradeDataObject.External.Equias.EboSubmissionStatus,
+                savePostSubmissionAdd.Status);
 
             return eboTradeResponse;
         }
@@ -217,13 +231,13 @@ namespace Equias.Managers
 
             if (string.IsNullOrEmpty(eboUsername))
             {
-                logger.LogError($"The {VaultConstants.EquiasEboUsernameKey} is not configured in the vault");
+                logger.LogError("The {EquiasEboUsernameKey} is not configured in the vault", VaultConstants.EquiasEboUsernameKey);
                 throw new SecurityException($"The {VaultConstants.EquiasEboUsernameKey} is not configured in the vault");
             }
 
             if (string.IsNullOrEmpty(eboPassword))
             {
-                logger.LogError($"The {VaultConstants.EquiasEboPasswordKey} is not configured in the vault");
+                logger.LogError("The {EquiasEboPasswordKey} is not configured in the vault", VaultConstants.EquiasEboPasswordKey);
                 throw new SecurityException($"The {VaultConstants.EquiasEboPasswordKey} is not configured in the vault");
             }
 

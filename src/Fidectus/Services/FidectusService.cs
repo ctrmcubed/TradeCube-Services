@@ -14,7 +14,7 @@ namespace Fidectus.Services
         private readonly IHttpClientFactory httpClientFactory;
         private readonly ILogger<ApiService> logger;
 
-        public FidectusService(IHttpClientFactory httpClientFactory, ILogger<ApiService> logger) : base(logger)
+        public FidectusService(IHttpClientFactory httpClientFactory, ILogger<FidectusService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
             this.logger = logger;
@@ -45,7 +45,9 @@ namespace Fidectus.Services
 
             try
             {
-                logger.LogInformation($"CompanyId-Context: '{companyId}', FidectusUrl: '{fidectusConfiguration.FidectusUrl}'");
+                logger.LogInformation("CompanyId-Context: '{CompanyId}', FidectusUrl: '{FidectusUrl}'",
+                    companyId,
+                    fidectusConfiguration.FidectusUrl);
                 logger.JsonLogDebug("SendConfirmation Request: ", confirmationRequest);
 
                 var httpClient = httpClientFactory.CreateClient();
@@ -54,7 +56,7 @@ namespace Fidectus.Services
                 httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {requestTokenResponse?.AccessToken}");
                 httpClient.DefaultRequestHeaders.Add("CompanyId-Context", companyId);
 
-                logger.LogInformation($"FidectusSendTradeConfirmation, HTTP method: {method}");
+                logger.LogInformation("FidectusSendTradeConfirmation, HTTP method: {Method}", method);
 
                 var response = await HttpMethod(method, httpClient);
 
@@ -69,7 +71,7 @@ namespace Fidectus.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ConfirmationResponse
                 {
                     IsSuccessStatusCode = false,
@@ -104,7 +106,7 @@ namespace Fidectus.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ConfirmationResponse();
             }
         }
@@ -128,7 +130,7 @@ namespace Fidectus.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new BoxResultResponse();
             }
         }

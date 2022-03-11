@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace TradeCube_ServicesTests.Helpers
 {
@@ -7,7 +8,10 @@ namespace TradeCube_ServicesTests.Helpers
     {
         public static string Serialize(object t)
         {
-            return JsonSerializer.Serialize(t, new JsonSerializerOptions { IgnoreNullValues = true });
+            return JsonSerializer.Serialize(t, new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            });
         }
     }
 

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Shared.Services
@@ -39,7 +40,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -48,7 +49,10 @@ namespace Shared.Services
         {
             try
             {
-                var httpResponseMessage = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+                var httpResponseMessage = await client.PostAsJsonAsync(action, body, new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                });
 
                 if (ensureSuccess)
                 {
@@ -67,7 +71,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -76,7 +80,10 @@ namespace Shared.Services
         {
             try
             {
-                var httpResponseMessage = await client.PutAsJsonAsync(action, body, new JsonSerializerOptions { IgnoreNullValues = true });
+                var httpResponseMessage = await client.PutAsJsonAsync(action, body, new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                });
 
                 if (ensureSuccess)
                 {
@@ -95,7 +102,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -131,7 +138,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -178,7 +185,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -191,7 +198,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError($"Could not parse json response ({ex.Message})");
+                logger.LogError("Could not parse json response ({Message})", ex.Message);
                 return new TV();
             }
         }

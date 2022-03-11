@@ -15,7 +15,7 @@ namespace TradeCube_Services.Services
         private readonly ILogger<TradeCubeApiService> logger;
 
         public FingerprintService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<FingerprintService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
             this.logger = logger;
         }
@@ -28,7 +28,7 @@ namespace TradeCube_Services.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ApiResponseWrapper<IEnumerable<FingerprintResponse>>
                 {
                     Message = ex.Message,

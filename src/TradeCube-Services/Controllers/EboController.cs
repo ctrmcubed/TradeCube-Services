@@ -37,7 +37,7 @@ namespace TradeCube_Services.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return BadRequest(new ApiResponseWrapper<EboGetTradeStatusResponse>
                 {
                     Message = ex.Message, 
@@ -56,7 +56,7 @@ namespace TradeCube_Services.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return BadRequest(new ApiResponseWrapper<EboTradeResponse>
                 {
                     Message = ex.Message,
@@ -79,7 +79,7 @@ namespace TradeCube_Services.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
 
                 return BadRequest(new ApiResponseWrapper<EboTradeResponse>
                 {

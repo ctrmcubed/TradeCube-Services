@@ -44,7 +44,7 @@ namespace TradeCube_Services.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return BadRequest(new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = ex.Message,

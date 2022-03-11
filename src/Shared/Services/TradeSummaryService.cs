@@ -10,7 +10,7 @@ namespace Shared.Services
     public class TradeSummaryService : TradeCubeApiService, ITradeSummaryService
     {
         public TradeSummaryService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<TradeSummaryService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

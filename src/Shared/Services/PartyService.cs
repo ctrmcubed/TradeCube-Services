@@ -11,7 +11,7 @@ namespace Shared.Services
     public class PartyService : TradeCubeApiService, IPartyService
     {
         public PartyService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<MappingService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<PartyService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

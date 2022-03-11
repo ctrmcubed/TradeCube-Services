@@ -17,7 +17,8 @@ namespace Shared.Services
         private readonly ITradeCubeConfiguration tradeCubeConfiguration;
         private readonly ILogger<ApiService> logger;
 
-        protected TradeCubeApiService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration, ILogger<ApiService> logger) : base(logger)
+        protected TradeCubeApiService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration, 
+            ILogger<TradeCubeApiService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
             this.tradeCubeConfiguration = tradeCubeConfiguration;
@@ -32,7 +33,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ApiResponseWrapper<IEnumerable<T>>
                 {
                     Message = ex.Message,
@@ -51,7 +52,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ApiResponseWrapper<IEnumerable<T>>
                 {
                     Message = ex.Message,
@@ -98,7 +99,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }

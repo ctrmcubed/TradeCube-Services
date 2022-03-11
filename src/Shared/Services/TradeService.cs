@@ -15,8 +15,8 @@ namespace Shared.Services
     {
         private readonly ILogger<TradeCubeApiService> logger;
 
-        public TradeService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration, ILogger<TradeCubeApiService> logger) :
-            base(httpClientFactory, tradeCubeConfiguration, logger)
+        public TradeService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration, 
+            ILogger<TradeService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
             this.logger = logger;
         }
@@ -38,7 +38,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = ex.Message,
@@ -61,7 +61,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = ex.Message,
@@ -80,7 +80,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = ex.Message,
@@ -99,7 +99,7 @@ namespace Shared.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ApiResponseWrapper<IEnumerable<TradeDataObject>>
                 {
                     Message = ex.Message,

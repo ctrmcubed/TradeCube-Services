@@ -21,7 +21,7 @@ namespace Fidectus.Services
         private readonly IRedisService redisService;
         private readonly ILogger<ApiService> logger;
 
-        public FidectusAuthenticationService(IHttpClientFactory httpClientFactory, IRedisService redisService, ILogger<ApiService> logger) : base(logger)
+        public FidectusAuthenticationService(IHttpClientFactory httpClientFactory, IRedisService redisService, ILogger<FidectusAuthenticationService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
             this.redisService = redisService;

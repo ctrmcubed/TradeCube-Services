@@ -43,7 +43,7 @@ namespace TradeCube_Services.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new ApiResponseWrapper<WebhookResponse>
                 {
                     Status = ApiConstants.FailedResult,
@@ -94,30 +94,30 @@ namespace TradeCube_Services.Services
                         return CreateResponse(ApiConstants.FailedResult, "Trade has multiple legs, not notifying");
                     }
 
-                    logger.LogInformation($"Notifying trades, subscriberId: {webhookParameters.SubscriberId}");
+                    logger.LogInformation("Notifying trades, subscriberId: {SubscriberId}", webhookParameters.SubscriberId);
 
                     // Call dummy 'Notify()' service
                     var allSuccess = trades.Data.Select(NotifyAsync);
-                    var result = allSuccess.Any(s => false)
+                    var result = allSuccess.Any(_ => false)
                         ? ApiConstants.FailedResult
                         : ApiConstants.SuccessResult;
 
                     return CreateResponse(result);
                 }
 
-                logger.LogError("Error calling Trade API", trades.Message);
+                logger.LogError("Error calling Trade API: {Message}", trades.Message);
                 return CreateResponse(ApiConstants.FailedResult, $"Error calling Trade API ({trades.Message})");
             }
             catch (Exception ex)
             {
-                logger.LogError($"Error notifying trade {webhookParameters.Entity}", ex.Message);
+                logger.LogError("Error notifying trade {Entity}, {Message}", webhookParameters.Entity, ex.Message);
                 return CreateResponse(ApiConstants.FailedResult, $"Error notifying trade {webhookParameters.Entity}");
             }
         }
 
         private bool NotifyAsync(TradeDataObject tradeDataObject)
         {
-            logger.LogInformation($"Notifying trade {tradeDataObject.TradeReference}...");
+            logger.LogInformation("Notifying trade {TradeReference}...", tradeDataObject.TradeReference);
 
             return true;
         }

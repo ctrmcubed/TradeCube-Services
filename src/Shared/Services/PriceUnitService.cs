@@ -11,7 +11,7 @@ namespace Shared.Services
     public class PriceUnitService : TradeCubeApiService, IPriceUnitService
     {
         public PriceUnitService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<MappingService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<PriceUnitService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

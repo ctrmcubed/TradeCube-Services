@@ -142,7 +142,7 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $"Error creating trade from M7 ({ex.Message})");
+                logger.LogError(ex, "Error creating trade from M7 ({Message})", ex.Message);
                 throw;
             }
         }

@@ -10,7 +10,7 @@ namespace Shared.Services
     public class ProfileService : TradeCubeApiService, IProfileService
     {
         public ProfileService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<ProfileService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 

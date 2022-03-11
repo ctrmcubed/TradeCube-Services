@@ -17,7 +17,7 @@ namespace Equias.Services
         private readonly IHttpClientFactory httpClientFactory;
         private readonly ILogger<ApiService> logger;
 
-        public EquiasService(IHttpClientFactory httpClientFactory, ILogger<ApiService> logger) : base(logger)
+        public EquiasService(IHttpClientFactory httpClientFactory, ILogger<EquiasService> logger) : base(logger)
         {
             this.httpClientFactory = httpClientFactory;
             this.logger = logger;
@@ -36,7 +36,7 @@ namespace Equias.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 throw;
             }
         }
@@ -45,7 +45,7 @@ namespace Equias.Services
         {
             try
             {
-                logger.LogInformation($"{TradeCubeJsonSerializer.Serialize(physicalTrade)}");
+                logger.LogInformation("Physical Trade: {PhysicalTrade}", TradeCubeJsonSerializer.Serialize(physicalTrade));
 
                 var httpClient = httpClientFactory.CreateClient();
 
@@ -56,7 +56,7 @@ namespace Equias.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new EboTradeResponse
                 {
                     IsSuccessStatusCode = false,
@@ -69,7 +69,7 @@ namespace Equias.Services
         {
             try
             {
-                logger.LogInformation($"{TradeCubeJsonSerializer.Serialize(physicalTrade)}");
+                logger.LogInformation("Physical Trade: {PhysicalTrade}", TradeCubeJsonSerializer.Serialize(physicalTrade));
 
                 var httpClient = httpClientFactory.CreateClient();
 
@@ -80,7 +80,7 @@ namespace Equias.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new EboTradeResponse
                 {
                     IsSuccessStatusCode = false,
@@ -102,7 +102,7 @@ namespace Equias.Services
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "{Message}", ex.Message);
                 return new EboTradeResponse
                 {
                     IsSuccessStatusCode = false,

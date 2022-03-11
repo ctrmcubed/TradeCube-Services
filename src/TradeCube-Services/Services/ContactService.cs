@@ -13,7 +13,7 @@ namespace TradeCube_Services.Services
     public class ContactService : TradeCubeApiService, IContactService
     {
         public ContactService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
-            ILogger<TradeCubeApiService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
+            ILogger<ContactService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
         {
         }
 
