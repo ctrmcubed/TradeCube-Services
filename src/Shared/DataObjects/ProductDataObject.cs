@@ -58,5 +58,6 @@ namespace Shared.DataObjects
         public string Fingerprint { get; set; }
 
         public string PriceFormula { get; set; }
+        public VisibilityType Visibility { get; set; }
     }
 }

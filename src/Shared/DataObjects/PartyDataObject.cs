@@ -33,6 +33,7 @@ namespace Shared.DataObjects
         public string Image { get; set; }
 
         public PartyExtension Extension { get; set; }
+        public VisibilityType Visibility { get; set; }
     }
 
     public class UkGasShipperDataObject

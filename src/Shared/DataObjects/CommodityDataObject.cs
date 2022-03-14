@@ -20,5 +20,6 @@ namespace Shared.DataObjects
         public SettlementRuleDataObject DefaultBillRule { get; set; }
         public SettlementRuleDataObject DefaultPayRule { get; set; }
         public string Image { get; set; }
+        public VisibilityType Visibility { get; set; }
     }
 }
