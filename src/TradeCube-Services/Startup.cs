@@ -48,8 +48,7 @@ namespace TradeCube_Services
                 v.ApiVersionSelector = new CurrentImplementationApiVersionSelector(v);
             });
 
-            services.AddControllersWithViews()
-                .AddRazorRuntimeCompilation();
+            services.AddControllersWithViews();
 
             // Configuration
             services

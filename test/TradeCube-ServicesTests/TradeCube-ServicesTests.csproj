@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Remove="C:\Users\andyb\.nuget\packages\microsoft.testplatform.testhost\16.8.3\build\netcoreapp2.1\x64\Microsoft.TestPlatform.PlatformAbstractions.dll"/>
-        <Content Remove="C:\Users\andyb\.nuget\packages\microsoft.testplatform.testhost\16.8.3\build\netcoreapp2.1\x64\testhost.dll"/>
-        <Content Remove="C:\Users\andyb\.nuget\packages\microsoft.testplatform.testhost\16.8.3\build\netcoreapp2.1\x64\testhost.exe"/>
+        <Content Remove="C:\Users\andyb\.nuget\packages\microsoft.testplatform.testhost\16.8.3\build\netcoreapp2.1\x64\Microsoft.TestPlatform.PlatformAbstractions.dll" />
+        <Content Remove="C:\Users\andyb\.nuget\packages\microsoft.testplatform.testhost\16.8.3\build\netcoreapp2.1\x64\testhost.dll" />
+        <Content Remove="C:\Users\andyb\.nuget\packages\microsoft.testplatform.testhost\16.8.3\build\netcoreapp2.1\x64\testhost.exe" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="nlog.config"/>
+        <None Remove="nlog.config" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,17 +25,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0"/>
-        <PackageReference Include="Moq" Version="4.16.1"/>
-        <PackageReference Include="NLog.Extensions.Logging" Version="1.7.4"/>
-        <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0"/>
-        <PackageReference Include="xunit" Version="2.4.1"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+        <PackageReference Include="Moq" Version="4.18.1" />
+        <PackageReference Include="NLog.Extensions.Logging" Version="5.0.0" />
+        <PackageReference Include="NLog.Web.AspNetCore" Version="5.0.0" />
+        <PackageReference Include="xunit" Version="2.4.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Equias\Equias.csproj"/>
-        <ProjectReference Include="..\..\src\Fidectus\Fidectus.csproj"/>
+        <ProjectReference Include="..\..\src\Equias\Equias.csproj" />
+        <ProjectReference Include="..\..\src\Fidectus\Fidectus.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -84,7 +84,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="TestData\Fidectus\"/>
+        <Folder Include="TestData\Fidectus\" />
     </ItemGroup>
 
 </Project>

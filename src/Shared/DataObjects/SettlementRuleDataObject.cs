@@ -9,7 +9,7 @@ namespace Shared.DataObjects
         public List<string> Commodities { get; set; }
         public string AnchorDateType { get; set; }
         public int? SkipDays { get; set; }
-        public CalendarDataObject SkipNonWorkingDayCalendar { get; set; }
+        public string SkipNonWorkingDayCalendar { get; set; }
         public bool SkipSaturdaySunday { get; set; }
         public List<int> SkipWeekdays { get; set; }
     }
