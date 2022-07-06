@@ -31,8 +31,6 @@ namespace TradeCube_Services
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var redis = new RedisService(configuration.GetSection("RedisConfiguration").Get<RedisConfiguration>()).ConnectionMultiplexer();
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TradeCube-Services API", Version = "v1", Description = "TradeCube-Services API" });
