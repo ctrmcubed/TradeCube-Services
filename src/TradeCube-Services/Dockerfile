@@ -1,10 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS base
 
 WORKDIR /src
-COPY ["TradeCube-Services/", "TradeCube-Services/"]
-COPY ["Shared/", "Shared/"]
 COPY ["Equias/", "Equias/"]
+COPY ["Enegen/", "Enegen/"]
 COPY ["Fidectus/", "Fidectus/"]
+COPY ["Shared/", "Shared/"]
+COPY ["TradeCube-Services/", "TradeCube-Services/"]
 
 RUN dotnet restore "TradeCube-Services/TradeCube-Services.csproj"
 
