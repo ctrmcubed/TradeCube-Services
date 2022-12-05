@@ -1,13 +1,9 @@
-﻿using Equias.Managers;
+﻿using System.Net;
+using Equias.Managers;
 using Equias.Messages;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Shared.Constants;
 using Shared.Messages;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace TradeCube_Services.Controllers
 {

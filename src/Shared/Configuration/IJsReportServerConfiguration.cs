@@ -2,8 +2,11 @@
 {
     public interface IJsReportServerConfiguration
     {
-        string ReportServerDomain { get; set; }
-        string ReportServerPort { get; set; }
+        string ReportServerDomain { get; init; }
+        string ReportServerPort { get; init; }
+        public string Username { get; init; }
+        public string Password { get; init; }
+        
         string WebApiUrl();
     }
 }

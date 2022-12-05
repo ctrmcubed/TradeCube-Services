@@ -1,10 +1,7 @@
 ﻿using jsreport.Client;
 using jsreport.Types;
-using Microsoft.Extensions.Logging;
 using Shared.Configuration;
 using Shared.Constants;
-using System;
-using System.Threading.Tasks;
 using TradeCube_Services.Exceptions;
 
 namespace TradeCube_Services.Services
@@ -25,7 +22,7 @@ namespace TradeCube_Services.Services
             try
             {
                 var url = jsReportServerConfiguration.WebApiUrl();
-                var rs = new ReportingService(url);
+                var rs = new ReportingService(url, jsReportServerConfiguration.Username, jsReportServerConfiguration.Password);
                 var recipe = MapFormatToRecipe(format);
 
                 logger.LogInformation("Attempting to render report. URL: {Url}, Recipe: {Recipe}", url, recipe);
@@ -53,7 +50,7 @@ namespace TradeCube_Services.Services
             }
         }
 
-        private Recipe MapFormatToRecipe(string format)
+        private static Recipe MapFormatToRecipe(string format)
         {
             return format switch
             {

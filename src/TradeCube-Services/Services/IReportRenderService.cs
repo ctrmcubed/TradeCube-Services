@@ -1,5 +1,4 @@
 ﻿using jsreport.Types;
-using System.Threading.Tasks;
 
 namespace TradeCube_Services.Services
 {

@@ -1,58 +1,147 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using NLog;
-using NLog.Web;
-using System;
+using Equias.Managers;
+using Equias.Services;
+using Fidectus.Managers;
+using Fidectus.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.OpenApi.Models;
+using Serilog;
+using Shared.Configuration;
+using Shared.Services;
+using Shared.Services.Redis;
+using StackExchange.Redis.Extensions.Core.Configuration;
+using TradeCube_Services.Extensions;
 using TradeCube_Services.Helpers;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using TradeCube_Services.Services;
+using TradeCube_Services.Services.ThirdParty.ETRMServices;
 
-namespace TradeCube_Services
+try
 {
-    public class Program
+    var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+    var configuration = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: environmentName == "Development")
+        .AddJsonFile($"appsettings.{environmentName}.json", true, environmentName == "Development")
+        .Build();
+
+    Log.Logger = new LoggerConfiguration().CreateLogger("/tmp/log/TradeCubeServices.log", configuration);
+
+    var builder = WebApplication.CreateBuilder(args);
+    
+    builder.Services.AddHttpClient<TradeCubeApiService>();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(c =>
     {
-        public static void Main(string[] args)
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "TradeCube-Services API", Version = "v1", Description = "TradeCube-Services API" });
+    });
+    
+    builder.WebHost.ConfigureKestrel(o =>
+    {
+        var port = EnvironmentVariableHelper.GetIntEnvironmentVariable("TRADECUBE_SERVICES_HTTPS_PORT");
+        var certificateInfo = X509Helper.CertificateInfo("TRADECUBE_SERVICES_CERT_NAME", "TRADECUBE_SERVICES_CERT_PASSWORD");
+
+        if (X509Helper.IsValidHttpsConfig(port, certificateInfo))
         {
-            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-
-            try
-            {
-                CreateHostBuilder(args)
-                    .Build()
-                    .Run();
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, $"Stopped TradeCubeServices because of exception {ex.Message}");
-            }
-            finally
-            {
-                LogManager.Shutdown();
-            }
+            o.ListenAnyIP(port ?? 0, options => { options.UseHttps(certificateInfo.name, certificateInfo.password); });
         }
+    });
 
-        private static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureKestrel(o =>
-                        {
-                            var port = EnvironmentVariableHelper.GetIntEnvironmentVariable("TRADECUBE_SERVICES_HTTPS_PORT");
-                            var certificateInfo = X509Helper.CertificateInfo("TRADECUBE_SERVICES_CERT_NAME", "TRADECUBE_SERVICES_CERT_PASSWORD");
+    // Configuration
+    builder.Services
+        .AddScoped<IEquiasConfiguration, EquiasConfiguration>()
+        .AddScoped<ITradeCubeConfiguration, TradeCubeConfiguration>()
+        .AddScoped<IJsReportServerConfiguration, JsReportServerConfiguration>();
 
-                            if (X509Helper.IsValidHttpsConfig(port, certificateInfo))
-                            {
-                                o.ListenAnyIP(port ?? 0, options => { options.UseHttps(certificateInfo.name, certificateInfo.password); });
-                            }
-                        })
-                        .ConfigureLogging(logging =>
-                        {
-                            logging.ClearProviders();
-                            logging.SetMinimumLevel(LogLevel.Trace);
-                            logging.AddDebug();
-                        })
-                        .UseStartup<Startup>()
-                        .UseNLog();
-                });
+    // Managers
+    builder.Services
+        .AddScoped<IEquiasManager, EquiasManager>()
+        .AddScoped<IFidectusManager, FidectusManager>();
+
+    // Services
+    builder.Services
+        .AddScoped<ICalculateService, CalculateService>()
+        .AddScoped<ICashflowService, CashflowService>()
+        .AddScoped<IConfirmationReportService, ConfirmationReportService>()
+        .AddScoped<IContactService, ContactService>()
+        .AddScoped<ICountryLookupService, CountryLookupService>()
+        .AddScoped<ICountryService, CountryService>()
+        .AddScoped<IEquiasAuthenticationService, EquiasAuthenticationService>()
+        .AddScoped<IEquiasMappingService, EquiasMappingService>()
+        .AddScoped<IEquiasService, EquiasService>()
+        .AddScoped<IFidectusAuthenticationService, FidectusAuthenticationService>()
+        .AddScoped<IFidectusService, FidectusService>()
+        .AddScoped<IFidectusMappingService, FidectusMappingService>()
+        .AddScoped<IFingerprintService, FingerprintService>()
+        .AddScoped<IMappingService, MappingService>()
+        .AddScoped<IM7TradeService, M7TradeService>()
+        .AddScoped<INotificationService, NotificationService>()
+        .AddScoped<IM7PartyService, M7Im7PartyService>()
+        .AddScoped<IPartyService, PartyService>()
+        .AddScoped<IProfileService, ProfileService>()
+        .AddScoped<IPriceUnitService, PriceUnitService>()
+        .AddScoped<IReportTemplateService, ReportTemplateService>()
+        .AddScoped<IReportRenderService, ReportRenderService>()
+        .AddScoped<ISettingService, SettingService>()
+        .AddScoped<ITradeService, TradeService>()
+        .AddScoped<ITradeSummaryService, TradeSummaryService>()
+        .AddScoped<ITradingBookService, TradingBookService>()
+        .AddScoped<IVaultService, VaultService>()
+        .AddScoped<IVenueService, VenueService>();
+
+    builder.Services
+        .AddSingleton<IRedisService>(_ => new RedisService(configuration.GetSection("RedisConfiguration").Get<RedisConfiguration>()));
+    
+    builder.Services.AddHealthChecks();
+
+    builder.Services
+        .AddMvc()
+        .AddXmlSerializerFormatters();
+    
+    // Add services to the container.
+    builder.Services.AddControllersWithViews();
+    
+    builder.Services.AddApiVersioning(v =>
+    {
+        v.DefaultApiVersion = new ApiVersion(1, 0);
+        v.ApiVersionSelector = new CurrentImplementationApiVersionSelector(v);
+        v.AssumeDefaultVersionWhenUnspecified = true;
+    });
+    
+    builder.Host.UseSerilog();
+
+    var app = builder.Build();
+    
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
     }
+    else
+    {
+        app.UseExceptionHandler("/Home/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+
+    app.UseRouting();
+
+    app.UseAuthorization();
+
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Stopped TradeCube-Services because of exception {Message}", ex.Message);
+}
+finally
+{
+    Log.CloseAndFlush();
 }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Shared.Constants;
 using Shared.Messages;
-using System;
-using System.Threading.Tasks;
 using TradeCube_Services.Parameters;
 using TradeCube_Services.Services;
 
@@ -30,6 +27,8 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
+                ArgumentNullException.ThrowIfNull(webServiceRequest?.Entities);
+                
                 var confirmationReportParameters = new ConfirmationReportParameters
                 {
                     ApiJwtToken = apiJwtToken,

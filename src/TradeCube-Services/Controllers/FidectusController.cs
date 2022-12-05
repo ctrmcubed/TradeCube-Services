@@ -1,12 +1,9 @@
-﻿using Fidectus.Managers;
+﻿using System.Net;
+using Fidectus.Managers;
 using Fidectus.Messages;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Shared.Constants;
 using Shared.Messages;
-using System;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace TradeCube_Services.Controllers
 {

@@ -49,7 +49,7 @@ namespace Fidectus.Services
 
             httpClient.BaseAddress = new Uri(fidectusConfiguration.FidectusAuthUrl);
 
-            var getAuthenticationToken = await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, fidectusConfiguration.FidectusAuthUrl, requestTokenRequest);
+            var getAuthenticationToken = await PostAsJsonAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, fidectusConfiguration.FidectusAuthUrl, requestTokenRequest);
             var fidectusAuthenticationToken = new FidectusAuthenticationToken { AccessToken = getAuthenticationToken.AccessToken };
 
             await redisService.Set(fidectusAuthenticationToken, 24, RedisConstants.FidectusAuthenticationTokenKey, requestTokenRequest.ClientId);

@@ -25,12 +25,12 @@ namespace Fidectus.Services
         {
             async Task<ConfirmationResponse> PostConfirmationAsync(HttpClient httpClient)
             {
-                return await PostAsync<ConfirmationRequest, ConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, confirmationRequest, false);
+                return await PostAsJsonAsync<ConfirmationRequest, ConfirmationResponse>(httpClient, fidectusConfiguration.FidectusConfirmationUrl, confirmationRequest, false);
             }
 
             async Task<ConfirmationResponse> PutConfirmationAsync(HttpClient httpClient)
             {
-                return await PutAsync<ConfirmationRequest, ConfirmationResponse>(httpClient, $"{fidectusConfiguration.FidectusConfirmationUrl}/{confirmationRequest.TradeConfirmation?.DocumentId}", confirmationRequest, false);
+                return await PutAsJsonAsync<ConfirmationRequest, ConfirmationResponse>(httpClient, $"{fidectusConfiguration.FidectusConfirmationUrl}/{confirmationRequest.TradeConfirmation?.DocumentId}", confirmationRequest, false);
             }
 
             async Task<ConfirmationResponse> HttpMethod(string httpMethod, HttpClient httpClient)

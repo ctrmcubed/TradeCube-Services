@@ -32,7 +32,7 @@ namespace Equias.Services
                 httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
                 httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-                return await PostAsync<IEnumerable<string>, EboGetTradeStatusResponse>(httpClient, equiasConfiguration.GetTradeStatusUri, tradeIds, false);
+                return await PostAsJsonAsync<IEnumerable<string>, EboGetTradeStatusResponse>(httpClient, equiasConfiguration.GetTradeStatusUri, tradeIds, false);
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace Equias.Services
                 httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
                 httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-                return await PostAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade, false);
+                return await PostAsJsonAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.AddPhysicalTradeUri, physicalTrade, false);
             }
             catch (Exception ex)
             {
@@ -76,7 +76,7 @@ namespace Equias.Services
                 httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
                 httpClient.DefaultRequestHeaders.Add("token", requestTokenResponse?.Token);
 
-                return await PostAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.ModifyPhysicalTradeUri, physicalTrade, false);
+                return await PostAsJsonAsync<PhysicalTrade, EboTradeResponse>(httpClient, equiasConfiguration.ModifyPhysicalTradeUri, physicalTrade, false);
             }
             catch (Exception ex)
             {

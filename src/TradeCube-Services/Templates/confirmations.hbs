@@ -10,23 +10,23 @@
                 <td><strong>Seller</strong></td>
             </tr>
             <tr>
-                <td>{{this.buyer.partyLongName}}<br>{{this.buyer.primaryConfirmationContact.primaryAddress.concatenatedAddress}}</td>
-                <td>{{this.seller.partyLongName}}<br>{{this.seller.primaryConfirmationContact.primaryAddress.concatenatedAddress}}</td>
+                <td>{{this.Buyer.PartyLongName}}<br>{{this.Buyer.PrimaryConfirmationContact.PrimaryAddress.ConcatenatedAddress}}</td>
+                <td>{{this.Seller.PartyLongName}}<br>{{this.Seller.PrimaryConfirmationContact.PrimaryAddress.ConcatenatedAddress}}</td>
             </tr>
         </tbody>
     </table>
-    <p>Trade Reference {{this.tradeReference}}</p>
-    <p>Trade Date / Time {{this.tradeDateTime}} (UTC)</p>
-    <p>Product: {{this.product.product}}</p>
-    <p>Price: {{this.price.price}} {{this.price.priceUnit.priceUnit}}</p>
-    <p>Quantity: {{this.quantity.quantity}} {{this.quantity.quantityUnit.quantityUnit}}</p>
-    <p>Settlement Terms: {{this.product.settlement.settlementPeriod}}</p>
+    <p>Trade Reference {{this.TradeReference}}</p>
+    <p>Trade Date / Time {{this.TradeDateTime}} (UTC)</p>
+    <p>Product: {{this.Product.Product}}</p>
+    <p>Price: {{this.Price.Price}} {{this.Price.PriceUnit.PriceUnit}}</p>
+    <p>Quantity: {{this.Quantity.Quantity}} {{this.Quantity.QuantityUnit.QuantityUnit}}</p>
+    <p>Settlement Terms: {{this.Product.Settlement.SettlementPeriod}}</p>
     <p>This confirmation, in addition to the master agreement, correctly sets out the terms between the buyer and seller named above. If either party is in disagreement with the terms, this must be raised with the counterparty at the earliest opportunity, and in any case no later than 2 business days from receipt.</p>
     <p>Duly authorised by the buyer and seller:</p>
     <p>&nbsp;</p>
-    <p>Buyer signature ..........................................  ({{this.buyer.partyLongName}})</p>
+    <p>Buyer signature ..........................................  ({{this.Buyer.PartyLongName}})</p>
     <p>&nbsp;</p>
-    <p>Seller signature ...........................................  ({{this.seller.partyLongName}})</p>
+    <p>Seller signature ...........................................  ({{this.Seller.PartyLongName}})</p>
     {{#unless @last}}
     <div style='page-break-before: always;'></div>
     {{/unless}}

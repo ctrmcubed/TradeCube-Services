@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
-using Shared.Configuration;
-using Shared.DataObjects;
-using Shared.Messages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+using Shared.Configuration;
+using Shared.DataObjects;
+using Shared.Messages;
 
 namespace Shared.Services
 {
@@ -56,8 +56,8 @@ namespace Shared.Services
                 {
                     new JProperty("TradeReference", new JObject(new JProperty("$in", new JArray(tradeRequest.TradeReferences))))
                 };
-
-                return await TradeCubePostViaJwtAsync<JObject, ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
+                
+                return await TradeCubePostAsStringViaJwtAsync<ApiResponseWrapper<IEnumerable<TradeDataObject>>>(apiJwtToken, "Trade/query", query);
             }
             catch (Exception ex)
             {

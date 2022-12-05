@@ -1,5 +1,4 @@
 ﻿using Shared.Messages;
-using System.Collections.Generic;
 
 namespace TradeCube_Services.Formula
 {

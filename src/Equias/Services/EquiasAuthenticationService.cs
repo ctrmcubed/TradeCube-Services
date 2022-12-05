@@ -23,7 +23,7 @@ namespace Equias.Services
 
             httpClient.BaseAddress = new Uri(equiasConfiguration.ApiDomain);
 
-            return await PostAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, equiasConfiguration.RequestTokenUri, requestTokenRequest);
+            return await PostAsJsonAsync<RequestTokenRequest, RequestTokenResponse>(httpClient, equiasConfiguration.RequestTokenUri, requestTokenRequest);
         }
     }
 }

@@ -1,13 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
-using Shared.Configuration;
-using Shared.Constants;
-using Shared.Messages;
-using Shared.Serialization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+using Shared.Configuration;
+using Shared.Constants;
+using Shared.Messages;
+using Shared.Serialization;
 
 namespace Shared.Services
 {
@@ -63,17 +64,19 @@ namespace Shared.Services
             }
         }
 
+        protected async Task<TV> TradeCubePostAsStringViaJwtAsync<TV>(string apiJwtToken, string action, JObject request) where TV : ApiResponse, new() =>
+            await PostAsStringAsync<TV>(CreateClientViaJwt(apiJwtToken), action, request);
+        
         protected async Task<TV> TradeCubePostViaJwtAsync<T, TV>(string apiJwtToken, string action, T request) where TV : ApiResponse, new() =>
-            await PostAsync<T, TV>(CreateClientViaJwt(apiJwtToken), action, request);
-
+            await PostAsJsonAsync<T, TV>(CreateClientViaJwt(apiJwtToken), action, request);
         protected async Task<TV> TradeCubePostViaApiKeyAsync<T, TV>(string apiKey, string action, T request) where TV : ApiResponse, new() =>
-            await PostAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
+            await PostAsJsonAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
 
         protected async Task<TV> TradeCubePutViaApiKeyAsync<T, TV>(string apiKey, string action, T request) where TV : ApiResponse, new() =>
-            await PutAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
+            await PutAsJsonAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
 
         protected async Task<TV> TradeCubePutViaJwtAsync<T, TV>(string apiKey, string action, T request) where TV : ApiResponse, new() =>
-            await PutAsync<T, TV>(CreateClientViaJwt(apiKey), action, request);
+            await PutAsJsonAsync<T, TV>(CreateClientViaJwt(apiKey), action, request);
 
         private async Task<TV> TradeCubeGetViaJwtAsync<TV>(string apiJwtToken, string action, string queryString = null) =>
             await GetAsync<TV>(CreateClientViaJwt(apiJwtToken), action, queryString);

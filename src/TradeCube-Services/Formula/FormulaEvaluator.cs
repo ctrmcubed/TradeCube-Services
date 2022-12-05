@@ -1,14 +1,14 @@
 ﻿using Jint;
 using Jint.Native.Json;
-using NLog;
+using Serilog;
 using Shared.Serialization;
-using System;
+using ILogger = Serilog.ILogger;
 
 namespace TradeCube_Services.Formula
 {
     public static class FormulaEvaluator
     {
-        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = Log.ForContext(typeof(FormulaEvaluator));
 
         public static FormulaCalculateResponse Evaluate(FormulaEvaluatorRequest formulaEvaluatorRequest)
         {
@@ -36,7 +36,7 @@ namespace TradeCube_Services.Formula
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, ex.Message);
+                Logger.Error(ex, "{Message}", ex.Message);
                 return new FormulaCalculateResponse
                 {
                     IsSuccess = false,

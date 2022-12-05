@@ -1,13 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using Shared.Constants;
+﻿using Shared.Constants;
 using Shared.DataObjects;
 using Shared.Messages;
 using Shared.Services;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using TradeCube_Services.Parameters;
 
 namespace TradeCube_Services.Services
@@ -36,18 +30,17 @@ namespace TradeCube_Services.Services
             {
                 var apiJwtToken = confirmationReportParameters.ApiJwtToken;
                 var request = new TradeRequest { TradeReferences = confirmationReportParameters.TradeReferences };
-                var trades = await tradeService.GetTradesAsync(apiJwtToken, request);
+                var trades = (await tradeService.GetTradesAsync(apiJwtToken, request));
 
                 if (trades.Status == ApiConstants.SuccessResult)
                 {
-                    var enrichedTrades = await EnrichTradesWithCountries(trades.Data, confirmationReportParameters);
-                    var template = await reportTemplateService.ReportTemplateAsync(confirmationReportParameters.Template);
+                    var enrichedTrades = (await EnrichTradesWithCountries(trades.Data, confirmationReportParameters)).ToList();
                     var tradeDataObjects = enrichedTrades.ToList();
-                    var report = await reportRenderService.RenderAsync(template?.Data?.Html,
-                        confirmationReportParameters.Format, tradeDataObjects);
+                    var template = await reportTemplateService.ReportTemplateAsync(confirmationReportParameters.Template);
+                    var report = await reportRenderService.RenderAsync(template?.Data?.Html, confirmationReportParameters.Format, tradeDataObjects);
                     var ms = new MemoryStream();
 
-                    report.Content.CopyTo(ms);
+                    await report.Content.CopyToAsync(ms);
 
                     return new ApiResponseWrapper<WebServiceResponse>
                     {
@@ -55,13 +48,12 @@ namespace TradeCube_Services.Services
                         Data = new WebServiceResponse
                         {
                             ActionName = confirmationReportParameters.ActionName,
-                            Format = confirmationReportParameters.Format,
                             Data = Convert.ToBase64String(ms.ToArray())
                         }
                     };
                 }
 
-                logger.LogError("Error calling Trade API", trades.Message);
+                logger.LogError("Error calling Trade API: {Message}", trades.Message);
                 return new ApiResponseWrapper<WebServiceResponse> { Status = ApiConstants.FailedResult, Message = trades.Message };
             }
             catch (Exception ex)
@@ -71,7 +63,7 @@ namespace TradeCube_Services.Services
             }
         }
 
-        async Task<IEnumerable<TradeDataObject>> EnrichTradesWithCountries(IEnumerable<TradeDataObject> trades, ReportParametersBase confirmationReportParametersBase)
+        private async Task<IEnumerable<TradeDataObject>> EnrichTradesWithCountries(IEnumerable<TradeDataObject> trades, ReportParametersBase confirmationReportParametersBase)
         {
             await countryLookupService.LoadAsync(confirmationReportParametersBase.ApiJwtToken);
 
@@ -88,18 +80,24 @@ namespace TradeCube_Services.Services
                 {
                     var buyerCountry = countryLookupService.Lookup(trade.Buyer?.PrimaryConfirmationContact?.PrimaryAddress?.Country);
 
-                    trade.Buyer.PrimaryConfirmationContact.PrimaryAddress.Country = buyerCountry is null
-                        ? trade.Buyer?.PrimaryConfirmationContact?.PrimaryAddress?.Country
-                        : buyerCountry.CountryLongName;
+                    if (trade.Buyer?.PrimaryConfirmationContact?.PrimaryAddress != null)
+                    {
+                        trade.Buyer.PrimaryConfirmationContact.PrimaryAddress.Country = buyerCountry is null
+                            ? trade.Buyer?.PrimaryConfirmationContact?.PrimaryAddress?.Country
+                            : buyerCountry.CountryLongName;
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(trade?.Seller?.PrimaryConfirmationContact?.PrimaryAddress?.Country))
                 {
                     var sellerCountry = countryLookupService.Lookup(trade.Seller?.PrimaryConfirmationContact?.PrimaryAddress?.Country);
 
-                    trade.Seller.PrimaryConfirmationContact.PrimaryAddress.Country = sellerCountry is null
-                        ? trade.Seller.PrimaryConfirmationContact.PrimaryAddress.Country
-                        : sellerCountry.CountryLongName;
+                    if (trade.Seller?.PrimaryConfirmationContact?.PrimaryAddress != null)
+                    {
+                        trade.Seller.PrimaryConfirmationContact.PrimaryAddress.Country = sellerCountry is null
+                            ? trade.Seller.PrimaryConfirmationContact.PrimaryAddress.Country
+                            : sellerCountry.CountryLongName;
+                    }
                 }
 
                 yield return trade;

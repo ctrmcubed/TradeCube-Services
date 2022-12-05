@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Shared.Messages;
-using Shared.Serialization;
-using System;
+﻿using System;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -9,6 +6,10 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+using Shared.Messages;
+using Shared.Serialization;
 
 namespace Shared.Services
 {
@@ -45,7 +46,36 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<TV> PostAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse, new()
+        protected async Task<TV> PostAsStringAsync<TV>(HttpClient client, string action, JObject body, bool ensureSuccess = true) where TV : ApiResponse, new()
+        {
+            try
+            {
+                var content = new StringContent(body.ToString(), Encoding.UTF8, "application/json");
+                var httpResponseMessage = await client.PostAsync(action, content);
+
+                if (ensureSuccess)
+                {
+                    httpResponseMessage.EnsureSuccessStatusCode();
+                }
+
+                await using var responseStream = await httpResponseMessage.Content.ReadAsStreamAsync();
+
+                var response = await DeserializeAsync<TV>(responseStream);
+
+                response.StatusCode = (int?)httpResponseMessage.StatusCode;
+                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
+                response.Message = httpResponseMessage.ReasonPhrase;
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "{Message}", ex.Message);
+                throw;
+            }
+        }
+        
+        protected async Task<TV> PostAsJsonAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse, new()
         {
             try
             {
@@ -76,7 +106,7 @@ namespace Shared.Services
             }
         }
 
-        protected async Task<TV> PutAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse, new()
+        protected async Task<TV> PutAsJsonAsync<T, TV>(HttpClient client, string action, T body, bool ensureSuccess = true) where TV : ApiResponse, new()
         {
             try
             {
