@@ -22,6 +22,8 @@ data:
   PFX_SECRET_NAME: {{ .Release.Name }}{{ .Values.type.secret }}
   JSREPORT_DOMAIN: {{ .Values.env.jsreportDomain }}
   JSREPORT_PORT: '{{ .Values.env.jsreportPort }}'
+  JSREPORT_USERNAME: {{ .Values.env.jsreportUsername }}
+  JSREPORT_PASSWORD: '{{ .Values.env.jsreportPassword }}'
   EQUIAS_REQUEST_TOKEN_URI: '{{ .Values.equias.requestTokenURI }}'
   EQUIAS_GET_TRADE_STATUS_URI: '{{ .Values.equias.getTradeStatusURI }}'
   EQUIAS_ADD_PHYSICAL_TRADE_URI: '{{ .Values.equias.addPhysicalTradeURI }}'
