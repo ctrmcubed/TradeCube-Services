@@ -77,6 +77,16 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}{{ .Values.type.configmap }}
                 key: JSREPORT_PORT
+          - name: JSREPORT_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: JSREPORT_USERNAME
+          - name: JSREPORT_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: JSREPORT_PASSWORD
           - name: EQUIAS_REQUEST_TOKEN_URI
             valueFrom:
               configMapKeyRef:
