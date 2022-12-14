@@ -5,6 +5,6 @@ namespace Enegen.Services
 {
     public interface IEcvnService
     {
-        Task<ApiResponseWrapper<EcvnResponse>> NotifyAsync(EcvnRequest ecvnRequest, string apiJwtToken);
+        Task<ApiResponseWrapper<EnegenGenstarEcvnResponse>> NotifyAsync(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken);
     }
 }

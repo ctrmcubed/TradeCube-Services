@@ -1,7 +1,7 @@
 [
     {
         "Test": 0,
-        "Description": "TEST 0000 0",
+        "Description": "TEST 0000 HMAC Test",
         "Inputs": {
             "uri": "http://localhost:60075/api/Test",
             "body": "{  \"age\": 0,  \"firstName\": \"string\",  \"surName\": \"string\"}",

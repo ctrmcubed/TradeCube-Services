@@ -1,0 +1,61 @@
+[
+    {
+        "Inputs": {
+            "utc_start_date_time": "2022-01-01T00:00:00Z",
+            "utc_end_date_time": "2022-01-01T00:00:00Z"
+        },
+        "Response": [
+            {
+                "UTCStartDateTime": "2022-01-01T00:00:00Z",
+                "SettlementDate": "2022-01-01",
+                "SettlementPeriod": 1
+            }
+        ]
+    },
+    {
+        "Inputs": {
+            "utc_start_date_time": "2022-01-01T00:00:00Z",
+            "utc_end_date_time": "2022-01-01T00:30:00Z"
+        },
+        "Response": [
+            {
+                "UTCStartDateTime": "2022-01-01T00:00:00Z",
+                "SettlementDate": "2022-01-01",
+                "SettlementPeriod": 1
+            },
+            {
+                "UTCStartDateTime": "2022-01-01T00:30:00Z",
+                "SettlementDate": "2022-01-01",
+                "SettlementPeriod": 2
+            }
+        ]
+    },
+    {
+        "Inputs": {
+            "utc_start_date_time": "2022-01-01T01:00:00Z",
+            "utc_end_date_time": "2022-01-01T02:30:00Z"
+        },
+        "Response": [
+            {
+                "UTCStartDateTime": "2022-01-01T01:00:00Z",
+                "SettlementDate": "2022-01-01",
+                "SettlementPeriod": 3
+            },
+            {
+                "UTCStartDateTime": "2022-01-01T01:30:00Z",
+                "SettlementDate": "2022-01-01",
+                "SettlementPeriod": 4
+            },
+            {
+                "UTCStartDateTime": "2022-01-01T02:00:00Z",
+                "SettlementDate": "2022-01-01",
+                "SettlementPeriod": 5
+            },
+            {
+                "UTCStartDateTime": "2022-01-01T02:30:00Z",
+                "SettlementDate": "2022-01-01",
+                "SettlementPeriod": 6
+            }
+        ]
+    }
+]

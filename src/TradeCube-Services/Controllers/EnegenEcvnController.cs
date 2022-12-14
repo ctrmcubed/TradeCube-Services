@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using Enegen.Managers;
 using Enegen.Messages;
-using Enegen.Services;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Constants;
 using Shared.Messages;
@@ -25,7 +24,7 @@ namespace TradeCube_Services.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Notification([FromHeader] string apiJwtToken, [FromBody] EcvnRequest ecvnRequest)
+        public async Task<IActionResult> Notification([FromHeader] string apiJwtToken, [FromBody] EnegenGenstarEcvnRequest ecvnRequest)
         {
             try
             {
@@ -38,12 +37,12 @@ namespace TradeCube_Services.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex, "{Message}", ex.Message);
-                return BadRequest(new ApiResponseWrapper<EcvnResponse>
+                return BadRequest(new ApiResponseWrapper<EnegenGenstarEcvnResponse>
                 {
                     Message = ex.Message,
                     Status = ApiConstants.FailedResult,
                     StatusCode = (int?)HttpStatusCode.BadRequest,
-                    Data = new EcvnResponse()
+                    Data = new EnegenGenstarEcvnResponse()
                 });
             }
         }

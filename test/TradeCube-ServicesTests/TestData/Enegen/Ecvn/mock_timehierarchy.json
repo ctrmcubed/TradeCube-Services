@@ -1,0 +1,34 @@
+[
+    {
+        "TimeHierarchy": "UK Power",
+        "TimeHierarchyLongName": "UK Power",
+        "Timezone": "Europe/London",
+        "YearMonthOffset": 0,
+        "MonthCalendar": "ISO8601",
+        "DayTimeOffset": "-01:00",
+        "Commodities": [
+            "UK Power"
+        ],
+        "AllNode": true,
+        "YearNodes": true,
+        "HalfYearNodes": true,
+        "SeasonNodes": true,
+        "QuarterNodes": true,
+        "MonthNodes": true,
+        "WeekNodes": false,
+        "DayNodes": true,
+        "TwelveHourNodes": false,
+        "EightHourNodes": false,
+        "SixHourNodes": false,
+        "FourHourNodes": true,
+        "ThreeHourNodes": false,
+        "TwoHourNodes": true,
+        "HourNodes": true,
+        "HalfHourNodes": true,
+        "QuarterHourNodes": false,
+        "TenMinuteNodes": false,
+        "FiveMinuteNodes": false,
+        "MinuteNodes": false,
+        "SecondNodes": false
+    }
+]

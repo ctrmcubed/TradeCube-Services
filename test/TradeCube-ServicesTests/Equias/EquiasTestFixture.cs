@@ -1,14 +1,11 @@
-﻿using Equias.Managers;
+﻿using System;
+using System.Collections.Generic;
+using Equias.Managers;
 using Equias.Services;
 using Microsoft.Extensions.Logging;
-using Moq;
 using Shared.Constants;
 using Shared.DataObjects;
 using Shared.Messages;
-using Shared.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TradeCube_ServicesTests.Helpers;
 using TradeCube_ServicesTests.Shared;
 
@@ -57,113 +54,28 @@ namespace TradeCube_ServicesTests.Equias
                 }
             };
 
+            var settingDataObjects = new List<SettingDataObject>
+            {
+                new()
+                {
+                    SettingName = SettingConstants.EboUrlSetting,
+                    SettingValue = "https://ebo-test.api.equias.org"
+                }
+            };
+            
             EquiasManager = new EquiasManager(
                 EquiasAuthenticationService,
                 EquiasService,
-                CreateTradeService(EquiasTrades),
-                CreateTradeSummaryService(EquiasTradeSummaries),
-                CreateCashflowService(EquiasCashflows),
-                CreateProfileService(EquiasProfiles),
-                CreateSettingService(),
-                CreateVaultService(vaultDataObjects),
-                new EquiasMappingService(CreateMappingService(EquiasMappings), CreatePartyService(EquiasParties)), 
+                MockService.CreateTradeService(EquiasTrades),
+                MockService.CreateTradeSummaryService(EquiasTradeSummaries),
+                MockService.CreateCashflowService(EquiasCashflows),
+                MockService.CreateProfileService(EquiasProfiles),
+                MockService.CreateSettingService(settingDataObjects),
+                MockService.CreateVaultService(vaultDataObjects),
+                new EquiasMappingService(MockService.CreateMappingService(EquiasMappings), MockService.CreatePartyService(EquiasParties)), 
                 new Logger<EquiasManager>(LoggerFactory.Create(l => l.AddConsole())));
         }
 
-        private static ITradeService CreateTradeService(IEnumerable<TradeDataObject> trades)
-        {
-            var service = new Mock<ITradeService>();
-
-            service
-                .Setup(c => c.GetTradeAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
-                .ReturnsAsync((string _, string tradeReference, int tradeLeg) =>
-                    new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Data = trades.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
-
-            return service.Object;
-        }
-
-        private static IMappingService CreateMappingService(IEnumerable<MappingDataObject> mappings)
-        {
-            var service = new Mock<IMappingService>();
-
-            service
-                .Setup(c => c.GetMappingsViaJwtAsync(It.IsAny<string>()))
-                .ReturnsAsync((string _) =>
-                    new ApiResponseWrapper<IEnumerable<MappingDataObject>> { Data = mappings });
-
-            return service.Object;
-        }
-
-        private static ITradeSummaryService CreateTradeSummaryService(IEnumerable<TradeSummaryResponse> tradeSummaryResponses)
-        {
-            var service = new Mock<ITradeSummaryService>();
-
-            service
-                .Setup(c => c.GetTradeSummaryAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
-                .ReturnsAsync((string tradeReference, int tradeLeg, string _) =>
-                    new ApiResponseWrapper<IEnumerable<TradeSummaryResponse>> { Data = tradeSummaryResponses.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
-
-            return service.Object;
-        }
-
-        private static ICashflowService CreateCashflowService(IEnumerable<CashflowResponse> cashflows)
-        {
-            var service = new Mock<ICashflowService>();
-
-            service
-                .Setup(c => c.CashflowAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
-                .ReturnsAsync((string tradeReference, int tradeLeg, string _) =>
-                    new ApiResponseWrapper<IEnumerable<CashflowResponse>> { Data = cashflows.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
-
-            return service.Object;
-        }
-
-        private static IProfileService CreateProfileService(IEnumerable<ProfileResponse> profiles)
-        {
-            var service = new Mock<IProfileService>();
-
-            service
-                .Setup(c => c.GetProfileAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync((string tradeReference, int tradeLeg, string _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<ProfileResponse>> { Data = profiles.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
-
-            return service.Object;
-        }
-
-        private static IPartyService CreatePartyService(IEnumerable<PartyDataObject> parties)
-        {
-            var service = new Mock<IPartyService>();
-
-            service
-                .Setup(c => c.GetPartyAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync((string party, string _) =>
-                    new ApiResponseWrapper<IEnumerable<PartyDataObject>> { Data = parties.Where(p => p.Party == party) });
-
-            return service.Object;
-        }
-
-        private static ISettingService CreateSettingService()
-        {
-            var service = new Mock<ISettingService>();
-
-            service
-                .Setup(c => c.GetSettingAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync((string _, string _) =>
-                    new ApiResponseWrapper<IEnumerable<SettingDataObject>> { Data = new List<SettingDataObject> { new() { SettingValue = "https://ebo-test.api.equias.org" } } });
-
-            return service.Object;
-        }
-
-        private static IVaultService CreateVaultService(IEnumerable<VaultDataObject> data)
-        {
-            var service = new Mock<IVaultService>();
-
-            service
-                .Setup(c => c.GetVaultValueAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .ReturnsAsync((string vaultKey, string _) =>
-                    new ApiResponseWrapper<IEnumerable<VaultDataObject>> { Data = data.Where(v => v.VaultKey == vaultKey) });
-
-            return service.Object;
-        }
+    
     }
 }

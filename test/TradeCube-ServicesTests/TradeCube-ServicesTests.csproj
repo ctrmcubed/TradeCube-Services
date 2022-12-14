@@ -17,6 +17,21 @@
         <None Update="TestData\Enegen\Hmac\expected_results_enegen_hmac.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="TestData\Enegen\Ecvn\expected_results_enegen_ecvn.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\Enegen\Ecvn\mock_api_ElexonSettlementPeriod.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\Enegen\Ecvn\mock_api_TradeDetail.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\Enegen\Ecvn\mock_timehierarchy.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\Enegen\Ecvn\mock_trade.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -81,7 +96,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="TestData\Enegen" />
+        <Folder Include="TestData\Enegen\Ecvn" />
         <Folder Include="TestData\Fidectus\" />
     </ItemGroup>
 

@@ -4,5 +4,5 @@ namespace Enegen.Managers;
 
 public interface IEcvnManager
 {
-    Task<EcvnResponse> NotifyAsync(EcvnRequest ecvnRequest, string apiJwtToken);
+    Task<EnegenGenstarEcvnResponse> NotifyAsync(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken);
 }
