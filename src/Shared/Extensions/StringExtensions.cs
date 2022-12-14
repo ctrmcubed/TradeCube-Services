@@ -13,7 +13,7 @@ namespace Shared.Extensions
                 return strings.Count > index ? strings[index] : string.Empty;
             }
 
-            if (string.IsNullOrEmpty(addressBlob))
+            if (string.IsNullOrWhiteSpace(addressBlob))
             {
                 return (string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
             }

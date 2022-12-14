@@ -14,6 +14,9 @@
 
     <ItemGroup>
         <None Remove="nlog.config" />
+        <None Update="TestData\Enegen\Hmac\expected_results_enegen_hmac.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -26,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\Enegen\Enegen.csproj" />
         <ProjectReference Include="..\..\src\Equias\Equias.csproj" />
         <ProjectReference Include="..\..\src\Fidectus\Fidectus.csproj" />
         <ProjectReference Include="..\..\src\Shared\Shared.csproj" />
@@ -77,6 +81,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="TestData\Enegen" />
         <Folder Include="TestData\Fidectus\" />
     </ItemGroup>
 

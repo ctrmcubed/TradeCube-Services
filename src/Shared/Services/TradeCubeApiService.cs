@@ -25,7 +25,7 @@ namespace Shared.Services
             this.tradeCubeConfiguration = tradeCubeConfiguration;
             this.logger = logger;
         }
-
+        
         protected async Task<ApiResponseWrapper<IEnumerable<T>>> GetViaApiKeyAsync<T>(string action, string apiKey, string queryString = null)
         {
             try
@@ -88,7 +88,7 @@ namespace Shared.Services
         {
             try
             {
-                var requestUri = string.IsNullOrEmpty(queryString)
+                var requestUri = string.IsNullOrWhiteSpace(queryString)
                     ? $"{action}"
                     : $"{action}/{queryString}";
 

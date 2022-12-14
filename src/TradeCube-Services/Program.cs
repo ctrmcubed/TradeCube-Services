@@ -1,3 +1,4 @@
+using Enegen.Services;
 using Equias.Managers;
 using Equias.Services;
 using Fidectus.Managers;
@@ -74,7 +75,7 @@ try
         .AddScoped<IFingerprintService, FingerprintService>()
         .AddScoped<IMappingService, MappingService>()
         .AddScoped<IM7TradeService, M7TradeService>()
-        .AddScoped<INotificationService, NotificationService>()
+        .AddScoped<IEcvnService, EcvnService>()
         .AddScoped<IM7PartyService, M7Im7PartyService>()
         .AddScoped<IPartyService, PartyService>()
         .AddScoped<IProfileService, ProfileService>()

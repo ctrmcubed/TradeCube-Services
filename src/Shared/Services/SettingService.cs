@@ -25,12 +25,12 @@ namespace Shared.Services
             return await GetViaApiKeyAsync<SettingDataObject>("Setting", apiKey);
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingViaJwtAsync(string setting, string apiJwtToken)
+        public async Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingAsync(string setting, string apiJwtToken)
         {
             return await GetViaJwtAsync<SettingDataObject>($"Setting/{setting}", apiJwtToken);
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingsViaJwtAsync(string apiJwtToken)
+        public async Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingAsync(string apiJwtToken)
         {
             return await GetViaJwtAsync<SettingDataObject>("Setting", apiJwtToken);
         }

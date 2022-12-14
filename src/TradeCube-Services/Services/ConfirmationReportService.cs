@@ -76,7 +76,7 @@ namespace TradeCube_Services.Services
             {
                 // Mutate trades by setting the country property to the country long name 
 
-                if (!string.IsNullOrEmpty(trade?.Buyer?.PrimaryConfirmationContact?.PrimaryAddress?.Country))
+                if (!string.IsNullOrWhiteSpace(trade?.Buyer?.PrimaryConfirmationContact?.PrimaryAddress?.Country))
                 {
                     var buyerCountry = countryLookupService.Lookup(trade.Buyer?.PrimaryConfirmationContact?.PrimaryAddress?.Country);
 
@@ -88,7 +88,7 @@ namespace TradeCube_Services.Services
                     }
                 }
 
-                if (!string.IsNullOrEmpty(trade?.Seller?.PrimaryConfirmationContact?.PrimaryAddress?.Country))
+                if (!string.IsNullOrWhiteSpace(trade?.Seller?.PrimaryConfirmationContact?.PrimaryAddress?.Country))
                 {
                     var sellerCountry = countryLookupService.Lookup(trade.Seller?.PrimaryConfirmationContact?.PrimaryAddress?.Country);
 

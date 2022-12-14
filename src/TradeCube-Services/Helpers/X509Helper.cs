@@ -16,7 +16,7 @@ namespace TradeCube_Services.Helpers
         {
             var (name, password) = certificateInfo;
 
-            return port.HasValue && port > 0 && !string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(password);
+            return port.HasValue && port > 0 && !string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(password);
         }
     }
 }

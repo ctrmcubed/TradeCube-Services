@@ -133,7 +133,7 @@ namespace TradeCube_ServicesTests.Fidectus
             var service = new Mock<ITradeSummaryService>();
 
             service
-                .Setup(c => c.TradeSummaryAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
+                .Setup(c => c.GetTradeSummaryAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
                 .ReturnsAsync((string tradeReference, int tradeLeg, string _) =>
                     new ApiResponseWrapper<IEnumerable<TradeSummaryResponse>> { Data = tradeSummaryResponses.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
 
@@ -145,7 +145,7 @@ namespace TradeCube_ServicesTests.Fidectus
             var service = new Mock<IProfileService>();
 
             service
-                .Setup(c => c.ProfileAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Setup(c => c.GetProfileAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync((string tradeReference, int tradeLeg, string _, string _) =>
                     new ApiResponseWrapper<IEnumerable<ProfileResponse>> { Data = profiles.Where(t => t.TradeReference == tradeReference && t.TradeLeg == tradeLeg) });
 
@@ -169,7 +169,7 @@ namespace TradeCube_ServicesTests.Fidectus
             var service = new Mock<ISettingService>();
 
             service
-                .Setup(c => c.GetSettingViaJwtAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .Setup(c => c.GetSettingAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync((string settingName, string _) =>
                     new ApiResponseWrapper<IEnumerable<SettingDataObject>>
                     {
@@ -177,7 +177,7 @@ namespace TradeCube_ServicesTests.Fidectus
                     });
 
             service
-                .Setup(c => c.GetSettingsViaJwtAsync(It.IsAny<string>()))
+                .Setup(c => c.GetSettingAsync(It.IsAny<string>()))
                 .ReturnsAsync((string _) =>
                     new ApiResponseWrapper<IEnumerable<SettingDataObject>>
                     {

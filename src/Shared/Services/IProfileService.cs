@@ -6,6 +6,6 @@ namespace Shared.Services
 {
     public interface IProfileService
     {
-        Task<ApiResponseWrapper<IEnumerable<ProfileResponse>>> ProfileAsync(string tradeReference, int tradeLeg, string apiJwtToken, string format);
+        Task<ApiResponseWrapper<IEnumerable<ProfileResponse>>> GetProfileAsync(string tradeReference, int tradeLeg, string apiJwtToken, string format);
     }
 }

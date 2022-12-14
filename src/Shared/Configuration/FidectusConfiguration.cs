@@ -39,11 +39,11 @@ namespace Shared.Configuration
                     : fidectusCompanyIdSetting;
             }
 
-            var fidectusCompanyIdMapping = string.IsNullOrEmpty(senderId)
+            var fidectusCompanyIdMapping = string.IsNullOrWhiteSpace(senderId)
                 ? null
                 : mappingHelper.GetMappingTo("FIDECTUS_CompanyId", senderId);
 
-            var companyId = string.IsNullOrEmpty(fidectusCompanyIdMapping)
+            var companyId = string.IsNullOrWhiteSpace(fidectusCompanyIdMapping)
                 ? CompanyIdSetting()
                 : fidectusCompanyIdMapping;
 

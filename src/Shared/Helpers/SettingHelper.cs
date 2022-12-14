@@ -22,8 +22,8 @@ namespace Shared.Helpers
                 return defaultValue;
             }
 
-            return settings.ContainsKey(key)
-                ? settings[key]
+            return settings.TryGetValue(key, out var value) 
+                ? value 
                 : defaultValue;
         }
     }

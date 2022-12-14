@@ -14,7 +14,7 @@ namespace Shared.Services
         {
         }
 
-        public async Task<ApiResponseWrapper<IEnumerable<TradeSummaryResponse>>> TradeSummaryAsync(string tradeReference, int tradeLeg, string apiJwtToken)
+        public async Task<ApiResponseWrapper<IEnumerable<TradeSummaryResponse>>> GetTradeSummaryAsync(string tradeReference, int tradeLeg, string apiJwtToken)
         {
             return await GetViaJwtAsync<TradeSummaryResponse>("TradeSummary", apiJwtToken, $"{tradeReference}?TradeLeg={tradeLeg}");
         }

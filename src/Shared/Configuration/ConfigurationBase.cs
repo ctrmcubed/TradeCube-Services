@@ -4,7 +4,7 @@
     {
         protected static string Port(string port)
         {
-            return string.IsNullOrEmpty(port)
+            return string.IsNullOrWhiteSpace(port)
                 ? string.Empty
                 : $":{port}";
         }

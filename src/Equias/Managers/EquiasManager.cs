@@ -136,7 +136,7 @@ namespace Equias.Managers
                 var tradeIds = new List<TradeKey> { new() { TradeReference = tradeReference, TradeLeg = tradeLeg } };
                 var eboGetTradeStatusResponse = await TradeStatusAsync(tradeIds, apiJwtToken);
 
-                if (string.IsNullOrEmpty(tradeDataObject.EboActionType()))
+                if (string.IsNullOrWhiteSpace(tradeDataObject.EboActionType()))
                 {
                     if (tradeDataObject.EboStatus() == EquiasConstants.StatusMatched || eboGetTradeStatusResponse.Status == EquiasConstants.StatusMatched)
                     {
@@ -173,9 +173,9 @@ namespace Equias.Managers
         public async Task<PhysicalTrade> CreatePhysicalTradeAsync(TradeDataObject tradeDataObject, string apiJwtToken)
         {
             var mappingHelper = new MappingHelper(await equiasMappingService.GetMappingsAsync(apiJwtToken));
-            var tradeSummary = (await tradeSummaryService.TradeSummaryAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.FirstOrDefault();
+            var tradeSummary = (await tradeSummaryService.GetTradeSummaryAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.FirstOrDefault();
             var cashflows = (await cashflowService.CashflowAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data;
-            var profileResponses = (await profileService.ProfileAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken, ProfileTradeConstants.ProfileFormatSparse))?.Data;
+            var profileResponses = (await profileService.GetProfileAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken, ProfileTradeConstants.ProfileFormatSparse))?.Data;
 
             logger.LogTrace("Trade Summary: {TradeSummary}\r\n", TradeCubeJsonSerializer.Serialize(tradeSummary));
             logger.LogTrace("Trade Cashflows: {TradeCashflows}\r\n", TradeCubeJsonSerializer.Serialize(cashflows));
@@ -229,13 +229,13 @@ namespace Equias.Managers
             var eboUsername = (await vaultService.GetVaultValueAsync(VaultConstants.EquiasEboUsernameKey, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
             var eboPassword = (await vaultService.GetVaultValueAsync(VaultConstants.EquiasEboPasswordKey, apiJwtToken))?.Data?.SingleOrDefault()?.VaultValue;
 
-            if (string.IsNullOrEmpty(eboUsername))
+            if (string.IsNullOrWhiteSpace(eboUsername))
             {
                 logger.LogError("The {EquiasEboUsernameKey} is not configured in the vault", VaultConstants.EquiasEboUsernameKey);
                 throw new SecurityException($"The {VaultConstants.EquiasEboUsernameKey} is not configured in the vault");
             }
 
-            if (string.IsNullOrEmpty(eboPassword))
+            if (string.IsNullOrWhiteSpace(eboPassword))
             {
                 logger.LogError("The {EquiasEboPasswordKey} is not configured in the vault", VaultConstants.EquiasEboPasswordKey);
                 throw new SecurityException($"The {VaultConstants.EquiasEboPasswordKey} is not configured in the vault");
@@ -251,9 +251,9 @@ namespace Equias.Managers
 
         private async Task<string> GetEquiasDomainAsync(string apiJwtToken)
         {
-            var apiDomain = (await settingService.GetSettingViaJwtAsync("EBO_URL", apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
+            var apiDomain = (await settingService.GetSettingAsync(SettingConstants.EboUrlSetting, apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
 
-            return string.IsNullOrEmpty(apiDomain)
+            return string.IsNullOrWhiteSpace(apiDomain)
                 ? throw new DataException("EBO_URL is not configured in the system settings")
                 : apiDomain;
         }

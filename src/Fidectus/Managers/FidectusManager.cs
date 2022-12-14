@@ -47,7 +47,7 @@ namespace Fidectus.Managers
         public async Task<FidectusConfiguration> GetFidectusConfiguration(string apiJwtToken)
         {
             var mappingHelper = new MappingHelper(await fidectusMappingService.GetMappingsAsync(apiJwtToken));
-            var settingHelper = new SettingHelper((await settingService.GetSettingsViaJwtAsync(apiJwtToken))?.Data);
+            var settingHelper = new SettingHelper((await settingService.GetSettingAsync(apiJwtToken))?.Data);
 
             return new FidectusConfiguration(settingHelper, mappingHelper);
         }
@@ -93,7 +93,7 @@ namespace Fidectus.Managers
                 return new ConfirmationResponse();
             }
 
-            if (string.IsNullOrEmpty(tradeDataObject.ConfirmationDocumentId()))
+            if (string.IsNullOrWhiteSpace(tradeDataObject.ConfirmationDocumentId()))
             {
                 return new ConfirmationResponse
                 {
@@ -179,8 +179,8 @@ namespace Fidectus.Managers
 
         private async Task<TradeConfirmation> MapTradeConfirmationAsync(TradeDataObject tradeDataObject, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)
         {
-            var tradeSummary = (await tradeSummaryService.TradeSummaryAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.FirstOrDefault();
-            var profileResponses = (await profileService.ProfileAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken, ProfileTradeConstants.ProfileFormatSparse))?.Data;
+            var tradeSummary = (await tradeSummaryService.GetTradeSummaryAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.FirstOrDefault();
+            var profileResponses = (await profileService.GetProfileAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken, ProfileTradeConstants.ProfileFormatSparse))?.Data;
 
             return await fidectusMappingService.MapConfirmation(tradeDataObject, tradeSummary, profileResponses, apiJwtToken, fidectusConfiguration);
         }
@@ -201,13 +201,13 @@ namespace Fidectus.Managers
                 throw new SecurityException($"The {VaultConstants.FidectusClientId} is not configured in the vault");
             }
 
-            if (string.IsNullOrEmpty(fidectusClientSecret))
+            if (string.IsNullOrWhiteSpace(fidectusClientSecret))
             {
                 logger.LogError("The {FidectusClientSecret} is not configured in the vault", VaultConstants.FidectusClientSecret);
                 throw new SecurityException($"The {VaultConstants.FidectusClientSecret} is not configured in the vault");
             }
 
-            var fidectusAudience = (await settingService.GetSettingViaJwtAsync("FIDECTUS_AUDIENCE", apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
+            var fidectusAudience = (await settingService.GetSettingAsync(SettingConstants.FidectusAudienceSetting, apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
 
             return new RequestTokenRequest(fidectusClientId, fidectusClientSecret, fidectusAudience);
         }

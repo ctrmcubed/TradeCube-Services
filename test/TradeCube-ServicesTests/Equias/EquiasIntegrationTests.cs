@@ -21,7 +21,7 @@ namespace TradeCube_ServicesTests.Equias
         [Fact]
         public async Task TestGetAuthenticationToken()
         {
-            Assert.False(string.IsNullOrEmpty((await RequestTokenResponse()).Token));
+            Assert.False(string.IsNullOrWhiteSpace((await RequestTokenResponse()).Token));
         }
 
         [Fact]

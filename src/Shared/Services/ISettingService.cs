@@ -9,7 +9,7 @@ namespace Shared.Services
     {
         Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingViaApiKeyAsync(string setting, string apiKey);
         Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingsViaApiKeyAsync(string apiKey);
-        Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingViaJwtAsync(string setting, string apiJwtToken);
-        Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingsViaJwtAsync(string apiJwtToken);
+        Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingAsync(string setting, string apiJwtToken);
+        Task<ApiResponseWrapper<IEnumerable<SettingDataObject>>> GetSettingAsync(string apiJwtToken);
     }
 }

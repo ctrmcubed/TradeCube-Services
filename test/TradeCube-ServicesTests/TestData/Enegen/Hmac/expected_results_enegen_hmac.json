@@ -1,0 +1,17 @@
+[
+    {
+        "Test": 0,
+        "Description": "TEST 0000 0",
+        "Inputs": {
+            "uri": "http://localhost:60075/api/Test",
+            "body": "{  \"age\": 0,  \"firstName\": \"string\",  \"surName\": \"string\"}",
+            "app_id": "123",
+            "private_shared_key": "234",
+            "nonce": "a5189f39b6914da5a8b6cc42d1ee076c",
+            "time_stamp": 1670947991
+        },
+        "ExpectedResults": {
+            "HMAC": "LotYQTiZc++Gt7uq95V+PXVneNq1+OYQaF6+Sih0028="
+        }
+    }
+]
