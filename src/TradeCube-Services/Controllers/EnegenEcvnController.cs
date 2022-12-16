@@ -28,11 +28,19 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                var response = await ecvnManager.CreateEcvn(ecvnRequest, apiJwtToken);
-
-                return response.Status == ApiConstants.SuccessResult
-                    ? Ok(response)
-                    : BadRequest(response);
+                var ecvnContext = await ecvnManager.CreateEcvnContext(ecvnRequest, apiJwtToken);
+                var ecvn = await ecvnManager.CreateEcvn(ecvnContext, apiJwtToken);
+                var notifyEcvn = await ecvnManager.NotifyEcvn(ecvn, ecvnContext);
+                    
+                return notifyEcvn.Status == ApiConstants.SuccessResult
+                    ? Ok(ecvn)
+                    : BadRequest(new ApiResponseWrapper<EnegenGenstarEcvnResponse>
+                    {
+                        Message = notifyEcvn.Message,
+                        Status = ApiConstants.FailedResult,
+                        StatusCode = (int?)HttpStatusCode.BadRequest,
+                        Data = new EnegenGenstarEcvnResponse()
+                    });
             }
             catch (Exception ex)
             {

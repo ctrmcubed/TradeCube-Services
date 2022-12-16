@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -1171,37 +1172,45 @@ public class EnegenGenstarEcvnUnitTests : IClassFixture<EnegenGenstarEcvnFixture
 
         Assert.NotNull(test);
 
-        var ecvn = await enegenGenstarEcvnFixture.EcvnManager.CreateEcvn(test.Inputs, string.Empty);
-
-        if (!string.IsNullOrWhiteSpace(test.ExpectedError))
+        try
         {
-            Assert.Equal(test.ExpectedError, ecvn.Message);    
-            return;
+            var ecvnContext = await enegenGenstarEcvnFixture.EcvnManager.CreateEcvnContext(test.Inputs, string.Empty);
+            var ecvn = await enegenGenstarEcvnFixture.EcvnManager.CreateEcvn(ecvnContext, string.Empty);
+
+            if (!string.IsNullOrWhiteSpace(test.ExpectedError))
+            {
+                Assert.Equal(test.ExpectedError, ecvn.Message);    
+                return;
+            }
+        
+            Assert.Equal(test.ExpectedResults.ContractName, ecvn.ContractName);
+            Assert.Equal(test.ExpectedResults.ContractDescription, ecvn.ContractDescription);
+            Assert.Equal(test.ExpectedResults.Trader, ecvn.Trader);
+            Assert.Equal(test.ExpectedResults.TraderProdConFlag, ecvn.TraderProdConFlag);
+            Assert.Equal(test.ExpectedResults.Party2, ecvn.Party2);
+            Assert.Equal(test.ExpectedResults.Party2ProdConFlag, ecvn.Party2ProdConFlag);
+            Assert.Equal(test.ExpectedResults.ContractStartDate, ecvn.ContractStartDate);
+            Assert.Equal(test.ExpectedResults.ContractEndDate, ecvn.ContractEndDate);
+            Assert.Equal(test.ExpectedResults.ContractGroupId, ecvn.ContractGroupId);
+            Assert.Equal(test.ExpectedResults.ContractProfile , ecvn.ContractProfile);
+            Assert.Equal(test.ExpectedResults.Evergreen , ecvn.Evergreen);
+        
+            var zipped = test.ExpectedResults.EnergyVolumeItems.Zip(ecvn.EnergyVolumeItems, (e, a) => new
+            {
+                Expected = e,
+                Actual = a
+            }).ToList();
+
+            foreach (var result in zipped)
+            {
+                Assert.Equal(result.Expected.EcvDate, result.Actual.EcvDate);   
+                Assert.Equal(result.Expected.EcvPeriod, result.Actual.EcvPeriod);
+                Assert.Equal(result.Expected.EcvVolume, result.Actual.EcvVolume);
+            }
         }
-        
-        Assert.Equal(test.ExpectedResults.ContractName, ecvn.ContractName);
-        Assert.Equal(test.ExpectedResults.ContractDescription, ecvn.ContractDescription);
-        Assert.Equal(test.ExpectedResults.Trader, ecvn.Trader);
-        Assert.Equal(test.ExpectedResults.TraderProdConFlag, ecvn.TraderProdConFlag);
-        Assert.Equal(test.ExpectedResults.Party2, ecvn.Party2);
-        Assert.Equal(test.ExpectedResults.Party2ProdConFlag, ecvn.Party2ProdConFlag);
-        Assert.Equal(test.ExpectedResults.ContractStartDate, ecvn.ContractStartDate);
-        Assert.Equal(test.ExpectedResults.ContractEndDate, ecvn.ContractEndDate);
-        Assert.Equal(test.ExpectedResults.ContractGroupId, ecvn.ContractGroupId);
-        Assert.Equal(test.ExpectedResults.ContractProfile , ecvn.ContractProfile);
-        Assert.Equal(test.ExpectedResults.Evergreen , ecvn.Evergreen);
-        
-        var zipped = test.ExpectedResults.EnergyVolumeItems.Zip(ecvn.EnergyVolumeItems, (e, a) => new
+        catch (Exception ex)
         {
-            Expected = e,
-            Actual = a
-        }).ToList();
-
-        foreach (var result in zipped)
-        {
-            Assert.Equal(result.Expected.EcvDate, result.Actual.EcvDate);   
-            Assert.Equal(result.Expected.EcvPeriod, result.Actual.EcvPeriod);
-            Assert.Equal(result.Expected.EcvVolume, result.Actual.EcvVolume);
+            Assert.Equal(test.ExpectedError, ex.Message);    
         }
     }
 }

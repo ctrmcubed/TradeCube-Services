@@ -86,7 +86,7 @@ public static class MockService
 
         return service.Object;
     }
-
+    
     public static IProfileService CreateProfileService(IEnumerable<ProfileResponse> profileResponses)
     {
         var service = new Mock<IProfileService>();

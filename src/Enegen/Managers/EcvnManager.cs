@@ -1,4 +1,5 @@
-﻿using Enegen.Exceptions;
+﻿using System.Text;
+using Enegen.Exceptions;
 using Enegen.Messages;
 using Enegen.Services;
 using Enegen.Types;
@@ -8,6 +9,7 @@ using Shared.DataObjects;
 using Shared.Extensions;
 using Shared.Helpers;
 using Shared.Messages;
+using Shared.Serialization;
 using Shared.Services;
 
 namespace Enegen.Managers;
@@ -19,21 +21,65 @@ public class EcvnManager : IEcvnManager
     private readonly ITradeService tradeService;
     private readonly ITradeDetailService tradeDetailService;
     private readonly IElexonSettlementPeriodService elexonSettlementPeriodService;
+    private readonly IVaultService vaultService;
+    private readonly IHmacService hmacService;
+    private readonly IEcvnService ecvnService;
     private readonly ILogger logger;
 
     public EcvnManager(IModuleService moduleService, ISettingService settingService, ITradeService tradeService,
         ITradeDetailService tradeDetailService, IElexonSettlementPeriodService elexonSettlementPeriodService, 
-        ILogger<EcvnManager> logger)
+        IVaultService vaultService, IHmacService hmacService, IEcvnService ecvnService, ILogger<EcvnManager> logger)
     {
         this.moduleService = moduleService;
         this.settingService = settingService;
         this.tradeService = tradeService;
         this.tradeDetailService = tradeDetailService;
         this.elexonSettlementPeriodService = elexonSettlementPeriodService;
+        this.vaultService = vaultService;
+        this.hmacService = hmacService;
+        this.ecvnService = ecvnService;
         this.logger = logger;
     }
 
-    public async Task<EnegenGenstarEcvnResponse> CreateEcvn(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken)
+    public async Task<EcvnContext> CreateEcvnContext(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken)
+    {
+        ArgumentNullException.ThrowIfNull(ecvnRequest);
+
+        if (string.IsNullOrWhiteSpace(ecvnRequest.TradeReference))
+        {
+            throw new EcvnException("The mandatory field 'TradeReference' has not been supplied.");
+        }
+
+        var moduleResponse = await moduleService.ModulesAsync(apiJwtToken);
+        var isUkPowerEnabled = moduleService.IsEnabled(ModuleConstants.UkPowerModule, moduleResponse?.Data.ToList());
+
+        if (!isUkPowerEnabled)
+        {
+            throw new EcvnException("The 'UK Power' Module is not enabled.");
+        }
+
+        var enegenEcvnUrlSetting = (await settingService.GetSettingAsync(SettingConstants.EnegenEcvnUrlSetting, apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
+        var enegenEcvnAppIdSetting = (await settingService.GetSettingAsync(SettingConstants.EnegenAppIdSetting, apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
+        var enegenPskVaultValue = (await vaultService.GetVaultValueAsync(VaultConstants.EnegenPsk, apiJwtToken)).Data?.SingleOrDefault();
+
+        return new()
+        {
+            TradeReference = ecvnRequest.TradeReference,
+            TradeLeg = ecvnRequest.TradeLeg,
+            EnegenEcvnUrlSetting = string.IsNullOrWhiteSpace(enegenEcvnUrlSetting)
+                ? throw new EcvnException($"The '{SettingConstants.EnegenEcvnUrlSetting}' System Setting is not set.")
+                : enegenEcvnUrlSetting,
+            EnegenEcvnAppIdSetting = string.IsNullOrWhiteSpace(enegenEcvnAppIdSetting)
+                ? throw new EcvnException($"The '{SettingConstants.EnegenAppIdSetting}' System Setting is not set.")
+                : enegenEcvnAppIdSetting,
+            EnegenPskVaultValue = string.IsNullOrWhiteSpace(enegenPskVaultValue?.VaultValue)
+                ? throw new EcvnException($"The '{VaultConstants.EnegenPsk}' Vault value is not set.")
+                : enegenPskVaultValue.VaultValue,
+            ApiJwtToken = apiJwtToken
+        };
+    }
+
+    public async Task<EnegenGenstarEcvnResponse> CreateEcvn(EcvnContext context, string apiJwtToken)
     {
         string TruncateDateTime(string dt) =>
             string.IsNullOrWhiteSpace(dt)
@@ -41,8 +87,6 @@ public class EcvnManager : IEcvnManager
                 : dt.Split("T")[0];
         try
         {
-            var context = CreateContext(await ValidateRequest(ecvnRequest, apiJwtToken), apiJwtToken);
-
             var tradeDataObject = (await tradeService.GetTradeAsync(context.ApiJwtToken, context.TradeReference, context.TradeLeg))?.Data?.SingleOrDefault();
             if (tradeDataObject is null)
             {
@@ -134,38 +178,28 @@ public class EcvnManager : IEcvnManager
             };
         }
     }
-
-    private async Task<EnegenGenstarEcvnRequest> ValidateRequest(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken)
+    
+    public async Task<EnegenGenstarEcvnResponse> NotifyEcvn(EnegenGenstarEcvnResponse enegenGenstarEcvnResponse, EcvnContext ecvnContext)
     {
-        ArgumentNullException.ThrowIfNull(ecvnRequest);
+        string Uuid() =>
+            Guid
+                .NewGuid()
+                .ToString("N");
 
-        if (string.IsNullOrWhiteSpace(ecvnRequest.TradeReference))
-        {
-            throw new EcvnException("The mandatory field 'TradeReference' has not been supplied.");
-        }
+        var uri = ecvnContext.EnegenEcvnUrlSetting;
+        var body = TradeCubeJsonSerializer.Serialize(enegenGenstarEcvnResponse);
+        var bodyBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(body));
+        var appId = ecvnContext.EnegenEcvnAppIdSetting;
+        var unixTimeSeconds = DateTimeOffset.Now.ToUnixTimeSeconds();
+        var nonce = Uuid();
+        var signature = hmacService.CreateSignature(uri, bodyBase64, appId, unixTimeSeconds, nonce);
+        var hashedPayload = hmacService.GenerateHash(signature, ecvnContext.EnegenPskVaultValue);
+        var apiResponseWrapper = await ecvnService.NotifyAsync(uri, appId, hashedPayload, nonce, unixTimeSeconds, body);
+        
+        logger.LogInformation("Response from {Uri}: Data={Data}, StatusCode={StatusCode}", uri, apiResponseWrapper.Data, apiResponseWrapper.StatusCode);
 
-        var moduleResponse = await moduleService.ModulesAsync(apiJwtToken);
-        var isUkPowerEnabled = moduleService.IsEnabled(ModuleConstants.UkPowerModule, moduleResponse?.Data.ToList());
-
-        if (!isUkPowerEnabled)
-        {
-            throw new EcvnException("The 'UK Power' Module is not enabled.");
-        }
-
-        var enegenEcvnUrlSetting = (await settingService.GetSettingAsync(SettingConstants.EnegenEcvnUrlSetting, apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
-
-        return string.IsNullOrWhiteSpace(enegenEcvnUrlSetting)
-            ? throw new EcvnException("The 'ENEGEN_ECVN_URL' System setting is not set.")
-            : ecvnRequest;
+        return enegenGenstarEcvnResponse;
     }
-
-    private static EcvnContext CreateContext(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken) =>
-        new()
-        {
-            TradeReference = ecvnRequest.TradeReference,
-            TradeLeg = ecvnRequest.TradeLeg,
-            ApiJwtToken = apiJwtToken
-        };
 
     private static string TraderProdConFlag(TradeDataObject tradeDataObject) =>
         tradeDataObject.Extension.InternalPartyEnergyAccountType switch

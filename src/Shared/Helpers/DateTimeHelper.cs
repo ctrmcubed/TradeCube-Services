@@ -4,7 +4,7 @@ using System;
 
 namespace Shared.Helpers
 {
-    public class DateTimeHelper
+    public static class DateTimeHelper
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 

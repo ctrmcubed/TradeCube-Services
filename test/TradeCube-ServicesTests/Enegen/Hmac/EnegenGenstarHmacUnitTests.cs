@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
+﻿using System.Linq;
 using Xunit;
 
 namespace TradeCube_ServicesTests.Enegen.Hmac;
@@ -28,10 +24,8 @@ public class EnegenGenstarHmacUnitTests : IClassFixture<EnegenGenstarHmacFixture
         
         Assert.NotNull(test);
 
-        var encodedUri = WebUtility.UrlEncode(test.Inputs.Uri.ToLower());
-        var bodyBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(test.Inputs.Body));
-        var payload = $"{test.Inputs.AppId}{HttpMethod.Post}{encodedUri}{test.Inputs.TimeStamp}{test.Inputs.Nonce}{bodyBase64}";
-        var hash = enegenGenstarHmacFixture.HmacService.GenerateHash(payload, test.Inputs.PrivateSharedKey);
+        var signature = enegenGenstarHmacFixture.HmacService.CreateSignature(test.Inputs.Uri, test.Inputs.Body, test.Inputs.AppId, test.Inputs.TimeStamp, test.Inputs.Nonce);
+        var hash = enegenGenstarHmacFixture.HmacService.GenerateHash(signature, test.Inputs.PrivateSharedKey);
         
         Assert.Equal(test.ExpectedResults.Hmac, hash);
     }

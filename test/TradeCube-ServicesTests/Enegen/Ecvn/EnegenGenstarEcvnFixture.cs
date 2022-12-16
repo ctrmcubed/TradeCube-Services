@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Enegen.Managers;
+using Enegen.Services;
 using Microsoft.Extensions.Logging;
+using Moq;
 using Shared.Constants;
 using Shared.DataObjects;
 using TradeCube_ServicesTests.Helpers;
@@ -39,12 +41,24 @@ public class EnegenGenstarEcvnFixture
             }
         };
         
+        var vaultDataObjects = new List<VaultDataObject>
+        {
+            new()
+            {
+                VaultKey = VaultConstants.EnegenPsk,
+                VaultValue = "blah"
+            }
+        };
+        
         EcvnManager = new EcvnManager(
             MockService.CreateModuleService(moduleDataObjects),
             MockService.CreateSettingService(settingDataObjects),
             MockService.CreateTradeService(tradeDataObjects),
             MockService.CreateTradeDetailService(tradeDetailTestTypes),
             MockService.CreateElexonSettlementPeriodService(elexonSettlementPeriodTestTypes),
+            MockService.CreateVaultService(vaultDataObjects),
+            new Mock<IHmacService>().Object,
+            new Mock<IEcvnService>().Object,
             new Logger<EcvnManager>(LoggerFactory.Create(l => l.AddConsole())));
     }
 }

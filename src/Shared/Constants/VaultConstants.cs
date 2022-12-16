@@ -7,5 +7,8 @@
 
         public const string FidectusClientId = "Fidectus_Username";
         public const string FidectusClientSecret = "Fidectus_Password";
+        
+        public const string EnegenPsk = "ENEGEN_PSK";
+
     }
 }
