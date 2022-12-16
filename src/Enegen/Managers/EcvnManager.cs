@@ -22,7 +22,7 @@ public class EcvnManager : IEcvnManager
     private readonly ILogger logger;
 
     public EcvnManager(IModuleService moduleService, ISettingService settingService, ITradeService tradeService,
-        ITradeDetailService tradeDetailService, IElexonSettlementPeriodService elexonSettlementPeriodService,
+        ITradeDetailService tradeDetailService, IElexonSettlementPeriodService elexonSettlementPeriodService, 
         ILogger<EcvnManager> logger)
     {
         this.moduleService = moduleService;
@@ -46,34 +46,34 @@ public class EcvnManager : IEcvnManager
             var tradeDataObject = (await tradeService.GetTradeAsync(context.ApiJwtToken, context.TradeReference, context.TradeLeg))?.Data?.SingleOrDefault();
             if (tradeDataObject is null)
             {
-                throw new EcvnException($"The trade with reference '{context.TradeReference}' and Leg '{context.TradeLeg}' is not in the database.");
+                throw new EcvnException($"The Trade with reference '{context.TradeReference}' and leg '{context.TradeLeg}' is not in the database.");
             }
 
             if (tradeDataObject.Extension is null)
             {
-                throw new EcvnException($"The trade with reference '{context.TradeReference}' and Leg '{context.TradeLeg}' does not have any ECVN details and cannot be nominated via Enegen.");
+                throw new EcvnException($"The Trade with reference '{context.TradeReference}' and leg '{context.TradeLeg}' does not have any ECVN details and cannot be nominated via Enegen.");
             }
 
             if (string.IsNullOrWhiteSpace(tradeDataObject.InternalParty.Extension.BscParty?.BscPartyId))
             {
-                throw new EcvnException("Cannot determine the internal party's BSC Party ID. This trade cannot be nominated via the Enegen interface.");
+                throw new EcvnException("Cannot determine the Internal Party's BSC Party ID. This Trade cannot be nominated via the Enegen interface.");
             }
         
             if (string.IsNullOrWhiteSpace(tradeDataObject.Counterparty.Extension.BscParty?.BscPartyId))
             {
-                throw new EcvnException("Cannot determine the counterparty's BSC Party ID. This trade cannot be nominated via the Enegen interface.");
+                throw new EcvnException("Cannot determine the Counterparty's BSC Party ID. This Trade cannot be nominated via the Enegen interface.");
             }
 
             var traderProdConFlag = TraderProdConFlag(tradeDataObject);
             if (string.IsNullOrWhiteSpace(traderProdConFlag))
             {
-                throw new EcvnException("Cannot determine the internal party's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.");
+                throw new EcvnException("Cannot determine the Internal Party's Production / Consumption Flag. This Trade cannot be nominated via the Enegen interface.");
             }
         
             var party2ProdConFlag = Party2ProdConFlag(tradeDataObject);
             if (string.IsNullOrWhiteSpace(party2ProdConFlag))
             {
-                throw new EcvnException("Cannot determine the counterparty's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.");
+                throw new EcvnException("Cannot determine the Counterparty's Production / Consumption Flag. This Trade cannot be nominated via the Enegen interface.");
             }
 
             var tradeDetailResponse = (await tradeDetailService.GetTradeDetailAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.SingleOrDefault();
@@ -173,7 +173,7 @@ public class EcvnManager : IEcvnManager
             "Production" => "P",
             "Consumption" => "C",
             "Use Default" => tradeDataObject.InternalParty?.Extension?.DefaultEnergyAccount[0].ToString(),
-            _ => throw new EcvnException("Cannot determine the internal party's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.")
+            _ => throw new EcvnException("Cannot determine the Internal Party's Production / Consumption Flag. This Trade cannot be nominated via the Enegen interface.")
         };
     
     private static string Party2ProdConFlag(TradeDataObject tradeDataObject) =>
@@ -182,7 +182,7 @@ public class EcvnManager : IEcvnManager
             "Production" => "P",
             "Consumption" => "C",
             "Use Default" => tradeDataObject.Counterparty?.Extension?.DefaultEnergyAccount[0].ToString(),
-            _ => throw new EcvnException("Cannot determine the counterparty's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.")
+            _ => throw new EcvnException("Cannot determine the Counterparty's Production / Consumption Flag. This Trade cannot be nominated via the Enegen interface.")
         };
 
     private static IEnumerable<SettlementPeriodVolume> Merge(IEnumerable<TimeNodeProfileValueBase> profile, IEnumerable<ElexonSettlementPeriodResponseItem> elexonSettlementPeriodResponseItems)
