@@ -2,8 +2,8 @@
 {
     public class ApiResponseWrapper<T> : ApiResponse
     {
-        public int? RecordCount { get; set; }
-        public T Data { get; set; }
+        public int? RecordCount { get; init; }
+        public T Data { get; init; }
 
         public ApiResponseWrapper()
         {

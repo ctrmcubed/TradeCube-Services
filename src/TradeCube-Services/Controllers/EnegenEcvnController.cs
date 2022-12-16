@@ -28,7 +28,7 @@ namespace TradeCube_Services.Controllers
         {
             try
             {
-                var response = await ecvnManager.NotifyAsync(ecvnRequest, apiJwtToken);
+                var response = await ecvnManager.CreateEcvn(ecvnRequest, apiJwtToken);
 
                 return response.Status == ApiConstants.SuccessResult
                     ? Ok(response)

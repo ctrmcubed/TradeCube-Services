@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Shared.Configuration;
@@ -16,8 +17,8 @@ public class ElexonSettlementPeriodService : TradeCubeApiService, IElexonSettlem
         this.httpClientFactory = httpClientFactory;
     }
     
-    public async Task<ElexonSettlementPeriodResponse> ElexonSettlementPeriodsAsync(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest, string apiJwtToken)
+    public async Task<ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>> ElexonSettlementPeriodsAsync(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest, string apiJwtToken)
     {
-        return await PostAsJsonAsync<ElexonSettlementPeriodRequest, ElexonSettlementPeriodResponse>(httpClientFactory.CreateClient(), apiJwtToken, elexonSettlementPeriodRequest);
+        return await PostAsJsonAsync<ElexonSettlementPeriodRequest, ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>>(httpClientFactory.CreateClient(), apiJwtToken, elexonSettlementPeriodRequest);
     }
 }

@@ -1,9 +1,12 @@
 ﻿using Enegen.Exceptions;
 using Enegen.Messages;
 using Enegen.Services;
+using Enegen.Types;
+using Microsoft.Extensions.Logging;
 using Shared.Constants;
 using Shared.DataObjects;
 using Shared.Extensions;
+using Shared.Helpers;
 using Shared.Messages;
 using Shared.Services;
 
@@ -16,72 +19,122 @@ public class EcvnManager : IEcvnManager
     private readonly ITradeService tradeService;
     private readonly ITradeDetailService tradeDetailService;
     private readonly IElexonSettlementPeriodService elexonSettlementPeriodService;
+    private readonly ILogger logger;
 
     public EcvnManager(IModuleService moduleService, ISettingService settingService, ITradeService tradeService,
-        ITradeDetailService tradeDetailService, IElexonSettlementPeriodService elexonSettlementPeriodService)
+        ITradeDetailService tradeDetailService, IElexonSettlementPeriodService elexonSettlementPeriodService,
+        ILogger<EcvnManager> logger)
     {
         this.moduleService = moduleService;
         this.settingService = settingService;
         this.tradeService = tradeService;
         this.tradeDetailService = tradeDetailService;
         this.elexonSettlementPeriodService = elexonSettlementPeriodService;
+        this.logger = logger;
     }
 
-    public async Task<EnegenGenstarEcvnResponse> NotifyAsync(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken)
+    public async Task<EnegenGenstarEcvnResponse> CreateEcvn(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken)
     {
-        var context = CreateContext(await ValidateRequest(ecvnRequest, apiJwtToken), apiJwtToken);
-
-        var tradeDataObject = (await tradeService.GetTradeAsync(context.ApiJwtToken, context.TradeReference, context.TradeLeg))?.Data?.SingleOrDefault();
-        if (tradeDataObject is null)
+        string TruncateDateTime(string dt) =>
+            string.IsNullOrWhiteSpace(dt)
+                ? null
+                : dt.Split("T")[0];
+        try
         {
-            throw new EcvnException($"The trade with reference '{context.TradeReference}' and Leg '{context.TradeLeg}' is not in the database.");
-        }
+            var context = CreateContext(await ValidateRequest(ecvnRequest, apiJwtToken), apiJwtToken);
 
-        if (tradeDataObject.Extension is null)
-        {
-            throw new EcvnException($"The trade with reference '{context.TradeReference}' and Leg '{context.TradeLeg}' does not have any ECVN details and cannot be nominated via Enegen.");
-        }
+            var tradeDataObject = (await tradeService.GetTradeAsync(context.ApiJwtToken, context.TradeReference, context.TradeLeg))?.Data?.SingleOrDefault();
+            if (tradeDataObject is null)
+            {
+                throw new EcvnException($"The trade with reference '{context.TradeReference}' and Leg '{context.TradeLeg}' is not in the database.");
+            }
 
-        if (string.IsNullOrWhiteSpace(tradeDataObject.InternalParty.Extension.BscParty?.BscPartyId))
-        {
-            throw new EcvnException("Cannot determine the internal party's BSC Party ID. This trade cannot be nominated via the Enegen interface.");
-        }
+            if (tradeDataObject.Extension is null)
+            {
+                throw new EcvnException($"The trade with reference '{context.TradeReference}' and Leg '{context.TradeLeg}' does not have any ECVN details and cannot be nominated via Enegen.");
+            }
+
+            if (string.IsNullOrWhiteSpace(tradeDataObject.InternalParty.Extension.BscParty?.BscPartyId))
+            {
+                throw new EcvnException("Cannot determine the internal party's BSC Party ID. This trade cannot be nominated via the Enegen interface.");
+            }
         
-        if (string.IsNullOrWhiteSpace(tradeDataObject.Counterparty.Extension.BscParty?.BscPartyId))
-        {
-            throw new EcvnException("Cannot determine the counterparty's BSC Party ID. This trade cannot be nominated via the Enegen interface.");
-        }
+            if (string.IsNullOrWhiteSpace(tradeDataObject.Counterparty.Extension.BscParty?.BscPartyId))
+            {
+                throw new EcvnException("Cannot determine the counterparty's BSC Party ID. This trade cannot be nominated via the Enegen interface.");
+            }
 
-        var traderProdConFlag = TraderProdConFlag(tradeDataObject);
-        if (string.IsNullOrWhiteSpace(traderProdConFlag))
-        {
-            throw new EcvnException("Cannot determine the internal party's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.");
-        }
+            var traderProdConFlag = TraderProdConFlag(tradeDataObject);
+            if (string.IsNullOrWhiteSpace(traderProdConFlag))
+            {
+                throw new EcvnException("Cannot determine the internal party's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.");
+            }
         
-        var party2ProdConFlag = Party2ProdConFlag(tradeDataObject);
-        if (string.IsNullOrWhiteSpace(party2ProdConFlag))
-        {
-            throw new EcvnException("Cannot determine the counterparty's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.");
-        }
+            var party2ProdConFlag = Party2ProdConFlag(tradeDataObject);
+            if (string.IsNullOrWhiteSpace(party2ProdConFlag))
+            {
+                throw new EcvnException("Cannot determine the counterparty's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.");
+            }
 
-        var tradeSummaryResponses = (await tradeDetailService.GetTradeDetailAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.SingleOrDefault();
-        if (tradeSummaryResponses is null)
-        {
-            throw new EcvnException("No Trade Details returned.");            
-        }
+            var tradeDetailResponse = (await tradeDetailService.GetTradeDetailAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, apiJwtToken))?.Data?.SingleOrDefault();
+            if (tradeDetailResponse is null)
+            {
+                throw new EcvnException("No Trade Details returned.");            
+            }
         
-        var min = tradeSummaryResponses.Profile.Min(p => p.UtcStartDateTime);
-        var max = tradeSummaryResponses.Profile.Max(p => p.UtcStartDateTime);
+            var minProfileUtcStartDateTime = tradeDetailResponse.Profile.Min(p => p.UtcStartDateTime);
+            var maxUtcStartDateTime = tradeDetailResponse.Profile.Max(p => p.UtcStartDateTime);
 
-        var settlementPeriodServiceResponses = (await elexonSettlementPeriodService.ElexonSettlementPeriodsAsync(new ElexonSettlementPeriodRequest
-        {
-            UtcStartDateTime = min.ToIso8601DateTime(),
-            UtcEndDateTime = max.ToIso8601DateTime()
-        }, apiJwtToken))?.Data;
+            var settlementPeriodServiceResponses = await elexonSettlementPeriodService.ElexonSettlementPeriodsAsync(new ElexonSettlementPeriodRequest
+            {
+                UtcStartDateTime = minProfileUtcStartDateTime.ToIso8601DateTime(),
+                UtcEndDateTime = maxUtcStartDateTime.ToIso8601DateTime()
+            }, apiJwtToken);
+
+            var elexonSettlementPeriodResponseItems = settlementPeriodServiceResponses?.Data
+                .ToList() ?? new List<ElexonSettlementPeriodResponseItem>();
+
+            var minSettlementPeriod = elexonSettlementPeriodResponseItems.Min(r => r.UtcStartDateTime);
+            var maxSettlementPeriod = elexonSettlementPeriodResponseItems.Max(r => r.UtcStartDateTime);
+
+            var settlementPeriodVolumes = Merge(tradeDetailResponse.Profile, elexonSettlementPeriodResponseItems);
+            var isTradeVoided = tradeDataObject.IsVoid();
         
-        throw new NotImplementedException();
+            var ecvn = new EnegenGenstarEcvnResponse
+            {
+                ContractName = $"{tradeDataObject.TradeReference}{tradeDataObject.TradeLeg:D3}",
+                ContractDescription = tradeDataObject.Contract?.ContractLongName ?? string.Empty,
+                Trader = tradeDataObject.InternalParty.Extension?.BscParty?.BscPartyId,
+                TraderProdConFlag = traderProdConFlag,
+                Party2 = tradeDataObject.Counterparty?.Extension?.BscParty?.BscPartyId,
+                Party2ProdConFlag = party2ProdConFlag,
+                ContractStartDate = TruncateDateTime(minSettlementPeriod),
+                ContractEndDate = TruncateDateTime(maxSettlementPeriod),
+                ContractGroupId = tradeDataObject.Counterparty?.Extension?.BscParty?.BscPartyId,
+                ContractProfile = "C",
+                Evergreen = "F",
+                EnergyVolumeItems = settlementPeriodVolumes.Select(v=> new EnergyVolumeItem
+                {
+                    EcvDate = v.ElexonSettlementDate,
+                    EcvPeriod = v.ElexonSettlementPeriod,
+                    EcvVolume = isTradeVoided 
+                        ? 0  
+                        : MathsHelper.Round(v.Volume, 3)
+                })
+            };
+
+            return ecvn;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "{Message}", ex.Message);
+            return new EnegenGenstarEcvnResponse
+            {
+                Message = ex.Message
+            };
+        }
     }
-    
+
     private async Task<EnegenGenstarEcvnRequest> ValidateRequest(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken)
     {
         ArgumentNullException.ThrowIfNull(ecvnRequest);
@@ -92,7 +145,7 @@ public class EcvnManager : IEcvnManager
         }
 
         var moduleResponse = await moduleService.ModulesAsync(apiJwtToken);
-        var isUkPowerEnabled = moduleService.IsEnabled(ModuleConstants.UkPowerModule, moduleResponse?.Data);
+        var isUkPowerEnabled = moduleService.IsEnabled(ModuleConstants.UkPowerModule, moduleResponse?.Data.ToList());
 
         if (!isUkPowerEnabled)
         {
@@ -101,23 +154,18 @@ public class EcvnManager : IEcvnManager
 
         var enegenEcvnUrlSetting = (await settingService.GetSettingAsync(SettingConstants.EnegenEcvnUrlSetting, apiJwtToken))?.Data?.SingleOrDefault()?.SettingValue;
 
-        if (string.IsNullOrWhiteSpace(enegenEcvnUrlSetting))
-        {
-            throw new EcvnException("The 'ENEGEN_ECVN_URL' System setting is not set.");
-        }
-        
-        return ecvnRequest;
+        return string.IsNullOrWhiteSpace(enegenEcvnUrlSetting)
+            ? throw new EcvnException("The 'ENEGEN_ECVN_URL' System setting is not set.")
+            : ecvnRequest;
     }
 
-    private static EcvnContext CreateContext(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken)
-    {
-        return new EcvnContext
+    private static EcvnContext CreateContext(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken) =>
+        new()
         {
             TradeReference = ecvnRequest.TradeReference,
             TradeLeg = ecvnRequest.TradeLeg,
             ApiJwtToken = apiJwtToken
         };
-    }
 
     private static string TraderProdConFlag(TradeDataObject tradeDataObject) =>
         tradeDataObject.Extension.InternalPartyEnergyAccountType switch
@@ -125,7 +173,7 @@ public class EcvnManager : IEcvnManager
             "Production" => "P",
             "Consumption" => "C",
             "Use Default" => tradeDataObject.InternalParty?.Extension?.DefaultEnergyAccount[0].ToString(),
-            _ => throw new ArgumentOutOfRangeException(tradeDataObject.Extension.InternalPartyEnergyAccountType)
+            _ => throw new EcvnException("Cannot determine the internal party's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.")
         };
     
     private static string Party2ProdConFlag(TradeDataObject tradeDataObject) =>
@@ -133,7 +181,27 @@ public class EcvnManager : IEcvnManager
         {
             "Production" => "P",
             "Consumption" => "C",
-            "Use Default" => tradeDataObject.InternalParty?.Extension?.DefaultEnergyAccount[0].ToString(),
-            _ => throw new ArgumentOutOfRangeException(tradeDataObject.Extension.InternalPartyEnergyAccountType)
+            "Use Default" => tradeDataObject.Counterparty?.Extension?.DefaultEnergyAccount[0].ToString(),
+            _ => throw new EcvnException("Cannot determine the counterparty's Production / Consumption Flag. This trade cannot be nominated via the Enegen interface.")
         };
+
+    private static IEnumerable<SettlementPeriodVolume> Merge(IEnumerable<TimeNodeProfileValueBase> profile, IEnumerable<ElexonSettlementPeriodResponseItem> elexonSettlementPeriodResponseItems)
+    {
+        var settlementPeriodDict = elexonSettlementPeriodResponseItems.ToLookup(e => e.UtcStartDateTime, v => v);
+
+        foreach (var profileValue in profile)
+        {
+            var utcStartDateTime = profileValue.UtcStartDateTime.ToIso8601DateTime();
+            var value = settlementPeriodDict[utcStartDateTime].FirstOrDefault();
+
+            yield return value is null
+                ? throw new EcvnException($"TradeDetailProfile UtcStartDateTime '{utcStartDateTime}' not found")
+                : new SettlementPeriodVolume
+                {
+                    ElexonSettlementPeriod = value.SettlementPeriod,
+                    ElexonSettlementDate = value.SettlementDate,
+                    Volume = profileValue.Value
+                };
+        }
+    }
 }

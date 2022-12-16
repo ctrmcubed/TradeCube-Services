@@ -69,6 +69,7 @@ namespace Shared.Services
         
         protected async Task<TV> TradeCubePostViaJwtAsync<T, TV>(string apiJwtToken, string action, T request) where TV : ApiResponse, new() =>
             await PostAsJsonAsync<T, TV>(CreateClientViaJwt(apiJwtToken), action, request);
+        
         protected async Task<TV> TradeCubePostViaApiKeyAsync<T, TV>(string apiKey, string action, T request) where TV : ApiResponse, new() =>
             await PostAsJsonAsync<T, TV>(CreateClientViaApiKey(apiKey), action, request);
 

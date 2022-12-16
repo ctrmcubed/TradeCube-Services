@@ -66,6 +66,10 @@ public static class MockService
             .Setup(c => c.ModulesAsync(It.IsAny<string>()))
             .ReturnsAsync((string _) => new ApiResponseWrapper<IEnumerable<ModuleDataObject>> { Data = moduleDataObjects });
 
+        service
+            .Setup(c => c.IsEnabled(It.IsAny<string>(), It.IsAny<IEnumerable<ModuleDataObject>>()))
+            .Returns((string module, IEnumerable<ModuleDataObject> modules) => modules.Any(m => m.Module == module && m.Enabled == true));
+        
         return service.Object;
     }
 
@@ -127,32 +131,38 @@ public static class MockService
     public static ITradeDetailService CreateTradeDetailService(IEnumerable<TradeDetailTestType> tradeDetailTestTypes)
     {
         var service = new Mock<ITradeDetailService>();
-
+    
         service
             .Setup(c => c.GetTradeDetailAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
             .ReturnsAsync((string tradeReference, int tradeLeg, string _) => new ApiResponseWrapper<IEnumerable<TradeDetailResponse>>
                 {
                     Data = tradeDetailTestTypes
                         .Where(t => t.Inputs.TradeReference == tradeReference && t.Inputs.TradeLeg == tradeLeg)
-                        .Select(t => t.Response)
+                        .SelectMany(t => t.Response.Data)
                 });
-
+    
         return service.Object;
     }
     
     public static IElexonSettlementPeriodService CreateElexonSettlementPeriodService(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes)
     {
         var service = new Mock<IElexonSettlementPeriodService>();
-
+    
         service
             .Setup(c => c.ElexonSettlementPeriodsAsync(It.IsAny<ElexonSettlementPeriodRequest>(), It.IsAny<string>()))
-            .ReturnsAsync((ElexonSettlementPeriodRequest request, string _) => new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponse>>
+            .ReturnsAsync((ElexonSettlementPeriodRequest request, string _) => new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>
                 {
-                    Data = elexonSettlementPeriodTestTypes
-                        .Where(e => e.Inputs.UtcStartDateTime == request.UtcStartDateTime && e.Inputs.UtcEndDateTime == request.UtcEndDateTime)
-                        .Select(t => t.Response)
+                    Data = ElexonSettlementPeriodsAsync(elexonSettlementPeriodTestTypes, request)
                 });
-
+    
         return service.Object;
+    }
+
+    private static List<ElexonSettlementPeriodResponseItem> ElexonSettlementPeriodsAsync(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes, ElexonSettlementPeriodRequest request)
+    {
+        return elexonSettlementPeriodTestTypes
+            .Where(e => e.Inputs.UtcStartDateTime == request.UtcStartDateTime && e.Inputs.UtcEndDateTime == request.UtcEndDateTime)
+            .SelectMany(t => t.Response.Data)
+            .ToList();
     }
 }
