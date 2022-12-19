@@ -30,8 +30,13 @@ namespace TradeCube_Services.Controllers
             {
                 var ecvnContext = await ecvnManager.CreateEcvnContext(ecvnRequest, apiJwtToken);
                 var ecvn = await ecvnManager.CreateEcvn(ecvnContext, apiJwtToken);
+                
+                logger.LogInformation("ECVN is {@Ecvn}", ecvn);
+                
                 var notifyEcvn = await ecvnManager.NotifyEcvn(ecvn, ecvnContext);
                     
+                logger.LogInformation("ECVN response {@Response}", notifyEcvn);
+
                 return notifyEcvn.Status == ApiConstants.SuccessResult
                     ? Ok(ecvn)
                     : BadRequest(new ApiResponseWrapper<EnegenGenstarEcvnResponse>

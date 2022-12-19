@@ -179,7 +179,7 @@ public class EcvnManager : IEcvnManager
         }
     }
     
-    public async Task<EnegenGenstarEcvnResponse> NotifyEcvn(EnegenGenstarEcvnResponse enegenGenstarEcvnResponse, EcvnContext ecvnContext)
+    public async Task<ApiResponseWrapper<string>> NotifyEcvn(EnegenGenstarEcvnResponse enegenGenstarEcvnResponse, EcvnContext ecvnContext)
     {
         string Uuid() =>
             Guid
@@ -194,11 +194,10 @@ public class EcvnManager : IEcvnManager
         var nonce = Uuid();
         var signature = hmacService.CreateSignature(uri, bodyBase64, appId, unixTimeSeconds, nonce);
         var hashedPayload = hmacService.GenerateHash(signature, ecvnContext.EnegenPskVaultValue);
-        var apiResponseWrapper = await ecvnService.NotifyAsync(uri, appId, hashedPayload, nonce, unixTimeSeconds, body);
-        
-        logger.LogInformation("Response from {Uri}: Data={Data}, StatusCode={StatusCode}", uri, apiResponseWrapper.Data, apiResponseWrapper.StatusCode);
 
-        return enegenGenstarEcvnResponse;
+        logger.LogInformation("Context: {@Context}", ecvnContext);
+        
+        return await ecvnService.NotifyAsync(uri, appId, hashedPayload, nonce, unixTimeSeconds, body);
     }
 
     private static string TraderProdConFlag(TradeDataObject tradeDataObject) =>
