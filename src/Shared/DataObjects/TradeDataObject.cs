@@ -38,7 +38,6 @@ namespace Shared.DataObjects
         public VenueDataObject Venue { get; set; }
         public QuantityDataObject Quantity { get; set; }
         public PriceDataObject Price { get; set; }
-        public IEnumerable<CashflowType> Cashflow { get; set; }
         public OrderDataObject Order { get; set; }
 
         [JsonPropertyName("UTI")]
