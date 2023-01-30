@@ -11,7 +11,7 @@ namespace Shared.Services;
 
 public class ModuleService : TradeCubeApiService, IModuleService
 {
-    protected ModuleService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
+    public ModuleService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
         ILogger<ModuleService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
     {
     }

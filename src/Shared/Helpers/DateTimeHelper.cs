@@ -1,12 +1,12 @@
-﻿using NLog;
-using NodaTime;
+﻿using NodaTime;
 using System;
+using Serilog;
 
 namespace Shared.Helpers
 {
     public static class DateTimeHelper
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = Log.ForContext(typeof(DateTimeHelper));
 
         public static DateTimeZone GetTimeZone(string timezone)
         {
@@ -16,7 +16,7 @@ namespace Shared.Helpers
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, $"Timezone {timezone} not found in Tzdb database");
+                Logger.Error(ex, "Timezone {Timezone} not found in Tzdb database", timezone);
                 throw;
             }
         }

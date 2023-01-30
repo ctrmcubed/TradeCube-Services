@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NLog;
+using Serilog;
 using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core.Abstractions;
 using StackExchange.Redis.Extensions.Core.Configuration;
@@ -13,11 +13,11 @@ namespace Shared.Services.Redis
 {
     public class RedisService : IRedisService
     {
-        private readonly Logger logger = LogManager.GetCurrentClassLogger();
-
         private readonly RedisConfiguration redisConfiguration;
         private readonly RedisCacheClient redisCacheClient;
-
+        
+        private static readonly ILogger Logger = Log.ForContext(typeof(RedisService));
+        
         public RedisService(RedisConfiguration redisConfiguration)
         {
             this.redisConfiguration = redisConfiguration;
@@ -33,7 +33,7 @@ namespace Shared.Services.Redis
             var merged = MergeConfiguration(redisConfiguration, environmentVariableHosts, RedisPassword());
             var redis = StackExchange.Redis.ConnectionMultiplexer.Connect(merged.ConfigurationOptions.ToString());
 
-            logger.Info($"Redis config: {redis.Configuration}");
+            Logger.Information("Redis config: {RedisConfiguration}", redis.Configuration);
 
             return redis;
         }

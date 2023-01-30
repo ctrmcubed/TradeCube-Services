@@ -4,6 +4,7 @@ using Enegen.Messages;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Constants;
 using Shared.Messages;
+using Shared.Serialization;
 
 namespace TradeCube_Services.Controllers
 {
@@ -12,22 +13,24 @@ namespace TradeCube_Services.Controllers
     [ApiController]
     [Route("[controller]")]
     [Route("v{version:apiVersion}/[controller]")]
-    public class EnegenEcvnController : Controller
+    public class NotificationController : Controller
     {
         private readonly IEcvnManager ecvnManager;
-        private readonly ILogger<EnegenEcvnController> logger;
+        private readonly ILogger<NotificationController> logger;
 
-        public EnegenEcvnController(IEcvnManager ecvnManager, ILogger<EnegenEcvnController> logger)
+        public NotificationController(IEcvnManager ecvnManager, ILogger<NotificationController> logger)
         {
             this.ecvnManager = ecvnManager;
             this.logger = logger;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Notification([FromHeader] string apiJwtToken, [FromBody] EnegenGenstarEcvnRequest ecvnRequest)
+        public async Task<IActionResult> Notification([FromHeader] string apiJwtToken, [FromBody] WebhookRequest webhookRequest)
         {
             try
             {
+                var tradeKey = TradeCubeJsonSerializer.Deserialize<TradeKey>(webhookRequest.Entity);
+                var ecvnRequest = new EnegenGenstarEcvnRequest { TradeReference = tradeKey.TradeReference, TradeLeg = tradeKey.TradeLeg };
                 var ecvnContext = await ecvnManager.CreateEcvnContext(ecvnRequest, apiJwtToken);
                 var ecvn = await ecvnManager.CreateEcvn(ecvnContext, apiJwtToken);
                 

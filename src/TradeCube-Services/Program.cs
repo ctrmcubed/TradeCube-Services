@@ -1,3 +1,4 @@
+using Enegen.Managers;
 using Enegen.Services;
 using Equias.Managers;
 using Equias.Services;
@@ -55,6 +56,7 @@ try
 
     // Managers
     builder.Services
+        .AddScoped<IEcvnManager, EcvnManager>()
         .AddScoped<IEquiasManager, EquiasManager>()
         .AddScoped<IFidectusManager, FidectusManager>();
 
@@ -66,6 +68,7 @@ try
         .AddScoped<IContactService, ContactService>()
         .AddScoped<ICountryLookupService, CountryLookupService>()
         .AddScoped<ICountryService, CountryService>()
+        .AddScoped<IElexonSettlementPeriodService, ElexonSettlementPeriodService>()
         .AddScoped<IEquiasAuthenticationService, EquiasAuthenticationService>()
         .AddScoped<IEquiasMappingService, EquiasMappingService>()
         .AddScoped<IEquiasService, EquiasService>()
@@ -73,7 +76,9 @@ try
         .AddScoped<IFidectusService, FidectusService>()
         .AddScoped<IFidectusMappingService, FidectusMappingService>()
         .AddScoped<IFingerprintService, FingerprintService>()
+        .AddScoped<IHmacService, HmacService>()
         .AddScoped<IMappingService, MappingService>()
+        .AddScoped<IModuleService, ModuleService>()
         .AddScoped<IM7TradeService, M7TradeService>()
         .AddScoped<IEcvnService, EcvnService>()
         .AddScoped<IM7PartyService, M7Im7PartyService>()
@@ -84,6 +89,7 @@ try
         .AddScoped<IReportRenderService, ReportRenderService>()
         .AddScoped<ISettingService, SettingService>()
         .AddScoped<ITradeService, TradeService>()
+        .AddScoped<ITradeDetailService, TradeDetailService>()
         .AddScoped<ITradeSummaryService, TradeSummaryService>()
         .AddScoped<ITradingBookService, TradingBookService>()
         .AddScoped<IVaultService, VaultService>()
@@ -99,7 +105,11 @@ try
         .AddXmlSerializerFormatters();
     
     // Add services to the container.
-    builder.Services.AddControllersWithViews();
+    builder.Services.AddControllersWithViews()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        });
     
     builder.Services.AddApiVersioning(v =>
     {
