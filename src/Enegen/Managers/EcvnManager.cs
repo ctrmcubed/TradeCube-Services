@@ -214,15 +214,23 @@ public class EcvnManager : IEcvnManager
         }
     }
 
-    private static string TraderProdConFlag(TradeDataObject tradeDataObject) =>
-        tradeDataObject.Extension.InternalPartyEnergyAccountType switch
+    private static string TraderProdConFlag(TradeDataObject tradeDataObject)
+    {
+        string Default(string defaultEnergyAccount) =>
+            string.IsNullOrWhiteSpace(defaultEnergyAccount)
+                ? throw new EcvnException("The InternalPartyEnergyAccountType is set to 'Use Default' but the Internal Party's DefaultEnergyAccount is not set")
+                : defaultEnergyAccount[0].ToString();
+        
+        return tradeDataObject.Extension.InternalPartyEnergyAccountType switch
         {
             "Production" => "P",
             "Consumption" => "C",
-            "Use Default" => tradeDataObject.InternalParty?.Extension?.DefaultEnergyAccount[0].ToString(),
-            _ => throw new EcvnException("Cannot determine the Internal Party's Production / Consumption Flag. This Trade cannot be nominated via the Enegen interface.")
+            "Use Default" => Default(tradeDataObject.InternalParty?.Extension?.DefaultEnergyAccount),
+            _ => throw new EcvnException(
+                "Cannot determine the Internal Party's Production / Consumption Flag. This Trade cannot be nominated via the Enegen interface.")
         };
-    
+    }
+
     private static string Party2ProdConFlag(TradeDataObject tradeDataObject)
     {
         string Default(string defaultEnergyAccount) =>
