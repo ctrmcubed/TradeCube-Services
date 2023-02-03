@@ -9,16 +9,13 @@ namespace Shared.Services;
 
 public class ElexonSettlementPeriodService : TradeCubeApiService, IElexonSettlementPeriodService
 {
-    private readonly IHttpClientFactory httpClientFactory;
-
     public ElexonSettlementPeriodService(IHttpClientFactory httpClientFactory, ITradeCubeConfiguration tradeCubeConfiguration,
         ILogger<ElexonSettlementPeriodService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
     {
-        this.httpClientFactory = httpClientFactory;
     }
     
     public async Task<ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>> ElexonSettlementPeriodsAsync(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest, string apiJwtToken)
     {
-        return await PostAsJsonAsync<ElexonSettlementPeriodRequest, ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>>(httpClientFactory.CreateClient(), apiJwtToken, elexonSettlementPeriodRequest);
+        return await TradeCubePostViaJwtAsync<ElexonSettlementPeriodRequest, ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>>(apiJwtToken, "ElexonSettlementPeriod", elexonSettlementPeriodRequest);
     }
 }
