@@ -143,11 +143,12 @@ public class EcvnManager : IEcvnManager
 
             var settlementPeriodVolumes = Merge(tradeDetailResponse.Profile, elexonSettlementPeriodResponseItems);
             var isTradeVoided = tradeDataObject.IsVoid();
-        
+            var contractName = $"{tradeDataObject.TradeReference}{tradeDataObject.TradeLeg:D3}";
+            
             var ecvn = new EnegenGenstarEcvnResponse
             {
-                ContractName = $"{tradeDataObject.TradeReference}{tradeDataObject.TradeLeg:D3}",
-                ContractDescription = tradeDataObject.Contract?.ContractLongName ?? string.Empty,
+                ContractName = contractName,
+                ContractDescription = tradeDataObject.Contract?.ContractLongName ??  contractName,
                 Trader = tradeDataObject.InternalParty.Extension?.BscParty?.BscPartyId,
                 TraderProdConFlag = traderProdConFlag,
                 Party2 = tradeDataObject.Counterparty?.Extension?.BscParty?.BscPartyId,
@@ -156,7 +157,7 @@ public class EcvnManager : IEcvnManager
                 ContractEndDate = TruncateDateTime(maxSettlementPeriod),
                 ContractGroupId = tradeDataObject.Counterparty?.Extension?.BscParty?.BscPartyId,
                 ContractProfile = "C",
-                Evergreen = "F",
+                Evergreen = false,
                 EnergyVolumeItems = settlementPeriodVolumes.Select(v=> new EnergyVolumeItem
                 {
                     EcvDate = v.ElexonSettlementDate,
@@ -182,23 +183,35 @@ public class EcvnManager : IEcvnManager
     
     public async Task<ApiResponseWrapper<string>> NotifyEcvn(EnegenGenstarEcvnResponse enegenGenstarEcvnResponse, EcvnContext ecvnContext)
     {
-        string Uuid() =>
-            Guid
-                .NewGuid()
-                .ToString("N");
+        try
+        {
+            string Uuid() =>
+                Guid
+                    .NewGuid()
+                    .ToString("N");
 
-        var uri = ecvnContext.EnegenEcvnUrlSetting;
-        var body = TradeCubeJsonSerializer.Serialize(enegenGenstarEcvnResponse);
-        var bodyBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(body));
-        var appId = ecvnContext.EnegenEcvnAppIdSetting;
-        var unixTimeSeconds = DateTimeOffset.Now.ToUnixTimeSeconds();
-        var nonce = Uuid();
-        var signature = hmacService.CreateSignature(uri, bodyBase64, appId, unixTimeSeconds, nonce);
-        var hashedPayload = hmacService.GenerateHash(signature, ecvnContext.EnegenPskVaultValue);
+            var uri = ecvnContext.EnegenEcvnUrlSetting;
+            var body = TradeCubeJsonSerializer.Serialize(enegenGenstarEcvnResponse);
+            var bodyBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(body));
+            var appId = ecvnContext.EnegenEcvnAppIdSetting;
+            var unixTimeSeconds = DateTimeOffset.Now.ToUnixTimeSeconds();
+            var nonce = Uuid();
+            var signature = hmacService.CreateSignature(uri, bodyBase64, appId, unixTimeSeconds, nonce);
+            var hashedPayload = hmacService.GenerateHash(signature, ecvnContext.EnegenPskVaultValue);
 
-        logger.LogInformation("Context: {@Context}", ecvnContext);
+            logger.LogInformation("Context: {@Context}", ecvnContext);
         
-        return await ecvnService.NotifyAsync(uri, appId, hashedPayload, nonce, unixTimeSeconds, body);
+            return await ecvnService.NotifyAsync(uri, appId, hashedPayload, nonce, unixTimeSeconds, body);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "{Message}", ex.Message);
+            return new ApiResponseWrapper<string>
+            {
+                Status = ApiConstants.FailedResult,
+                Message = ex.Message
+            };
+        }
     }
 
     private static string TraderProdConFlag(TradeDataObject tradeDataObject) =>

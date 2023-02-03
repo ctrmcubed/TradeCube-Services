@@ -8,6 +8,5 @@ public interface IEcvnManager
 {
     Task<EcvnContext> CreateEcvnContext(EnegenGenstarEcvnRequest ecvnRequest, string apiJwtToken);
     Task<EnegenGenstarEcvnResponse> CreateEcvn(EcvnContext context, string apiJwtToken);
-    Task<ApiResponseWrapper<string>> NotifyEcvn(EnegenGenstarEcvnResponse enegenGenstarEcvnResponse,
-        EcvnContext ecvnContext);
+    Task<ApiResponseWrapper<string>> NotifyEcvn(EnegenGenstarEcvnResponse enegenGenstarEcvnResponse, EcvnContext ecvnContext);
 }

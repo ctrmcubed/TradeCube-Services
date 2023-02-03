@@ -20,6 +20,6 @@ public class EnegenGenstarEcvnResponse : ApiResponse
     public string ContractGroupId { get; init; }
 
     public string ContractProfile { get; init; }
-    public string Evergreen { get; init; }
+    public bool Evergreen { get; init; }
     public IEnumerable<EnergyVolumeItem> EnergyVolumeItems { get; init; }
 }
