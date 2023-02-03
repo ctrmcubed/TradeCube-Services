@@ -122,11 +122,9 @@ try
 
     var app = builder.Build();
     
-    // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseDeveloperExceptionPage();
     }
     else
     {
@@ -135,6 +133,23 @@ try
         app.UseHsts();
     }
 
+    app.UseSwagger(c =>
+    {
+        c.PreSerializeFilters.Add((swagger, httpReq) =>
+        {
+            swagger.Servers = new List<OpenApiServer>
+            {
+                new() { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}" }
+            };
+        });
+    });
+        
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "TradeCube-Services API v1");
+        c.ConfigObject.DeepLinking = true;
+    });
+    
     app.UseHttpsRedirection();
     app.UseStaticFiles();
 
