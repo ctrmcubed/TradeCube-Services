@@ -174,6 +174,7 @@ public class EcvnManager : IEcvnManager
             logger.LogError(ex, "{Message}", ex.Message);
             return new EnegenGenstarEcvnResponse
             {
+                Status = ApiConstants.FailedResult,
                 Message = ex.Message
             };
         }
@@ -209,14 +210,21 @@ public class EcvnManager : IEcvnManager
             _ => throw new EcvnException("Cannot determine the Internal Party's Production / Consumption Flag. This Trade cannot be nominated via the Enegen interface.")
         };
     
-    private static string Party2ProdConFlag(TradeDataObject tradeDataObject) =>
-        tradeDataObject.Extension.CounterpartyEnergyAccountType switch
+    private static string Party2ProdConFlag(TradeDataObject tradeDataObject)
+    {
+        string Default(string defaultEnergyAccount) =>
+            string.IsNullOrWhiteSpace(defaultEnergyAccount)
+                ? throw new EcvnException("The CounterpartyEnergyAccountType is set to 'Use Default' but the Counterparty's DefaultEnergyAccount is not set")
+                : defaultEnergyAccount[0].ToString();
+        
+        return tradeDataObject.Extension.CounterpartyEnergyAccountType switch
         {
             "Production" => "P",
             "Consumption" => "C",
-            "Use Default" => tradeDataObject.Counterparty?.Extension?.DefaultEnergyAccount[0].ToString(),
+            "Use Default" => Default(tradeDataObject.Counterparty?.Extension?.DefaultEnergyAccount),
             _ => throw new EcvnException("Cannot determine the Counterparty's Production / Consumption Flag. This Trade cannot be nominated via the Enegen interface.")
         };
+    }
 
     private static IEnumerable<SettlementPeriodVolume> Merge(IEnumerable<TimeNodeProfileValueBase> profile, IEnumerable<ElexonSettlementPeriodResponseItem> elexonSettlementPeriodResponseItems)
     {
