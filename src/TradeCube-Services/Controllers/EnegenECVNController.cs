@@ -36,17 +36,6 @@ namespace TradeCube_Services.Controllers
                 
                 logger.LogInformation("ECVN is {@Ecvn}", ecvn);
 
-                if (ecvn.Status != ApiConstants.SuccessResult)
-                {
-                    return BadRequest(new ApiResponseWrapper<EnegenGenstarEcvnResponse>
-                    {
-                        Message = ecvn.Message,
-                        Status = ApiConstants.FailedResult,
-                        StatusCode = (int?)HttpStatusCode.BadRequest,
-                        Data = new EnegenGenstarEcvnResponse()
-                    });
-                }
-
                 var notifyEcvn = await ecvnManager.NotifyEcvn(ecvn, ecvnContext);
                     
                 logger.LogInformation("ECVN response {@Response}", notifyEcvn);
