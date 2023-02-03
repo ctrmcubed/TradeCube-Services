@@ -13,12 +13,12 @@ namespace TradeCube_Services.Controllers
     [ApiController]
     [Route("[controller]")]
     [Route("v{version:apiVersion}/[controller]")]
-    public class NotificationController : Controller
+    public class EnegenECVNController : Controller
     {
         private readonly IEcvnManager ecvnManager;
-        private readonly ILogger<NotificationController> logger;
+        private readonly ILogger<EnegenECVNController> logger;
 
-        public NotificationController(IEcvnManager ecvnManager, ILogger<NotificationController> logger)
+        public EnegenECVNController(IEcvnManager ecvnManager, ILogger<EnegenECVNController> logger)
         {
             this.ecvnManager = ecvnManager;
             this.logger = logger;
