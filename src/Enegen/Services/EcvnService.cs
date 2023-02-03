@@ -28,12 +28,14 @@ namespace Enegen.Services
                 var stringContent = new StringContent(body, Encoding.UTF8, "application/json"); 
                 var responseString = await client.PostAsync(uri, stringContent);
                 
-                var statusCode = responseString.StatusCode;
+                var statusCode = (int)responseString.StatusCode;
                 var resultBody = await responseString.Content.ReadAsStringAsync();
 
+                logger.LogInformation("Response from {Uri}: '{ResultBody}', Status Code: {StatusCode}", uri, resultBody, statusCode);
+                
                 return new ApiResponseWrapper<string>
                 {
-                    StatusCode = (int)statusCode,
+                    StatusCode = statusCode,
                     Data = resultBody
                 };
             }
