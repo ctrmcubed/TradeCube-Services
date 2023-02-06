@@ -32,16 +32,29 @@ namespace TradeCube_Services.Controllers
                 var tradeKey = TradeCubeJsonSerializer.Deserialize<TradeKey>(webhookRequest.Entity);
                 var ecvnRequest = new EnegenGenstarEcvnRequest { TradeReference = tradeKey.TradeReference, TradeLeg = tradeKey.TradeLeg };
                 var ecvnContext = await ecvnManager.CreateEcvnContext(ecvnRequest, apiJwtToken);
-                var ecvn = await ecvnManager.CreateEcvn(ecvnContext, apiJwtToken);
+                var enegenGenstarEcvnExternalRequest = await ecvnManager.CreateEcvnRequest(ecvnContext, apiJwtToken);
                 
-                logger.LogInformation("ECVN is {@Ecvn}", ecvn);
+                logger.LogInformation("ECVN request: {@Ecvn}", enegenGenstarEcvnExternalRequest);
 
-                var notifyEcvn = await ecvnManager.NotifyEcvn(ecvn, ecvnContext);
+                if (!enegenGenstarEcvnExternalRequest.IsValid())
+                {
+                    logger.LogInformation("ECVN request was not valid ({ValidationMessage})", enegenGenstarEcvnExternalRequest.ValidationMessage);
                     
-                logger.LogInformation("ECVN response {@Response}", notifyEcvn);
+                    return BadRequest(new ApiResponseWrapper<EnegenGenstarEcvnResponse>
+                    {
+                        Message = enegenGenstarEcvnExternalRequest.ValidationMessage,
+                        Status = ApiConstants.FailedResult,
+                        StatusCode = (int?)HttpStatusCode.BadRequest,
+                        Data = new EnegenGenstarEcvnResponse()
+                    });
+                }
+                
+                var notifyEcvn = await ecvnManager.NotifyEcvn(enegenGenstarEcvnExternalRequest, ecvnContext);
+                    
+                logger.LogInformation("ECVN response: {@Response}", notifyEcvn);
 
                 return notifyEcvn.Status == ApiConstants.SuccessResult
-                    ? Ok(ecvn)
+                    ? Ok(enegenGenstarEcvnExternalRequest)
                     : BadRequest(new ApiResponseWrapper<EnegenGenstarEcvnResponse>
                     {
                         Message = notifyEcvn.Message,

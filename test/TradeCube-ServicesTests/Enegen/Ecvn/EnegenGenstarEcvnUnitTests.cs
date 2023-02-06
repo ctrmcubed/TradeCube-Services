@@ -1175,11 +1175,11 @@ public class EnegenGenstarEcvnUnitTests : IClassFixture<EnegenGenstarEcvnFixture
         try
         {
             var ecvnContext = await enegenGenstarEcvnFixture.EcvnManager.CreateEcvnContext(test.Inputs, string.Empty);
-            var ecvn = await enegenGenstarEcvnFixture.EcvnManager.CreateEcvn(ecvnContext, string.Empty);
+            var ecvn = await enegenGenstarEcvnFixture.EcvnManager.CreateEcvnRequest(ecvnContext, string.Empty);
 
             if (!string.IsNullOrWhiteSpace(test.ExpectedError))
             {
-                Assert.Equal(test.ExpectedError, ecvn.Message);    
+                Assert.Equal(test.ExpectedError, ecvn.ValidationMessage);    
                 return;
             }
         

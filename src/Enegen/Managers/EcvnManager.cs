@@ -79,7 +79,7 @@ public class EcvnManager : IEcvnManager
         };
     }
 
-    public async Task<EnegenGenstarEcvnResponse> CreateEcvn(EcvnContext context, string apiJwtToken)
+    public async Task<EnegenGenstarEcvnExternalRequest> CreateEcvnRequest(EcvnContext context, string apiJwtToken)
     {
         string TruncateDateTime(string dt) =>
             string.IsNullOrWhiteSpace(dt)
@@ -145,7 +145,7 @@ public class EcvnManager : IEcvnManager
             var isTradeVoided = tradeDataObject.IsVoid();
             var contractName = $"{tradeDataObject.TradeReference}{tradeDataObject.TradeLeg:D3}";
             
-            var ecvn = new EnegenGenstarEcvnResponse
+            var ecvn = new EnegenGenstarEcvnExternalRequest
             {
                 ContractName = contractName,
                 ContractDescription = tradeDataObject.Contract?.ContractLongName ??  contractName,
@@ -173,15 +173,15 @@ public class EcvnManager : IEcvnManager
         catch (Exception ex)
         {
             logger.LogError(ex, "{Message}", ex.Message);
-            return new EnegenGenstarEcvnResponse
+            return new EnegenGenstarEcvnExternalRequest
             {
-                Status = ApiConstants.FailedResult,
-                Message = ex.Message
+                ValidationStatus = ApiConstants.FailedResult,
+                ValidationMessage = ex.Message
             };
         }
     }
     
-    public async Task<ApiResponseWrapper<string>> NotifyEcvn(EnegenGenstarEcvnResponse enegenGenstarEcvnResponse, EcvnContext ecvnContext)
+    public async Task<ApiResponseWrapper<string>> NotifyEcvn(EnegenGenstarEcvnExternalRequest enegenGenstarEcvnExternalRequest, EcvnContext ecvnContext)
     {
         try
         {
@@ -191,7 +191,7 @@ public class EcvnManager : IEcvnManager
                     .ToString("N");
 
             var uri = ecvnContext.EnegenEcvnUrlSetting;
-            var body = TradeCubeJsonSerializer.Serialize(enegenGenstarEcvnResponse);
+            var body = TradeCubeJsonSerializer.Serialize(enegenGenstarEcvnExternalRequest);
             var bodyBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(body));
             var appId = ecvnContext.EnegenEcvnAppIdSetting;
             var unixTimeSeconds = DateTimeOffset.Now.ToUnixTimeSeconds();
