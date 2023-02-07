@@ -1,6 +1,8 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using Shared.Constants;
 using Shared.Messages;
 
 namespace Enegen.Services
@@ -35,6 +37,9 @@ namespace Enegen.Services
                 
                 return new ApiResponseWrapper<string>
                 {
+                    Status = responseString.StatusCode == HttpStatusCode.OK
+                        ? ApiConstants.SuccessResult
+                        : ApiConstants.FailedResult,
                     StatusCode = statusCode,
                     Data = resultBody
                 };
