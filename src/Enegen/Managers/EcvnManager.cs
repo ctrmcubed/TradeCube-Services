@@ -262,7 +262,7 @@ public class EcvnManager : IEcvnManager
                 {
                     ElexonSettlementPeriod = value.SettlementPeriod,
                     ElexonSettlementDate = value.SettlementDate,
-                    Volume = profileValue.Value
+                    Volume = profileValue.Volume
                 };
         }
     }
