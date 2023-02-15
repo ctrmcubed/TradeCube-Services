@@ -221,7 +221,7 @@ public class EcvnManager : IEcvnManager
                 ? throw new EcvnException("The InternalPartyEnergyAccountType is set to 'Use Default' but the Internal Party's DefaultEnergyAccount is not set")
                 : defaultEnergyAccount[0].ToString();
         
-        return tradeDataObject.Extension.InternalPartyEnergyAccountType switch
+        return tradeDataObject.Extension?.InternalPartyEnergyAccountType switch
         {
             "Production" => "P",
             "Consumption" => "C",
