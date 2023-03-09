@@ -32,6 +32,11 @@ spec:
           - name: {{ .Release.Name }}{{ .Values.certificate.volumeName }}
             mountPath: {{ .Values.certificate.volumeMountPath }}
         env:
+          - name: ASPNETCORE_ENVIRONMENT
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: ASPNETCORE_ENVIRONMENT        
           - name: TRADECUBE_SERVICES_HTTPS_PORT
             valueFrom:
               configMapKeyRef:
@@ -47,6 +52,16 @@ spec:
               configMapKeyRef:
                 name: {{ .Release.Name }}{{ .Values.type.configmap }}
                 key: TRADECUBE_SERVICES_CERT_PASSWORD
+          - name: TRADECUBE_SERVICES_CONNECTION_STRING
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TRADECUBE_SERVICES_CONNECTION_STRING
+          - name: TRADECUBE_SERVICES_LOGGING_COLLECTION
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}{{ .Values.type.configmap }}
+                key: TRADECUBE_SERVICES_LOGGING_COLLECTION
           - name: TRADECUBE_SERVICES_REDIS_HOSTS
             valueFrom:
               configMapKeyRef:

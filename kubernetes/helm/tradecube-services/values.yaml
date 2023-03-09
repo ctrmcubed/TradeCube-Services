@@ -30,6 +30,9 @@ env:
   apiPort: 443                         # {{ .Values.env.apiPort }}
   jsreportDomain: http://localhost     # {{ .Values.env.jsreportDomain }}
   jsreportPort: 5488                   # {{ .Values.env.jsreportPort }}
+  loggingCollection: logging           # {{ .Values.env.loggingCollection }}
+  loggingConnectionString: <not-set>   # {{ .Values.env.loggingConnectionString }}
+
 
 equias:
   requestTokenURI: /eBOWebApi/api/v1.0/Token/RequestToken               # {{ .Values.equias.requestTokenURI }}

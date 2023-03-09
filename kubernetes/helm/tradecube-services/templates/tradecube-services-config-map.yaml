@@ -9,10 +9,13 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-data:  
+data:
+  ASPNETCORE_ENVIRONMENT: {{ .Values.env.environment }}
   TRADECUBE_SERVICES_HTTPS_PORT: '{{ .Values.port.servicesSsl }}'
   TRADECUBE_SERVICES_CERT_NAME: {{ .Values.env.certificateNamePrefix }}{{ .Values.env.certificateNameSuffix }}
   TRADECUBE_SERVICES_CERT_PASSWORD: '{{ .Values.env.certPassword }}'
+  TRADECUBE_SERVICES_CONNECTION_STRING: {{ .Values.env.loggingConnectionString }} 
+  TRADECUBE_SERVICES_LOGGING_COLLECTION: {{ .Values.env.loggingCollection }}
   TRADECUBE_SERVICES_REDIS_HOSTS:  {{ .Values.env.redisHosts }}
   TRADECUBE_SERVICES_REDIS_PASSWORD: {{ .Values.env.redisPassword }}
   TRADECUBE_API_DOMAIN: {{ .Values.env.apiDomain }}
