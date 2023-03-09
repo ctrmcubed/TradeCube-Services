@@ -2,10 +2,10 @@
 
 public class Tenant
 {
-    public string ScafellConnectionString { get; }
+    public string TradeCubeServicesConnectionString { get; }
     
     public Tenant()
     {
-        ScafellConnectionString = System.Environment.GetEnvironmentVariable("SCAFELL_SCAFELL_CONNECTION_STRING");
+        TradeCubeServicesConnectionString = System.Environment.GetEnvironmentVariable("TRADECUBE_SERVICES_CONNECTION_STRING");
     }
 }

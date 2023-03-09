@@ -27,15 +27,8 @@ public static class LoggingExtensions
                 .Enrich.WithEnvironmentName()
                 .WriteTo.Console()
                 .WriteTo.File(fileName, rollingInterval: RollingInterval.Day, retainedFileCountLimit: 10);
-
-            var logStashUriEnvVar = Environment.GetEnvironmentVariable("SCAFELL_LOGSTASH_URI") ?? string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(logStashUriEnvVar))
-            {
-                file.WriteTo.Http(requestUri: new Uri(logStashUriEnvVar).ToString(), queueLimitBytes: null);
-            }
-
-            var loggingCollection = Environment.GetEnvironmentVariable("SCAFELL_LOGGING_COLLECTION");
+            
+            var loggingCollection = Environment.GetEnvironmentVariable("TRADECUBE_SERVICES_LOGGING_COLLECTION");
 
             if (string.IsNullOrWhiteSpace(loggingCollection))
             {
@@ -44,7 +37,7 @@ public static class LoggingExtensions
 
             file.WriteTo.MongoDBBson(cfg =>
             {
-                cfg.SetMongoUrl(new Tenant().ScafellConnectionString);
+                cfg.SetMongoUrl(new Tenant().TradeCubeServicesConnectionString);
                 cfg.SetCollectionName(loggingCollection);
                 cfg.SetBatchPeriod(TimeSpan.FromSeconds(2));
                 cfg.SetExpireTTL(TimeSpan.FromDays(90));
