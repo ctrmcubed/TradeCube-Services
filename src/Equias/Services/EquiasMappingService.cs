@@ -67,7 +67,7 @@ namespace Equias.Services
             {
                 ActionType = tradeDataObject.EboActionType(),
                 TradeId = TestMapTradeReferenceToTradeId(tradeDataObject.TradeReference, tradeDataObject.TradeLeg),
-                Uti = tradeDataObject.Uti,
+                Uti = tradeDataObject.UTI,
                 ProcessInformation = new ProcessInformation
                 {
                     ReportingOnBehalfOf = false,

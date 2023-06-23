@@ -1,12 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Data;
 using Shared.DataObjects;
 using Shared.Messages;
 using Shared.Services;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using TradeCube_Services.Models.ThirdParty.ETRMServices;
 
 namespace TradeCube_Services.Services.ThirdParty.ETRMServices
@@ -124,13 +119,13 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                         ? internalParty
                         : counterparty,
                     Venue = venue,
-                    Quantity = new QuantityDataObject
+                    Quantity = new TradeQuantity
                     {
                         Quantity = quantity,
                         QuantityType = quantityType,
                         QuantityUnit = fingerprint?.ProductDataObject?.QuantityUnit
                     },
-                    Price = new PriceDataObject
+                    Price = new TradePrice
                     {
                         Price = price,
                         PriceType = priceType,
