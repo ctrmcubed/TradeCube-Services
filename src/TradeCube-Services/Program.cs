@@ -22,8 +22,8 @@ try
     var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
     var configuration = new ConfigurationBuilder()
         .SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: environmentName == "Development")
-        .AddJsonFile($"appsettings.{environmentName}.json", true, environmentName == "Development")
+        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+        .AddJsonFile($"appsettings.{environmentName}.json", true, false)
         .Build();
 
     Log.Logger = new LoggerConfiguration().CreateLogger("/tmp/log/TradeCubeServices.log", configuration);
