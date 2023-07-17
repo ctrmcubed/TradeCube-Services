@@ -6,6 +6,8 @@
 
     <ItemGroup>
         <Compile Remove="Managers\**" />
+        <Compile Include="Managers\ElexonSettlementPeriodContext.cs" />
+        <Compile Include="Managers\UkPowerManager.cs" />
         <EmbeddedResource Remove="Managers\**" />
         <None Remove="Managers\**" />
     </ItemGroup>

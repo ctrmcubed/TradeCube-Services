@@ -66,7 +66,7 @@ namespace Fidectus.Services
             }
 
 
-            var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
+            var timezone = DateTimeHelper.GetDateTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
 
             var senderId = await MapSenderId(tradeDataObject, apiJwtToken);
             var receiverId = await MapReceiverId(tradeDataObject, apiJwtToken);
@@ -323,9 +323,9 @@ namespace Fidectus.Services
 
                 foreach (var volume in volumes)
                 {
-                    if (priceDict.ContainsKey(volume.UtcStartDateTime))
+                    if (priceDict.TryGetValue(volume.UtcStartDateTime, out var value))
                     {
-                        yield return (volume.UtcStartDateTime, volume.UtcEndDateTime, volume.Value, priceDict[volume.UtcStartDateTime].Value);
+                        yield return (volume.UtcStartDateTime, volume.UtcEndDateTime, volume.Value, value.Value);
                     }
                     else
                     {

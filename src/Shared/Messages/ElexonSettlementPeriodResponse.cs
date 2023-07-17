@@ -1,8 +1,7 @@
 using System.Collections.Generic;
+using Shared.Messages;
 
-namespace Shared.Messages;
-
-// public class ElexonSettlementPeriodResponse : ApiResponse
-// {
-//     public IEnumerable<ElexonSettlementPeriodResponseItem> Data { get; init; }
-// }
+public class ElexonSettlementPeriodResponse : ApiResponse
+{
+    public IEnumerable<ElexonSettlementPeriodResponseItem> Data { get; set; }
+}

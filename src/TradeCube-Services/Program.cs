@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Shared.Configuration;
+using Shared.Managers;
 using Shared.Services;
 using Shared.Services.Redis;
 using StackExchange.Redis.Extensions.Core.Configuration;
@@ -92,6 +93,7 @@ try
         .AddScoped<ITradeDetailService, TradeDetailService>()
         .AddScoped<ITradeSummaryService, TradeSummaryService>()
         .AddScoped<ITradingBookService, TradingBookService>()
+        .AddScoped<IUkPowerManager, UkPowerManager>()
         .AddScoped<IVaultService, VaultService>()
         .AddScoped<IVenueService, VenueService>();
 

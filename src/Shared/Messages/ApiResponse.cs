@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Shared.Constants;
 
 namespace Shared.Messages
 {
@@ -11,5 +12,8 @@ namespace Shared.Messages
         public string Warning { get; set; }
         public long? ErrorCount { get; set; }
         public IEnumerable<string> Errors { get; set; }
+        
+        public bool IsSuccess() => 
+            Status == ApiConstants.SuccessResult;
     }
 }

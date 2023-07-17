@@ -73,16 +73,18 @@ namespace Fidectus.Managers
                 return confirmationResponse;
             }
 
-            if (confirmationResponse.StatusCode == 409)
+            if (confirmationResponse.StatusCode != 409)
             {
-                logger.LogInformation("Already sent ({StatusCode}), trying a PUT...", confirmationResponse.StatusCode);
-
-                return await SendConfirmationAsync("PUT", tradeConfirmation, apiJwtToken, fidectusConfiguration);
+                throw new DataException(string.IsNullOrWhiteSpace(confirmationResponse.Message)
+                    ? "Failed to send confirmation"
+                    : $"Failed to send confirmation ({confirmationResponse.Message})");
+                
             }
+            
+            logger.LogInformation("Already sent ({StatusCode}), trying a PUT...", confirmationResponse.StatusCode);
 
-            throw new DataException(string.IsNullOrWhiteSpace(confirmationResponse.Message)
-                ? "Failed to send confirmation"
-                : $"Failed to send confirmation ({confirmationResponse.Message})");
+            return await SendConfirmationAsync("PUT", tradeConfirmation, apiJwtToken, fidectusConfiguration);
+
         }
 
         public async Task<ConfirmationResponse> CancelAsync(TradeKey tradeKey, string apiJwtToken, IFidectusConfiguration fidectusConfiguration)

@@ -55,7 +55,7 @@ namespace Equias.Services
                 throw new DataException("No profile data");
             }
 
-            var timezone = DateTimeHelper.GetTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
+            var timezone = DateTimeHelper.GetDateTimeZone(tradeDataObject.Product?.Commodity?.Timezone);
             var cashflows = cashflowResponses.ToList();
             var commodity = MapCommodityToCommodity(tradeDataObject.Product?.Commodity?.Commodity, mappingHelper);
 
