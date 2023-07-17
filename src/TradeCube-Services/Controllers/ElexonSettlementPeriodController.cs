@@ -21,7 +21,7 @@ public class ElexonSettlementPeriodController : Controller
         this.logger = logger;
     }
 
-    [HttpPost()]
+    [HttpPost]
     [ProducesResponseType(typeof(ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>), 200)]
     public IActionResult ElexonSettlementPeriod([FromBody] ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
     {

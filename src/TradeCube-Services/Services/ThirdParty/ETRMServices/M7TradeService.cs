@@ -149,10 +149,10 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 Commodity = commodity,
                 ProfileDefinition = new List<ProfileDefinitionType>
                 {
-                    new ProfileDefinitionType
+                    new()
                     {
-                        UtcStartDateTime = start,
-                        UtcEndDateTime = end
+                        StartDateTimeUtc = start,
+                        EndDateTimeUtc = end
                     }
                 }
             };

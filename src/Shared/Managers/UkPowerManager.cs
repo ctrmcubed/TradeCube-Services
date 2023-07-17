@@ -64,7 +64,7 @@ public class UkPowerManager : IUkPowerManager
         }
     }
 
-    private ElexonSettlementPeriodRequest ValidateRequest(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
+    private static ElexonSettlementPeriodRequest ValidateRequest(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
     {
         ArgumentNullException.ThrowIfNull(elexonSettlementPeriodRequest);
 
@@ -76,7 +76,7 @@ public class UkPowerManager : IUkPowerManager
         return elexonSettlementPeriodRequest;
     }
 
-    private ElexonSettlementPeriodContext CreateContext(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
+    private static ElexonSettlementPeriodContext CreateContext(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
     {
         var utcStartDateTime = DateTimeHelper.ParseIsoDateTime(elexonSettlementPeriodRequest.UtcStartDateTime);
         var utcEndDateTime = string.IsNullOrWhiteSpace(elexonSettlementPeriodRequest.UtcEndDateTime)
