@@ -19,7 +19,7 @@ public class EnegenGenstarEcvnExternalRequest
     public string ContractGroupId { get; init; }
 
     public string ContractProfile { get; init; }
-    public bool Evergreen { get; init; }
+    public string Evergreen { get; init; }
     public string ValidationMessage { get; set; }
     public string ValidationStatus { get; set; }
 

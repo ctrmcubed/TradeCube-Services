@@ -1,4 +1,5 @@
-﻿using Shared.DataObjects;
+﻿using Serilog;
+using Shared.DataObjects;
 
 namespace Shared.Extensions
 {

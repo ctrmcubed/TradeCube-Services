@@ -32,6 +32,9 @@
         <None Update="TestData\Enegen\Ecvn\mock_trade.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="TestData\UkPower\ElexonSettlementPeriod\expected_results_elexon_settlement_period.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -97,6 +100,7 @@
     <ItemGroup>
         <Folder Include="TestData\Enegen\Ecvn" />
         <Folder Include="TestData\Fidectus\" />
+        <Folder Include="TestData\Uk Power\" />
     </ItemGroup>
 
 </Project>

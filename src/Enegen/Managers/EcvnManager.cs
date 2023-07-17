@@ -157,7 +157,7 @@ public class EcvnManager : IEcvnManager
                 ContractEndDate = TruncateDateTime(maxSettlementPeriod),
                 ContractGroupId = tradeDataObject.Counterparty?.Extension?.BscParty?.BscPartyId,
                 ContractProfile = "C",
-                Evergreen = false,
+                Evergreen = "F",
                 EnergyVolumeItems = settlementPeriodVolumes.Select(v=> new EnergyVolumeItem
                 {
                     EcvDate = v.ElexonSettlementDate,

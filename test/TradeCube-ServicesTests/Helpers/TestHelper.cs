@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace TradeCube_ServicesTests.Helpers
 {
@@ -16,5 +18,8 @@ namespace TradeCube_ServicesTests.Helpers
             var startupPath = AppContext.BaseDirectory;
             return Path.Combine(startupPath, testDataFolder, filename);
         }
+        
+        public static Logger<T> CreateNullLogger<T>() => 
+            new(new NullLoggerFactory());
     }
 }
