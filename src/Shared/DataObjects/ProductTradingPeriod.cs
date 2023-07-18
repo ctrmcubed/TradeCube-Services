@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Shared.DataObjects
 {
     public class ProductTradingPeriod
     {
         [JsonPropertyName("UTCStartDateTime")]
-        public DateTime? UtcStartDateTime { get; set; }
-
+        [BsonElement("UTCStartDateTime")]
+        public DateTime? UtcStartDateTime { get; init; }
+        
         [JsonPropertyName("UTCEndDateTime")]
-        public DateTime? UtcEndDateTime { get; set; }
+        [BsonElement("UTCEndDateTime")]
+        public DateTime? UtcEndDateTime { get; init; }
     }
 }

@@ -6,64 +6,62 @@ namespace Shared.DataObjects
 {
     public class ProductDataObject
     {
-        public string Product { get; set; }
+        public string Product { get; init; }
 
-        public string ProductLongName { get; set; }
+        public string ProductLongName { get; init; }
 
-        public string ProductType { get; set; }
+        public string ProductType { get; init; }
 
-        public string ShapeDescription { get; set; }
+        public string ShapeDescription { get; init; }
 
-        public string PeriodDescription { get; set; }
+        public string PeriodDescription { get; init; }
 
-        public decimal ProductValue { get; set; }
+        public decimal ProductValue { get; init; }
 
-        public string ContractType { get; set; }
+        public string ContractType { get; init; }
+        public CommodityDataObject Commodity { get; init; }
 
-        public CommodityDataObject Commodity { get; set; }
-
-        public QuantityUnitDataObject QuantityUnit { get; set; }
-
-        public PriceUnitDataObject PriceUnit { get; set; }
-        public IEnumerable<ProfileDefinitionType> ProfileDefinition { get; set; }
+        public QuantityUnitDataObject QuantityUnit { get; init; }
+        public PriceUnitDataObject PriceUnit { get; init; }
+        public IEnumerable<ProfileDefinitionType> ProfileDefinition { get; init; }
     
-        public List<string> PriceUnits { get; set; }
+        public List<string> PriceUnits { get; init; }
 
-        public List<string> QuantityUnits { get; set; }
+        public List<string> QuantityUnits { get; init; }
 
-        public ProductSettlement Settlement { get; set; }
+        public ProductSettlement Settlement { get; init; }
 
-        public ProductPhysical Physical { get; set; }
+        public ProductPhysical Physical { get; init; }
 
-        public ProductFinancial Financial { get; set; }
+        public ProductFinancial Financial { get; init; }
 
-        public ProductOption Option { get; set; }
+        public ProductOption Option { get; init; }
 
-        public ProductCascade Cascade { get; set; }
+        public ProductCascade Cascade { get; init; }
 
-        public ProductCashflow Cashflow { get; set; }
+        public ProductCashflow Cashflow { get; init; }
 
-        public ProductTradingPeriod TradingPeriod { get; set; }
+        public ProductTradingPeriod TradingPeriod { get; init; }
 
-        public IEnumerable<ProfileType> ProductProfile { get; set; }
+        public IEnumerable<ProfileType> ProductProfile { get; init; }
 
-        public List<string> FormulaProducts { get; set; }
+        public List<string> FormulaProducts { get; init; }
 
-        public string UPI { get; set; }
+        public string UPI { get; init; }
 
-        public string ISIN { get; set; }
+        public string ISIN { get; init; }
 
-        public string CFI { get; set; }
+        public string CFI { get; init; }
 
-        public string Image { get; set; }
-        public string ImageTopLine { get; set; }
-        public string ImageBottomLine { get; set; }
+        public string Image { get; init; }
+        public string ImageTopLine { get; init; }
+        public string ImageBottomLine { get; init; }
 
-        public string Fingerprint { get; set; }
+        public string Fingerprint { get; init; }
 
-        public string PriceFormula { get; set; }
+        public string PriceFormula { get; init; }
         
         [BsonIgnoreIfNull]
-        public VisibilityType Visibility { get; set; }  
+        public VisibilityType Visibility { get; init; }  
     }
 }

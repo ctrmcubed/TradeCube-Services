@@ -35,6 +35,9 @@
         <None Update="TestData\UkPower\ElexonSettlementPeriod\expected_results_elexon_settlement_period.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="TestData\Enegen\Ecvn\mock_trade.ejson">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -42,6 +45,7 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
         <PackageReference Include="Moq" Version="4.18.4" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+        <PackageReference Include="Serilog" Version="2.12.0" />
         <PackageReference Include="xunit" Version="2.4.2" />
     </ItemGroup>
 
@@ -100,7 +104,6 @@
     <ItemGroup>
         <Folder Include="TestData\Enegen\Ecvn" />
         <Folder Include="TestData\Fidectus\" />
-        <Folder Include="TestData\Uk Power\" />
     </ItemGroup>
 
 </Project>

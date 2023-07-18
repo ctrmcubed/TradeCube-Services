@@ -1,20 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Shared.DataObjects
 {
     public class UkBscPartyDataObject
     {
         [JsonPropertyName("BSCPartyId")]
-        public string BscPartyId { get; set; }
+        [BsonElement("BSCPartyId")]
+        public string BscPartyId { get; init; }
 
         [JsonPropertyName("BSCPartyLongName")]
-        public string BscPartyLongName { get; set; }
+        [BsonElement("BSCPartyLongName")]
+        public string BscPartyLongName { get; init; }
 
         [JsonPropertyName("BSCPartyAddress")]
-        public string BscPartyAddress { get; set; }
+        [BsonElement("BSCPartyAddress")]
+        public string BscPartyAddress { get; init; }
 
         [JsonPropertyName("BSCPartyRoles")]
-        public List<string> BscPartyRoles { get; set; }
+        [BsonElement("BSCPartyRoles")]
+        public List<string> BscPartyRoles { get; init; }
     }
 }

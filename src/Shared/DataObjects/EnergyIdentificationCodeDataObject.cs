@@ -1,31 +1,38 @@
 ﻿using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Shared.DataObjects
 {
     public class EnergyIdentificationCodeDataObject
     {
         [JsonPropertyName("EIC")]
-        public string Eic { get; set; }
+        [BsonElement("EIC")]
+        public string Eic { get; init; }
 
         [JsonPropertyName("EICLongName")]
-        public string EicLongName { get; set; }
+        [BsonElement("EICLongName")]
+        public string EicLongName { get; init; }
 
         [JsonPropertyName("EICType")]
-        public string EicType { get; set; }
+        [BsonElement("EICType")]
+        public string EicType { get; init; }
 
-        public string DisplayName { get; set; }
+        public string DisplayName { get; init; }
 
         [JsonPropertyName("VATCode")]
-        public string VatCode { get; set; }
+        [BsonElement("VATCode")]
+        public string VatCode { get; init; }
 
         [JsonPropertyName("EICParent")]
-        public string EicParent { get; set; }
+        [BsonElement("EICParent")]
+        public string EicParent { get; init; }
 
         [JsonPropertyName("EICResponsible")]
-        public string EicResponsible { get; set; }
+        [BsonElement("EICResponsible")]
+        public string EicResponsible { get; init; }
 
-        public string PostalCode { get; set; }
-        public string Country { get; set; }
-        public string Function { get; set; }
+        public string PostalCode { get; init; }
+        public string Country { get; init; }
+        public string Function { get; init; }
     }
 }

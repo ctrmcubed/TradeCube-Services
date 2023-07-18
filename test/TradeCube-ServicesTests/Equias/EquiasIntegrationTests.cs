@@ -29,7 +29,6 @@ namespace TradeCube_ServicesTests.Equias
         {
             var tradeDataObject = await equiasTestFixture.EquiasManager.GetTradeAsync("TEST4", 1, "apiJwtToken");
             var physicalTrade = await equiasTestFixture.EquiasManager.CreatePhysicalTradeAsync(tradeDataObject, "apiJwtToken");
-            
             var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTradeAsync(physicalTrade, await RequestTokenResponse(), "apiJwtToken");
 
             testOutputHelper.WriteLine(TradeCubeServicesJsonSerializer.Serialize(physicalTrade));

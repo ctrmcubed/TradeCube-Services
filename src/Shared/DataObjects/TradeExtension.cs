@@ -1,15 +1,18 @@
 ﻿using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Shared.DataObjects
 {
     public class TradeExtension
     {
         [JsonPropertyName("ECVNAgentType")]
+        [BsonElement("ECVNAgentType")]
         public string EcvnAgentType { get; set; }
 
         [JsonPropertyName("ECVNAgentParty")]
+        [BsonElement("ECVNAgentParty")]
         public PartyDataObject EcvnAgentParty { get; set; }
-
+        
         public string InternalPartyEnergyAccountType { get; set; }
         public string CounterpartyEnergyAccountType { get; set; }
         public string ReplacementRuleType { get; set; }

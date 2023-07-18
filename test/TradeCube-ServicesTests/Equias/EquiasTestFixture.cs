@@ -38,7 +38,7 @@ namespace TradeCube_ServicesTests.Equias
             EquiasParties = FileHelper.ReadJsonFile<IList<PartyDataObject>>(TestHelper.GetTestDataFolder("TestData/Equias/EquiasParties.json"));
 
             EquiasAuthenticationService = new EquiasAuthenticationService(defaultHttpClientFactory, new Logger<EquiasAuthenticationService>(LoggerFactory.Create(l => l.AddConsole())));
-            EquiasService = new EquiasService(defaultHttpClientFactory, new Logger<EquiasService>(LoggerFactory.Create(l => l.AddConsole())));
+            EquiasService = new EquiasService(defaultHttpClientFactory, TestHelper.CreateNullLogger<EquiasService>());
 
             var vaultDataObjects = new List<VaultDataObject>
             {
@@ -73,7 +73,7 @@ namespace TradeCube_ServicesTests.Equias
                 MockService.CreateSettingService(settingDataObjects),
                 MockService.CreateVaultService(vaultDataObjects),
                 new EquiasMappingService(MockService.CreateMappingService(EquiasMappings), MockService.CreatePartyService(EquiasParties)), 
-                new Logger<EquiasManager>(LoggerFactory.Create(l => l.AddConsole())));
+                TestHelper.CreateNullLogger<EquiasManager>());
         }
 
     

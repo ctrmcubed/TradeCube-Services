@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Enegen.Messages;
 
@@ -15,7 +16,8 @@ public class EnegenGenstarEcvnExternalRequest
     public string ContractStartDate { get; init; }
     public string ContractEndDate { get; init; }
 
-    [JsonPropertyName("ContractGroupID")] 
+    [JsonPropertyName("ContractGroupID")]
+    [BsonElement("ContractGroupID")]
     public string ContractGroupId { get; init; }
 
     public string ContractProfile { get; init; }

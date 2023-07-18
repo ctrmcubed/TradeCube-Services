@@ -151,8 +151,8 @@ namespace TradeCube_Services.Services.ThirdParty.ETRMServices
                 {
                     new()
                     {
-                        StartDateTimeUtc = start,
-                        EndDateTimeUtc = end
+                        UtcStartDateTime = start,
+                        UtcEndDateTime = end
                     }
                 }
             };

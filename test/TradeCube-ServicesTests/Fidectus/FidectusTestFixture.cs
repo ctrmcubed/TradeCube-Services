@@ -43,7 +43,7 @@ namespace TradeCube_ServicesTests.Fidectus
             ExpectedResults = FileHelper.ReadJsonFile<IList<FidectusTestType>>(TestHelper.GetTestDataFolder("TestData/Fidectus/expected_results_fidectus_confirms.json"));
 
             FidectusAuthenticationService = new FidectusAuthenticationService(defaultHttpClientFactory, new Mock<IRedisService>().Object, new Logger<FidectusAuthenticationService>(LoggerFactory.Create(l => l.AddConsole())));
-            FidectusService = new FidectusService(defaultHttpClientFactory, new Logger<FidectusService>(LoggerFactory.Create(l => l.AddConsole())));
+            FidectusService = new FidectusService(defaultHttpClientFactory, TestHelper.CreateNullLogger<FidectusService>());
 
             var vaultDataObjects = new List<VaultDataObject>
             {
@@ -97,7 +97,7 @@ namespace TradeCube_ServicesTests.Fidectus
                 CreateSettingService(settingDataObjects),
                 CreateVaultService(vaultDataObjects),
                 new FidectusMappingService(CreateMappingService(FidectusMappings), CreatePartyService(FidectusParties)),
-                new Logger<FidectusManager>(LoggerFactory.Create(l => l.AddConsole())));
+                TestHelper.CreateNullLogger<FidectusManager>());
         }
 
         private static ITradeService CreateTradeService(IEnumerable<TradeDataObject> trades)

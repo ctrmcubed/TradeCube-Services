@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Enegen.Managers;
 using Enegen.Services;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Shared.Constants;
 using Shared.DataObjects;
@@ -13,15 +13,15 @@ namespace TradeCube_ServicesTests.Enegen.Ecvn;
 public class EnegenGenstarEcvnFixture 
 {
     public readonly EcvnManager EcvnManager;
-    public IList<EnegenGenstarEcvnTestType> ExpectedResults { get; }
+    private readonly IList<EnegenGenstarEcvnTestType> expectedResults;
 
     public EnegenGenstarEcvnFixture()
     {
-        var tradeDataObjects = FileHelper.ReadJsonFile<IList<TradeDataObject>>(TestHelper.GetTestDataFolder("TestData/Enegen/Ecvn/mock_trade.json"));
         var tradeDetailTestTypes = FileHelper.ReadJsonFile<IList<TradeDetailTestType>>(TestHelper.GetTestDataFolder("TestData/Enegen/Ecvn/mock_api_TradeDetail.json"));
         var elexonSettlementPeriodTestTypes = FileHelper.ReadJsonFile<IList<ElexonSettlementPeriodTestType>>(TestHelper.GetTestDataFolder("TestData/Enegen/Ecvn/mock_api_ElexonSettlementPeriod.json"));
+        var tradeDataObjects = FileHelper.ReadBsonFile<IList<TradeDataObject>>(TestHelper.GetTestDataFolder("TestData/Enegen/Ecvn/mock_trade.ejson"));
         
-        ExpectedResults = FileHelper.ReadJsonFile<IList<EnegenGenstarEcvnTestType>>(TestHelper.GetTestDataFolder("TestData/Enegen/Ecvn/expected_results_enegen_ecvn.json"));
+        expectedResults = FileHelper.ReadBsonFile<IList<EnegenGenstarEcvnTestType>>(TestHelper.GetTestDataFolder("TestData/Enegen/Ecvn/expected_results_enegen_ecvn.json"));
 
         var moduleDataObjects = new List<ModuleDataObject>
         {
@@ -59,6 +59,9 @@ public class EnegenGenstarEcvnFixture
             MockService.CreateVaultService(vaultDataObjects),
             new Mock<IHmacService>().Object,
             new Mock<IEcvnService>().Object,
-            new Logger<EcvnManager>(LoggerFactory.Create(l => l.AddConsole())));
+            TestHelper.CreateNullLogger<EcvnManager>());
     }
+    
+    public EnegenGenstarEcvnTestType GetExpectedResult(string testDescription) => 
+        expectedResults.SingleOrDefault(t => t.Description == testDescription);
 }

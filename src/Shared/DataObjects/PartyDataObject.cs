@@ -1,50 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Shared.DataObjects
 {
     public class PartyDataObject
     {
-        public string Party { get; set; }
-        public string PartyLongName { get; set; }
-        public List<string> PartyType { get; set; }
-        public List<string> Categories { get; set; }
-        public List<string> Countries { get; set; }
-
-        public bool Internal { get; set; }
+        public string Party { get; init; }
+        public string PartyLongName { get; init; }
+        public List<string> PartyType { get; init; }
+        public List<string> Categories { get; init; }
+        public List<string> Countries { get; init; }
+        public bool Internal { get; init; }
 
         [JsonPropertyName("EIC")]
-        public EnergyIdentificationCodeDataObject Eic { get; set; }
+        [BsonElement("EIC")]
+        public EnergyIdentificationCodeDataObject Eic { get; init; }
 
         [JsonPropertyName("LEI")]
-        public LegalEntityIdentifierDataObject Lei { get; set; }
+        [BsonElement("LEI")]
+        public LegalEntityIdentifierDataObject Lei { get; init; }
 
         [JsonPropertyName("BIC")]
-        public BusinessIdentifierCodeDataObject Bic { get; set; }
+        [BsonElement("BIC")]
+        public BusinessIdentifierCodeDataObject Bic { get; init; }
 
         [JsonPropertyName("ACERCode")]
-        public AcerRegistrationCodeDataObject AcerCode { get; set; }
+        [BsonElement("ACERCode")]
+        public AcerRegistrationCodeDataObject AcerCode { get; init; }
 
-        public ContactDataObject PrimaryBillingContact { get; set; }
+        public ContactDataObject PrimaryBillingContact { get; init; }
 
-        public ContactDataObject PrimaryConfirmationContact { get; set; }
+        public ContactDataObject PrimaryConfirmationContact { get; init; }
 
-        public string Image { get; set; }
+        public string Image { get; init; }
 
-        public PartyExtension Extension { get; set; }
-        public VisibilityType Visibility { get; set; }
-    }
-
-    public class UkGasShipperDataObject
-    {
-        public string ShipperCode { get; set; }
-        public string ShipperLongName { get; set; }
-
-        [JsonPropertyName("EIC")]
-        public EnergyIdentificationCodeDataObject Eic { get; set; }
-
-        public string State { get; set; }
-        public DateTime? LastUpdatedDate { get; set; }
+        public PartyExtension Extension { get; init; }
+        public VisibilityType Visibility { get; init; }
     }
 }

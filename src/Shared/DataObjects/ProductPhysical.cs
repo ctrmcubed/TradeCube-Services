@@ -2,10 +2,11 @@
 {
     public class ProductPhysical
     {
-        public DeliveryAreaDataObject DeliveryArea { get; set; }
+        public string UTCLocal { get; init; }
+        public DeliveryAreaDataObject DeliveryArea { get; init; }
 
-        public InterconnectorDataObject Interconnector { get; set; }
+        public InterconnectorDataObject Interconnector { get; init; }
 
-        public ResourceDataObject Resource { get; set; }
+        public ResourceDataObject Resource { get; init; }
     }
 }
