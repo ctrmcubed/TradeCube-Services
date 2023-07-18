@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeCube-Services", "src\TradeCube-Services\TradeCube-Services.csproj", "{9006216E-3895-48B0-9F55-E08A5E94BE0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elexon", "src\Elexon\Elexon.csproj", "{443A9816-5661-416F-A24E-EA5E68080ED1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enegen", "src\Enegen\Enegen.csproj", "{8259DE12-3383-4A3D-85E0-0B29715C1216}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equias", "src\Equias\Equias.csproj", "{9D7FE348-7E63-4ECD-96ED-B83AAD085F84}"
@@ -24,10 +22,6 @@ Global
 		{9006216E-3895-48B0-9F55-E08A5E94BE0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9006216E-3895-48B0-9F55-E08A5E94BE0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9006216E-3895-48B0-9F55-E08A5E94BE0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{443A9816-5661-416F-A24E-EA5E68080ED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{443A9816-5661-416F-A24E-EA5E68080ED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{443A9816-5661-416F-A24E-EA5E68080ED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{443A9816-5661-416F-A24E-EA5E68080ED1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8259DE12-3383-4A3D-85E0-0B29715C1216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8259DE12-3383-4A3D-85E0-0B29715C1216}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8259DE12-3383-4A3D-85E0-0B29715C1216}.Release|Any CPU.ActiveCfg = Release|Any CPU

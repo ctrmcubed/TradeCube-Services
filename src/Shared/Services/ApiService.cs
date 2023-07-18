@@ -63,7 +63,6 @@ namespace Shared.Services
                 var response = await DeserializeAsync<TV>(responseStream);
 
                 response.StatusCode = (int?)httpResponseMessage.StatusCode;
-                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
                 response.Message = httpResponseMessage.ReasonPhrase;
 
                 return response;
@@ -94,7 +93,6 @@ namespace Shared.Services
                 var response = await DeserializeAsync<TV>(responseStream);
 
                 response.StatusCode = (int?)httpResponseMessage.StatusCode;
-                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
                 response.Message = httpResponseMessage.ReasonPhrase;
 
                 return response;
@@ -125,7 +123,6 @@ namespace Shared.Services
                 var response = await DeserializeAsync<TV>(responseStream);
 
                 response.StatusCode = (int?)httpResponseMessage.StatusCode;
-                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
                 response.Message = httpResponseMessage.ReasonPhrase;
 
                 return response;
@@ -161,7 +158,6 @@ namespace Shared.Services
                 var response = await DeserializeAsync<TV>(responseStream);
 
                 response.StatusCode = (int?)httpResponseMessage.StatusCode;
-                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
                 response.Message = httpResponseMessage.ReasonPhrase;
 
                 return response;
@@ -208,7 +204,6 @@ namespace Shared.Services
                 var response = await DeserializeAsync<TV>(responseStream);
 
                 response.StatusCode = (int?)httpResponseMessage.StatusCode;
-                response.IsSuccessStatusCode = httpResponseMessage.IsSuccessStatusCode;
                 response.Message = httpResponseMessage.ReasonPhrase;
 
                 return response;

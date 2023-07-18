@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Shared.Constants;
 
 namespace Equias.Services
 {
@@ -59,7 +60,7 @@ namespace Equias.Services
                 logger.LogError(ex, "{Message}", ex.Message);
                 return new EboTradeResponse
                 {
-                    IsSuccessStatusCode = false,
+                    Status = ApiConstants.FailedResult,
                     Message = ex.Message
                 };
             }
@@ -83,7 +84,7 @@ namespace Equias.Services
                 logger.LogError(ex, "{Message}", ex.Message);
                 return new EboTradeResponse
                 {
-                    IsSuccessStatusCode = false,
+                    Status = ApiConstants.FailedResult,
                     Message = ex.Message
                 };
             }
@@ -105,7 +106,7 @@ namespace Equias.Services
                 logger.LogError(ex, "{Message}", ex.Message);
                 return new EboTradeResponse
                 {
-                    IsSuccessStatusCode = false,
+                    Status = ApiConstants.FailedResult,
                     Message = ex.Message
                 };
             }

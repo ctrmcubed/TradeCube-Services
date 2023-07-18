@@ -35,7 +35,7 @@ namespace TradeCube_Services.Controllers
 
                 var confirmationResponse = (await fidectusManager.ConfirmAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
 
-                if (confirmationResponse.IsSuccessStatusCode)
+                if (confirmationResponse.IsSuccess())
                 {
                     return Json(confirmationResponse);
                 }
@@ -70,7 +70,7 @@ namespace TradeCube_Services.Controllers
 
                 var confirmationResponse = await fidectusManager.CancelAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken));
 
-                if (confirmationResponse.IsSuccessStatusCode)
+                if (confirmationResponse.IsSuccess())
                 {
                     return Json(confirmationResponse);
                 }

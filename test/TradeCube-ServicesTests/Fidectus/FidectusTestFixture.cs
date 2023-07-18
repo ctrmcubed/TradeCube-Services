@@ -111,7 +111,7 @@ namespace TradeCube_ServicesTests.Fidectus
 
             service.Setup(c => c.PutTradesViaJwtAsync(It.IsAny<string>(), It.IsAny<IEnumerable<TradeDataObject>>()))
                 .ReturnsAsync((string _, IEnumerable<TradeDataObject> _) =>
-                    new ApiResponseWrapper<IEnumerable<TradeDataObject>> { IsSuccessStatusCode = true });
+                    new ApiResponseWrapper<IEnumerable<TradeDataObject>> { Status = ApiConstants.SuccessResult });
 
             return service.Object;
         }

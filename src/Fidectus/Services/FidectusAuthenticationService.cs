@@ -39,7 +39,7 @@ namespace Fidectus.Services
                 return new RequestTokenResponse
                 {
                     AccessToken = requestTokenResponse.AccessToken,
-                    IsSuccessStatusCode = true
+                    Status = ApiConstants.SuccessResult
                 };
             }
 

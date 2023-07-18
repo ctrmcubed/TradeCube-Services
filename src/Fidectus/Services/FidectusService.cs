@@ -63,7 +63,6 @@ namespace Fidectus.Services
                 logger.JsonLogDebug("SendConfirmation", response);
 
                 // Mutation!
-                response.IsSuccessStatusCode = response.IsSuccessStatusCode;
                 response.StatusCode = response.Status;
                 response.DocumentId = confirmationRequest.TradeConfirmation.DocumentId;
 
@@ -74,7 +73,7 @@ namespace Fidectus.Services
                 logger.LogError(ex, "{Message}", ex.Message);
                 return new ConfirmationResponse
                 {
-                    IsSuccessStatusCode = false,
+                    Status = 1,
                     Message = ex.Message
                 };
             }
@@ -95,7 +94,6 @@ namespace Fidectus.Services
 
                 var response = new ConfirmationResponse
                 {
-                    IsSuccessStatusCode = confirmationResponse.IsSuccessStatusCode,
                     StatusCode = confirmationResponse.StatusCode,
                     Message = confirmationResponse.Message
                 };

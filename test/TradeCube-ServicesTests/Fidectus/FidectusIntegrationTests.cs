@@ -25,7 +25,7 @@ namespace TradeCube_ServicesTests.Fidectus
             var tradeKey = new TradeKey(test.Inputs.TradeReference, test.Inputs.TradeLeg);
             var confirmationResponse = await fidectusTestFixture.FidectusManager.ConfirmAsync(tradeKey, "apiJwtToken", fidectusConfiguration);
 
-            Assert.True(confirmationResponse.IsSuccessStatusCode);
+            Assert.True(confirmationResponse.IsSuccess());
         }
     }
 }

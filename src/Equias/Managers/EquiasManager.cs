@@ -82,7 +82,7 @@ namespace Equias.Managers
             {
                 var eboAddPhysicalTradeResponse = await AddPhysicalTradeAsync(physicalTrade, requestTokenResponse, apiJwtToken);
 
-                if (!eboAddPhysicalTradeResponse.IsSuccessStatusCode)
+                if (!eboAddPhysicalTradeResponse.IsSuccess())
                 {
                     throw new DataException($"Add physical Trade failed result: {eboAddPhysicalTradeResponse.Message}");
                 }
@@ -104,7 +104,7 @@ namespace Equias.Managers
             async Task<EboTradeResponse> ExistingTrade(PhysicalTrade physicalTrade, TradeDataObject tradeDataObject, RequestTokenResponse requestTokenResponse)
             {
                 var eboModifyPhysicalTradeResponse = await ModifyPhysicalTradeAsync(physicalTrade, requestTokenResponse, apiJwtToken);
-                if (!eboModifyPhysicalTradeResponse.IsSuccessStatusCode)
+                if (!eboModifyPhysicalTradeResponse.IsSuccess())
                 {
                     throw new DataException($"Modify physical Trade failed result: {eboModifyPhysicalTradeResponse.Message}");
                 }
@@ -303,7 +303,7 @@ namespace Equias.Managers
 
             tradeDataObject.External.Equias.EboTradeId = eboAddTradeResponse.TradeId;
             tradeDataObject.External.Equias.EboTradeVersion = eboAddTradeResponse.TradeVersion;
-            tradeDataObject.External.Equias.EboSubmissionStatus = eboAddTradeResponse.IsSuccessStatusCode
+            tradeDataObject.External.Equias.EboSubmissionStatus = eboAddTradeResponse.IsSuccess()
                 ? ApiConstants.SuccessResult
                 : ApiConstants.FailedResult;
 

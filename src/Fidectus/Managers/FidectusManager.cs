@@ -57,7 +57,7 @@ namespace Fidectus.Managers
             var tradeDataObject = await GetTradeAsync(tradeKey.TradeReference, tradeKey.TradeLeg, apiJwtToken);
             if (tradeDataObject is null || tradeDataObject.IsConfirmationWithheld())
             {
-                return new ConfirmationResponse { IsSuccessStatusCode = true };
+                return new ConfirmationResponse { Status = 0 };
             }
 
             var tradeConfirmation = await CreateTradeConfirmationAsync(tradeDataObject, apiJwtToken, fidectusConfiguration);
@@ -68,7 +68,7 @@ namespace Fidectus.Managers
 
             var confirmationResponse = await SendConfirmationAsync(method, tradeConfirmation, apiJwtToken, fidectusConfiguration);
 
-            if (confirmationResponse.IsSuccessStatusCode)
+            if (confirmationResponse.IsSuccess())
             {
                 return confirmationResponse;
             }
@@ -99,7 +99,7 @@ namespace Fidectus.Managers
             {
                 return new ConfirmationResponse
                 {
-                    IsSuccessStatusCode = false,
+                    Status = 1,
                     Message = "Cannot cancel confirmation, confirmation has yet to be submitted"
                 };
             }

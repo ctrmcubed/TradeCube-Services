@@ -32,7 +32,8 @@ public class ElexonSettlementPeriodController : Controller
             var responseWrapper = new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>
             {
                 Data = settlementPeriodResponse.Data,
-                Message = settlementPeriodResponse.Message
+                Message = settlementPeriodResponse.Message,
+                Status = ApiConstants.SuccessResult
             };
 
             return settlementPeriodResponse.IsSuccess()
@@ -49,7 +50,8 @@ public class ElexonSettlementPeriodController : Controller
             logger.LogError(ex, "{Message}", ex.Message);
             return BadRequest(new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>
             {
-                Status = ApiConstants.FailedResult, Message = ex.Message
+                Status = ApiConstants.FailedResult,
+                Message = ex.Message
             });
         }
     }
