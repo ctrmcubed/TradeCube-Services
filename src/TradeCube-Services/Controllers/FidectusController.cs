@@ -33,7 +33,7 @@ namespace TradeCube_Services.Controllers
                     return BadRequest();
                 }
 
-                var confirmationResponse = (await fidectusManager.ConfirmAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken)));
+                var confirmationResponse = await fidectusManager.ConfirmAsync(tradeKey, apiJwtToken, await fidectusManager.GetFidectusConfiguration(apiJwtToken));
 
                 if (confirmationResponse.IsSuccess())
                 {
