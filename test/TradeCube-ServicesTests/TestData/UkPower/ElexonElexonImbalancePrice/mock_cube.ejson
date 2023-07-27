@@ -1,0 +1,38 @@
+[
+    {
+        "Cube": "PowerPriceIndex",
+        "CubeType": "Time Series",
+        "TimeHierarchy": "UK Power",
+        "DataItems": [
+            "PRC"
+        ],
+        "Commodity": "UK Power"
+    },
+    {
+        "Cube": "PowerPriceIndexPreSettlement",
+        "CubeType": "Time Series",
+        "TimeHierarchy": "UK Power",
+        "DataItems": [
+            "PRC"
+        ],
+        "Commodity": "UK Power"
+    },
+    {
+        "Cube": "GasPriceIndex",
+        "CubeType": "Time Series",
+        "TimeHierarchy": "UK Gas",
+        "DataItems": [
+            "PRC"
+        ],
+        "Commodity": "UK Gas"
+    },
+    {
+        "Cube": "GasPriceIndexPreSettlement",
+        "CubeType": "Time Series",
+        "TimeHierarchy": "UK Gas",
+        "DataItems": [
+            "PRC"
+        ],
+        "Commodity": "UK Gas"
+    }
+]

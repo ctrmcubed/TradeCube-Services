@@ -17,6 +17,6 @@ public class CubeService : TradeCubeApiService, ICubeService
         
     public async Task<ApiResponseWrapper<IEnumerable<CubeDataObject>>> GetCube(string cubeKey, string jwtApiToken)
     {
-        return (await GetViaJwtAsync<CubeDataObject>($"Cube/{cubeKey}", jwtApiToken));
+        return await GetViaJwtAsync<CubeDataObject>($"Cube/{cubeKey}", jwtApiToken);
     }
 }

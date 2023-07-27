@@ -38,6 +38,24 @@
         <None Update="TestData\Enegen\Ecvn\mock_trade.ejson">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="TestData\UkPower\ElexonElexonImbalancePrice\expected_results_elexon_imbalance_price.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\UkPower\ElexonElexonImbalancePrice\mock_api_DERSYSDATA.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\UkPower\ElexonElexonImbalancePrice\mock_api_ElexonSettlementPeriod.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\UkPower\ElexonElexonImbalancePrice\mock_cube.ejson">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\UkPower\ElexonElexonImbalancePrice\mock_cubetype.ejson">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestData\UkPower\ElexonElexonImbalancePrice\mock_dataitem.ejson">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 namespace Shared.Messages;
 
 public class ElexonImbalancePriceResponse : ApiResponse
 {
-    // public IEnumerable<ElexonSettlementPeriodResponseItem> Data { get; set; }    
+    public IEnumerable<ElexonImbalancePriceItem> Data { get; init; }    
 }

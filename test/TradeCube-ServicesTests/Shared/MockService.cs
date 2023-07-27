@@ -11,6 +11,48 @@ namespace TradeCube_ServicesTests.Shared;
 
 public static class MockService
 {
+    public static ICubeService CreateCubeService(IEnumerable<CubeDataObject> cubeDataObjects)
+    {
+        var service = new Mock<ICubeService>();
+
+        service
+            .Setup(c => c.GetCube(It.IsAny<string>(), It.IsAny<string>()))
+            .ReturnsAsync((string cube, string _) => new ApiResponseWrapper<IEnumerable<CubeDataObject>>
+            {
+                Data = cubeDataObjects.Where(t => t.Cube == cube)
+            });
+
+        return service.Object;
+    }
+    
+    public static ICubeTypeService CreateCubeTypeService(IEnumerable<CubeTypeDataObject> cubeTypeDataObjects)
+    {
+        var service = new Mock<ICubeTypeService>();
+
+        service
+            .Setup(c => c.GetCube(It.IsAny<string>(), It.IsAny<string>()))
+            .ReturnsAsync((string cubeType, string _) => new ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>
+            {
+                Data = cubeTypeDataObjects.Where(t => t.CubeType == cubeType)
+            });
+
+        return service.Object;
+    }
+    
+    public static IDataItemService CreateDataItemService(IEnumerable<DataItemDataObject> cubeTypeDataObjects)
+    {
+        var service = new Mock<IDataItemService>();
+
+        service
+            .Setup(c => c.GetDataItem(It.IsAny<string>(), It.IsAny<string>()))
+            .ReturnsAsync((string dataItem, string _) => new ApiResponseWrapper<IEnumerable<DataItemDataObject>>
+            {
+                Data = cubeTypeDataObjects.Where(t => t.DataItem == dataItem)
+            });
+
+        return service.Object;
+    }
+
     public static ITradeService CreateTradeService(IEnumerable<TradeDataObject> tradeDataObjects)
     {
         var service = new Mock<ITradeService>();
