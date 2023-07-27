@@ -104,6 +104,7 @@
     <ItemGroup>
         <Folder Include="TestData\Enegen\Ecvn" />
         <Folder Include="TestData\Fidectus\" />
+        <Folder Include="TestData\UkPower\ElexonElexonImbalancePrice\" />
     </ItemGroup>
 
 </Project>

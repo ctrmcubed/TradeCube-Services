@@ -13,7 +13,7 @@ namespace TradeCube_ServicesTests.Equias
 {
     public class EquiasTestFixture
     {
-        public EquiasAuthenticationService EquiasAuthenticationService { get; }
+        public IEquiasAuthenticationService EquiasAuthenticationService { get; }
         public IEquiasService EquiasService { get; }
         public IEquiasManager EquiasManager { get; }
 

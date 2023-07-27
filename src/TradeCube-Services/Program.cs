@@ -58,6 +58,8 @@ try
     // Managers
     builder.Services
         .AddScoped<IEcvnManager, EcvnManager>()
+        .AddScoped<IElexonImbalancePriceManager, ElexonImbalancePriceManager>()
+        .AddScoped<IElexonSettlementPeriodManager, ElexonSettlementPeriodManager>()
         .AddScoped<IEquiasManager, EquiasManager>()
         .AddScoped<IFidectusManager, FidectusManager>();
 
@@ -69,7 +71,6 @@ try
         .AddScoped<IContactService, ContactService>()
         .AddScoped<ICountryLookupService, CountryLookupService>()
         .AddScoped<ICountryService, CountryService>()
-        .AddScoped<IElexonSettlementPeriodService, ElexonSettlementPeriodService>()
         .AddScoped<IEquiasAuthenticationService, EquiasAuthenticationService>()
         .AddScoped<IEquiasMappingService, EquiasMappingService>()
         .AddScoped<IEquiasService, EquiasService>()
@@ -93,7 +94,6 @@ try
         .AddScoped<ITradeDetailService, TradeDetailService>()
         .AddScoped<ITradeSummaryService, TradeSummaryService>()
         .AddScoped<ITradingBookService, TradingBookService>()
-        .AddScoped<IUkPowerManager, UkPowerManager>()
         .AddScoped<IVaultService, VaultService>()
         .AddScoped<IVenueService, VenueService>();
 

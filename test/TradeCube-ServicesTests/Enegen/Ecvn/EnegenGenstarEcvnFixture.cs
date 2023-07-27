@@ -12,7 +12,7 @@ namespace TradeCube_ServicesTests.Enegen.Ecvn;
 
 public class EnegenGenstarEcvnFixture 
 {
-    public readonly EcvnManager EcvnManager;
+    public readonly IEcvnManager EcvnManager;
     private readonly IList<EnegenGenstarEcvnTestType> expectedResults;
 
     public EnegenGenstarEcvnFixture()
@@ -51,11 +51,11 @@ public class EnegenGenstarEcvnFixture
         };
         
         EcvnManager = new EcvnManager(
+            MockService.CreateElexonSettlementPeriodManager(elexonSettlementPeriodTestTypes),
             MockService.CreateModuleService(moduleDataObjects),
             MockService.CreateSettingService(settingDataObjects),
             MockService.CreateTradeService(tradeDataObjects),
             MockService.CreateTradeDetailService(tradeDetailTestTypes),
-            MockService.CreateElexonSettlementPeriodService(elexonSettlementPeriodTestTypes),
             MockService.CreateVaultService(vaultDataObjects),
             new Mock<IHmacService>().Object,
             new Mock<IEcvnService>().Object,

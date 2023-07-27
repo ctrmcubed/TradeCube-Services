@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Xunit;
 
-namespace TradeCube_ServicesTests.UkPower;
+namespace TradeCube_ServicesTests.UkPower.ElexonSettlementPeriod;
 
 public class ElexonSettlementPeriodUnitTests : IClassFixture<ElexonSettlementPeriodFixture>
 {
@@ -11,7 +11,7 @@ public class ElexonSettlementPeriodUnitTests : IClassFixture<ElexonSettlementPer
     {
         this.settlementPeriodFixture = settlementPeriodFixture;
     }
-    
+
     [Fact]
     public void TEST_0000_GMT_Day()
     {
@@ -58,8 +58,8 @@ public class ElexonSettlementPeriodUnitTests : IClassFixture<ElexonSettlementPer
     {
         var elexonSettlementPeriodType = settlementPeriodFixture.GetExpectedResult(testDescription);
         var expectedResults = elexonSettlementPeriodType.ExpectedResults?.Data?.ToList();
-        var settlementPeriodResponse = settlementPeriodFixture.UkPowerManager.ComputeElexonSettlementPeriods(elexonSettlementPeriodType.Inputs);
-        
+        var settlementPeriodResponse = settlementPeriodFixture.ElexonSettlementPeriodManager.ElexonSettlementPeriods(elexonSettlementPeriodType.Inputs);
+
         if (!string.IsNullOrWhiteSpace(elexonSettlementPeriodType.ExpectedError))
         {
             Assert.Equal(elexonSettlementPeriodType.ExpectedError, settlementPeriodResponse.Message);
@@ -67,16 +67,16 @@ public class ElexonSettlementPeriodUnitTests : IClassFixture<ElexonSettlementPer
 
             return;
         }
-        
+
         Assert.NotNull(expectedResults);
         Assert.Equal(expectedResults.Count, settlementPeriodResponse.Data.Count());
-        
+
         var zipped = expectedResults.Zip(settlementPeriodResponse.Data, (e, a) => new
         {
             Expected = e,
             Actual = a
         }).ToList();
-        
+
         foreach (var result in zipped)
         {
             Assert.Equal(result.Expected.UtcStartDateTime, result.Actual.UtcStartDateTime);

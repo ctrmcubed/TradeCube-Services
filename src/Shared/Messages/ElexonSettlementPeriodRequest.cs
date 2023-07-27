@@ -10,3 +10,4 @@ public class ElexonSettlementPeriodRequest
     [JsonPropertyName("UTCEndDateTime")]
     public string UtcEndDateTime { get; init; }
 }
+

@@ -9,16 +9,16 @@ using Shared.Messages;
 
 namespace Shared.Managers;
 
-public class UkPowerManager : IUkPowerManager
+public class ElexonSettlementPeriodManager : IElexonSettlementPeriodManager
 {
-    private readonly ILogger<UkPowerManager> logger;
+    private readonly ILogger<ElexonSettlementPeriodManager> logger;
 
-    public UkPowerManager(ILogger<UkPowerManager> logger)
+    public ElexonSettlementPeriodManager(ILogger<ElexonSettlementPeriodManager> logger)
     {
         this.logger = logger;
-    } 
+    }
     
-    public ElexonSettlementPeriodResponse ComputeElexonSettlementPeriods(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
+    public ElexonSettlementPeriodResponse ElexonSettlementPeriods(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
     {
         DateTime ComputeIntervalFunc(DateTime time, DateTime dateTime) => time.AddMinutes(30);
 
@@ -63,19 +63,7 @@ public class UkPowerManager : IUkPowerManager
             };
         }
     }
-
-    private static ElexonSettlementPeriodRequest ValidateRequest(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
-    {
-        ArgumentNullException.ThrowIfNull(elexonSettlementPeriodRequest);
-
-        if (string.IsNullOrWhiteSpace(elexonSettlementPeriodRequest.UtcStartDateTime))
-        {
-            throw new ElexonSettlementPeriodException("The mandatory field 'UTCStartDateTime' has not been supplied.");
-        }
-
-        return elexonSettlementPeriodRequest;
-    }
-
+    
     private static ElexonSettlementPeriodContext CreateContext(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
     {
         var utcStartDateTime = DateTimeHelper.ParseIsoDateTime(elexonSettlementPeriodRequest.UtcStartDateTime);
@@ -94,4 +82,16 @@ public class UkPowerManager : IUkPowerManager
             UtcEndDateTime = utcEndDateTime
         };
     }
+    
+    private static ElexonSettlementPeriodRequest ValidateRequest(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
+    {
+        ArgumentNullException.ThrowIfNull(elexonSettlementPeriodRequest);
+
+        if (string.IsNullOrWhiteSpace(elexonSettlementPeriodRequest.UtcStartDateTime))
+        {
+            throw new ElexonSettlementPeriodException("The mandatory field 'UTCStartDateTime' has not been supplied.");
+        }
+
+        return elexonSettlementPeriodRequest;
+    }    
 }

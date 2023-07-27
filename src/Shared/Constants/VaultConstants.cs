@@ -9,6 +9,7 @@
         public const string FidectusClientSecret = "Fidectus_Password";
         
         public const string EnegenPsk = "ENEGEN_PSK";
-
+        
+        public const string ElexonApiKey = "Elexon_API_key";
     }
 }

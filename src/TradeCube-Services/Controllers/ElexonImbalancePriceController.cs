@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Constants;
+using Shared.Managers;
 using Shared.Messages;
 
 namespace TradeCube_Services.Controllers;
@@ -11,10 +12,12 @@ namespace TradeCube_Services.Controllers;
 [ApiController]
 public class ElexonImbalancePriceController : Controller
 {
+    private readonly IElexonImbalancePriceManager elexonImbalancePriceManager;
     private readonly ILogger<ElexonImbalancePriceController> logger;
 
-    public ElexonImbalancePriceController(ILogger<ElexonImbalancePriceController> logger)
+    public ElexonImbalancePriceController(IElexonImbalancePriceManager elexonImbalancePriceManager, ILogger<ElexonImbalancePriceController> logger)
     {
+        this.elexonImbalancePriceManager = elexonImbalancePriceManager;
         this.logger = logger;
     }
     
@@ -25,6 +28,11 @@ public class ElexonImbalancePriceController : Controller
     {
         try
         {
+            // var elexonImbalancePriceResponse = elexonImbalancePriceManager.ElexonImbalancePrice(new ElexonImbalancePriceRequest
+            // {
+            //
+            // });
+            
             return Ok(new ApiResponseWrapper<ElexonImbalancePriceRequestResponseItem>
             {
                 Status = ApiConstants.SuccessResult
@@ -47,6 +55,9 @@ public class ElexonImbalancePriceController : Controller
     {
         try
         {
+            // TODO If operating in Cube mode, the user should have CubeDataRW permission.
+            // var elexonImbalancePriceResponse = elexonImbalancePriceManager.ElexonImbalancePrice(elexonSettlementPeriodRequest);
+            
             return Ok(new ApiResponseWrapper<ElexonImbalancePriceRequestResponseItem>
             {
                 Status = ApiConstants.SuccessResult

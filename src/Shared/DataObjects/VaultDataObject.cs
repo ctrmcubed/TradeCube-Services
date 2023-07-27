@@ -4,10 +4,11 @@ namespace Shared.DataObjects
 {
     public class VaultDataObject
     {
-        public string VaultKey { get; set; }
-        public string VaultValue { get; set; }
+        public string VaultKey { get; init; }
+        public string VaultValue { get; init; }
 
-        public DateTime? ValidFrom { get; set; }
-        public DateTime? ValidTo { get; set; }
+        public DateTime? ValidFrom { get; init; }
+        public DateTime? ValidTo { get; init; }
     }
 }
+    

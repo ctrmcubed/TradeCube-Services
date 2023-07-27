@@ -6,9 +6,12 @@
 
     <ItemGroup>
         <Compile Remove="Managers\**" />
+        <Compile Include="Managers\ElexonImbalancePriceContext.cs" />
+        <Compile Include="Managers\ElexonImbalancePriceManager.cs" />
         <Compile Include="Managers\ElexonSettlementPeriodContext.cs" />
-        <Compile Include="Managers\IUkPowerManager.cs" />
-        <Compile Include="Managers\UkPowerManager.cs" />
+        <Compile Include="Managers\ElexonSettlementPeriodManager.cs" />
+        <Compile Include="Managers\IElexonImbalancePriceManager.cs" />
+        <Compile Include="Managers\IElexonSettlementPeriodManager.cs" />
         <EmbeddedResource Remove="Managers\**" />
         <None Remove="Managers\**" />
     </ItemGroup>

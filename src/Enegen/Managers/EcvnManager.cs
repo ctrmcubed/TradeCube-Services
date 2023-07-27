@@ -8,6 +8,7 @@ using Shared.Constants;
 using Shared.DataObjects;
 using Shared.Extensions;
 using Shared.Helpers;
+using Shared.Managers;
 using Shared.Messages;
 using Shared.Serialization;
 using Shared.Services;
@@ -16,25 +17,25 @@ namespace Enegen.Managers;
 
 public class EcvnManager : IEcvnManager
 {
+    private readonly IElexonSettlementPeriodManager elexonSettlementPeriodManager;
     private readonly IModuleService moduleService;
     private readonly ISettingService settingService;
     private readonly ITradeService tradeService;
     private readonly ITradeDetailService tradeDetailService;
-    private readonly IElexonSettlementPeriodService elexonSettlementPeriodService;
     private readonly IVaultService vaultService;
     private readonly IHmacService hmacService;
     private readonly IEcvnService ecvnService;
     private readonly ILogger logger;
 
-    public EcvnManager(IModuleService moduleService, ISettingService settingService, ITradeService tradeService,
-        ITradeDetailService tradeDetailService, IElexonSettlementPeriodService elexonSettlementPeriodService, 
+    public EcvnManager(IElexonSettlementPeriodManager elexonSettlementPeriodManager, IModuleService moduleService, 
+        ISettingService settingService, ITradeService tradeService, ITradeDetailService tradeDetailService,
         IVaultService vaultService, IHmacService hmacService, IEcvnService ecvnService, ILogger<EcvnManager> logger)
     {
+        this.elexonSettlementPeriodManager = elexonSettlementPeriodManager;
         this.moduleService = moduleService;
         this.settingService = settingService;
         this.tradeService = tradeService;
         this.tradeDetailService = tradeDetailService;
-        this.elexonSettlementPeriodService = elexonSettlementPeriodService;
         this.vaultService = vaultService;
         this.hmacService = hmacService;
         this.ecvnService = ecvnService;
@@ -129,11 +130,11 @@ public class EcvnManager : IEcvnManager
             var minProfileUtcStartDateTime = tradeDetailResponse.Profile.Min(p => p.UtcStartDateTime);
             var maxUtcStartDateTime = tradeDetailResponse.Profile.Max(p => p.UtcStartDateTime);
 
-            var settlementPeriodServiceResponses = await elexonSettlementPeriodService.ElexonSettlementPeriodsAsync(new ElexonSettlementPeriodRequest
+            var settlementPeriodServiceResponses = elexonSettlementPeriodManager.ElexonSettlementPeriods(new ElexonSettlementPeriodRequest
             {
                 UtcStartDateTime = minProfileUtcStartDateTime.ToIso8601DateTime(),
                 UtcEndDateTime = maxUtcStartDateTime.ToIso8601DateTime()
-            }, apiJwtToken);
+            });
 
             var elexonSettlementPeriodResponseItems = settlementPeriodServiceResponses?.Data
                 .ToList() ?? new List<ElexonSettlementPeriodResponseItem>();

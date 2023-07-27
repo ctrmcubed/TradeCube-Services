@@ -1,13 +1,14 @@
-﻿namespace Shared.Messages;
+using System;
 
-public class ElexonImbalancePriceRequest
+namespace Shared.Managers;
+
+public class ElexonImbalancePriceContext
 {
-    public string ApiKey { get; init; }
     public string ElexonApiKey { get; init; }
     public string Mode { get; init; }
-    public string StartDate { get; init; }
-    public string EndDate { get; init; }
     public string Cube { get; init; }
     public string DataItem { get; init; }
     public string Layer { get; init; }
+    public DateTime StartDate { get; init; }
+    public DateTime EndDate { get; init; }
 }

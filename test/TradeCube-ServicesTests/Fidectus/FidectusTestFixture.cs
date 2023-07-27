@@ -17,7 +17,7 @@ namespace TradeCube_ServicesTests.Fidectus
 {
     public class FidectusTestFixture
     {
-        public FidectusAuthenticationService FidectusAuthenticationService { get; }
+        public IFidectusAuthenticationService FidectusAuthenticationService { get; }
         public IFidectusService FidectusService { get; }
         public IFidectusManager FidectusManager { get; }
 

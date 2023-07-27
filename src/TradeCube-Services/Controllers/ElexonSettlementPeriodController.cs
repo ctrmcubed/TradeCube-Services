@@ -12,12 +12,12 @@ namespace TradeCube_Services.Controllers;
 [ApiController]
 public class ElexonSettlementPeriodController : Controller
 {
-    private readonly IUkPowerManager ukPowerManager;
+    private readonly IElexonSettlementPeriodManager elexonSettlementPeriodManager;
     private readonly ILogger<ElexonSettlementPeriodController> logger;
 
-    public ElexonSettlementPeriodController(IUkPowerManager ukPowerManager, ILogger<ElexonSettlementPeriodController> logger)
+    public ElexonSettlementPeriodController(IElexonSettlementPeriodManager elexonSettlementPeriodManager, ILogger<ElexonSettlementPeriodController> logger)
     {
-        this.ukPowerManager = ukPowerManager;
+        this.elexonSettlementPeriodManager = elexonSettlementPeriodManager;
         this.logger = logger;
     }
 
@@ -27,7 +27,7 @@ public class ElexonSettlementPeriodController : Controller
     {
         IActionResult ComputeSettlementPeriods()
         {
-            var settlementPeriodResponse = ukPowerManager.ComputeElexonSettlementPeriods(elexonSettlementPeriodRequest);
+            var settlementPeriodResponse = elexonSettlementPeriodManager.ElexonSettlementPeriods(elexonSettlementPeriodRequest);
 
             var responseWrapper = new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>
             {

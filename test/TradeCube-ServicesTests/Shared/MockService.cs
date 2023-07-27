@@ -2,6 +2,7 @@
 using System.Linq;
 using Moq;
 using Shared.DataObjects;
+using Shared.Managers;
 using Shared.Messages;
 using Shared.Services;
 using TradeCube_ServicesTests.Enegen.Ecvn;
@@ -144,13 +145,13 @@ public static class MockService
         return service.Object;
     }
     
-    public static IElexonSettlementPeriodService CreateElexonSettlementPeriodService(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes)
+    public static IElexonSettlementPeriodManager CreateElexonSettlementPeriodManager(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes)
     {
-        var service = new Mock<IElexonSettlementPeriodService>();
+        var service = new Mock<IElexonSettlementPeriodManager>();
     
         service
-            .Setup(c => c.ElexonSettlementPeriodsAsync(It.IsAny<ElexonSettlementPeriodRequest>(), It.IsAny<string>()))
-            .ReturnsAsync((ElexonSettlementPeriodRequest request, string _) => new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>
+            .Setup(c => c.ElexonSettlementPeriods(It.IsAny<ElexonSettlementPeriodRequest>()))
+            .Returns((ElexonSettlementPeriodRequest request) => new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>
                 {
                     Data = ElexonSettlementPeriodsAsync(elexonSettlementPeriodTestTypes, request)
                 });
@@ -158,7 +159,7 @@ public static class MockService
         return service.Object;
     }
 
-    private static List<ElexonSettlementPeriodResponseItem> ElexonSettlementPeriodsAsync(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes, ElexonSettlementPeriodRequest request)
+    private static IEnumerable<ElexonSettlementPeriodResponseItem> ElexonSettlementPeriodsAsync(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes, ElexonSettlementPeriodRequest request)
     {
         return elexonSettlementPeriodTestTypes
             .Where(e => e.Inputs.UtcStartDateTime == request.UtcStartDateTime && e.Inputs.UtcEndDateTime == request.UtcEndDateTime)
