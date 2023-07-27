@@ -20,7 +20,9 @@ public class ElexonImbalancePriceFixture
         ElexonImbalancePriceManager = new ElexonImbalancePriceManager(
             Mock.Of<IVaultService>(),
             Mock.Of<ISettingService>(),
+            Mock.Of<IElexonService>(),
             Mock.Of<ICubeService>(),
+            
             TestHelper.CreateNullLogger<ElexonImbalancePriceManager>());
     }
     
