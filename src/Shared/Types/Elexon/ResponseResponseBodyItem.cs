@@ -1,372 +1,103 @@
-﻿namespace Shared.Types.Elexon;
+﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+namespace Shared.Types.Elexon;
+
 public class ResponseResponseBodyItem
 {
+    [XmlElement("recordType")]
+    [JsonPropertyName("recordType")]
+    public string RecordType{ get; init; }
 
-    private string recordTypeField;
+    [XmlElement("settlementDate")]
+    [JsonPropertyName("settlementDate")]
+    public System.DateTime SettlementDate{ get; init; }
 
-    private System.DateTime settlementDateField;
+    [XmlElement("settlementPeriod")]
+    [JsonPropertyName("settlementPeriod")]
+    public int SettlementPeriod{ get; init; }
 
-    private int settlementPeriodField;
+    [XmlElement("systemSellPrice")]
+    [JsonPropertyName("systemSellPrice")]
+    public decimal SystemSellPrice{ get; init; }
 
-    private decimal systemSellPriceField;
+    [XmlElement("systemBuyPrice")]
+    [JsonPropertyName("systemBuyPrice")]
+    public decimal SystemBuyPrice{ get; init; }
 
-    private decimal systemBuyPriceField;
+    [XmlElement("bSADDefault")]
+    [JsonPropertyName("bSADDefault")]
+    public string BSadDefault{ get; init; }
 
-    private string bSADDefaultField;
+    [XmlElement("priceDerivationCode")]
+    [JsonPropertyName("priceDerivationCode")]
+    public string PriceDerivationCode{ get; init; }
 
-    private string priceDerivationCodeField;
+    [XmlElement("reserveScarcityPrice")]
+    [JsonPropertyName("reserveScarcityPrice")]
+    public decimal? ReserveScarcityPrice{ get; init; }
 
-    private string reserveScarcityPriceField;
+    [XmlElement("indicativeNetImbalanceVolume")]
+    [JsonPropertyName("indicativeNetImbalanceVolume")]
+    public decimal IndicativeNetImbalanceVolume{ get; init; }
 
-    private decimal indicativeNetImbalanceVolumeField;
+    [XmlElement("sellPriceAdjustment")]
+    [JsonPropertyName("sellPriceAdjustment")]
+    public decimal SellPriceAdjustment{ get; init; }
 
-    private decimal sellPriceAdjustmentField;
+    [XmlElement("buyPriceAdjustment")]
+    [JsonPropertyName("buyPriceAdjustment")]
+    public decimal BuyPriceAdjustment{ get; init; }
 
-    private decimal buyPriceAdjustmentField;
+    [XmlElement("replacementPrice")]
+    [JsonPropertyName("replacementPrice")]
+    public decimal ReplacementPrice{ get; init; }
 
-    private decimal replacementPriceField;
+    [XmlElement("replacementPriceSpecified")]
+    [JsonPropertyName("replacementPriceSpecified")]
+    public bool ReplacementPriceSpecified{ get; init; }
 
-    private bool replacementPriceFieldSpecified;
+    [XmlElement("replacementPriceCalculationVolume")]
+    [JsonPropertyName("replacementPriceCalculationVolume")]
+    public decimal ReplacementPriceCalculationVolume{ get; init; }
 
-    private decimal replacementPriceCalculationVolumeField;
+    [XmlElement("replacementPriceCalculationVolumeSpecified")]
+    [JsonPropertyName("replacementPriceCalculationVolumeSpecified")]
+    public bool ReplacementPriceCalculationVolumeSpecified{ get; init; }
 
-    private bool replacementPriceCalculationVolumeFieldSpecified;
+    [XmlElement("totalSystemAcceptedOfferVolume")]
+    [JsonPropertyName("totalSystemAcceptedOfferVolume")]
+    public decimal TotalSystemAcceptedOfferVolume{ get; init; }
 
-    private decimal totalSystemAcceptedOfferVolumeField;
+    [XmlElement("totalSystemAcceptedBidVolume")]
+    [JsonPropertyName("totalSystemAcceptedBidVolume")]
+    public decimal TotalSystemAcceptedBidVolume{ get; init; }
 
-    private decimal totalSystemAcceptedBidVolumeField;
+    [XmlElement("totalSystemTaggedAcceptedOfferVolume")]
+    [JsonPropertyName("totalSystemTaggedAcceptedOfferVolume")]
+    public decimal TotalSystemTaggedAcceptedOfferVolume{ get; init; }
 
-    private decimal totalSystemTaggedAcceptedOfferVolumeField;
+    [XmlElement("totalSystemTaggedAcceptedBidVolume")]
+    [JsonPropertyName("totalSystemTaggedAcceptedBidVolume")]
+    public decimal TotalSystemTaggedAcceptedBidVolume{ get; init; }
 
-    private decimal totalSystemTaggedAcceptedBidVolumeField;
+    [XmlElement("totalSystemAdjustmentSellVolume")]
+    [JsonPropertyName("totalSystemAdjustmentSellVolume")]
+    public decimal TotalSystemAdjustmentSellVolume{ get; init; }
 
-    private decimal totalSystemAdjustmentSellVolumeField;
+    [XmlElement("totalSystemAdjustmentBuyVolume")]
+    [JsonPropertyName("totalSystemAdjustmentBuyVolume")]
+    public decimal TotalSystemAdjustmentBuyVolume{ get; init; }
 
-    private decimal totalSystemAdjustmentBuyVolumeField;
+    [XmlElement("totalSystemTaggedAdjustmentSellVolume")]
+    [JsonPropertyName("totalSystemTaggedAdjustmentSellVolume")]
+    public decimal TotalSystemTaggedAdjustmentSellVolume{ get; init; }
 
-    private decimal totalSystemTaggedAdjustmentSellVolumeField;
+    [XmlElement("totalSystemTaggedAdjustmentBuyVolume")]
+    [JsonPropertyName("totalSystemTaggedAdjustmentBuyVolume")]
+    public decimal TotalSystemTaggedAdjustmentBuyVolume{ get; init; }
 
-    private decimal totalSystemTaggedAdjustmentBuyVolumeField;
-
-    private string activeFlagField;
-
-    /// <remarks/>
-    public string recordType
-    {
-        get
-        {
-            return this.recordTypeField;
-        }
-        set
-        {
-            this.recordTypeField = value;
-        }
-    }
-
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType = "date")]
-    public System.DateTime settlementDate
-    {
-        get
-        {
-            return this.settlementDateField;
-        }
-        set
-        {
-            this.settlementDateField = value;
-        }
-    }
-
-    /// <remarks/>
-    public int settlementPeriod
-    {
-        get
-        {
-            return this.settlementPeriodField;
-        }
-        set
-        {
-            this.settlementPeriodField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal systemSellPrice
-    {
-        get
-        {
-            return this.systemSellPriceField;
-        }
-        set
-        {
-            this.systemSellPriceField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal systemBuyPrice
-    {
-        get
-        {
-            return this.systemBuyPriceField;
-        }
-        set
-        {
-            this.systemBuyPriceField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string bSADDefault
-    {
-        get
-        {
-            return this.bSADDefaultField;
-        }
-        set
-        {
-            this.bSADDefaultField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string priceDerivationCode
-    {
-        get
-        {
-            return this.priceDerivationCodeField;
-        }
-        set
-        {
-            this.priceDerivationCodeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string reserveScarcityPrice
-    {
-        get
-        {
-            return this.reserveScarcityPriceField;
-        }
-        set
-        {
-            this.reserveScarcityPriceField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal indicativeNetImbalanceVolume
-    {
-        get
-        {
-            return this.indicativeNetImbalanceVolumeField;
-        }
-        set
-        {
-            this.indicativeNetImbalanceVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal sellPriceAdjustment
-    {
-        get
-        {
-            return this.sellPriceAdjustmentField;
-        }
-        set
-        {
-            this.sellPriceAdjustmentField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal buyPriceAdjustment
-    {
-        get
-        {
-            return this.buyPriceAdjustmentField;
-        }
-        set
-        {
-            this.buyPriceAdjustmentField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal replacementPrice
-    {
-        get
-        {
-            return this.replacementPriceField;
-        }
-        set
-        {
-            this.replacementPriceField = value;
-        }
-    }
-
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool replacementPriceSpecified
-    {
-        get
-        {
-            return this.replacementPriceFieldSpecified;
-        }
-        set
-        {
-            this.replacementPriceFieldSpecified = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal replacementPriceCalculationVolume
-    {
-        get
-        {
-            return this.replacementPriceCalculationVolumeField;
-        }
-        set
-        {
-            this.replacementPriceCalculationVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool replacementPriceCalculationVolumeSpecified
-    {
-        get
-        {
-            return this.replacementPriceCalculationVolumeFieldSpecified;
-        }
-        set
-        {
-            this.replacementPriceCalculationVolumeFieldSpecified = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal totalSystemAcceptedOfferVolume
-    {
-        get
-        {
-            return this.totalSystemAcceptedOfferVolumeField;
-        }
-        set
-        {
-            this.totalSystemAcceptedOfferVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal totalSystemAcceptedBidVolume
-    {
-        get
-        {
-            return this.totalSystemAcceptedBidVolumeField;
-        }
-        set
-        {
-            this.totalSystemAcceptedBidVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal totalSystemTaggedAcceptedOfferVolume
-    {
-        get
-        {
-            return this.totalSystemTaggedAcceptedOfferVolumeField;
-        }
-        set
-        {
-            this.totalSystemTaggedAcceptedOfferVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal totalSystemTaggedAcceptedBidVolume
-    {
-        get
-        {
-            return this.totalSystemTaggedAcceptedBidVolumeField;
-        }
-        set
-        {
-            this.totalSystemTaggedAcceptedBidVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal totalSystemAdjustmentSellVolume
-    {
-        get
-        {
-            return this.totalSystemAdjustmentSellVolumeField;
-        }
-        set
-        {
-            this.totalSystemAdjustmentSellVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal totalSystemAdjustmentBuyVolume
-    {
-        get
-        {
-            return this.totalSystemAdjustmentBuyVolumeField;
-        }
-        set
-        {
-            this.totalSystemAdjustmentBuyVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal totalSystemTaggedAdjustmentSellVolume
-    {
-        get
-        {
-            return this.totalSystemTaggedAdjustmentSellVolumeField;
-        }
-        set
-        {
-            this.totalSystemTaggedAdjustmentSellVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public decimal totalSystemTaggedAdjustmentBuyVolume
-    {
-        get
-        {
-            return this.totalSystemTaggedAdjustmentBuyVolumeField;
-        }
-        set
-        {
-            this.totalSystemTaggedAdjustmentBuyVolumeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string activeFlag
-    {
-        get
-        {
-            return this.activeFlagField;
-        }
-        set
-        {
-            this.activeFlagField = value;
-        }
-    }
+    [XmlElement("activeFlag")]
+    [JsonPropertyName("activeFlag")]
+    public string ActiveFlag{ get; init; }
 }

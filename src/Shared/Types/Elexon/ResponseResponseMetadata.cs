@@ -1,99 +1,31 @@
+using System.Text.Json.Serialization;
+using System.Xml.Serialization;
+
 namespace Shared.Types.Elexon;
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
 public class ResponseResponseMetadata
 {
+    [XmlElement("httpCode")]
+    [JsonPropertyName("httpCode")]
+    public int HttpCode { get; init; }
 
-    private int httpCodeField;
+    [XmlElement("errorType")]
+    [JsonPropertyName("errorType")]
+    public string ErrorType { get; init; }
 
-    private string errorTypeField;
+    [XmlElement("description")]
+    [JsonPropertyName("description")]
+    public string Description { get; init; }
 
-    private string descriptionField;
+    [XmlElement("cappingApplied")]
+    [JsonPropertyName("cappingApplied")]
+    public string CappingApplied { get; init; }
 
-    private string cappingAppliedField;
+    [XmlElement("cappingLimit")]
+    [JsonPropertyName("cappingLimit")]
+    public int CappingLimit { get; init; }
 
-    private int cappingLimitField;
-
-    private string queryStringField;
-
-    /// <remarks/>
-    public int httpCode
-    {
-        get
-        {
-            return this.httpCodeField;
-        }
-        set
-        {
-            this.httpCodeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string errorType
-    {
-        get
-        {
-            return this.errorTypeField;
-        }
-        set
-        {
-            this.errorTypeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string description
-    {
-        get
-        {
-            return this.descriptionField;
-        }
-        set
-        {
-            this.descriptionField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string cappingApplied
-    {
-        get
-        {
-            return this.cappingAppliedField;
-        }
-        set
-        {
-            this.cappingAppliedField = value;
-        }
-    }
-
-    /// <remarks/>
-    public int cappingLimit
-    {
-        get
-        {
-            return this.cappingLimitField;
-        }
-        set
-        {
-            this.cappingLimitField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string queryString
-    {
-        get
-        {
-            return this.queryStringField;
-        }
-        set
-        {
-            this.queryStringField = value;
-        }
-    }
+    [XmlElement("queryString")]
+    [JsonPropertyName("queryString")]
+    public string QueryString { get; init; }
 }

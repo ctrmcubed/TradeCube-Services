@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Shared.Messages;
 using Xunit;
 
 namespace TradeCube_ServicesTests.UkPower.ElexonImbalancePrice;
@@ -87,7 +88,8 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
     private async Task RunTest(string testDescription)
     {
         var elexonElexonImbalancePriceTestType = elexonImbalancePriceFixture.GetExpectedResult(testDescription);
-        // var expectedResults = elexonElexonImbalancePriceTestType
+        var elexonDerivedSystemWideData = elexonImbalancePriceFixture.GetElexonDerivedSystemWideData(elexonElexonImbalancePriceTestType.Inputs);
+        var elexonSettlementPeriods = elexonImbalancePriceFixture.GetElexonSettlementPeriods(new ElexonSettlementPeriodRequest());
 
         var imbalancePriceResponse = elexonImbalancePriceFixture.ElexonImbalancePriceManager.ElexonImbalancePrice(elexonElexonImbalancePriceTestType.Inputs);
         

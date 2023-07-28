@@ -1,39 +1,15 @@
+using System.Text.Json.Serialization;
+using System.Xml.Serialization;
+
 namespace Shared.Types.Elexon;
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
 public class ResponseResponseHeader
 {
+    [XmlElement("recordType")]
+    [JsonPropertyName("recordType")]
+    public string RecordType { get; init; }
 
-    private string recordTypeField;
-
-    private string fileTypeField;
-
-    /// <remarks/>
-    public string recordType
-    {
-        get
-        {
-            return this.recordTypeField;
-        }
-        set
-        {
-            this.recordTypeField = value;
-        }
-    }
-
-    /// <remarks/>
-    public string fileType
-    {
-        get
-        {
-            return this.fileTypeField;
-        }
-        set
-        {
-            this.fileTypeField = value;
-        }
-    }
+    [XmlElement("fileType")]
+    [JsonPropertyName("fileType")]
+    public string FileType { get; init; }
 }

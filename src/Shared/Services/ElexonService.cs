@@ -51,17 +51,17 @@ public class ElexonService : IElexonService
                 logger.LogInformation("DerivedSystemWideData success response {StatusCode}, {Reason}, {MetadataHttpCode}, {MetadataDescription}",
                     httpResponseMessage.StatusCode,
                     httpResponseMessage.ReasonPhrase,
-                    derivedSystemWideData.responseMetadata.httpCode,
-                    derivedSystemWideData.responseMetadata.description);
+                    derivedSystemWideData.ResponseMetadata.HttpCode,
+                    derivedSystemWideData.ResponseMetadata.Description);
 
-                if (derivedSystemWideData.responseMetadata.httpCode == 200 && derivedSystemWideData.responseMetadata.description == "Success")
+                if (derivedSystemWideData.ResponseMetadata.HttpCode == 200 && derivedSystemWideData.ResponseMetadata.Description == "Success")
                 {
                     return derivedSystemWideData;
                 }
 
                 logger.LogError("DerivedSystemWideData failure response {Description}, {HttpCode}, {StatusCode}, {Reason}",
-                    derivedSystemWideData.responseMetadata?.description,
-                    derivedSystemWideData.responseMetadata?.httpCode,
+                    derivedSystemWideData.ResponseMetadata?.Description,
+                    derivedSystemWideData.ResponseMetadata?.HttpCode,
                     httpResponseMessage.StatusCode,
                     httpResponseMessage.ReasonPhrase);
 

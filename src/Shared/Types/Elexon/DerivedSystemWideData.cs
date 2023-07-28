@@ -1,49 +1,19 @@
+using System.Text.Json.Serialization;
+using System.Xml.Serialization;
+
 namespace Shared.Types.Elexon;
 
 public class DerivedSystemWideData
 {
-    private ResponseResponseMetadata responseMetadataField;
+    [XmlElement("responseMetadata")]
+    [JsonPropertyName("responseMetadata")]
+    public ResponseResponseMetadata ResponseMetadata { get; init; }
 
-    private ResponseResponseHeader responseHeaderField;
+    [XmlElement("responseHeader")]
+    [JsonPropertyName("responseHeader")]
+    public ResponseResponseHeader ResponseHeader { get; init; }
 
-    private ResponseResponseBody responseBodyField;
-
-    /// <remarks/>
-    public ResponseResponseMetadata responseMetadata
-    {
-        get
-        {
-            return this.responseMetadataField;
-        }
-        set
-        {
-            this.responseMetadataField = value;
-        }
-    }
-
-    /// <remarks/>
-    public ResponseResponseHeader ResponseHeader
-    {
-        get
-        {
-            return this.responseHeaderField;
-        }
-        set
-        {
-            this.responseHeaderField = value;
-        }
-    }
-
-    /// <remarks/>
-    public ResponseResponseBody responseBody
-    {
-        get
-        {
-            return this.responseBodyField;
-        }
-        set
-        {
-            this.responseBodyField = value;
-        }
-    }
+    [XmlElement("responseBody")]
+    [JsonPropertyName("responseBody")]
+    public ResponseResponseBody ResponseBody { get; init; }
 }

@@ -1,25 +1,18 @@
+using System.Text.Json.Serialization;
+using System.Xml.Serialization;
+
 namespace Shared.Types.Elexon;
 
-/// <remarks/>
-[System.SerializableAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
 public class ResponseResponseBody
 {
+    [XmlElement("responseList")]
+    [JsonPropertyName("responseList")]
+    public ResponseListItems ResponseList { get; init; }
+}
 
-    private ResponseResponseBodyItem[] responseListField;
-
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", IsNullable = false)]
-    public ResponseResponseBodyItem[] responseList
-    {
-        get
-        {
-            return this.responseListField;
-        }
-        set
-        {
-            this.responseListField = value;
-        }
-    }
+public class ResponseListItems
+{
+    [XmlElement("item")]
+    [JsonPropertyName("item")]
+    public ResponseResponseBodyItem[] Item { get; init; }
 }
