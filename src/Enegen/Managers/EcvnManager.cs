@@ -132,15 +132,15 @@ public class EcvnManager : IEcvnManager
 
             var settlementPeriodServiceResponses = elexonSettlementPeriodManager.ElexonSettlementPeriods(new ElexonSettlementPeriodRequest
             {
-                UtcStartDateTime = minProfileUtcStartDateTime.ToIso8601DateTime(),
-                UtcEndDateTime = maxUtcStartDateTime.ToIso8601DateTime()
+                StartDateTimeUtc = minProfileUtcStartDateTime.ToIso8601DateTime(),
+                EndDateTimeUtc = maxUtcStartDateTime.ToIso8601DateTime()
             });
 
             var elexonSettlementPeriodResponseItems = settlementPeriodServiceResponses?.Data
                 .ToList() ?? new List<ElexonSettlementPeriodResponseItem>();
 
-            var minSettlementPeriod = elexonSettlementPeriodResponseItems.Min(r => r.UtcStartDateTime);
-            var maxSettlementPeriod = elexonSettlementPeriodResponseItems.Max(r => r.UtcStartDateTime);
+            var minSettlementPeriod = elexonSettlementPeriodResponseItems.Min(r => r.StartDateTimeUtc);
+            var maxSettlementPeriod = elexonSettlementPeriodResponseItems.Max(r => r.StartDateTimeUtc);
 
             var settlementPeriodVolumes = Merge(tradeDetailResponse.Profile, elexonSettlementPeriodResponseItems);
             var isTradeVoided = tradeDataObject.IsVoid();
@@ -250,7 +250,7 @@ public class EcvnManager : IEcvnManager
 
     private static IEnumerable<SettlementPeriodVolume> Merge(IEnumerable<TimeNodeProfileValueBase> profile, IEnumerable<ElexonSettlementPeriodResponseItem> elexonSettlementPeriodResponseItems)
     {
-        var settlementPeriodDict = elexonSettlementPeriodResponseItems.ToLookup(e => e.UtcStartDateTime, v => v);
+        var settlementPeriodDict = elexonSettlementPeriodResponseItems.ToLookup(e => e.StartDateTimeUtc, v => v);
 
         foreach (var profileValue in profile)
         {

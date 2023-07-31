@@ -9,10 +9,3 @@ public class ResponseResponseBody
     [JsonPropertyName("responseList")]
     public ResponseListItems ResponseList { get; init; }
 }
-
-public class ResponseListItems
-{
-    [XmlElement("item")]
-    [JsonPropertyName("item")]
-    public ResponseResponseBodyItem[] Item { get; init; }
-}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -22,19 +23,45 @@ public class ElexonService : IElexonService
 
     // https://api.bmreports.com/BMRS/DERSYSDATA/v1?APIKey=xxsk4wq2o1mc2l5&FromSettlementDate=2021-11-09&ToSettlementDate=2021-11-25&SettlementPeriod=*&ServiceType=xml
 
+    public DerivedSystemWideData DeserializeDerivedSystemWideData(Stream response)
+    {
+        try
+        {
+            return new TradeCubeXmlSerializer().Deserialize<DerivedSystemWideData>(response, "response");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "{Message}", ex.Message);
+            throw;
+        }
+    }
+    
+    public DerivedSystemWideData DeserializeDerivedSystemWideData(string response)
+    {
+        try
+        {
+            return string.IsNullOrWhiteSpace(response)
+                ? new DerivedSystemWideData()
+                : new TradeCubeXmlSerializer().Deserialize<DerivedSystemWideData>(response, "response");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "{Message}", ex.Message);
+            throw;
+        }
+    }
+    
     public async Task<DerivedSystemWideData> DerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest)
     {
-        IEnumerable<string> QueryStrings(DerivedSystemWideDataRequest request)
-        {
-            return new List<string>
+        IEnumerable<string> QueryStrings(DerivedSystemWideDataRequest request) =>
+            new List<string>
             {
-                $"APIKey={request.ElexonApiKey}",
+                $"APIKey={request.ApiKey}",
                 $"FromSettlementDate={request.FromSettlementDate}",
                 $"ToSettlementDate={request.ToSettlementDate}",
                 $"SettlementPeriod={request.SettlementPeriod}",
                 $"ServiceType={request.ServiceType}"
             };
-        }
 
         try
         {
@@ -46,7 +73,7 @@ public class ElexonService : IElexonService
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 using var content = httpResponseMessage.Content;
-                var derivedSystemWideData = new TradeCubeXmlSerializer().Deserialize<DerivedSystemWideData>(await content.ReadAsStreamAsync(), "response");
+                var derivedSystemWideData = DeserializeDerivedSystemWideData(await content.ReadAsStreamAsync());
 
                 logger.LogInformation("DerivedSystemWideData success response {StatusCode}, {Reason}, {MetadataHttpCode}, {MetadataDescription}",
                     httpResponseMessage.StatusCode,

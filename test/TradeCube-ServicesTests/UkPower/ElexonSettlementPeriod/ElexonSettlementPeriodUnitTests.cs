@@ -79,7 +79,7 @@ public class ElexonSettlementPeriodUnitTests : IClassFixture<ElexonSettlementPer
 
         foreach (var result in zipped)
         {
-            Assert.Equal(result.Expected.UtcStartDateTime, result.Actual.UtcStartDateTime);
+            Assert.Equal(result.Expected.StartDateTimeUtc, result.Actual.StartDateTimeUtc);
             Assert.Equal(result.Expected.SettlementDate, result.Actual.SettlementDate);
             Assert.Equal(result.Expected.SettlementPeriod, result.Actual.SettlementPeriod);
         }

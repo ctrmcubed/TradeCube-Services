@@ -204,7 +204,7 @@ public static class MockService
     private static IEnumerable<ElexonSettlementPeriodResponseItem> ElexonSettlementPeriodsAsync(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes, ElexonSettlementPeriodRequest request)
     {
         return elexonSettlementPeriodTestTypes
-            .Where(e => e.Inputs.UtcStartDateTime == request.UtcStartDateTime && e.Inputs.UtcEndDateTime == request.UtcEndDateTime)
+            .Where(e => e.Inputs.StartDateTimeUtc == request.StartDateTimeUtc && e.Inputs.EndDateTimeUtc == request.EndDateTimeUtc)
             .SelectMany(t => t.Response.Data)
             .ToList();
     }

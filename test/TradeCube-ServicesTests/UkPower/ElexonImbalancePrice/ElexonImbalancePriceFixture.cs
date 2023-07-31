@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Shared.DataObjects;
 using Shared.Managers;
 using Shared.Messages;
 using Shared.Services;
+using Shared.Types.Elexon;
 using TradeCube_ServicesTests.Helpers;
 using TradeCube_ServicesTests.Shared;
 
@@ -32,11 +35,12 @@ public class ElexonImbalancePriceFixture
         var cubeService = MockService.CreateCubeService(cubeDataObjects);
         var cubeTypeService = MockService.CreateCubeTypeService(cubeTypeDataObjects);
         var dataItemService = MockService.CreateDataItemService(dataItemDataObjects);
+        var elexonService = new ElexonService(Mock.Of<IHttpClientFactory>(), Mock.Of<ILogger<ElexonService>>());
         
         ElexonImbalancePriceManager = new ElexonImbalancePriceManager(
             Mock.Of<IVaultService>(),
             Mock.Of<ISettingService>(),
-            Mock.Of<IElexonService>(),
+            elexonService,
             cubeService,
             TestHelper.CreateNullLogger<ElexonImbalancePriceManager>());
     }
@@ -44,13 +48,19 @@ public class ElexonImbalancePriceFixture
     public ElexonImbalancePriceTestType GetExpectedResult(string testDescription) => 
         expectedResults.SingleOrDefault(t => t.Description == testDescription);
 
-    public ElexonDerivedSystemWideDataMockApiType GetElexonDerivedSystemWideData(ElexonImbalancePriceRequest request) =>
-        elexonSystemData.SingleOrDefault(t =>
-            t.Inputs.FromSettlementDate == request.StartDate &&
-            t.Inputs.ToSettlementDate == request.EndDate);
-    
-    public ElexonSettlementPeriodMockApiType GetElexonSettlementPeriods(ElexonSettlementPeriodRequest request) =>
+    public DerivedSystemWideData GetElexonDerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest)
+    {
+        var elexonDerivedSystemWideDataMockApiType = elexonSystemData.SingleOrDefault(t =>
+            t.Inputs.FromSettlementDate == derivedSystemWideDataRequest.FromSettlementDate &&
+            t.Inputs.ToSettlementDate == derivedSystemWideDataRequest.ToSettlementDate &&
+            t.Inputs.SettlementPeriod == derivedSystemWideDataRequest.SettlementPeriod &&
+            t.Inputs.ServiceType == derivedSystemWideDataRequest.ServiceType);
+        
+        return ElexonImbalancePriceManager.DeserializeDerivedSystemWideData(elexonDerivedSystemWideDataMockApiType?.Response);
+    }
+
+    public ElexonSettlementPeriodMockApiType GetElexonSettlementPeriods(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest) =>
         elexonSettlementPeriodData.SingleOrDefault(t =>
-            t.Inputs.UtcEndDateTime == request.UtcStartDateTime &&
-            t.Inputs.UtcEndDateTime == request.UtcEndDateTime);
+            t.Inputs.StartDateTimeUtc == elexonSettlementPeriodRequest.StartDateTimeUtc &&
+            t.Inputs.EndDateTimeUtc == elexonSettlementPeriodRequest.EndDateTimeUtc);
 }

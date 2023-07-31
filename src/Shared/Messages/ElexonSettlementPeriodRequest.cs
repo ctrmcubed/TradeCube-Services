@@ -4,10 +4,10 @@ namespace Shared.Messages;
 
 public class ElexonSettlementPeriodRequest
 {
-    [JsonPropertyName("UTCStartDateTime")]
-    public string UtcStartDateTime { get; init; }
+    [JsonPropertyName("StartDateTimeUTC")]
+    public string StartDateTimeUtc { get; init; }
     
-    [JsonPropertyName("UTCEndDateTime")]
-    public string UtcEndDateTime { get; init; }
+    [JsonPropertyName("EndDateTimeUTC")]
+    public string EndDateTimeUtc { get; init; }
 }
 

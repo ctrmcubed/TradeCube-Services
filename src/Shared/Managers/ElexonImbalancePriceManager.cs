@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -8,6 +9,7 @@ using Shared.Extensions;
 using Shared.Helpers;
 using Shared.Messages;
 using Shared.Services;
+using Shared.Types.CubeDataBulk;
 using Shared.Types.Elexon;
 
 namespace Shared.Managers;
@@ -30,86 +32,202 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         this.logger = logger;
     }
     
-    public async Task<ElexonImbalancePriceResponse> ElexonImbalancePrice(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
+    public DerivedSystemWideDataRequest CreateElexonImbalancePriceRequest(ElexonImbalancePriceContext elexonImbalancePriceContext)
+    {
+        if (elexonImbalancePriceContext.StartDate.HasValue && elexonImbalancePriceContext.EndDate.HasValue)
+        {
+            return new DerivedSystemWideDataRequest
+            {
+                ApiKey = elexonImbalancePriceContext.ElexonApiKey,
+                FromSettlementDate = elexonImbalancePriceContext.StartDate.Value.ToIso8601Date(),
+                ToSettlementDate = elexonImbalancePriceContext.EndDate.Value.ToIso8601Date(),
+                SettlementPeriod = "*",
+                ServiceType = "xml"
+            };            
+        }
+
+        return new DerivedSystemWideDataRequest();
+    }
+
+    public ElexonSettlementPeriodRequest CreateElexonSettlementPeriodRequest(ElexonImbalancePriceContext elexonImbalancePriceContext)
+    {
+        if (elexonImbalancePriceContext.StartDate.HasValue && elexonImbalancePriceContext.EndDate.HasValue)
+        {
+            return new ElexonSettlementPeriodRequest
+            {
+                StartDateTimeUtc = elexonImbalancePriceContext.StartDate.Value.AddDays(-1).ToIso8601Date(),
+                EndDateTimeUtc = elexonImbalancePriceContext.EndDate.Value.AddDays(1).ToIso8601Date(),
+            };    
+        }
+
+        return new ElexonSettlementPeriodRequest();
+    }
+
+    public CubeDataBulkRequest CreateCubeDataBulkRequest(ElexonImbalancePriceContext elexonImbalancePriceContext,
+        ElexonImbalancePriceResponse elexonImbalancePriceResponse)
+    {
+        if (elexonImbalancePriceContext.Mode == ElexonImbalancePriceConstants.ModeStandalone)
+        {
+            return null;
+        }
+        
+        var data = elexonImbalancePriceResponse.Data.Select(d => new CubeDataBulkData
+        {
+            StartDateTimeUTC = DateTimeHelper.ParseIsoDateTime(d.StartDateTimeUTC),
+            Values = new List<decimal> { d.ImbalancePrice }
+        });
+
+        return new CubeDataBulkRequest
+        {
+            Name = ElexonImbalancePriceConstants.CubeDataBulkName,
+            Description = ElexonImbalancePriceConstants.CubeDataBulkDescription,
+            Reason = ElexonImbalancePriceConstants.CubeDataBulkReason,
+            Cube = elexonImbalancePriceContext.Cube,
+            DataItem = elexonImbalancePriceContext.DataItem,
+            Layer = elexonImbalancePriceContext.Layer,
+            CreateNodes = false,
+            RegularDayPeriods = 48,
+            Data = data
+        };
+    }
+
+    // public async Task<ElexonImbalancePriceResponse> ElexonImbalancePrice(
+    //     ElexonImbalancePriceRequest elexonImbalancePriceRequest,
+    //     ElexonDerivedSystemWideDataMockApiType elexonDerivedSystemWideDataMockApiType)
+    // {
+    //     try
+    //     {
+    //         var elexonImbalancePriceContext = await CreateContext(elexonImbalancePriceRequest);
+    //         var derivedSystemWideData = await elexonService.DerivedSystemWideData(new DerivedSystemWideDataRequest
+    //         {
+    //             ApiKey = elexonImbalancePriceContext.ElexonApiKey,
+    //             FromSettlementDate = elexonImbalancePriceContext.StartDate.ToString("yyyy-MM-dd"),
+    //             ToSettlementDate = elexonImbalancePriceContext.EndDate.ToString("yyyy-MM-dd"),
+    //             SettlementPeriod = "*",
+    //             ServiceType = "xml"
+    //         });
+    //         
+    //         logger.JsonLogDebug("Envelope", derivedSystemWideData);
+    //         
+    //         // var imbalancePriceSetting = await settingService.FindBySettingByNameAsync(SettingConstants.PeakGenElexonImbalancePriceCube, tenant);
+    //         // var targetCube = string.IsNullOrWhiteSpace(imbalancePriceSetting.SettingValue)
+    //         //     ? "Imbalance Price"
+    //         //     : imbalancePriceSetting.SettingValue;
+    //         //
+    //         // var grouped = derivedSystemWideData?.responseBody?.responseList
+    //         //     .GroupBy(d => d.settlementDate)
+    //         //     .Select(x => new
+    //         //     {
+    //         //         Date = x.Key,
+    //         //         Values = x.ToList()
+    //         //     });
+    //         //
+    //         // var data = grouped?
+    //         //     .Select(m => new CubeDataBulkData
+    //         //     {
+    //         //         StartDateTimeLocal = m.Date.ToIso8601Date(),
+    //         //         Values = m.Values.Select(v => v.systemSellPrice)
+    //         //     })
+    //         //     .ToList();
+    //         //
+    //         // var cubeDataBulkRequest = new CubeDataBulkRequest
+    //         // {
+    //         //     Name = "PeakGen Imbalance Price Load",
+    //         //     Cube = targetCube,
+    //         //     DataItem = DataItemConstants.DataItemPrice,
+    //         //     Node = "SBP",
+    //         //     Unit = UnitConstants.GBPPerMWh,
+    //         //     Timezone = TimezoneConstants.TimezoneEuropeLondon,
+    //         //     ShortDayRule = ClockChangeConstants.ClockChangeSequential,
+    //         //     LongDayRule = ClockChangeConstants.ClockChangeSequential,
+    //         //     RegularDayPeriods = 48,
+    //         //     CreateNodes = true,
+    //         //     Reason = "Imbalance Price Automated Load",
+    //         //     Data = data
+    //         // };
+    //         //
+    //         // var responseWrapper = await scafellWebApiService
+    //         //     .PostViaApiKeyAsync<CubeDataBulkRequest, ApiResponseWrapper<IEnumerable<CubeDataDataObject>>>(
+    //         //         request.ApiKey, cubeDataBulkRequest, "CubeDataBulk", false);
+    //         //
+    //         // if (responseWrapper.IsSuccessStatusCode)
+    //         // {
+    //         //     logger.LogInformation("PeakGen Imbalance Price Load success");
+    //         //
+    //         //     // await Notifications(NotificationType.Ok, request, "PeakGen Imbalance Price Load success", tenant);
+    //         //
+    //         //     return new ElexonImbalancePriceResponse();
+    //         // }
+    //         
+    //         return new ElexonImbalancePriceResponse();
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         logger.LogError(ex, "{Message}", ex.Message);
+    //         return new ElexonImbalancePriceResponse
+    //         {
+    //             Status = ApiConstants.FailedResult,
+    //             Message   = ex.Message
+    //         };
+    //     }
+    // }
+
+    public async Task<ElexonImbalancePriceContext> CreateContext(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
         try
         {
-            var elexonImbalancePriceContext = await CreateContext(elexonImbalancePriceRequest);
-            var derivedSystemWideData = await elexonService.DerivedSystemWideData(new DerivedSystemWideDataRequest
+            return await CreateContext2(elexonImbalancePriceRequest);
+        }
+        catch (Exception ex)
+        {
+            return new ElexonImbalancePriceContext
             {
-                ElexonApiKey = elexonImbalancePriceContext.ElexonApiKey,
-                FromSettlementDate = elexonImbalancePriceContext.StartDate.ToString("yyyy-MM-dd"),
-                ToSettlementDate = elexonImbalancePriceContext.EndDate.ToString("yyyy-MM-dd"),
-                SettlementPeriod = "*",
-                ServiceType = "xml"
-            });
-            
-            logger.JsonLogDebug("Envelope", derivedSystemWideData);
-            
-            // var imbalancePriceSetting = await settingService.FindBySettingByNameAsync(SettingConstants.PeakGenElexonImbalancePriceCube, tenant);
-            // var targetCube = string.IsNullOrWhiteSpace(imbalancePriceSetting.SettingValue)
-            //     ? "Imbalance Price"
-            //     : imbalancePriceSetting.SettingValue;
-            //
-            // var grouped = derivedSystemWideData?.responseBody?.responseList
-            //     .GroupBy(d => d.settlementDate)
-            //     .Select(x => new
-            //     {
-            //         Date = x.Key,
-            //         Values = x.ToList()
-            //     });
-            //
-            // var data = grouped?
-            //     .Select(m => new CubeDataBulkData
-            //     {
-            //         StartDateTimeLocal = m.Date.ToIso8601Date(),
-            //         Values = m.Values.Select(v => v.systemSellPrice)
-            //     })
-            //     .ToList();
-            //
-            // var cubeDataBulkRequest = new CubeDataBulkRequest
-            // {
-            //     Name = "PeakGen Imbalance Price Load",
-            //     Cube = targetCube,
-            //     DataItem = DataItemConstants.DataItemPrice,
-            //     Node = "SBP",
-            //     Unit = UnitConstants.GBPPerMWh,
-            //     Timezone = TimezoneConstants.TimezoneEuropeLondon,
-            //     ShortDayRule = ClockChangeConstants.ClockChangeSequential,
-            //     LongDayRule = ClockChangeConstants.ClockChangeSequential,
-            //     RegularDayPeriods = 48,
-            //     CreateNodes = true,
-            //     Reason = "Imbalance Price Automated Load",
-            //     Data = data
-            // };
-            //
-            // var responseWrapper = await scafellWebApiService
-            //     .PostViaApiKeyAsync<CubeDataBulkRequest, ApiResponseWrapper<IEnumerable<CubeDataDataObject>>>(
-            //         request.ApiKey, cubeDataBulkRequest, "CubeDataBulk", false);
-            //
-            // if (responseWrapper.IsSuccessStatusCode)
-            // {
-            //     logger.LogInformation("PeakGen Imbalance Price Load success");
-            //
-            //     // await Notifications(NotificationType.Ok, request, "PeakGen Imbalance Price Load success", tenant);
-            //
-            //     return new ElexonImbalancePriceResponse();
-            // }
-            
-            return new ElexonImbalancePriceResponse();
+                Mode = Mode(elexonImbalancePriceRequest),
+                MessageResponseBag = new MessageResponseBag(ex.Message, MessageResponseType.Error)
+            };
+        }
+    }
+    
+    public DerivedSystemWideData DeserializeDerivedSystemWideData(string response)
+    {
+        try
+        {
+            return elexonService.DeserializeDerivedSystemWideData(response);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "{Message}", ex.Message);
-            return new ElexonImbalancePriceResponse
-            {
-                Status = ApiConstants.FailedResult,
-                Message   = ex.Message
-            };
+            throw;
         }
     }
 
-    private async Task<ElexonImbalancePriceContext> CreateContext(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
+    public ElexonImbalancePriceResponse ElexonImbalancePrice(ElexonImbalancePriceContext elexonImbalancePriceContext, 
+        DerivedSystemWideData derivedSystemWideData, IEnumerable<ElexonSettlementPeriodResponseItem> settlementPeriodResponseItems)
+    {
+        if (elexonImbalancePriceContext.MessageResponseBag.GotErrors())
+        {
+            return new ElexonImbalancePriceResponse();
+        }
+        
+        var elexonImbalancePriceItems = CreateElexonImbalancePriceItems(derivedSystemWideData, settlementPeriodResponseItems);
+        
+        var imbalancePriceResponse = new ElexonImbalancePriceResponse
+        {
+            Data = elexonImbalancePriceItems
+        };
+
+        if (elexonImbalancePriceContext.IsModeStandalone())
+        {
+            return imbalancePriceResponse;
+        }
+
+        return new ElexonImbalancePriceResponse
+        {
+            CubeDataBulk = CreateCubeDataBulkRequest(elexonImbalancePriceContext, imbalancePriceResponse)
+        };
+    }
+
+      private async Task<ElexonImbalancePriceContext> CreateContext2(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
         ArgumentNullException.ThrowIfNull(elexonImbalancePriceRequest);
 
@@ -129,14 +247,17 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         }
         
         var isStandaloneMode = IsMode(mode, ElexonImbalancePriceConstants.ModeStandalone);
-        
-        var elexonApiKey = isStandaloneMode && string.IsNullOrWhiteSpace(elexonImbalancePriceRequest.ElexonApiKey)
-            ? throw new ElexonImbalancePriceException("An Elexon API key must be provided")
-            : (await vaultService.GetVaultValueAsync(VaultConstants.ElexonApiKey, elexonImbalancePriceRequest.ApiKey))?.Data?.SingleOrDefault()?.VaultValue;
 
-        if (string.IsNullOrWhiteSpace(elexonApiKey))
+        var elexonApiKey = isStandaloneMode
+            ? string.IsNullOrWhiteSpace(elexonImbalancePriceRequest.ElexonApiKey)
+                ? (await vaultService.GetVaultValueAsync(VaultConstants.ElexonApiKey,
+                    elexonImbalancePriceRequest.ApiKey))?.Data?.SingleOrDefault()?.VaultValue
+                : elexonImbalancePriceRequest.ElexonApiKey
+            : null;
+        
+        if (isStandaloneMode && string.IsNullOrWhiteSpace(elexonApiKey))
         {
-            throw new ElexonImbalancePriceException($"Missing Vault Value ({VaultConstants.ElexonApiKey})");
+            throw new ElexonImbalancePriceException($"An Elexon API key must be provided");
         }
 
         var isCubeMode = IsMode(mode, ElexonImbalancePriceConstants.ModeCube);
@@ -162,7 +283,8 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
                 ElexonApiKey = elexonImbalancePriceRequest.ElexonApiKey,
                 Mode = mode,
                 StartDate = sdt,
-                EndDate = edt
+                EndDate = edt,
+                MessageResponseBag = new MessageResponseBag()
             };
         }
         
@@ -201,10 +323,32 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
             DataItem = dataItem,
             Layer = layer,
             StartDate = sdt,
-            EndDate = edt         
+            EndDate = edt         ,
+            MessageResponseBag = new MessageResponseBag()
         };
     }
-
+      
+    private static IEnumerable<ElexonImbalancePriceItem> CreateElexonImbalancePriceItems(DerivedSystemWideData derivedSystemWideData, 
+        IEnumerable<ElexonSettlementPeriodResponseItem> elexonSettlementPeriodResponseItems)
+    {
+        var lookup = elexonSettlementPeriodResponseItems.ToLookup(k => (k.SettlementPeriod, k.SettlementDate), v => v);
+        
+        foreach (var responseResponseBodyItem in derivedSystemWideData?.ResponseBody?.ResponseList?.Item ?? Array.Empty<ResponseResponseBodyItem>())
+        {
+            var startDateTime = responseResponseBodyItem.SettlementDate.ToIso8601Date();
+            var lookupKey = (responseResponseBodyItem.SettlementPeriod, startDateTime);
+            var utcStartDateTime = lookup[lookupKey].SingleOrDefault()?.StartDateTimeUtc;
+            
+            yield return new ElexonImbalancePriceItem
+            {
+                SettlementDate = startDateTime,
+                SettlementPeriod = responseResponseBodyItem.SettlementPeriod,
+                ImbalancePrice = responseResponseBodyItem.SystemSellPrice,
+                StartDateTimeUTC = utcStartDateTime
+            };
+        }
+    }
+    
     private static string Mode(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
         if (string.IsNullOrWhiteSpace(elexonImbalancePriceRequest?.Mode))

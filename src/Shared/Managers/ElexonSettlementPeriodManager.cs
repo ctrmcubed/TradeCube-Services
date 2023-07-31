@@ -38,7 +38,7 @@ public class ElexonSettlementPeriodManager : IElexonSettlementPeriodManager
                 
                 yield return new ElexonSettlementPeriodResponseItem
                 {
-                    UtcStartDateTime = utcStartDateTime,
+                    StartDateTimeUtc = utcStartDateTime,
                     SettlementDate = settlementDate,
                     SettlementPeriod = halfHours + 1
                 };
@@ -66,10 +66,10 @@ public class ElexonSettlementPeriodManager : IElexonSettlementPeriodManager
     
     private static ElexonSettlementPeriodContext CreateContext(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
     {
-        var utcStartDateTime = DateTimeHelper.ParseIsoDateTime(elexonSettlementPeriodRequest.UtcStartDateTime);
-        var utcEndDateTime = string.IsNullOrWhiteSpace(elexonSettlementPeriodRequest.UtcEndDateTime)
+        var utcStartDateTime = DateTimeHelper.ParseIsoDateTime(elexonSettlementPeriodRequest.StartDateTimeUtc);
+        var utcEndDateTime = string.IsNullOrWhiteSpace(elexonSettlementPeriodRequest.EndDateTimeUtc)
             ? utcStartDateTime
-            : DateTimeHelper.ParseIsoDateTime(elexonSettlementPeriodRequest.UtcEndDateTime);
+            : DateTimeHelper.ParseIsoDateTime(elexonSettlementPeriodRequest.EndDateTimeUtc);
 
         if (utcEndDateTime < utcStartDateTime)
         {
@@ -87,7 +87,7 @@ public class ElexonSettlementPeriodManager : IElexonSettlementPeriodManager
     {
         ArgumentNullException.ThrowIfNull(elexonSettlementPeriodRequest);
 
-        if (string.IsNullOrWhiteSpace(elexonSettlementPeriodRequest.UtcStartDateTime))
+        if (string.IsNullOrWhiteSpace(elexonSettlementPeriodRequest.StartDateTimeUtc))
         {
             throw new ElexonSettlementPeriodException("The mandatory field 'UTCStartDateTime' has not been supplied.");
         }
