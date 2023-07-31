@@ -242,6 +242,11 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         };
     }
 
+    public async Task<DerivedSystemWideData> GetElexonDerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest)
+    {
+        return await elexonService.DerivedSystemWideData(derivedSystemWideDataRequest);
+    }
+
     private async Task<ElexonImbalancePriceContext> CreateContext2(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
         ArgumentNullException.ThrowIfNull(elexonImbalancePriceRequest);

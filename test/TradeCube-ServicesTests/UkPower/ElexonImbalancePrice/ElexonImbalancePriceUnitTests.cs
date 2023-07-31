@@ -171,7 +171,7 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
         Assert.Equal(expectedResults.Inputs.Mode, elexonImbalancePriceContext.Mode);
         
         var derivedSystemWideDataRequest = elexonImbalancePriceFixture.ElexonImbalancePriceManager.CreateElexonImbalancePriceRequest(elexonImbalancePriceContext);
-        var elexonDerivedSystemWideData = elexonImbalancePriceFixture.GetElexonDerivedSystemWideData(derivedSystemWideDataRequest);
+        var elexonDerivedSystemWideData = await elexonImbalancePriceFixture.ElexonImbalancePriceManager.GetElexonDerivedSystemWideData(derivedSystemWideDataRequest);
         
         Assert.NotNull(elexonDerivedSystemWideData);
         

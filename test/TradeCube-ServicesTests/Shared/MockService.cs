@@ -5,6 +5,7 @@ using Shared.DataObjects;
 using Shared.Managers;
 using Shared.Messages;
 using Shared.Services;
+using Shared.Types.Elexon;
 using TradeCube_ServicesTests.Enegen.Ecvn;
 using TradeCube_ServicesTests.UkPower.ElexonImbalancePrice;
 
@@ -202,6 +203,19 @@ public static class MockService
         service
             .Setup(c => c.DeserializeDerivedSystemWideData(It.IsAny<string>()))
             .Returns((string response) => elexonService.DeserializeDerivedSystemWideData(response));
+        
+        service
+            .Setup(c => c.DerivedSystemWideData(It.IsAny<DerivedSystemWideDataRequest>()))
+            .ReturnsAsync((DerivedSystemWideDataRequest request) =>
+            {
+                var elexonDerivedSystemWideDataMockApiType = elexonDerivedSystemWideDataMockApiTypes.SingleOrDefault(t =>
+                    t.Inputs.FromSettlementDate == request.FromSettlementDate &&
+                    t.Inputs.ToSettlementDate == request.ToSettlementDate &&
+                    t.Inputs.SettlementPeriod == request.SettlementPeriod &&
+                    t.Inputs.ServiceType == request.ServiceType);
+                
+                return elexonService.DeserializeDerivedSystemWideData(elexonDerivedSystemWideDataMockApiType?.Response);
+            });
         
         return service.Object;
     }
