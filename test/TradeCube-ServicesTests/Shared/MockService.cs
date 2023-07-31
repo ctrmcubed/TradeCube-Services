@@ -30,7 +30,14 @@ public static class MockService
         var service = new Mock<ICubeTypeService>();
 
         service
-            .Setup(c => c.GetCube(It.IsAny<string>(), It.IsAny<string>()))
+            .Setup(c => c.GetCubeTypes(It.IsAny<string>()))
+            .ReturnsAsync((string _) => new ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>
+            {
+                Data = cubeTypeDataObjects
+            });
+        
+        service
+            .Setup(c => c.GetCubeType(It.IsAny<string>(), It.IsAny<string>()))
             .ReturnsAsync((string cubeType, string _) => new ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>
             {
                 Data = cubeTypeDataObjects.Where(t => t.CubeType == cubeType)

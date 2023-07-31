@@ -32,7 +32,7 @@ public class MessageResponseBag
     public bool GotErrors() =>
         messages.Any(m => m.MessageResponseType == MessageResponseType.Error);
 
-    public string ErrorsAsString()
+    public string ErrorsAsString(bool? addFullStop = false)
     {
         var errorsAsString = string.Join(", ", messages
             .Where(m => m.MessageResponseType == MessageResponseType.Error)
@@ -40,7 +40,9 @@ public class MessageResponseBag
 
         return string.IsNullOrWhiteSpace(errorsAsString) 
             ? null 
-            : errorsAsString;
+            : addFullStop ?? false 
+                ? $"{errorsAsString}." 
+                : errorsAsString;
     }
     
     public IEnumerable<string> ErrorsAsList() =>

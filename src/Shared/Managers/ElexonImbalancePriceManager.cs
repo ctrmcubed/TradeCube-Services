@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Shared.Constants;
+using Shared.DataObjects;
 using Shared.Exceptions;
 using Shared.Extensions;
 using Shared.Helpers;
@@ -20,15 +21,20 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
     private readonly ISettingService settingService;
     private readonly IElexonService elexonService;
     private readonly ICubeService cubeService;
+    private readonly IDataItemService dataItemService;
+    private readonly ICubeTypeService cubeTypeService;
     private readonly ILogger<ElexonImbalancePriceManager> logger;
 
     public ElexonImbalancePriceManager(IVaultService vaultService, ISettingService settingService,
-        IElexonService elexonService, ICubeService cubeService, ILogger<ElexonImbalancePriceManager> logger)
+        IElexonService elexonService, ICubeService cubeService, IDataItemService dataItemService, 
+        ICubeTypeService cubeTypeService, ILogger<ElexonImbalancePriceManager> logger)
     {
         this.vaultService = vaultService;
         this.settingService = settingService;
         this.elexonService = elexonService;
         this.cubeService = cubeService;
+        this.dataItemService = dataItemService;
+        this.cubeTypeService = cubeTypeService;
         this.logger = logger;
     }
     
@@ -243,7 +249,12 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
 
         if (edt < sdt)
         {
-            throw new ElexonImbalancePriceException($"The EndDate '{edt.ToIso8601Date()}' is before the StartDate '{sdt.ToIso8601Date()}'.");
+            throw new ElexonImbalancePriceException($"The EndDate '{edt.ToIso8601Date()}' is before the StartDate '{sdt.ToIso8601Date()}'");
+        }
+        
+        if (edt.Subtract(sdt).TotalDays > 40)
+        {
+            throw new ElexonImbalancePriceException($"The EndDate '{edt.ToIso8601Date()}' cannot be more than 40 days after the StartDate '{sdt.ToIso8601Date()}'");
         }
         
         var isStandaloneMode = IsMode(mode, ElexonImbalancePriceConstants.ModeStandalone);
@@ -304,17 +315,22 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
             : elexonImbalancePriceRequest.Layer;
 
         var cubeDataObject = (await cubeService.GetCube(cube, elexonImbalancePriceRequest.ElexonApiKey))?.Data?.SingleOrDefault();
-
         if (cubeDataObject is null)
         {
             throw new ElexonImbalancePriceException($"The Cube '{cube}' is not present in the database");
         }
 
-        if (cubeDataObject.CubeType != CubeConstants.CubeTypeTimeSeries)
+        var dataItemObject = (await dataItemService.GetDataItem(dataItem, elexonImbalancePriceRequest.ElexonApiKey))?.Data?.SingleOrDefault();
+        if (dataItemObject is null)
+        {
+            throw new ElexonImbalancePriceException($"The DataItem '{dataItem}' is not present in the database");
+        }
+
+        if (!await IsCubeOfCubeTypeItemAsync(cubeDataObject, CubeConstants.CubeTypeItemTimeSeriesCube, elexonImbalancePriceRequest.ElexonApiKey))
         {
             throw new ElexonImbalancePriceException($"The Cube '{cube}' is not a time series cube");
         }
-        
+
         return new ElexonImbalancePriceContext
         {
             ElexonApiKey = elexonImbalancePriceRequest.ElexonApiKey,
@@ -323,9 +339,17 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
             DataItem = dataItem,
             Layer = layer,
             StartDate = sdt,
-            EndDate = edt         ,
+            EndDate = edt,
             MessageResponseBag = new MessageResponseBag()
         };
+    }
+
+    private async Task<bool> IsCubeOfCubeTypeItemAsync(CubeDataObject cubeDataObject, string cubeItemType, string apiJwt)
+    {
+        var cubeTypeDataObjects = (await cubeTypeService.GetCubeType(cubeDataObject.CubeType, apiJwt))?.Data?.ToList();
+        var cubeTypes = cubeTypeDataObjects?.Where(c => c.EnabledItems is not null && c.EnabledItems.Contains(cubeItemType)).Any() ?? false;
+
+        return cubeTypes;
     }
       
     private static IEnumerable<ElexonImbalancePriceItem> CreateElexonImbalancePriceItems(DerivedSystemWideData derivedSystemWideData, 

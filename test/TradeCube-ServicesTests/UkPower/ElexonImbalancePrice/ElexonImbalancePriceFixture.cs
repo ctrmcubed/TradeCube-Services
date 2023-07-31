@@ -42,6 +42,8 @@ public class ElexonImbalancePriceFixture
             Mock.Of<ISettingService>(),
             elexonService,
             cubeService,
+            dataItemService,
+            cubeTypeService,
             TestHelper.CreateNullLogger<ElexonImbalancePriceManager>());
     }
     

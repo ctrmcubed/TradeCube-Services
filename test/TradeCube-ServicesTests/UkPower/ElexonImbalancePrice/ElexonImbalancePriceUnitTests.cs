@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Shared.Managers;
 using Shared.Messages;
 using Shared.Types.CubeDataBulk;
 using Xunit;
@@ -19,77 +18,149 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
         this.elexonImbalancePriceFixture = elexonImbalancePriceFixture;
         this.testOutputHelper = testOutputHelper;
     }
-    
+     
     [Fact]
-    public async Task TEST_0000_GMT_Day()
+    public async Task TEST_0000_GMT_Day_STANDALONE()
     {
-        await RunTest("TEST 0000 GMT Day");
+        await RunTest("TEST 0000 GMT Day STANDALONE");
     }
 
     [Fact]
-    public async Task TEST_0001_GMT_Day()
+    public async Task TEST_0001_GMT_Day_CUBE()
     {
-        await RunTest("TEST 0001 GMT Day");
+        await RunTest("TEST 0001 GMT Day CUBE");
     }
 
     [Fact]
-    public async Task TEST_0002_Short_Day()
+    public async Task TEST_0002_Short_Day_STANDALONE()
     {
-        await RunTest("TEST 0002 Short Day");
+        await RunTest("TEST 0002 Short Day STANDALONE");
     }
 
     [Fact]
-    public async Task TEST_0003_Short_Day()
+    public async Task TEST_0003_Short_Day_CUBE()
     {
-        await RunTest("TEST 0003 Short Day");
+        await RunTest("TEST 0003 Short Day CUBE");
     }
 
     [Fact]
-    public async Task TEST_0004_BST_Day()
+    public async Task TEST_0004_BST_Day_STANDALONE()
     {
-        await RunTest("TEST 0004 BST Day");
+        await RunTest("TEST 0004 BST Day STANDALONE");
     }
 
     [Fact]
-    public async Task TEST_0005_BST_Day()
+    public async Task TEST_0005_BST_Day_CUBE()
     {
-        await RunTest("TEST 0005 BST Day");
+        await RunTest("TEST 0005 BST Day CUBE");
     }
 
     [Fact]
-    public async Task TEST_0006_Long_Day()
+    public async Task TEST_0006_Long_Day_STANDALONE()
     {
-        await RunTest("TEST 0006 Long Day");
+        await RunTest("TEST 0006 Long Day STANDALONE");
     }
 
     [Fact]
-    public async Task TEST_0007_Long_Day()
+    public async Task TEST_0007_Long_Day_CUBE()
     {
-        await RunTest("TEST 0007 Long Day");
+        await RunTest("TEST 0007 Long Day CUBE");
     }
 
     [Fact]
-    public async Task TEST_0008_MISSING_START_DATE()
+    public async Task TEST_0008_MISSING_START_DATE_STANDALONE()
     {
-        await RunTest("TEST 0008 MISSING START DATE");
+        await RunTest("TEST 0008 MISSING START DATE STANDALONE");
     }
 
     [Fact]
-    public async Task TEST_0009_MISSING_CUBE()
+    public async Task TEST_0009_MISSING_START_DATE_CUBE()
     {
-        await RunTest("TEST 0009 MISSING CUBE");
+        await RunTest("TEST 0009 MISSING START DATE CUBE");
     }
 
     [Fact]
-    public async Task TEST_0010_MISSING_DATA_ITEM()
+    public async Task TEST_0010_MISSING_CUBE_STANDALONE()
     {
-        await RunTest("TEST 0010 MISSING DATA ITEM");
+        await RunTest("TEST 0010 MISSING CUBE STANDALONE");
     }
 
     [Fact]
-    public async Task TEST_0011_END_DATE_BEFORE_START_DATE()
+    public async Task TEST_0011_MISSING_CUBE_CUBE()
     {
-        await RunTest("TEST 0011 END DATE BEFORE START DATE");
+        await RunTest("TEST 0011 MISSING CUBE CUBE");
+    }
+
+    [Fact]
+    public async Task TEST_0012_MISSING_DATA_ITEM_STANDALONE()
+    {
+        await RunTest("TEST 0012 MISSING DATA ITEM STANDALONE");
+    }
+
+    [Fact]
+    public async Task TEST_0013_MISSING_DATA_ITEM_CUBE()
+    {
+        await RunTest("TEST 0013 MISSING DATA ITEM CUBE");
+    }
+
+    [Fact]
+    public async Task TEST_0014_WRONG_CUBE_STANDALONE()
+    {
+        await RunTest("TEST 0014 WRONG CUBE STANDALONE");
+    }
+
+    [Fact]
+    public async Task TEST_0015_WRONG_CUBE_CUBE()
+    {
+        await RunTest("TEST 0015 WRONG CUBE CUBE");
+    }
+
+    [Fact]
+    public async Task TEST_0016_WRONG_DATA_ITEM_STANDALONE()
+    {
+        await RunTest("TEST 0016 WRONG DATA ITEM STANDALONE");
+    }
+
+    [Fact]
+    public async Task TEST_0017_WRONG_DATA_ITEM_CUBE()
+    {
+        await RunTest("TEST 0017 WRONG DATA ITEM CUBE");
+    }
+
+    [Fact]
+    public async Task TEST_0018_WRONG_CUBE_TYPE_STANDALONE()
+    {
+        await RunTest("TEST 0018 WRONG CUBE TYPE STANDALONE");
+    }
+
+    [Fact]
+    public async Task TEST_0019_WRONG_CUBE_TYPE_CUBE()
+    {
+        await RunTest("TEST 0019 WRONG CUBE TYPE CUBE");
+    }
+
+    [Fact]
+    public async Task TEST_0020_END_DATE_BEFORE_START_DATE_STANDALONE()
+    {
+        await RunTest("TEST 0020 END DATE BEFORE START DATE STANDALONE");
+    }
+
+    [Fact]
+    public async Task TEST_0021_END_DATE_BEFORE_START_DATE_CUBE()
+    {
+        await RunTest("TEST 0021 END DATE BEFORE START DATE CUBE");
+    }
+
+    [Fact]
+    public async Task TEST_0022_MORE_THAN_40_DAYS_STANDALONE()
+    {
+        await RunTest("TEST 0022 MORE THAN 40 DAYS STANDALONE");
+    }
+
+    [Fact]
+    public async Task TEST_0023_MORE_THAN_40_DAYS_CUBE()
+    {
+        await RunTest("TEST 0023 MORE THAN 40 DAYS CUBE");
     }
 
     private async Task RunTest(string testDescription)
@@ -122,7 +193,7 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
                 Assert.Null(imbalancePriceResponse.Data);
                 Assert.NotNull(imbalancePriceResponse.CubeDataBulk);
 
-                CheckCubeDataBulk(elexonImbalancePriceContext, imbalancePriceResponse, expectedResults, imbalancePriceResponse.CubeDataBulk);
+                CheckCubeDataBulk(imbalancePriceResponse, expectedResults, imbalancePriceResponse.CubeDataBulk);
             }
             else if (elexonImbalancePriceContext.IsModeStandalone())
             {
@@ -149,7 +220,7 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
             Assert.Null(elexonSettlementPeriods);
             Assert.Null(imbalancePriceResponse.Data);
             Assert.Null(imbalancePriceResponse.CubeDataBulk);
-            Assert.Equal(expectedResults.ExpectedError, elexonImbalancePriceContext.MessageResponseBag.ErrorsAsString());
+            Assert.Equal(expectedResults.ExpectedError, elexonImbalancePriceContext.MessageResponseBag.ErrorsAsString(true));
         }
     }
 
@@ -175,8 +246,7 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
         }
     }
     
-   private static void CheckCubeDataBulk(ElexonImbalancePriceContext elexonImbalancePriceContext,
-       ElexonImbalancePriceResponse imbalancePriceResponse, ElexonImbalancePriceTestType expectedResults,
+   private static void CheckCubeDataBulk(ElexonImbalancePriceResponse imbalancePriceResponse, ElexonImbalancePriceTestType expectedResults,
        CubeDataBulkRequest cubeDataBulkRequest)
     {
         Assert.Equal(expectedResults.ExpectedResults.CubeDataBulk?.Name, cubeDataBulkRequest?.Name);

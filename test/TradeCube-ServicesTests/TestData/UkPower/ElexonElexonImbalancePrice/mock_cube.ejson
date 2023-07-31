@@ -34,5 +34,100 @@
             "PRC"
         ],
         "Commodity": "UK Gas"
+    },
+    {
+        "Cube": "WrongTimeHierarchy",
+        "CubeType": "Custom",
+        "DataHierarchy": "Test",
+        "TimeHierarchy": "Wrong",
+        "DataItems": [
+            "VOL"
+        ],
+        "Commodity": "UK Power",
+        "Layers": [
+            "Budget",
+            "Forecast",
+            "Reforecast",
+            "Actuals"
+        ]
+    },
+    {
+        "Cube": "WrongDataHierarchy",
+        "CubeType": "Custom",
+        "DataHierarchy": "Wrong",
+        "TimeHierarchy": "UK Power",
+        "DataItems": [
+            "VOL"
+        ],
+        "Commodity": "UK Power",
+        "Layers": [
+            "Budget",
+            "Forecast",
+            "Reforecast",
+            "Actuals"
+        ]
+    },
+    {
+        "Cube": "DataItemNotInCube",
+        "CubeType": "Custom",
+        "DataHierarchy": "Test",
+        "TimeHierarchy": "UK Power",
+        "DataItems": [
+            "DataItemNotInCube"
+        ],
+        "Commodity": "UK Power",
+        "Layers": [
+            "Budget",
+            "Forecast",
+            "Reforecast",
+            "Actuals"
+        ]
+    },
+    {
+        "Cube": "WrongDataHierarchyTimeSeries",
+        "CubeType": "Time Series",
+        "TimeHierarchy": "UK Power",
+        "DataItems": [
+            "VOL"
+        ],
+        "Commodity": "UK Power",
+        "Layers": [
+            "Budget",
+            "Forecast",
+            "Reforecast",
+            "Actuals"
+        ]
+    },
+    {
+        "Cube": "EmptyCube",
+        "CubeType": "Custom",
+        "DataHierarchy": "Test",
+        "TimeHierarchy": "UK Power",
+        "DataItems": [
+            "VOL"
+        ],
+        "Commodity": "UK Power",
+        "Layers": [
+            "Budget",
+            "Forecast",
+            "Reforecast",
+            "Actuals"
+        ]
+    },
+    {
+        "Cube": "NonExistentDataItem",
+        "CubeType": "Custom",
+        "DataHierarchy": "Test",
+        "TimeHierarchy": "UK Power",
+        "DataItems": [
+            "NONEXISTENT"
+        ],
+        "Commodity": "UK Power",
+        "Layers": [
+            "Budget",
+            "Forecast",
+            "Reforecast",
+            "Actuals"
+        ]
     }
 ]

@@ -14,8 +14,13 @@ public class CubeTypeService : TradeCubeApiService, ICubeTypeService
         ILogger<CubeTypeService> logger) : base(httpClientFactory, tradeCubeConfiguration, logger)
     {
     }
-    
-    public async Task<ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>> GetCube(string cubeType, string jwtApiToken)
+
+    public async Task<ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>> GetCubeTypes(string jwtApiToken)
+    {
+        return await GetViaJwtAsync<CubeTypeDataObject>($"CubeType", jwtApiToken);
+    }
+
+    public async Task<ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>> GetCubeType(string cubeType, string jwtApiToken)
     {
         return await GetViaJwtAsync<CubeTypeDataObject>($"CubeType/{cubeType}", jwtApiToken);
     }

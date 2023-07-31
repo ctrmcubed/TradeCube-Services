@@ -7,5 +7,6 @@ namespace Shared.Services;
 
 public interface ICubeTypeService
 {
-    Task<ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>> GetCube(string cubeType, string jwtApiToken);
+    Task<ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>> GetCubeTypes(string jwtApiToken);
+    Task<ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>> GetCubeType(string cubeType, string jwtApiToken);
 }
