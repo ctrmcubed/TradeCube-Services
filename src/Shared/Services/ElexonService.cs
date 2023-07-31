@@ -21,8 +21,6 @@ public class ElexonService : IElexonService
         this.logger = logger;
     }
 
-    // https://api.bmreports.com/BMRS/DERSYSDATA/v1?APIKey=xxsk4wq2o1mc2l5&FromSettlementDate=2021-11-09&ToSettlementDate=2021-11-25&SettlementPeriod=*&ServiceType=xml
-
     public DerivedSystemWideData DeserializeDerivedSystemWideData(Stream response)
     {
         try
@@ -50,10 +48,10 @@ public class ElexonService : IElexonService
             throw;
         }
     }
-    
+
     public async Task<DerivedSystemWideData> DerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest)
     {
-        IEnumerable<string> QueryStrings(DerivedSystemWideDataRequest request) =>
+         IEnumerable<string> QueryStrings(DerivedSystemWideDataRequest request) =>
             new List<string>
             {
                 $"APIKey={request.ApiKey}",

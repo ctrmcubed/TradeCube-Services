@@ -35,12 +35,14 @@ public class ElexonImbalancePriceFixture
         var cubeService = MockService.CreateCubeService(cubeDataObjects);
         var cubeTypeService = MockService.CreateCubeTypeService(cubeTypeDataObjects);
         var dataItemService = MockService.CreateDataItemService(dataItemDataObjects);
+        
         var elexonService = new ElexonService(Mock.Of<IHttpClientFactory>(), Mock.Of<ILogger<ElexonService>>());
+        var mockElexonService = MockService.CreateElexonService(elexonService, elexonSystemData);
         
         ElexonImbalancePriceManager = new ElexonImbalancePriceManager(
             Mock.Of<IVaultService>(),
             Mock.Of<ISettingService>(),
-            elexonService,
+            mockElexonService,
             cubeService,
             dataItemService,
             cubeTypeService,

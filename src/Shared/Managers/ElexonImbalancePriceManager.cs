@@ -207,6 +207,15 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         }
     }
 
+    public async Task<ElexonImbalancePriceResponse> ElexonImbalancePrice2(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
+    {
+        var elexonImbalancePriceContext = await CreateContext(elexonImbalancePriceRequest); 
+        var derivedSystemWideDataRequest = CreateElexonImbalancePriceRequest(elexonImbalancePriceContext);
+        var elexonDerivedSystemWideData = await elexonService.DerivedSystemWideData(derivedSystemWideDataRequest);
+
+        return new ElexonImbalancePriceResponse();
+    }
+    
     public ElexonImbalancePriceResponse ElexonImbalancePrice(ElexonImbalancePriceContext elexonImbalancePriceContext, 
         DerivedSystemWideData derivedSystemWideData, IEnumerable<ElexonSettlementPeriodResponseItem> settlementPeriodResponseItems)
     {
@@ -233,7 +242,7 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         };
     }
 
-      private async Task<ElexonImbalancePriceContext> CreateContext2(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
+    private async Task<ElexonImbalancePriceContext> CreateContext2(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
         ArgumentNullException.ThrowIfNull(elexonImbalancePriceRequest);
 

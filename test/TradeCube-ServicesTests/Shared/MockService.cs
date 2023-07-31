@@ -6,6 +6,7 @@ using Shared.Managers;
 using Shared.Messages;
 using Shared.Services;
 using TradeCube_ServicesTests.Enegen.Ecvn;
+using TradeCube_ServicesTests.UkPower.ElexonImbalancePrice;
 
 namespace TradeCube_ServicesTests.Shared;
 
@@ -193,6 +194,17 @@ public static class MockService
     
         return service.Object;
     }
+
+    public static IElexonService CreateElexonService(ElexonService elexonService, IList<ElexonDerivedSystemWideDataMockApiType> elexonDerivedSystemWideDataMockApiTypes)
+    {
+        var service = new Mock<IElexonService>();
+        
+        service
+            .Setup(c => c.DeserializeDerivedSystemWideData(It.IsAny<string>()))
+            .Returns((string response) => elexonService.DeserializeDerivedSystemWideData(response));
+        
+        return service.Object;
+    }
     
     public static IElexonSettlementPeriodManager CreateElexonSettlementPeriodManager(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes)
     {
@@ -207,7 +219,7 @@ public static class MockService
     
         return service.Object;
     }
-
+    
     private static IEnumerable<ElexonSettlementPeriodResponseItem> ElexonSettlementPeriodsAsync(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes, ElexonSettlementPeriodRequest request)
     {
         return elexonSettlementPeriodTestTypes
