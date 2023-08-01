@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Shared.Messages;
 
 namespace Shared.Types.CubeDataBulk;
 
-public class CubeDataBulkResponse
+public class CubeDataBulkResponse : ApiResponse
 {
     private readonly List<CubeDataDataObject> deletes = new();
     

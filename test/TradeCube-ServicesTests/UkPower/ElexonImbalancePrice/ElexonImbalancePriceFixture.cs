@@ -60,12 +60,13 @@ public class ElexonImbalancePriceFixture
             
         ElexonImbalancePriceManager = new ElexonImbalancePriceManager(
             settlementPeriodManager,
-            Mock.Of<IVaultService>(),
-            Mock.Of<ISettingService>(),
             mockElexonService,
             cubeService,
             dataItemService,
             cubeTypeService,
+            Mock.Of<ICubeDataBulkService>(),
+            Mock.Of<IVaultService>(), 
+            Mock.Of<ISettingService>(),
             TestHelper.CreateNullLogger<ElexonImbalancePriceManager>());
     }
     

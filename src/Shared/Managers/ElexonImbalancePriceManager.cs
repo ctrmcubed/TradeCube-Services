@@ -24,11 +24,13 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
     private readonly ICubeService cubeService;
     private readonly IDataItemService dataItemService;
     private readonly ICubeTypeService cubeTypeService;
+    private readonly ICubeDataBulkService cubeDataBulkService;
     private readonly ILogger<ElexonImbalancePriceManager> logger;
 
-    public ElexonImbalancePriceManager(IElexonSettlementPeriodManager elexonSettlementPeriodManager, IVaultService vaultService, ISettingService settingService,
+    public ElexonImbalancePriceManager(IElexonSettlementPeriodManager elexonSettlementPeriodManager,
         IElexonService elexonService, ICubeService cubeService, IDataItemService dataItemService, 
-        ICubeTypeService cubeTypeService, ILogger<ElexonImbalancePriceManager> logger)
+        ICubeTypeService cubeTypeService, ICubeDataBulkService cubeDataBulkService, IVaultService vaultService, 
+        ISettingService settingService, ILogger<ElexonImbalancePriceManager> logger)
     {
         this.elexonSettlementPeriodManager = elexonSettlementPeriodManager;
         this.vaultService = vaultService;
@@ -37,6 +39,7 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         this.cubeService = cubeService;
         this.dataItemService = dataItemService;
         this.cubeTypeService = cubeTypeService;
+        this.cubeDataBulkService = cubeDataBulkService;
         this.logger = logger;
     }
     
@@ -47,6 +50,7 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
             return new DerivedSystemWideDataRequest
             {
                 ApiKey = elexonImbalancePriceContext.ElexonApiKey,
+                Url = "https://api.bmreports.com/BMRS/DERSYSDATA/v1",
                 FromSettlementDate = elexonImbalancePriceContext.StartDate.Value.ToIso8601Date(),
                 ToSettlementDate = elexonImbalancePriceContext.EndDate.Value.ToIso8601Date(),
                 SettlementPeriod = "*",
@@ -70,116 +74,7 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
 
         return new ElexonSettlementPeriodRequest();
     }
-
-    public CubeDataBulkRequest CreateCubeDataBulkRequest(ElexonImbalancePriceContext elexonImbalancePriceContext,
-        ElexonImbalancePriceResponse elexonImbalancePriceResponse)
-    {
-        if (elexonImbalancePriceContext.Mode == ElexonImbalancePriceConstants.ModeStandalone)
-        {
-            return null;
-        }
-        
-        var data = elexonImbalancePriceResponse.Data.Select(d => new CubeDataBulkData
-        {
-            StartDateTimeUTC = DateTimeHelper.ParseIsoDateTime(d.StartDateTimeUTC),
-            Values = new List<decimal> { d.ImbalancePrice }
-        });
-
-        return new CubeDataBulkRequest
-        {
-            Name = ElexonImbalancePriceConstants.CubeDataBulkName,
-            Description = ElexonImbalancePriceConstants.CubeDataBulkDescription,
-            Reason = ElexonImbalancePriceConstants.CubeDataBulkReason,
-            Cube = elexonImbalancePriceContext.Cube,
-            DataItem = elexonImbalancePriceContext.DataItem,
-            Layer = elexonImbalancePriceContext.Layer,
-            CreateNodes = false,
-            RegularDayPeriods = 48,
-            Data = data
-        };
-    }
-
-    // public async Task<ElexonImbalancePriceResponse> ElexonImbalancePrice(
-    //     ElexonImbalancePriceRequest elexonImbalancePriceRequest,
-    //     ElexonDerivedSystemWideDataMockApiType elexonDerivedSystemWideDataMockApiType)
-    // {
-    //     try
-    //     {
-    //         var elexonImbalancePriceContext = await CreateContext(elexonImbalancePriceRequest);
-    //         var derivedSystemWideData = await elexonService.DerivedSystemWideData(new DerivedSystemWideDataRequest
-    //         {
-    //             ApiKey = elexonImbalancePriceContext.ElexonApiKey,
-    //             FromSettlementDate = elexonImbalancePriceContext.StartDate.ToString("yyyy-MM-dd"),
-    //             ToSettlementDate = elexonImbalancePriceContext.EndDate.ToString("yyyy-MM-dd"),
-    //             SettlementPeriod = "*",
-    //             ServiceType = "xml"
-    //         });
-    //         
-    //         logger.JsonLogDebug("Envelope", derivedSystemWideData);
-    //         
-    //         // var imbalancePriceSetting = await settingService.FindBySettingByNameAsync(SettingConstants.PeakGenElexonImbalancePriceCube, tenant);
-    //         // var targetCube = string.IsNullOrWhiteSpace(imbalancePriceSetting.SettingValue)
-    //         //     ? "Imbalance Price"
-    //         //     : imbalancePriceSetting.SettingValue;
-    //         //
-    //         // var grouped = derivedSystemWideData?.responseBody?.responseList
-    //         //     .GroupBy(d => d.settlementDate)
-    //         //     .Select(x => new
-    //         //     {
-    //         //         Date = x.Key,
-    //         //         Values = x.ToList()
-    //         //     });
-    //         //
-    //         // var data = grouped?
-    //         //     .Select(m => new CubeDataBulkData
-    //         //     {
-    //         //         StartDateTimeLocal = m.Date.ToIso8601Date(),
-    //         //         Values = m.Values.Select(v => v.systemSellPrice)
-    //         //     })
-    //         //     .ToList();
-    //         //
-    //         // var cubeDataBulkRequest = new CubeDataBulkRequest
-    //         // {
-    //         //     Name = "PeakGen Imbalance Price Load",
-    //         //     Cube = targetCube,
-    //         //     DataItem = DataItemConstants.DataItemPrice,
-    //         //     Node = "SBP",
-    //         //     Unit = UnitConstants.GBPPerMWh,
-    //         //     Timezone = TimezoneConstants.TimezoneEuropeLondon,
-    //         //     ShortDayRule = ClockChangeConstants.ClockChangeSequential,
-    //         //     LongDayRule = ClockChangeConstants.ClockChangeSequential,
-    //         //     RegularDayPeriods = 48,
-    //         //     CreateNodes = true,
-    //         //     Reason = "Imbalance Price Automated Load",
-    //         //     Data = data
-    //         // };
-    //         //
-    //         // var responseWrapper = await scafellWebApiService
-    //         //     .PostViaApiKeyAsync<CubeDataBulkRequest, ApiResponseWrapper<IEnumerable<CubeDataDataObject>>>(
-    //         //         request.ApiKey, cubeDataBulkRequest, "CubeDataBulk", false);
-    //         //
-    //         // if (responseWrapper.IsSuccessStatusCode)
-    //         // {
-    //         //     logger.LogInformation("PeakGen Imbalance Price Load success");
-    //         //
-    //         //     // await Notifications(NotificationType.Ok, request, "PeakGen Imbalance Price Load success", tenant);
-    //         //
-    //         //     return new ElexonImbalancePriceResponse();
-    //         // }
-    //         
-    //         return new ElexonImbalancePriceResponse();
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         logger.LogError(ex, "{Message}", ex.Message);
-    //         return new ElexonImbalancePriceResponse
-    //         {
-    //             Status = ApiConstants.FailedResult,
-    //             Message   = ex.Message
-    //         };
-    //     }
-    // }
-
+    
     public async Task<ElexonImbalancePriceContext> CreateContext(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
         try
@@ -209,20 +104,66 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         }
     }
 
-    public async Task<ElexonImbalancePriceResponse> ElexonImbalancePrice2(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
+    public async Task<ElexonImbalancePriceResponse> ElexonImbalancePriceWithCdb(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
-        var elexonImbalancePriceContext = await CreateContext(elexonImbalancePriceRequest); 
+        string ErrorType(string errorType) => 
+            string.IsNullOrWhiteSpace(errorType) ? string.Empty : $"Error Type '{errorType}'";
+
+        string Description (string description) => 
+            string.IsNullOrWhiteSpace(description) ? string.Empty : $"Description '{description}'";
+        
+        var elexonImbalancePriceContext = await CreateContext(elexonImbalancePriceRequest);
+        if (elexonImbalancePriceContext.MessageResponseBag.GotErrors())
+        {
+            return new ElexonImbalancePriceResponse
+            {
+                Status = ApiConstants.FailedResult,
+                Message = elexonImbalancePriceContext.MessageResponseBag.ErrorsAsString()
+            };
+        }
         var derivedSystemWideDataRequest = CreateElexonImbalancePriceRequest(elexonImbalancePriceContext);
         var elexonDerivedSystemWideData = await elexonService.DerivedSystemWideData(derivedSystemWideDataRequest);
+
+        if (elexonDerivedSystemWideData.ResponseMetadata.HttpCode != 200 || 
+            elexonDerivedSystemWideData.ResponseMetadata.ErrorType != "Ok" ||
+            elexonDerivedSystemWideData.ResponseMetadata.Description != "Success")
+        {
+            return new ElexonImbalancePriceResponse
+            {
+                Status = ApiConstants.FailedResult,
+                Message = $"The query to Elexon was not successful. HTTP Code {elexonDerivedSystemWideData.ResponseMetadata.HttpCode}, {ErrorType(elexonDerivedSystemWideData.ResponseMetadata.ErrorType)}, {Description(elexonDerivedSystemWideData.ResponseMetadata.Description)}"
+            };
+        }
 
         var elexonSettlementPeriodRequest = CreateElexonSettlementPeriodRequest(elexonImbalancePriceContext);
         var elexonSettlementPeriodResponse = elexonSettlementPeriodManager.ElexonSettlementPeriods(elexonSettlementPeriodRequest);
 
         var elexonImbalancePriceResponse = ElexonImbalancePrice(elexonImbalancePriceContext, elexonDerivedSystemWideData, elexonSettlementPeriodResponse?.Data);
+        var cubeDataBulkRequest = elexonImbalancePriceResponse?.CubeDataBulk;
 
-        // var d = elexonImbalancePriceResponse.CubeDataBulk;
-            
-        return elexonImbalancePriceResponse;
+        if (cubeDataBulkRequest is null)
+        {
+            return elexonImbalancePriceResponse;
+        }
+        
+        var responseWrapper = await cubeDataBulkService.CubeDataBulk(cubeDataBulkRequest, elexonImbalancePriceContext.ApiKey);
+
+        if (!responseWrapper.IsSuccess())
+        {
+            return new ElexonImbalancePriceResponse
+            {
+                Status = ApiConstants.FailedResult,
+                Message = responseWrapper.Message
+            };
+        }
+        
+        logger.LogInformation("Imbalance Price Load success");
+
+        return new ElexonImbalancePriceResponse
+        {
+            Status = ApiConstants.SuccessResult,
+            Message = responseWrapper.Message
+        };
     }
     
     public ElexonImbalancePriceResponse ElexonImbalancePrice(ElexonImbalancePriceContext elexonImbalancePriceContext, 
@@ -284,11 +225,11 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         var isStandaloneMode = IsMode(mode, ElexonImbalancePriceConstants.ModeStandalone);
 
         var elexonApiKey = isStandaloneMode
-            ? string.IsNullOrWhiteSpace(elexonImbalancePriceRequest.ElexonApiKey)
-                ? (await vaultService.GetVaultValueAsync(VaultConstants.ElexonApiKey,
+            ? null
+            : string.IsNullOrWhiteSpace(elexonImbalancePriceRequest.ElexonApiKey)
+                ? (await vaultService.GetVaultValueViaApiKeyAsync(VaultConstants.ElexonApiKey,
                     elexonImbalancePriceRequest.ApiKey))?.Data?.SingleOrDefault()?.VaultValue
-                : elexonImbalancePriceRequest.ElexonApiKey
-            : null;
+                : elexonImbalancePriceRequest.ElexonApiKey;
         
         if (isStandaloneMode && string.IsNullOrWhiteSpace(elexonApiKey))
         {
@@ -299,15 +240,15 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
 
         var cube = isCubeMode
             ? string.IsNullOrWhiteSpace(elexonImbalancePriceRequest.Cube)
-                ? (await settingService.GetSettingAsync(SettingConstants.ElexonImbalancePriceCube,
-                    elexonImbalancePriceRequest.ElexonApiKey))?.Data?.SingleOrDefault()?.SettingValue
+                ? (await settingService.GetSettingViaApiKeyAsync(SettingConstants.ElexonImbalancePriceCube,
+                    elexonImbalancePriceRequest.ApiKey))?.Data?.SingleOrDefault()?.SettingValue
                 : elexonImbalancePriceRequest.Cube
             : null;
 
         var dataItem = isCubeMode
             ? string.IsNullOrWhiteSpace(elexonImbalancePriceRequest.DataItem)
-                ? (await settingService.GetSettingAsync(SettingConstants.ElexonImbalancePriceDataItem,
-                    elexonImbalancePriceRequest.ElexonApiKey))?.Data?.SingleOrDefault()?.SettingValue
+                ? (await settingService.GetSettingViaApiKeyAsync(SettingConstants.ElexonImbalancePriceDataItem,
+                    elexonImbalancePriceRequest.ApiKey))?.Data?.SingleOrDefault()?.SettingValue
                 : elexonImbalancePriceRequest.DataItem
             : null;
 
@@ -315,7 +256,8 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         {
             return new ElexonImbalancePriceContext
             {
-                ElexonApiKey = elexonImbalancePriceRequest.ElexonApiKey,
+                ApiKey = elexonImbalancePriceRequest.ApiKey,
+                ElexonApiKey = elexonApiKey,
                 Mode = mode,
                 StartDate = sdt,
                 EndDate = edt,
@@ -334,30 +276,31 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         }
 
         var layer = string.IsNullOrWhiteSpace(elexonImbalancePriceRequest.Layer)
-            ? (await settingService.GetSettingAsync(SettingConstants.ElexonImbalancePriceLayer,
-                elexonImbalancePriceRequest.ElexonApiKey))?.Data?.SingleOrDefault()?.SettingValue
+            ? (await settingService.GetSettingViaApiKeyAsync(SettingConstants.ElexonImbalancePriceLayer,
+                elexonImbalancePriceRequest.ApiKey))?.Data?.SingleOrDefault()?.SettingValue
             : elexonImbalancePriceRequest.Layer;
 
-        var cubeDataObject = (await cubeService.GetCube(cube, elexonImbalancePriceRequest.ElexonApiKey))?.Data?.SingleOrDefault();
+        var cubeDataObject = (await cubeService.GetCubeViaApiKey(cube, elexonImbalancePriceRequest.ApiKey))?.Data?.SingleOrDefault();
         if (cubeDataObject is null)
         {
             throw new ElexonImbalancePriceException($"The Cube '{cube}' is not present in the database");
         }
 
-        var dataItemObject = (await dataItemService.GetDataItem(dataItem, elexonImbalancePriceRequest.ElexonApiKey))?.Data?.SingleOrDefault();
+        var dataItemObject = (await dataItemService.GetDataItemViaApiKey(dataItem, elexonImbalancePriceRequest.ApiKey))?.Data?.SingleOrDefault();
         if (dataItemObject is null)
         {
             throw new ElexonImbalancePriceException($"The DataItem '{dataItem}' is not present in the database");
         }
 
-        if (!await IsCubeOfCubeTypeItemAsync(cubeDataObject, CubeConstants.CubeTypeItemTimeSeriesCube, elexonImbalancePriceRequest.ElexonApiKey))
+        if (!await IsCubeOfCubeTypeItemAsync(cubeDataObject, CubeConstants.CubeTypeItemTimeSeriesCube, elexonImbalancePriceRequest.ApiKey))
         {
             throw new ElexonImbalancePriceException($"The Cube '{cube}' is not a time series cube");
         }
 
         return new ElexonImbalancePriceContext
         {
-            ElexonApiKey = elexonImbalancePriceRequest.ElexonApiKey,
+            ApiKey = elexonImbalancePriceRequest.ApiKey,
+            ElexonApiKey = elexonApiKey,
             Mode = mode,
             Cube = cube,
             DataItem = dataItem,
@@ -368,9 +311,37 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         };
     }
 
-    private async Task<bool> IsCubeOfCubeTypeItemAsync(CubeDataObject cubeDataObject, string cubeItemType, string apiJwt)
+    private static CubeDataBulkRequest CreateCubeDataBulkRequest(ElexonImbalancePriceContext elexonImbalancePriceContext,
+        ElexonImbalancePriceResponse elexonImbalancePriceResponse)
     {
-        var cubeTypeDataObjects = (await cubeTypeService.GetCubeType(cubeDataObject.CubeType, apiJwt))?.Data?.ToList();
+        if (elexonImbalancePriceContext.Mode == ElexonImbalancePriceConstants.ModeStandalone)
+        {
+            return null;
+        }
+        
+        var data = elexonImbalancePriceResponse.Data.Select(d => new CubeDataBulkData
+        {
+            StartDateTimeUTC = DateTimeHelper.ParseIsoDateTime(d.StartDateTimeUTC),
+            Values = new List<decimal> { d.ImbalancePrice }
+        });
+
+        return new CubeDataBulkRequest
+        {
+            Name = ElexonImbalancePriceConstants.CubeDataBulkName,
+            Description = ElexonImbalancePriceConstants.CubeDataBulkDescription,
+            Reason = ElexonImbalancePriceConstants.CubeDataBulkReason,
+            Cube = elexonImbalancePriceContext.Cube,
+            DataItem = elexonImbalancePriceContext.DataItem,
+            Layer = elexonImbalancePriceContext.Layer,
+            CreateNodes = false,
+            RegularDayPeriods = 48,
+            Data = data
+        };
+    }
+
+    private async Task<bool> IsCubeOfCubeTypeItemAsync(CubeDataObject cubeDataObject, string cubeItemType, string apiKey)
+    {
+        var cubeTypeDataObjects = (await cubeTypeService.GetCubeTypeViaApiKey(cubeDataObject.CubeType, apiKey))?.Data?.ToList();
         var cubeTypes = cubeTypeDataObjects?.Where(c => c.EnabledItems is not null && c.EnabledItems.Contains(cubeItemType)).Any() ?? false;
 
         return cubeTypes;

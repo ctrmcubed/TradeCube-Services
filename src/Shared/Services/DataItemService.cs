@@ -19,4 +19,9 @@ public class DataItemService: TradeCubeApiService, IDataItemService
     {
         return await GetViaJwtAsync<DataItemDataObject>($"DataItem/{dataItem}", jwtApiToken);
     }
+    
+    public async Task<ApiResponseWrapper<IEnumerable<DataItemDataObject>>> GetDataItemViaApiKey(string dataItem, string apiKey)
+    {
+        return await GetViaApiKeyAsync<DataItemDataObject>($"DataItem/{dataItem}", apiKey);
+    }
 }

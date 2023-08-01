@@ -20,19 +20,6 @@ public class ElexonService : IElexonService
         HttpClientFactory = httpClientFactory;
         this.logger = logger;
     }
-
-    public DerivedSystemWideData DeserializeDerivedSystemWideData(Stream response)
-    {
-        try
-        {
-            return new TradeCubeXmlSerializer().Deserialize<DerivedSystemWideData>(response, "response");
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "{Message}", ex.Message);
-            throw;
-        }
-    }
     
     public DerivedSystemWideData DeserializeDerivedSystemWideData(string response)
     {
@@ -90,7 +77,7 @@ public class ElexonService : IElexonService
                     httpResponseMessage.StatusCode,
                     httpResponseMessage.ReasonPhrase);
 
-                return null;
+                return derivedSystemWideData;
             }
 
             logger.LogInformation("DerivedSystemWideData failure response {StatusCode}, {Reason}", httpResponseMessage.StatusCode, httpResponseMessage.ReasonPhrase);
@@ -103,4 +90,18 @@ public class ElexonService : IElexonService
             throw;
         }
     }
+    
+    private DerivedSystemWideData DeserializeDerivedSystemWideData(Stream response)
+    {
+        try
+        {
+            return new TradeCubeXmlSerializer().Deserialize<DerivedSystemWideData>(response, "response");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "{Message}", ex.Message);
+            throw;
+        }
+    }
+    
 }

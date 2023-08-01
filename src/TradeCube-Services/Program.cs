@@ -71,6 +71,7 @@ try
         .AddScoped<IContactService, ContactService>()
         .AddScoped<ICountryLookupService, CountryLookupService>()
         .AddScoped<ICountryService, CountryService>()
+        .AddScoped<ICubeDataBulkService, CubeDataBulkService>()
         .AddScoped<ICubeService, CubeService>()
         .AddScoped<ICubeTypeService, CubeTypeService>()
         .AddScoped<IDataItemService, DataItemService>()

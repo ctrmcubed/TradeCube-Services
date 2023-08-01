@@ -11,13 +11,12 @@ public interface IElexonImbalancePriceManager
     ElexonSettlementPeriodRequest CreateElexonSettlementPeriodRequest(ElexonImbalancePriceContext elexonImbalancePriceContext);
 
     Task<ElexonImbalancePriceContext> CreateContext(ElexonImbalancePriceRequest elexonImbalancePriceRequest);
-    Task<ElexonImbalancePriceResponse> ElexonImbalancePrice2(ElexonImbalancePriceRequest elexonImbalancePriceRequest);
+    Task<ElexonImbalancePriceResponse> ElexonImbalancePriceWithCdb(ElexonImbalancePriceRequest elexonImbalancePriceRequest);
 
     ElexonImbalancePriceResponse ElexonImbalancePrice(ElexonImbalancePriceContext elexonImbalancePriceRequest,
         DerivedSystemWideData response, IEnumerable<ElexonSettlementPeriodResponseItem> apiResponseWrapper);
 
-    Task<DerivedSystemWideData> GetElexonDerivedSystemWideData(
-        DerivedSystemWideDataRequest derivedSystemWideDataRequest);
+    Task<DerivedSystemWideData> GetElexonDerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest);
 
     ElexonSettlementPeriodResponse GetElexonSettlementPeriods(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest);
 }

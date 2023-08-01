@@ -5,6 +5,7 @@ namespace Shared.Managers;
 
 public class ElexonImbalancePriceContext
 {
+    public string ApiKey { get; init; }
     public string ElexonApiKey { get; init; }
     public string Mode { get; init; }
     public string Cube { get; init; }

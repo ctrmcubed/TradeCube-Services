@@ -230,7 +230,7 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
         }
     }
 
-    private void CheckData(ElexonImbalancePriceTestType expectedResults, ElexonImbalancePriceResponse imbalancePriceResponse)
+    private static void CheckData(ElexonImbalancePriceTestType expectedResults, ElexonImbalancePriceResponse imbalancePriceResponse)
     {
         Assert.Equal(expectedResults.ExpectedResults.Data.Count(), imbalancePriceResponse.Data.Count());
 

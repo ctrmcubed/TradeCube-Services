@@ -64,6 +64,25 @@ namespace Shared.Services
             }
         }
 
+        protected async Task<ApiResponseWrapper<IEnumerable<T>>> PostViaJwtAsync<T>(string action, string apiJwtToken, T request)
+        {
+            try
+            {
+                return await TradeCubePostViaJwtAsync<T, ApiResponseWrapper<IEnumerable<T>>>(apiJwtToken, action, request);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "{Message}", ex.Message);
+                return new ApiResponseWrapper<IEnumerable<T>>
+                {
+                    Message = ex.Message,
+                    Status = HttpStatusCode.BadRequest.ToString(),
+                    StatusCode = (int?)HttpStatusCode.BadRequest,
+                    Data = new List<T>()
+                };
+            }
+        }
+        
         protected async Task<TV> TradeCubePostAsStringViaJwtAsync<TV>(string apiJwtToken, string action, JObject request) where TV : ApiResponse, new() =>
             await PostAsStringAsync<TV>(CreateClientViaJwt(apiJwtToken), action, request);
         

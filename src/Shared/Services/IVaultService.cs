@@ -8,5 +8,6 @@ namespace Shared.Services
     public interface IVaultService
     {
         Task<ApiResponseWrapper<IEnumerable<VaultDataObject>>> GetVaultValueAsync(string vaultKey, string jwtApiToken);
+        Task<ApiResponseWrapper<IEnumerable<VaultDataObject>>> GetVaultValueViaApiKeyAsync(string vaultKey, string apiKey);
     }
 }

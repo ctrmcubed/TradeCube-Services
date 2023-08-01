@@ -19,5 +19,10 @@ namespace Shared.Services
         {
             return await GetViaJwtAsync<VaultDataObject>($"Vault/{vaultKey}", jwtApiToken);
         }
+
+        public async Task<ApiResponseWrapper<IEnumerable<VaultDataObject>>> GetVaultValueViaApiKeyAsync(string vaultKey, string apiKey)
+        {
+            return await GetViaApiKeyAsync<VaultDataObject>($"Vault/{vaultKey}", apiKey);
+        }
     }
 }

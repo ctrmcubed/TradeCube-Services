@@ -8,4 +8,5 @@ namespace Shared.Services;
 public interface IDataItemService
 {
     Task<ApiResponseWrapper<IEnumerable<DataItemDataObject>>> GetDataItem(string dataItem, string jwtApiToken);
+    Task<ApiResponseWrapper<IEnumerable<DataItemDataObject>>> GetDataItemViaApiKey(string dataItem, string apiKey);
 }

@@ -18,7 +18,7 @@ public static class MockService
         var service = new Mock<ICubeService>();
 
         service
-            .Setup(c => c.GetCube(It.IsAny<string>(), It.IsAny<string>()))
+            .Setup(c => c.GetCubeViaApiKey(It.IsAny<string>(), It.IsAny<string>()))
             .ReturnsAsync((string cube, string _) => new ApiResponseWrapper<IEnumerable<CubeDataObject>>
             {
                 Data = cubeDataObjects.Where(t => t.Cube == cube)
@@ -30,16 +30,9 @@ public static class MockService
     public static ICubeTypeService CreateCubeTypeService(IEnumerable<CubeTypeDataObject> cubeTypeDataObjects)
     {
         var service = new Mock<ICubeTypeService>();
-
-        service
-            .Setup(c => c.GetCubeTypes(It.IsAny<string>()))
-            .ReturnsAsync((string _) => new ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>
-            {
-                Data = cubeTypeDataObjects
-            });
         
         service
-            .Setup(c => c.GetCubeType(It.IsAny<string>(), It.IsAny<string>()))
+            .Setup(c => c.GetCubeTypeViaApiKey(It.IsAny<string>(), It.IsAny<string>()))
             .ReturnsAsync((string cubeType, string _) => new ApiResponseWrapper<IEnumerable<CubeTypeDataObject>>
             {
                 Data = cubeTypeDataObjects.Where(t => t.CubeType == cubeType)
@@ -53,7 +46,7 @@ public static class MockService
         var service = new Mock<IDataItemService>();
 
         service
-            .Setup(c => c.GetDataItem(It.IsAny<string>(), It.IsAny<string>()))
+            .Setup(c => c.GetDataItemViaApiKey(It.IsAny<string>(), It.IsAny<string>()))
             .ReturnsAsync((string dataItem, string _) => new ApiResponseWrapper<IEnumerable<DataItemDataObject>>
             {
                 Data = cubeTypeDataObjects.Where(t => t.DataItem == dataItem)
