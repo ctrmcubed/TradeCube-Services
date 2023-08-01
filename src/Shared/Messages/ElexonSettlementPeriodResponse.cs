@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using Shared.Messages;
+
+namespace Shared.Messages;
 
 public class ElexonSettlementPeriodResponse : ApiResponse
 {

@@ -18,4 +18,6 @@ public interface IElexonImbalancePriceManager
 
     Task<DerivedSystemWideData> GetElexonDerivedSystemWideData(
         DerivedSystemWideDataRequest derivedSystemWideDataRequest);
+
+    ElexonSettlementPeriodResponse GetElexonSettlementPeriods(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest);
 }

@@ -17,6 +17,7 @@ namespace Shared.Managers;
 
 public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
 {
+    private readonly IElexonSettlementPeriodManager elexonSettlementPeriodManager;
     private readonly IVaultService vaultService;
     private readonly ISettingService settingService;
     private readonly IElexonService elexonService;
@@ -25,10 +26,11 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
     private readonly ICubeTypeService cubeTypeService;
     private readonly ILogger<ElexonImbalancePriceManager> logger;
 
-    public ElexonImbalancePriceManager(IVaultService vaultService, ISettingService settingService,
+    public ElexonImbalancePriceManager(IElexonSettlementPeriodManager elexonSettlementPeriodManager, IVaultService vaultService, ISettingService settingService,
         IElexonService elexonService, ICubeService cubeService, IDataItemService dataItemService, 
         ICubeTypeService cubeTypeService, ILogger<ElexonImbalancePriceManager> logger)
     {
+        this.elexonSettlementPeriodManager = elexonSettlementPeriodManager;
         this.vaultService = vaultService;
         this.settingService = settingService;
         this.elexonService = elexonService;
@@ -213,7 +215,14 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         var derivedSystemWideDataRequest = CreateElexonImbalancePriceRequest(elexonImbalancePriceContext);
         var elexonDerivedSystemWideData = await elexonService.DerivedSystemWideData(derivedSystemWideDataRequest);
 
-        return new ElexonImbalancePriceResponse();
+        var elexonSettlementPeriodRequest = CreateElexonSettlementPeriodRequest(elexonImbalancePriceContext);
+        var elexonSettlementPeriodResponse = elexonSettlementPeriodManager.ElexonSettlementPeriods(elexonSettlementPeriodRequest);
+
+        var elexonImbalancePriceResponse = ElexonImbalancePrice(elexonImbalancePriceContext, elexonDerivedSystemWideData, elexonSettlementPeriodResponse?.Data);
+
+        // var d = elexonImbalancePriceResponse.CubeDataBulk;
+            
+        return elexonImbalancePriceResponse;
     }
     
     public ElexonImbalancePriceResponse ElexonImbalancePrice(ElexonImbalancePriceContext elexonImbalancePriceContext, 
@@ -242,10 +251,11 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         };
     }
 
-    public async Task<DerivedSystemWideData> GetElexonDerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest)
-    {
-        return await elexonService.DerivedSystemWideData(derivedSystemWideDataRequest);
-    }
+    public async Task<DerivedSystemWideData> GetElexonDerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest) =>
+        await elexonService.DerivedSystemWideData(derivedSystemWideDataRequest);
+
+    public ElexonSettlementPeriodResponse GetElexonSettlementPeriods(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest) =>
+        elexonSettlementPeriodManager.ElexonSettlementPeriods(elexonSettlementPeriodRequest);
 
     private async Task<ElexonImbalancePriceContext> CreateContext2(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {

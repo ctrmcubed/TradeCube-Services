@@ -1,22 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shared.Extensions;
 using Shared.Messages;
 using Shared.Types.CubeDataBulk;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace TradeCube_ServicesTests.UkPower.ElexonImbalancePrice;
 
 public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceFixture>
 {
     private readonly ElexonImbalancePriceFixture elexonImbalancePriceFixture;
-    private readonly ITestOutputHelper testOutputHelper;
 
-    public ElexonImbalancePriceUnitTests(ElexonImbalancePriceFixture elexonImbalancePriceFixture, ITestOutputHelper testOutputHelper)
+    public ElexonImbalancePriceUnitTests(ElexonImbalancePriceFixture elexonImbalancePriceFixture)
     {
         this.elexonImbalancePriceFixture = elexonImbalancePriceFixture;
-        this.testOutputHelper = testOutputHelper;
     }
      
     [Fact]
@@ -176,10 +175,17 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
         Assert.NotNull(elexonDerivedSystemWideData);
         
         var elexonSettlementPeriodRequest = elexonImbalancePriceFixture.ElexonImbalancePriceManager.CreateElexonSettlementPeriodRequest(elexonImbalancePriceContext);
-        var elexonSettlementPeriods = elexonImbalancePriceFixture.GetElexonSettlementPeriods(elexonSettlementPeriodRequest);
+        var elexonSettlementPeriodResponseItems =
+            elexonImbalancePriceFixture.ElexonImbalancePriceManager
+                .GetElexonSettlementPeriods(elexonSettlementPeriodRequest)?.Data?.EmptyIfNull().ToList() ??
+            new List<ElexonSettlementPeriodResponseItem>();
         
+        var elexonSettlementPeriods = elexonSettlementPeriodResponseItems.Any()
+            ? elexonSettlementPeriodResponseItems 
+            : null;
+            
         var imbalancePriceResponse = elexonImbalancePriceFixture.ElexonImbalancePriceManager.ElexonImbalancePrice(
-            elexonImbalancePriceContext, elexonDerivedSystemWideData, elexonSettlementPeriods?.Response?.Data);
+            elexonImbalancePriceContext, elexonDerivedSystemWideData, elexonSettlementPeriods);
         
         Assert.NotNull(expectedResults);
         Assert.NotNull(imbalancePriceResponse);
@@ -238,9 +244,6 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
         {
             Assert.Equal(result.Expected.SettlementDate, result.Actual.SettlementDate);
             Assert.Equal(result.Expected.SettlementPeriod, result.Actual.SettlementPeriod);
-
-            testOutputHelper.WriteLine($"E: {result.Expected.StartDateTimeUTC} => A: {result.Actual.StartDateTimeUTC}");
-
             Assert.Equal(result.Expected.StartDateTimeUTC, result.Actual.StartDateTimeUTC);
             Assert.Equal(result.Expected.ImbalancePrice, result.Actual.ImbalancePrice);
         }

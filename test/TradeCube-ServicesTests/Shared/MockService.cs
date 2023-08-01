@@ -65,7 +65,7 @@ public static class MockService
     public static ITradeService CreateTradeService(IEnumerable<TradeDataObject> tradeDataObjects)
     {
         var service = new Mock<ITradeService>();
-
+        
         service
             .Setup(c => c.GetTradeAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
             .ReturnsAsync((string _, string tradeReference, int tradeLeg) => new ApiResponseWrapper<IEnumerable<TradeDataObject>>
@@ -224,13 +224,20 @@ public static class MockService
     {
         var service = new Mock<IElexonSettlementPeriodManager>();
     
+        // service
+        //     .Setup(c => c.ElexonSettlementPeriods(It.IsAny<ElexonSettlementPeriodRequest>()))
+        //     .Returns((ElexonSettlementPeriodRequest request) => new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>
+        //         {
+        //             Data = ElexonSettlementPeriodsAsync(elexonSettlementPeriodTestTypes, request)
+        //         });
+    
         service
             .Setup(c => c.ElexonSettlementPeriods(It.IsAny<ElexonSettlementPeriodRequest>()))
-            .Returns((ElexonSettlementPeriodRequest request) => new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>
-                {
-                    Data = ElexonSettlementPeriodsAsync(elexonSettlementPeriodTestTypes, request)
-                });
-    
+            .Returns((ElexonSettlementPeriodRequest request) => new ElexonSettlementPeriodResponse
+            {
+                Data = ElexonSettlementPeriodsAsync(elexonSettlementPeriodTestTypes, request)
+            });
+        
         return service.Object;
     }
     

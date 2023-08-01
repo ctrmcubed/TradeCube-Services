@@ -1,5 +1,8 @@
+using System.Diagnostics;
+
 namespace Shared.Messages;
 
+[DebuggerDisplay("TradeReference={TradeReference}")]
 public class TradeDetailRequest
 {
     public string TradeReference { get; init; }
