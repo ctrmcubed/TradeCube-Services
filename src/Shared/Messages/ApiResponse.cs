@@ -10,19 +10,22 @@ namespace Shared.Messages
         public int? StatusCode { get; set; }
         
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string Status { get; set; }
+        public string Status { get; init; }
         
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Message { get; set; }
         
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string Warning { get; set; }
+        public string Warning { get; init; }
         
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public long? ErrorCount { get; set; }
+        public long? ErrorCount { get; init; }
         
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<string> Errors { get; set; }
+        public IEnumerable<string> Errors { get; init; }
+        
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public IEnumerable<string> Warnings { get; init; }
         
         public bool IsSuccess() => 
             Status == ApiConstants.SuccessResult;
