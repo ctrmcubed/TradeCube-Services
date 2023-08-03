@@ -1,8 +1,0 @@
-[
-    {
-        "DataItem": "PRC",
-        "DataItemLongName": "Price",
-        "AggregationMethod": "Average",
-        "DataItemType": "PriceUnit"
-    }
-]

@@ -23,18 +23,13 @@ public class ElexonImbalancePriceController : Controller
     
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponseWrapper<IEnumerable<ElexonImbalancePriceRequestResponseItem>>), 200)]
-    public async Task<IActionResult> ElexonImbalancePrice([FromHeader] string apiKey, [FromQuery] string elexonAPIKey, 
-        string mode, string startDate, string endDate, string cube, string dataItem, string layer)
+    public async Task<IActionResult> ElexonImbalancePrice([FromHeader] string apiKey, [FromQuery] string elexonAPIKey, string startDate, string endDate)
     {
         var elexonImbalancePriceRequest = new ElexonImbalancePriceRequest
         {
             ElexonApiKey = elexonAPIKey,
-            Mode = mode,
             StartDate = startDate,
-            EndDate = endDate,
-            Cube = cube,
-            DataItem = dataItem,
-            Layer = layer
+            EndDate = endDate
         };
             
         return await ActionResult(apiKey, elexonImbalancePriceRequest);
@@ -61,15 +56,11 @@ public class ElexonImbalancePriceController : Controller
             {
                 ApiKey = apiKey,
                 ElexonApiKey = elexonImbalancePriceRequest.ElexonApiKey,
-                Mode = elexonImbalancePriceRequest.Mode,
                 StartDate = elexonImbalancePriceRequest.StartDate,
-                EndDate = elexonImbalancePriceRequest.EndDate,
-                Cube = elexonImbalancePriceRequest.Cube,
-                DataItem = elexonImbalancePriceRequest.DataItem,
-                Layer = elexonImbalancePriceRequest.Layer
+                EndDate = elexonImbalancePriceRequest.EndDate
             };
             
-            var elexonImbalancePriceResponse = await elexonImbalancePriceManager.ElexonImbalancePriceWithCdb(imbalancePriceRequest);
+            var elexonImbalancePriceResponse = await elexonImbalancePriceManager.ElexonImbalancePrice(imbalancePriceRequest);
 
             return elexonImbalancePriceResponse.IsSuccess()
                 ? Ok(new ApiResponseWrapper<ElexonImbalancePriceRequestResponseItem>

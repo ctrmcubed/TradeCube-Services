@@ -5,24 +5,24 @@ namespace Shared.Types.CubeDataBulk;
 
 public class CubeDataBulkRequest
 {
-    public string Name { get; set; }
-    public string Cube { get; set; }
-    public string Description { get; set; }
-    public string Timezone { get; set; }
-    public string DataItem { get; set; }
-    public string Node { get; set; }
-    public string Layer { get; set; }
-    public string Unit { get; set; }
-    public bool CreateNodes { get; set; }
-    public string Reason { get; set; }
-    public int? RegularDayPeriods { get; set; }
-    public int? ShortDayPeriods { get; set; }
-    public int? LongDayPeriods { get; set; }
-    public string ShortDayRule { get; set; }
-    public string LongDayRule { get; set; }
-    public DateTime? DeleteBeforeUTC { get; set; }
-    public string DeleteBeforeLocal { get; set; }
-    public DateTime? DeleteAfterUTC { get; set; }
-    public string DeleteAfterLocal { get; set; }
-    public IEnumerable<CubeDataBulkData> Data { get; set; }
+    public string Name { get; init; }
+    public string Cube { get; init; }
+    public string Description { get; init; }
+    public string Timezone { get; init; }
+    public string DataItem { get; init; }
+    public string Node { get; init; }
+    public string Layer { get; init; }
+    public string Unit { get; init; }
+    public bool CreateNodes { get; init; }
+    public string Reason { get; init; }
+    public int? RegularDayPeriods { get; init; }
+    public int? ShortDayPeriods { get; init; }
+    public int? LongDayPeriods { get; init; }
+    public string ShortDayRule { get; init; }
+    public string LongDayRule { get; init; }
+    public DateTime? DeleteBeforeUTC { get; init; }
+    public string DeleteBeforeLocal { get; init; }
+    public DateTime? DeleteAfterUTC { get; init; }
+    public string DeleteAfterLocal { get; init; }
+    public IEnumerable<CubeDataBulkData> Data { get; init; }
 }

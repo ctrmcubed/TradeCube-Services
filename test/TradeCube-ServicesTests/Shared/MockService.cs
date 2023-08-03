@@ -189,7 +189,7 @@ public static class MockService
         return service.Object;
     }
 
-    public static IElexonService CreateElexonService(ElexonService elexonService, IList<ElexonDerivedSystemWideDataMockApiType> elexonDerivedSystemWideDataMockApiTypes)
+    public static IElexonService CreateElexonService(ElexonService elexonService, IEnumerable<ElexonDerivedSystemWideDataMockApiType> elexonDerivedSystemWideDataMockApiTypes)
     {
         var service = new Mock<IElexonService>();
         
