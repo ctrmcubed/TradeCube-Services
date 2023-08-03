@@ -123,7 +123,7 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
         {
             Assert.Equal(result.Expected.SettlementDate, result.Actual.SettlementDate);
             Assert.Equal(result.Expected.SettlementPeriod, result.Actual.SettlementPeriod);
-            Assert.Equal(result.Expected.StartDateTimeUTC, result.Actual.StartDateTimeUTC);
+            Assert.Equal(result.Expected.StartDateTimeUtc, result.Actual.StartDateTimeUtc);
             Assert.Equal(result.Expected.ImbalancePrice, result.Actual.ImbalancePrice);
         }
     }

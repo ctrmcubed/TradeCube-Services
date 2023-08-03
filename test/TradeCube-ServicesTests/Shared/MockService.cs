@@ -216,14 +216,7 @@ public static class MockService
     public static IElexonSettlementPeriodManager CreateElexonSettlementPeriodManager(IEnumerable<ElexonSettlementPeriodTestType> elexonSettlementPeriodTestTypes)
     {
         var service = new Mock<IElexonSettlementPeriodManager>();
-    
-        // service
-        //     .Setup(c => c.ElexonSettlementPeriods(It.IsAny<ElexonSettlementPeriodRequest>()))
-        //     .Returns((ElexonSettlementPeriodRequest request) => new ApiResponseWrapper<IEnumerable<ElexonSettlementPeriodResponseItem>>
-        //         {
-        //             Data = ElexonSettlementPeriodsAsync(elexonSettlementPeriodTestTypes, request)
-        //         });
-    
+        
         service
             .Setup(c => c.ElexonSettlementPeriods(It.IsAny<ElexonSettlementPeriodRequest>()))
             .Returns((ElexonSettlementPeriodRequest request) => new ElexonSettlementPeriodResponse

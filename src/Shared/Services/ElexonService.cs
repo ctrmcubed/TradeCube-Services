@@ -4,6 +4,8 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Shared.Extensions;
+using Shared.Managers;
 using Shared.Serialization;
 using Shared.Types.Elexon;
 
@@ -38,6 +40,7 @@ public class ElexonService : IElexonService
 
     public async Task<DerivedSystemWideData> DerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest)
     {
+        
          IEnumerable<string> QueryStrings(DerivedSystemWideDataRequest request) =>
             new List<string>
             {
@@ -89,6 +92,19 @@ public class ElexonService : IElexonService
             logger.LogError(ex, "{Message}", ex.Message);
             throw;
         }
+    }
+
+    private static DerivedSystemWideDataRequest CreateElexonImbalancePriceRequest(ElexonImbalancePriceContext elexonImbalancePriceContext)
+    {
+        return new DerivedSystemWideDataRequest
+        {
+            ApiKey = elexonImbalancePriceContext.ElexonApiKey,
+            Url = "https://api.bmreports.com/BMRS/DERSYSDATA/v1",
+            FromSettlementDate = elexonImbalancePriceContext.StartDate?.ToIso8601Date(),
+            ToSettlementDate = elexonImbalancePriceContext.EndDate?.ToIso8601Date(),
+            SettlementPeriod = "*",
+            ServiceType = "xml"
+        };            
     }
     
     private DerivedSystemWideData DeserializeDerivedSystemWideData(Stream response)

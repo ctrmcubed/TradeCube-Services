@@ -26,7 +26,7 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         this.elexonService = elexonService;
         this.logger = logger;
     }
-    
+
     public DerivedSystemWideDataRequest CreateElexonImbalancePriceRequest(ElexonImbalancePriceContext elexonImbalancePriceContext)
     {
         if (elexonImbalancePriceContext.StartDate.HasValue && elexonImbalancePriceContext.EndDate.HasValue)
@@ -91,6 +91,7 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
                 Message = elexonImbalancePriceContext.MessageResponseBag.ErrorsAsString()
             };
         }
+        
         var derivedSystemWideDataRequest = CreateElexonImbalancePriceRequest(elexonImbalancePriceContext);
         var elexonDerivedSystemWideData = await elexonService.DerivedSystemWideData(derivedSystemWideDataRequest);
 
@@ -207,7 +208,7 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
                 SettlementDate = startDateTime,
                 SettlementPeriod = responseResponseBodyItem.SettlementPeriod,
                 ImbalancePrice = responseResponseBodyItem.SystemSellPrice,
-                StartDateTimeUTC = utcStartDateTime
+                StartDateTimeUtc = utcStartDateTime
             };
         }
     }
