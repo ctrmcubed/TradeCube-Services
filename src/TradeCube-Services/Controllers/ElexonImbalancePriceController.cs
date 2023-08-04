@@ -60,12 +60,13 @@ public class ElexonImbalancePriceController : Controller
                 elexonDerivedSystemWideData, elexonSettlementPeriodResponseItems);
 
             return elexonImbalancePriceResponse.IsSuccess()
-                ? Ok(new ApiResponseWrapper<ElexonImbalancePriceRequestResponseItem>
+                ? Ok(new ApiResponseWrapper<IEnumerable<ElexonImbalancePriceItem>>
                 {
                     Status = ApiConstants.SuccessResult,
-                    Message = elexonImbalancePriceResponse.Message
+                    Message = elexonImbalancePriceResponse.Message,
+                    Data = elexonImbalancePriceResponse.Data
                 })
-                : Ok(new ApiResponseWrapper<ElexonImbalancePriceRequestResponseItem>
+                : Ok(new ApiResponseWrapper<IEnumerable<ElexonImbalancePriceItem>>
                 {
                     Status = ApiConstants.FailedResult,
                     Message = elexonImbalancePriceResponse.Message
