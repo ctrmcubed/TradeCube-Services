@@ -50,7 +50,7 @@ public class ElexonSettlementPeriodManager : IElexonSettlementPeriodManager
             return new ElexonSettlementPeriodResponse
             {
                 Status = ApiConstants.SuccessResult,
-                Data = SettlementPeriods(CreateContext(ValidateRequest(elexonSettlementPeriodRequest)))
+                Data = SettlementPeriods(CreateContext(ValidateRequest(elexonSettlementPeriodRequest))).NullIfEmpty()
             };
         }
         catch (Exception ex)

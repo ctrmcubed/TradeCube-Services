@@ -26,38 +26,6 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         this.elexonService = elexonService;
         this.logger = logger;
     }
-
-    public DerivedSystemWideDataRequest CreateElexonImbalancePriceRequest(ElexonImbalancePriceContext elexonImbalancePriceContext)
-    {
-        if (elexonImbalancePriceContext.StartDate.HasValue && elexonImbalancePriceContext.EndDate.HasValue)
-        {
-            return new DerivedSystemWideDataRequest
-            {
-                ApiKey = elexonImbalancePriceContext.ElexonApiKey,
-                Url = "https://api.bmreports.com/BMRS/DERSYSDATA/v1",
-                FromSettlementDate = elexonImbalancePriceContext.StartDate.Value.ToIso8601Date(),
-                ToSettlementDate = elexonImbalancePriceContext.EndDate.Value.ToIso8601Date(),
-                SettlementPeriod = "*",
-                ServiceType = "xml"
-            };            
-        }
-
-        return new DerivedSystemWideDataRequest();
-    }
-
-    public ElexonSettlementPeriodRequest CreateElexonSettlementPeriodRequest(ElexonImbalancePriceContext elexonImbalancePriceContext)
-    {
-        if (elexonImbalancePriceContext.StartDate.HasValue && elexonImbalancePriceContext.EndDate.HasValue)
-        {
-            return new ElexonSettlementPeriodRequest
-            {
-                StartDateTimeUtc = elexonImbalancePriceContext.StartDate.Value.AddDays(-1).ToIso8601Date(),
-                EndDateTimeUtc = elexonImbalancePriceContext.EndDate.Value.AddDays(1).ToIso8601Date(),
-            };    
-        }
-
-        return new ElexonSettlementPeriodRequest();
-    }
     
     public ElexonImbalancePriceContext CreateContext(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
@@ -74,15 +42,8 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         }
     }
     
-    public async Task<ElexonImbalancePriceResponse> ElexonImbalancePrice(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
+    public async Task<ElexonImbalancePriceResponse> ElexonImbalancePrice(ElexonImbalancePriceContext elexonImbalancePriceContext)
     {
-        string ErrorType(string errorType) => 
-            string.IsNullOrWhiteSpace(errorType) ? string.Empty : $"Error Type '{errorType}'";
-
-        string Description (string description) => 
-            string.IsNullOrWhiteSpace(description) ? string.Empty : $"Description '{description}'";
-        
-        var elexonImbalancePriceContext = CreateContext(elexonImbalancePriceRequest);
         if (elexonImbalancePriceContext.MessageResponseBag.GotErrors())
         {
             return new ElexonImbalancePriceResponse
@@ -128,6 +89,12 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
             Status = ApiConstants.FailedResult,
             Message = elexonImbalancePriceResponse.Message
         };
+
+        string ErrorType(string errorType) => 
+            string.IsNullOrWhiteSpace(errorType) ? string.Empty : $"Error Type '{errorType}'";
+
+        string Description (string description) => 
+            string.IsNullOrWhiteSpace(description) ? string.Empty : $"Description '{description}'";
     }
     
     public ElexonImbalancePriceResponse ElexonImbalancePrice(ElexonImbalancePriceContext elexonImbalancePriceContext, 
@@ -149,11 +116,11 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
         };
     }
 
-    public async Task<DerivedSystemWideData> GetElexonDerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest) =>
-        await elexonService.DerivedSystemWideData(derivedSystemWideDataRequest);
+    public async Task<DerivedSystemWideData> GetElexonDerivedSystemWideData(ElexonImbalancePriceContext elexonImbalancePriceContext) =>
+        await elexonService.DerivedSystemWideData(CreateElexonImbalancePriceRequest(elexonImbalancePriceContext));
 
-    public ElexonSettlementPeriodResponse GetElexonSettlementPeriods(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest) =>
-        elexonSettlementPeriodManager.ElexonSettlementPeriods(elexonSettlementPeriodRequest);
+    public ElexonSettlementPeriodResponse GetElexonSettlementPeriods(ElexonImbalancePriceContext elexonImbalancePriceContext) =>
+        elexonSettlementPeriodManager.ElexonSettlementPeriods(CreateElexonSettlementPeriodRequest(elexonImbalancePriceContext));
 
     private static ElexonImbalancePriceContext CreateContext2(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
@@ -190,6 +157,38 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
             EndDate = edt,
             MessageResponseBag = new MessageResponseBag()
         };
+    }
+    
+    private static DerivedSystemWideDataRequest CreateElexonImbalancePriceRequest(ElexonImbalancePriceContext elexonImbalancePriceContext)
+    {
+        if (elexonImbalancePriceContext.StartDate.HasValue && elexonImbalancePriceContext.EndDate.HasValue)
+        {
+            return new DerivedSystemWideDataRequest
+            {
+                ApiKey = elexonImbalancePriceContext.ElexonApiKey,
+                Url = "https://api.bmreports.com/BMRS/DERSYSDATA/v1",
+                FromSettlementDate = elexonImbalancePriceContext.StartDate.Value.ToIso8601Date(),
+                ToSettlementDate = elexonImbalancePriceContext.EndDate.Value.ToIso8601Date(),
+                SettlementPeriod = "*",
+                ServiceType = "xml"
+            };            
+        }
+
+        return new DerivedSystemWideDataRequest();
+    }
+
+    private static ElexonSettlementPeriodRequest CreateElexonSettlementPeriodRequest(ElexonImbalancePriceContext elexonImbalancePriceContext)
+    {
+        if (elexonImbalancePriceContext.StartDate.HasValue && elexonImbalancePriceContext.EndDate.HasValue)
+        {
+            return new ElexonSettlementPeriodRequest
+            {
+                StartDateTimeUtc = elexonImbalancePriceContext.StartDate.Value.AddDays(-1).ToIso8601Date(),
+                EndDateTimeUtc = elexonImbalancePriceContext.EndDate.Value.AddDays(1).ToIso8601Date(),
+            };    
+        }
+
+        return new ElexonSettlementPeriodRequest();
     }
     
     private static IEnumerable<ElexonImbalancePriceItem> CreateElexonImbalancePriceItems(DerivedSystemWideData derivedSystemWideData, 

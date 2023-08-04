@@ -52,15 +52,12 @@ public class ElexonImbalancePriceController : Controller
 
         try
         {
-            var imbalancePriceRequest = new ElexonImbalancePriceRequest
-            {
-                ApiKey = apiKey,
-                ElexonApiKey = elexonImbalancePriceRequest.ElexonApiKey,
-                StartDate = elexonImbalancePriceRequest.StartDate,
-                EndDate = elexonImbalancePriceRequest.EndDate
-            };
-            
-            var elexonImbalancePriceResponse = await elexonImbalancePriceManager.ElexonImbalancePrice(imbalancePriceRequest);
+            var elexonImbalancePriceContext = elexonImbalancePriceManager.CreateContext(elexonImbalancePriceRequest);
+            var elexonDerivedSystemWideData = await elexonImbalancePriceManager.GetElexonDerivedSystemWideData(elexonImbalancePriceContext);
+            var elexonSettlementPeriodResponseItems = elexonImbalancePriceManager.GetElexonSettlementPeriods(elexonImbalancePriceContext)?.Data;
+                 
+            var elexonImbalancePriceResponse = elexonImbalancePriceManager.ElexonImbalancePrice(elexonImbalancePriceContext,
+                elexonDerivedSystemWideData, elexonSettlementPeriodResponseItems);
 
             return elexonImbalancePriceResponse.IsSuccess()
                 ? Ok(new ApiResponseWrapper<ElexonImbalancePriceRequestResponseItem>

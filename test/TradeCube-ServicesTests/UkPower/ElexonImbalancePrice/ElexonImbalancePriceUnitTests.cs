@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Shared.Extensions;
 using Shared.Messages;
 using Xunit;
 
@@ -62,48 +60,27 @@ public class ElexonImbalancePriceUnitTests : IClassFixture<ElexonImbalancePriceF
     {
         var expectedResults = elexonImbalancePriceFixture.GetExpectedResult(testDescription);
         var elexonImbalancePriceManager = elexonImbalancePriceFixture.ElexonImbalancePriceManager;
-        
-        var elexonImbalancePriceContext = elexonImbalancePriceManager.CreateContext(expectedResults.Inputs); 
-
-        var derivedSystemWideDataRequest = elexonImbalancePriceManager.CreateElexonImbalancePriceRequest(elexonImbalancePriceContext);
-        var elexonDerivedSystemWideData = await elexonImbalancePriceManager.GetElexonDerivedSystemWideData(derivedSystemWideDataRequest);
-        
-        Assert.NotNull(elexonDerivedSystemWideData);
-
-        var elexonSettlementPeriodRequest = elexonImbalancePriceManager.CreateElexonSettlementPeriodRequest(elexonImbalancePriceContext);
-        
-        var elexonSettlementPeriodResponseItems = elexonImbalancePriceManager
-            .GetElexonSettlementPeriods(elexonSettlementPeriodRequest)?.Data
-            ?.EmptyIfNull().ToList() ?? new List<ElexonSettlementPeriodResponseItem>();
-        
-        var elexonSettlementPeriods = elexonSettlementPeriodResponseItems.Any()
-            ? elexonSettlementPeriodResponseItems 
-            : null;
-            
+        var elexonImbalancePriceContext = elexonImbalancePriceManager.CreateContext(expectedResults.Inputs);
+        var elexonDerivedSystemWideData = await elexonImbalancePriceManager.GetElexonDerivedSystemWideData(elexonImbalancePriceContext);
+        var elexonSettlementPeriodResponseItems = elexonImbalancePriceManager.GetElexonSettlementPeriods(elexonImbalancePriceContext)?.Data;
+                 
         var imbalancePriceResponse = elexonImbalancePriceManager.ElexonImbalancePrice(elexonImbalancePriceContext,
-            elexonDerivedSystemWideData, elexonSettlementPeriods);
+            elexonDerivedSystemWideData, elexonSettlementPeriodResponseItems);
         
         Assert.NotNull(expectedResults);
+        Assert.NotNull(elexonDerivedSystemWideData);
         Assert.NotNull(imbalancePriceResponse);
 
         if (string.IsNullOrEmpty(expectedResults.ExpectedError))
         {
-            Assert.NotNull(elexonSettlementPeriods);
+            Assert.NotNull(elexonSettlementPeriodResponseItems);
             Assert.NotNull(imbalancePriceResponse.Data);
 
-            if (string.IsNullOrEmpty(expectedResults.ExpectedError))
-            {
-                CheckData(expectedResults, imbalancePriceResponse);
-            }
-            else
-            {
-                Assert.Null(imbalancePriceResponse.Data);
-                Assert.Equal(expectedResults.ExpectedError, elexonImbalancePriceContext.MessageResponseBag.ErrorsAsString());
-            }
+            CheckData(expectedResults, imbalancePriceResponse);
         }
         else
         {
-            Assert.Null(elexonSettlementPeriods);
+            Assert.Null(elexonSettlementPeriodResponseItems);
             Assert.Null(imbalancePriceResponse.Data);
             Assert.Equal(expectedResults.ExpectedError, elexonImbalancePriceContext.MessageResponseBag.ErrorsAsString(true));
         }

@@ -2,6 +2,7 @@
 using System.Linq;
 using Moq;
 using Shared.DataObjects;
+using Shared.Extensions;
 using Shared.Managers;
 using Shared.Messages;
 using Shared.Services;
@@ -232,6 +233,6 @@ public static class MockService
         return elexonSettlementPeriodTestTypes
             .Where(e => e.Inputs.StartDateTimeUtc == request.StartDateTimeUtc && e.Inputs.EndDateTimeUtc == request.EndDateTimeUtc)
             .SelectMany(t => t.Response.Data)
-            .ToList();
+            .NullIfEmpty();
     }
 }
