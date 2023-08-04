@@ -22,7 +22,7 @@ public class ElexonImbalancePriceController : Controller
     }
     
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponseWrapper<IEnumerable<ElexonImbalancePriceRequestResponseItem>>), 200)]
+    [ProducesResponseType(typeof(ApiResponseWrapper<IEnumerable<ElexonImbalancePriceItem>>), 200)]
     public async Task<IActionResult> ElexonImbalancePrice([FromHeader] string apiKey, [FromQuery] string elexonAPIKey, string startDate, string endDate)
     {
         var elexonImbalancePriceRequest = new ElexonImbalancePriceRequest
@@ -36,7 +36,7 @@ public class ElexonImbalancePriceController : Controller
     }
     
     [HttpPost]
-    [ProducesResponseType(typeof(ApiResponseWrapper<IEnumerable<ElexonImbalancePriceRequestResponseItem>>), 200)]
+    [ProducesResponseType(typeof(ApiResponseWrapper<IEnumerable<ElexonImbalancePriceItem>>), 200)]
     public async Task<IActionResult> ElexonImbalancePrice([FromHeader] string apiKey, [FromBody] ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
         return await ActionResult(apiKey, elexonImbalancePriceRequest);
