@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Shared.Constants;
 using Shared.Exceptions;
 using Shared.Extensions;
@@ -17,14 +16,11 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
 {
     private readonly IElexonSettlementPeriodManager elexonSettlementPeriodManager;
     private readonly IElexonService elexonService;
-    private readonly ILogger<ElexonImbalancePriceManager> logger;
 
-    public ElexonImbalancePriceManager(IElexonSettlementPeriodManager elexonSettlementPeriodManager,
-        IElexonService elexonService, ILogger<ElexonImbalancePriceManager> logger)
+    public ElexonImbalancePriceManager(IElexonSettlementPeriodManager elexonSettlementPeriodManager, IElexonService elexonService)
     {
         this.elexonSettlementPeriodManager = elexonSettlementPeriodManager;
         this.elexonService = elexonService;
-        this.logger = logger;
     }
     
     public ElexonImbalancePriceContext CreateContext(ElexonImbalancePriceRequest elexonImbalancePriceRequest)
@@ -40,61 +36,6 @@ public class ElexonImbalancePriceManager : IElexonImbalancePriceManager
                 MessageResponseBag = new MessageResponseBag(ex.Message, MessageResponseType.Error)
             };
         }
-    }
-    
-    public async Task<ElexonImbalancePriceResponse> ElexonImbalancePrice(ElexonImbalancePriceContext elexonImbalancePriceContext)
-    {
-        if (elexonImbalancePriceContext.MessageResponseBag.GotErrors())
-        {
-            return new ElexonImbalancePriceResponse
-            {
-                Status = ApiConstants.FailedResult,
-                Message = elexonImbalancePriceContext.MessageResponseBag.ErrorsAsString()
-            };
-        }
-        
-        var derivedSystemWideDataRequest = CreateElexonImbalancePriceRequest(elexonImbalancePriceContext);
-        var elexonDerivedSystemWideData = await elexonService.DerivedSystemWideData(derivedSystemWideDataRequest);
-
-        if (elexonDerivedSystemWideData.ResponseMetadata.HttpCode != 200 || 
-            elexonDerivedSystemWideData.ResponseMetadata.ErrorType != "Ok" ||
-            elexonDerivedSystemWideData.ResponseMetadata.Description != "Success")
-        {
-            return new ElexonImbalancePriceResponse
-            {
-                Status = ApiConstants.FailedResult,
-                Message = $"The query to Elexon was not successful. HTTP Code {elexonDerivedSystemWideData.ResponseMetadata.HttpCode}, {ErrorType(elexonDerivedSystemWideData.ResponseMetadata.ErrorType)}, {Description(elexonDerivedSystemWideData.ResponseMetadata.Description)}"
-            };
-        }
-
-        var elexonSettlementPeriodRequest = CreateElexonSettlementPeriodRequest(elexonImbalancePriceContext);
-        var elexonSettlementPeriodResponse = elexonSettlementPeriodManager.ElexonSettlementPeriods(elexonSettlementPeriodRequest);
-        var elexonImbalancePriceResponse = ElexonImbalancePrice(elexonImbalancePriceContext, elexonDerivedSystemWideData, elexonSettlementPeriodResponse?.Data);
-
-        if (elexonImbalancePriceResponse.IsSuccess())
-        {
-            logger.LogInformation("Imbalance Price success");
-
-            return new ElexonImbalancePriceResponse
-            {
-                Status = ApiConstants.SuccessResult,
-                Message = elexonImbalancePriceResponse.Message
-            };
-        }
-
-        logger.LogInformation("Imbalance Price failure");
-        
-        return new ElexonImbalancePriceResponse
-        {
-            Status = ApiConstants.FailedResult,
-            Message = elexonImbalancePriceResponse.Message
-        };
-
-        string ErrorType(string errorType) => 
-            string.IsNullOrWhiteSpace(errorType) ? string.Empty : $"Error Type '{errorType}'";
-
-        string Description (string description) => 
-            string.IsNullOrWhiteSpace(description) ? string.Empty : $"Description '{description}'";
     }
     
     public ElexonImbalancePriceResponse ElexonImbalancePrice(ElexonImbalancePriceContext elexonImbalancePriceContext, 
