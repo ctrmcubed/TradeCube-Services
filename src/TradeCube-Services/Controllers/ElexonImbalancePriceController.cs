@@ -32,18 +32,18 @@ public class ElexonImbalancePriceController : Controller
             EndDate = endDate
         };
             
-        return await ActionResult(apiKey, elexonImbalancePriceRequest);
+        return await ImbalancePrice(apiKey, elexonImbalancePriceRequest);
     }
     
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponseWrapper<IEnumerable<ElexonImbalancePriceItem>>), 200)]
     public async Task<IActionResult> ElexonImbalancePrice([FromHeader] string apiKey, [FromBody] ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
-        return await ActionResult(apiKey, elexonImbalancePriceRequest);
+        return await ImbalancePrice(apiKey, elexonImbalancePriceRequest);
     }
 
     [NonAction]
-    private async Task<IActionResult> ActionResult(string apiKey, ElexonImbalancePriceRequest elexonImbalancePriceRequest)
+    private async Task<IActionResult> ImbalancePrice(string apiKey, ElexonImbalancePriceRequest elexonImbalancePriceRequest)
     {
         if (string.IsNullOrWhiteSpace(apiKey))
         {
