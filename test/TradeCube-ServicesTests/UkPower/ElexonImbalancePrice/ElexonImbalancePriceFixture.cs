@@ -51,8 +51,7 @@ public class ElexonImbalancePriceFixture
             
         ElexonImbalancePriceManager = new ElexonImbalancePriceManager(
             settlementPeriodManager,
-            mockElexonService,
-            TestHelper.CreateNullLogger<ElexonImbalancePriceManager>());
+            mockElexonService);
     }
     
     public ElexonImbalancePriceTestType GetExpectedResult(string testDescription) => 
