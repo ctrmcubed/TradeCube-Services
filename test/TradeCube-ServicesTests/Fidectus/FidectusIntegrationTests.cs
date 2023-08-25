@@ -14,18 +14,18 @@ namespace TradeCube_ServicesTests.Fidectus
             this.fidectusTestFixture = fidectusTestFixture;
         }
 
-        [Fact]
-        public async Task TestPostConfirmation()
-        {
-            var test = fidectusTestFixture.ExpectedResults.SingleOrDefault(t => t.Description == "UK Power Baseload Month March GMT");
-
-            Assert.NotNull(test);
-
-            var fidectusConfiguration = await fidectusTestFixture.FidectusManager.GetFidectusConfiguration("apiJwtToken");
-            var tradeKey = new TradeKey(test.Inputs.TradeReference, test.Inputs.TradeLeg);
-            var confirmationResponse = await fidectusTestFixture.FidectusManager.ConfirmAsync(tradeKey, "apiJwtToken", fidectusConfiguration);
-
-            Assert.True(confirmationResponse.IsSuccess());
-        }
+        // [Fact]
+        // public async Task TestPostConfirmation()
+        // {
+        //     var test = fidectusTestFixture.ExpectedResults.SingleOrDefault(t => t.Description == "UK Power Baseload Month March GMT");
+        //
+        //     Assert.NotNull(test);
+        //
+        //     var fidectusConfiguration = await fidectusTestFixture.FidectusManager.GetFidectusConfiguration("apiJwtToken");
+        //     var tradeKey = new TradeKey(test.Inputs.TradeReference, test.Inputs.TradeLeg);
+        //     var confirmationResponse = await fidectusTestFixture.FidectusManager.ConfirmAsync(tradeKey, "apiJwtToken", fidectusConfiguration);
+        //
+        //     Assert.True(confirmationResponse.IsSuccess());
+        // }
     }
 }

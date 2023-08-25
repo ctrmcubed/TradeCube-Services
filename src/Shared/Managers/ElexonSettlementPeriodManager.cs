@@ -73,16 +73,24 @@ public class ElexonSettlementPeriodManager : IElexonSettlementPeriodManager
 
         if (utcEndDateTime < utcStartDateTime)
         {
-            throw new ElexonSettlementPeriodException("The UTCEndDateTime is before the UTCStartDateTime.");
+            throw new ElexonSettlementPeriodException("The EndDateTimeUTC is before the StartDateTimeUTC.");
         }
 
-        return new ElexonSettlementPeriodContext()
+        var roundedStart = RoundToNearestHalfHour(utcStartDateTime);
+        var roundedEnd = RoundToNearestHalfHour(utcEndDateTime);
+        
+        return new ElexonSettlementPeriodContext
         {
-            UtcStartDateTime = utcStartDateTime,
-            UtcEndDateTime = utcEndDateTime
+            UtcStartDateTime = roundedStart,
+            UtcEndDateTime = roundedEnd
         };
     }
-    
+
+    private static DateTime RoundToNearestHalfHour(DateTime dt) =>
+        dt.Minute < 30
+            ? new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, 0, 0, dt.Kind)
+            : new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, 30, 0, dt.Kind);
+
     private static ElexonSettlementPeriodRequest ValidateRequest(ElexonSettlementPeriodRequest elexonSettlementPeriodRequest)
     {
         ArgumentNullException.ThrowIfNull(elexonSettlementPeriodRequest);

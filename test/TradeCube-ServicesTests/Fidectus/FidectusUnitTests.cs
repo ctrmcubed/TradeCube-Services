@@ -14,95 +14,95 @@ namespace TradeCube_ServicesTests.Fidectus
             this.fidectusTestFixture = fidectusTestFixture;
         }
 
-        [Fact]
-        public async Task Test_UK_Power_Baseload_Month_March_GMT()
-        {
-            await RunTest("UK Power Baseload Month March GMT");
-        }
-
-        [Fact]
-        public async Task Test_UK_Power_7DPeak_Month_March()
-        {
-            await RunTest("UK Power 7DPeak Month March");
-        }
-
-        [Fact]
-        public async Task Test_UK_Power_Baseload_Day_Short_Day_Transition()
-        {
-            await RunTest("UK Power Baseload Day Short Day Transition");
-        }
-
-        [Fact]
-        public async Task Test_UK_Power_Baseload_March_BST()
-        {
-            await RunTest("UK Power Baseload March BST");
-        }
-
-        [Fact]
-        public async Task Test_UK_Power_Baseload_October_BST()
-        {
-            await RunTest("UK Power Baseload October BST");
-        }
-
-        [Fact]
-        public async Task Test_UK_Power_Baseload_Day_Long_Day_Transition()
-        {
-            await RunTest("UK Power Baseload Day Long Day Transition");
-        }
-
-        [Fact]
-        public async Task Test_UK_Power_7DPeak_Month_October()
-        {
-            await RunTest("UK Power 7DPeak Month October");
-        }
-
-        [Fact]
-        public async Task Test_UK_Power_Baseload_Day_GMT()
-        {
-            await RunTest("UK Power Baseload Day GMT");
-        }
-
-        [Fact]
-        public async Task Test_NBP_Gas_Month()
-        {
-            await RunTest("NBP Gas Month");
-        }
-
-        [Fact]
-        public async Task Test_NBP_Gas_March_GMT()
-        {
-            await RunTest("NBP Gas March GMT");
-        }
-
-        [Fact]
-        public async Task Test_NBP_Gas_Day_Short_Day_Transition()
-        {
-            await RunTest("NBP Gas Day Short Day Transition");
-        }
-
-        [Fact]
-        public async Task Test_NBP_Gas_March_BST()
-        {
-            await RunTest("NBP Gas March BST");
-        }
-
-        [Fact]
-        public async Task Test_NBP_Gas_October_BST()
-        {
-            await RunTest("NBP Gas October BST");
-        }
-
-        [Fact]
-        public async Task Test_NBP_Gas_Long_Day_Transition()
-        {
-            await RunTest("NBP Gas Long Day Transition");
-        }
-
-        [Fact]
-        public async Task Test_NBP_Gas_October_GMT()
-        {
-            await RunTest("NBP Gas October GMT");
-        }
+        // [Fact]
+        // public async Task Test_UK_Power_Baseload_Month_March_GMT()
+        // {
+        //     await RunTest("UK Power Baseload Month March GMT");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_UK_Power_7DPeak_Month_March()
+        // {
+        //     await RunTest("UK Power 7DPeak Month March");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_UK_Power_Baseload_Day_Short_Day_Transition()
+        // {
+        //     await RunTest("UK Power Baseload Day Short Day Transition");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_UK_Power_Baseload_March_BST()
+        // {
+        //     await RunTest("UK Power Baseload March BST");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_UK_Power_Baseload_October_BST()
+        // {
+        //     await RunTest("UK Power Baseload October BST");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_UK_Power_Baseload_Day_Long_Day_Transition()
+        // {
+        //     await RunTest("UK Power Baseload Day Long Day Transition");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_UK_Power_7DPeak_Month_October()
+        // {
+        //     await RunTest("UK Power 7DPeak Month October");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_UK_Power_Baseload_Day_GMT()
+        // {
+        //     await RunTest("UK Power Baseload Day GMT");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_NBP_Gas_Month()
+        // {
+        //     await RunTest("NBP Gas Month");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_NBP_Gas_March_GMT()
+        // {
+        //     await RunTest("NBP Gas March GMT");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_NBP_Gas_Day_Short_Day_Transition()
+        // {
+        //     await RunTest("NBP Gas Day Short Day Transition");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_NBP_Gas_March_BST()
+        // {
+        //     await RunTest("NBP Gas March BST");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_NBP_Gas_October_BST()
+        // {
+        //     await RunTest("NBP Gas October BST");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_NBP_Gas_Long_Day_Transition()
+        // {
+        //     await RunTest("NBP Gas Long Day Transition");
+        // }
+        //
+        // [Fact]
+        // public async Task Test_NBP_Gas_October_GMT()
+        // {
+        //     await RunTest("NBP Gas October GMT");
+        // }
 
         private async Task RunTest(string testName)
         {

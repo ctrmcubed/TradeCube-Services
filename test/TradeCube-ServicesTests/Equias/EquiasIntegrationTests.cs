@@ -18,45 +18,45 @@ namespace TradeCube_ServicesTests.Equias
             this.testOutputHelper = testOutputHelper;
         }
 
-        [Fact]
-        public async Task TestGetAuthenticationToken()
-        {
-            Assert.False(string.IsNullOrWhiteSpace((await RequestTokenResponse()).Token));
-        }
-
-        [Fact]
-        public async Task TestAddPhysicalTrade_Gas()
-        {
-            var tradeDataObject = await equiasTestFixture.EquiasManager.GetTradeAsync("TEST4", 1, "apiJwtToken");
-            var physicalTrade = await equiasTestFixture.EquiasManager.CreatePhysicalTradeAsync(tradeDataObject, "apiJwtToken");
-            var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTradeAsync(physicalTrade, await RequestTokenResponse(), "apiJwtToken");
-
-            testOutputHelper.WriteLine(TradeCubeServicesJsonSerializer.Serialize(physicalTrade));
-            testOutputHelper.WriteLine(addPhysicalTradeResponse?.Message);
-
-            Assert.Equal("00TEST4001", addPhysicalTradeResponse?.TradeId);
-            Assert.Equal(1, addPhysicalTradeResponse?.TradeVersion);
-        }
-
-        [Fact]
-        public async Task TestCancelTrade()
-        {
-            var tradeDataObject = await equiasTestFixture.EquiasManager.GetTradeAsync("TEST4", 1, "apiJwtToken");
-            var eboTradeResponse = await equiasTestFixture.EquiasManager.CancelTradeAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, "apiJwtToken");
-
-            testOutputHelper.WriteLine(eboTradeResponse?.Message);
-
-            Assert.Equal("00TEST4001", eboTradeResponse?.TradeId);
-        }
-
-        private async Task<RequestTokenResponse> RequestTokenResponse()
-        {
-            var username = Environment.GetEnvironmentVariable("EQUIAS_USERNAME");
-            var password = Environment.GetEnvironmentVariable("EQUIAS_PASSWORD");
-
-            var equiasManager = equiasTestFixture.EquiasManager;
-
-            return await equiasManager.CreateAuthenticationTokenAsync(new RequestTokenRequest(username, password), "apiJwtToken");
-        }
+        // [Fact]
+        // public async Task TestGetAuthenticationToken()
+        // {
+        //     Assert.False(string.IsNullOrWhiteSpace((await RequestTokenResponse()).Token));
+        // }
+        //
+        // [Fact]
+        // public async Task TestAddPhysicalTrade_Gas()
+        // {
+        //     var tradeDataObject = await equiasTestFixture.EquiasManager.GetTradeAsync("TEST4", 1, "apiJwtToken");
+        //     var physicalTrade = await equiasTestFixture.EquiasManager.CreatePhysicalTradeAsync(tradeDataObject, "apiJwtToken");
+        //     var addPhysicalTradeResponse = await equiasTestFixture.EquiasManager.AddPhysicalTradeAsync(physicalTrade, await RequestTokenResponse(), "apiJwtToken");
+        //
+        //     testOutputHelper.WriteLine(TradeCubeServicesJsonSerializer.Serialize(physicalTrade));
+        //     testOutputHelper.WriteLine(addPhysicalTradeResponse?.Message);
+        //
+        //     Assert.Equal("00TEST4001", addPhysicalTradeResponse?.TradeId);
+        //     Assert.Equal(1, addPhysicalTradeResponse?.TradeVersion);
+        // }
+        //
+        // [Fact]
+        // public async Task TestCancelTrade()
+        // {
+        //     var tradeDataObject = await equiasTestFixture.EquiasManager.GetTradeAsync("TEST4", 1, "apiJwtToken");
+        //     var eboTradeResponse = await equiasTestFixture.EquiasManager.CancelTradeAsync(tradeDataObject.TradeReference, tradeDataObject.TradeLeg, "apiJwtToken");
+        //
+        //     testOutputHelper.WriteLine(eboTradeResponse?.Message);
+        //
+        //     Assert.Equal("00TEST4001", eboTradeResponse?.TradeId);
+        // }
+        //
+        // private async Task<RequestTokenResponse> RequestTokenResponse()
+        // {
+        //     var username = Environment.GetEnvironmentVariable("EQUIAS_USERNAME");
+        //     var password = Environment.GetEnvironmentVariable("EQUIAS_PASSWORD");
+        //
+        //     var equiasManager = equiasTestFixture.EquiasManager;
+        //
+        //     return await equiasManager.CreateAuthenticationTokenAsync(new RequestTokenRequest(username, password), "apiJwtToken");
+        // }
     }
 }

@@ -8,17 +8,17 @@ namespace Shared.Messages
     {
         [JsonPropertyName("UTCStartDateTime")]
         [BsonElement("UTCStartDateTime")]
-        public DateTime? UtcStartDateTime { get; set; }
+        public DateTime? UtcStartDateTime { get; init; }
 
         [JsonPropertyName("UTCEndDateTime")]
         [BsonElement("UTCEndDateTime")]
-        public DateTime? UtcEndDateTime { get; set; }
+        public DateTime? UtcEndDateTime { get; init; }
         
-        public string LocalStartDateTime { get; set; }
-        public string LocalEndDateTime { get; set; }
-        public string ShortDayRule { get; set; }
-        public string LongDayRule { get; set; }
-        public int[] ApplicableDays { get; set; }
-        public int[] ApplicableHours { get; set; }
+        public string LocalStartDateTime { get; init; }
+        public string LocalEndDateTime { get; init; }
+        public string ShortDayRule { get; init; }
+        public string LongDayRule { get; init; }
+        public int[] ApplicableDays { get; init; }
+        public int[] ApplicableHours { get; init; }
     }
 }

@@ -54,6 +54,18 @@ public class ElexonSettlementPeriodUnitTests : IClassFixture<ElexonSettlementPer
         RunTest("TEST 0006 END DATE BEFORE START DATE");
     }
 
+    [Fact]
+    public void TEST_0007_START_DATE_7_MINS()
+    {
+        RunTest("TEST 0007 START DATE 7 MINS");
+    }
+
+    [Fact]
+    public void TEST_0008_START_DATE_47_MINS()
+    {
+        RunTest("TEST 0008 START DATE 47 MINS");
+    }
+
     private void RunTest(string testDescription)
     {
         var elexonSettlementPeriodType = settlementPeriodFixture.GetExpectedResult(testDescription);
