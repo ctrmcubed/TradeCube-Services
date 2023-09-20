@@ -1,21 +1,31 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Shared.DataObjects
 {
     public class VenueDataObject
     {
-        public string Venue { get; set; }
-        public string VenueLongName { get; set; }
-        public List<string> VenueType { get; set; }
-        public List<string> Countries { get; set; }
-        public string PrimaryCountry { get; set; }
-        public string PrimaryCurrency { get; set; }
+        public string Venue { get; init; }
+        public string VenueLongName { get; init; }
+        public List<string> VenueType { get; init; }
+        public List<string> Countries { get; init; }
+        public string PrimaryCountry { get; init; }
+        public string PrimaryCurrency { get; init; }
         public CommodityDataObject PrimaryCommodity { get; set; }
         public string Image { get; set; }
-        public List<string> Commodities { get; set; }
+        public List<string> Commodities { get; init; }
+        
+        // ReSharper disable once InconsistentNaming
+        public string MIC { get; init; }
 
-        [JsonPropertyName("MIC")]
-        public string Mic { get; set; }
+        public VisibilityType Visibility { get; init; }
+    
+        public string CollectionName() => "venue";
+        public string GetKeyName() => nameof(Venue);
+        public string GetKeyValue() => Venue;
+
+        public Expression<Func<VenueDataObject, bool>> KeyExpression() =>
+            x => x.Venue == Venue;
     }
 }
