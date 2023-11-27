@@ -4,8 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Shared.Extensions;
-using Shared.Managers;
+using Polly;
 using Shared.Serialization;
 using Shared.Types.Elexon;
 
@@ -40,7 +39,6 @@ public class ElexonService : IElexonService
 
     public async Task<DerivedSystemWideData> DerivedSystemWideData(DerivedSystemWideDataRequest derivedSystemWideDataRequest)
     {
-        
          IEnumerable<string> QueryStrings(DerivedSystemWideDataRequest request) =>
             new List<string>
             {
@@ -53,58 +51,57 @@ public class ElexonService : IElexonService
 
         try
         {
-            var httpClient = HttpClientFactory.CreateClient();
-            var queryString = string.Join('&', QueryStrings(derivedSystemWideDataRequest));
-            var url = $"{derivedSystemWideDataRequest.Url}?{queryString}";
-            var httpResponseMessage = await httpClient.GetAsync(url);
-
-            if (httpResponseMessage.IsSuccessStatusCode)
+            var retryPolicy = Policy
+                .Handle<Exception>()
+                .WaitAndRetryAsync(10, retryAttempt => TimeSpan.FromSeconds(Math.Pow(3, retryAttempt)),
+                    (exception, timeSpan, retryCount, _) =>
+                    {
+                        logger.LogWarning("Retry attempt {RetryCount}: waiting {TotalSeconds} to retry ({Message})",
+                            retryCount, timeSpan.TotalSeconds, exception.Message);
+                    });
+            
+            return await retryPolicy.ExecuteAsync(async () =>
             {
-                using var content = httpResponseMessage.Content;
-                var derivedSystemWideData = DeserializeDerivedSystemWideData(await content.ReadAsStreamAsync());
+                var httpClient = HttpClientFactory.CreateClient();
+                var queryString = string.Join('&', QueryStrings(derivedSystemWideDataRequest));
+                var url = $"{derivedSystemWideDataRequest.Url}?{queryString}";
+                var httpResponseMessage = await httpClient.GetAsync(url);
 
-                logger.LogInformation("DerivedSystemWideData success response {StatusCode}, {Reason}, {MetadataHttpCode}, {MetadataDescription}",
-                    httpResponseMessage.StatusCode,
-                    httpResponseMessage.ReasonPhrase,
-                    derivedSystemWideData.ResponseMetadata.HttpCode,
-                    derivedSystemWideData.ResponseMetadata.Description);
-
-                if (derivedSystemWideData.ResponseMetadata.HttpCode == 200 && derivedSystemWideData.ResponseMetadata.Description == "Success")
+                if (httpResponseMessage.IsSuccessStatusCode)
                 {
+                    using var content = httpResponseMessage.Content;
+                    var derivedSystemWideData = DeserializeDerivedSystemWideData(await content.ReadAsStreamAsync());
+
+                    logger.LogInformation("DerivedSystemWideData success response {StatusCode}, {Reason}, {MetadataHttpCode}, {MetadataDescription}",
+                        httpResponseMessage.StatusCode,
+                        httpResponseMessage.ReasonPhrase,
+                        derivedSystemWideData.ResponseMetadata.HttpCode,
+                        derivedSystemWideData.ResponseMetadata.Description);
+
+                    if (derivedSystemWideData.ResponseMetadata.HttpCode == 200 && derivedSystemWideData.ResponseMetadata.Description == "Success")
+                    {
+                        return derivedSystemWideData;
+                    }
+
+                    logger.LogError("DerivedSystemWideData failure response {Description}, {HttpCode}, {StatusCode}, {Reason}",
+                        derivedSystemWideData.ResponseMetadata?.Description,
+                        derivedSystemWideData.ResponseMetadata?.HttpCode,
+                        httpResponseMessage.StatusCode,
+                        httpResponseMessage.ReasonPhrase);
+
                     return derivedSystemWideData;
                 }
 
-                logger.LogError("DerivedSystemWideData failure response {Description}, {HttpCode}, {StatusCode}, {Reason}",
-                    derivedSystemWideData.ResponseMetadata?.Description,
-                    derivedSystemWideData.ResponseMetadata?.HttpCode,
-                    httpResponseMessage.StatusCode,
-                    httpResponseMessage.ReasonPhrase);
+                logger.LogInformation("DerivedSystemWideData failure response {StatusCode}, {Reason}", httpResponseMessage.StatusCode, httpResponseMessage.ReasonPhrase);
 
-                return derivedSystemWideData;
-            }
-
-            logger.LogInformation("DerivedSystemWideData failure response {StatusCode}, {Reason}", httpResponseMessage.StatusCode, httpResponseMessage.ReasonPhrase);
-
-            return null;
+                return null;
+            });
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "{Message}", ex.Message);
             throw;
         }
-    }
-
-    private static DerivedSystemWideDataRequest CreateElexonImbalancePriceRequest(ElexonImbalancePriceContext elexonImbalancePriceContext)
-    {
-        return new DerivedSystemWideDataRequest
-        {
-            ApiKey = elexonImbalancePriceContext.ElexonApiKey,
-            Url = "https://api.bmreports.com/BMRS/DERSYSDATA/v1",
-            FromSettlementDate = elexonImbalancePriceContext.StartDate?.ToIso8601Date(),
-            ToSettlementDate = elexonImbalancePriceContext.EndDate?.ToIso8601Date(),
-            SettlementPeriod = "*",
-            ServiceType = "xml"
-        };            
     }
     
     private DerivedSystemWideData DeserializeDerivedSystemWideData(Stream response)
