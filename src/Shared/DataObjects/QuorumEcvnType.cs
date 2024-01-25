@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 public class QuorumEcvnType
 {
@@ -8,5 +9,6 @@ public class QuorumEcvnType
     public string Status { get; set; }
         
     [JsonPropertyName("ECVN")]
+    [BsonElement("ECVN")]
     public IEnumerable<TradeQuorumGetStatusEcvn> Ecvn { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Shared.DataObjects
 {
@@ -6,11 +7,13 @@ namespace Shared.DataObjects
     {
         public EquiasType Equias { get; set; }
         public ConfirmationType Confirmation { get; set; }
-        
+    
         [JsonPropertyName("ECVN")]
+        [BsonElement("ECVN")]
         public TradeEcvnType Ecvn { get; init; }
-        
+    
         [JsonPropertyName("QuorumECVN")]
+        [BsonElement("QuorumECVN")]
         public QuorumEcvnType QuorumEcvn { get; set; }
     }
 }
