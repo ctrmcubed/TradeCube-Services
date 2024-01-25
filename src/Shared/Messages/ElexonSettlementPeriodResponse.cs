@@ -4,5 +4,5 @@ namespace Shared.Messages;
 
 public class ElexonSettlementPeriodResponse : ApiResponse
 {
-    public IEnumerable<ElexonSettlementPeriodResponseItem> Data { get; set; }
+    public IEnumerable<ElexonSettlementPeriodResponseItem> Data { get; init; }
 }
