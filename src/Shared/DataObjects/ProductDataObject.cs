@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using Shared.Messages;
 
@@ -19,6 +21,15 @@ namespace Shared.DataObjects
         public decimal ProductValue { get; init; }
 
         public string ContractType { get; init; }
+        
+        [BsonElement("DeliveryStartDateTimeUTC")]
+        [JsonPropertyName("DeliveryStartDateTimeUTC")]
+        public DateTime? DeliveryStartDateTimeUtc { get; init; }
+    
+        [BsonElement("DeliveryEndDateTimeUTC")]
+        [JsonPropertyName("DeliveryEndDateTimeUTC")]
+        public DateTime? DeliveryEndDateTimeUtc { get; init; }
+        
         public CommodityDataObject Commodity { get; init; }
 
         public QuantityUnitDataObject QuantityUnit { get; init; }
