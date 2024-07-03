@@ -9,6 +9,7 @@ variables:
   projectName: tradecube-services
   versionMajor: 1
   versionMinor: 0
+  DOCKER_BUILDKIT: 1
 steps:
 - task: Docker@2
   inputs:
