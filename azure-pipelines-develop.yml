@@ -9,6 +9,7 @@ variables:
   projectName: tradecube-services
   versionMajor: 1
   versionMinor: 0
+  DOCKER_BUILDKIT: 1
 steps:
 - task: Docker@2
   inputs:
@@ -20,10 +21,10 @@ steps:
     tags: |
       $(Build.BuildId)
       latest-dev
-- task: HelmInstaller@1
-  displayName: 'Install Helm (3.0.3)'
-  inputs:
-    helmVersionToInstall: '3.0.3'
+# - task: HelmInstaller@1
+  # displayName: 'Install Helm (3.0.3)'
+  # inputs:
+    # helmVersionToInstall: '3.0.3'
 - task: HelmDeploy@0
   displayName: 'helm package'
   inputs:
