@@ -9,6 +9,9 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+  annotations:
+    stop-replicas: "0"
+    start-replicas: "{{ .Values.replicas.services }}"
 spec:
   replicas: {{ .Values.replicas.services }}
   strategy:
