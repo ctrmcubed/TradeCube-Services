@@ -35,9 +35,11 @@ public static class LoggingExtensions
                 return file.CreateLogger();
             }
 
+            var tradeCubeServicesConnectionString = new Tenant().TradeCubeServicesConnectionString;
+            
             file.WriteTo.MongoDBBson(cfg =>
             {
-                cfg.SetMongoUrl(new Tenant().TradeCubeServicesConnectionString);
+                cfg.SetMongoUrl(tradeCubeServicesConnectionString);
                 cfg.SetCollectionName(loggingCollection);
                 cfg.SetBatchPeriod(TimeSpan.FromSeconds(2));
                 cfg.SetExpireTTL(TimeSpan.FromDays(90));

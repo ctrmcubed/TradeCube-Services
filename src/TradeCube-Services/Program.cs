@@ -15,6 +15,7 @@ using Shared.Services.Redis;
 using StackExchange.Redis.Extensions.Core.Configuration;
 using TradeCube_Services.Extensions;
 using TradeCube_Services.Helpers;
+using TradeCube_Services.Middlleware;
 using TradeCube_Services.Services;
 using TradeCube_Services.Services.ThirdParty.ETRMServices;
 
@@ -49,6 +50,7 @@ try
         }
     });
 
+    
     // Configuration
     builder.Services
         .AddScoped<IEquiasConfiguration, EquiasConfiguration>()
@@ -140,6 +142,9 @@ try
         app.UseHsts();
     }
 
+    app.UseMiddleware<RequestLoggingMiddleware>();
+    app.UseMiddleware<DeprecatedServiceMiddleware>();
+    
     app.UseSwagger(c =>
     {
         c.PreSerializeFilters.Add((swagger, httpReq) =>
